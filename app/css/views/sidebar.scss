@@ -4,21 +4,23 @@
 	position: fixed;
 	top: 0;
 	left: 0;
+	bottom: 0;
 	padding-top: 60px;
 	z-index: 1;
 	overflow: hidden;
 	width: $sidebar-width;
-	transition: width 0.6s ease-in-out 1.5s, top ease-out 0.3s;
+	transition: width 0.8s ease-in-out 0.25s, left ease-out 0.3s;
 	border-right: 1px solid $background-box;
 
 	&:hover {
 		width: $sidebar-width * 3.5;
-		transition: width 0.2s ease-out 0s, top ease-out 0.3s;
+		transition: width 0.25s ease-out 1s, left ease-out 0.3s;
 	}
 
 	&--hidden {
 		top: -100%;
-		transition: width 0.6s ease-in-out 1.5s, top ease-in 0.3s;
+		left: -$sidebar-width;
+		transition: width 0.8s ease-in-out 0.25s, top ease-in 0.3s, left ease-in 0.3s 0.3s;
 	}
 
 	&_item {
@@ -72,6 +74,7 @@
 			display: block;
 			float: left;
 			white-space: nowrap;
+			font-size: 0.9em;
 			width: $sidebar-width * 2;
 			opacity: 0.6;
 		}
