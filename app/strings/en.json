@@ -1,0 +1,106 @@
+{
+	"dwimm": {
+		"login": {
+			"title": "Sign in",
+			"email": {
+				"placeholder": "Email"
+			},
+			"password": {
+				"placeholder": "Password"
+			},
+			"submit": {
+				"text": "Sign in"
+			},
+			"forgotPassword": {
+				"url": "https://dude-where-is-my.money/en/help/forgot-password",
+				"text": "Forgot Password?"
+			},
+			"website": {
+				"url": "https://dude-where-is-my.money/en/",
+				"text": "DWIMM"
+			},
+			"help": {
+				"url": "https://dude-where-is-my.money/en/help/",
+				"text": "I need Help!"
+			}
+		},
+		"firstSetup": {
+			"title": "Set Login Credentials",
+			"email-1": {
+				"placeholder": "Your Email"
+			},
+			"email-2": {
+				"placeholder": "Your Email (repeat)"
+			},
+			"password-1": {
+				"placeholder": "New Password"
+			},
+			"password-2": {
+				"placeholder": "New Password (repeat)"
+			},
+			"submit": {
+				"text": "Update Login Credentials"
+			},
+			"newDocument": {
+				"name": "My first Document"
+			}
+		},
+		"header": {
+			"settings": {
+				"title": "Settings"
+			},
+			"documents": {
+				"title": "My Documents"
+			}
+		},
+		"sidebar": {
+			"budget": {
+				"title": "Open Budget",
+				"name": "Budget"
+			},
+			"reports": {
+				"title": "Open Reports",
+				"name": "Reports"
+			},
+			"transactions": {
+				"title": "Open Transactions",
+				"name": "Transactions"
+			}
+		},
+		"dashboard": {
+			"title": "Dashboard",
+			"headline": "Hey, what's up?",
+			"text": "Select an existing document or create a new one.",
+			"empty": "No Documents found",
+			"add": {
+				"title": "Click to create a new Document",
+				"text": "Create new Document"
+			}
+		},
+		"documentSettings": {
+			"title": "Document Settings",
+			"headline": "Document Settings",
+			"destroy": {
+				"title": "Click to destroy document. But only if you know what you are doing!",
+				"text": "Destroy Document"
+			},
+			"confirm": "Are you really sure to destroy this document? You won't be able to restore it, unless you made a backup before…"
+		},
+		"budget": {
+			"title": "Budget",
+			"placeholder": "Budget"
+		},
+		"reports": {
+			"title": "Reports",
+			"placeholder": "Reports"
+		},
+		"transactions": {
+			"title": "Transactions",
+			"placeholder": "Transactions"
+		},
+		"settings": {
+			"title": "Settings",
+			"placeholder": "Settings"
+		}
+	}
+}

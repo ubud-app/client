@@ -1,0 +1,8 @@
+@import '../definitions/variables';
+
+.document-settings {
+	&_destroy {
+		@extend .button;
+		@extend .button--destructive;
+	}
+}

@@ -1,0 +1,31 @@
+@import '../definitions/variables';
+
+@keyframes spin { 100% { transform:rotate(360deg); } }
+
+.app {
+	&--initializing:after {
+		position: fixed;
+		content: '\e809';
+		top: 50%;
+		left: 50%;
+		width: 40px;
+		height: 40px;
+		margin: -20px 0 0 -20px;
+		z-index: -1;
+
+		@extend [class^="icon-"]:before;
+		font-size: 2.5em;
+		color: rgba($background-copy, 0.6);
+		animation:spin 1s linear infinite;
+	}
+
+	&_content {
+		padding: 60px 0 120px;
+		min-height: 10px;
+	}
+
+	&_layout--page {
+		max-width: 600px;
+		margin: 40px auto;
+	}
+}

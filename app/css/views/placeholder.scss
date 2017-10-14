@@ -1,0 +1,9 @@
+@import '../definitions/variables';
+
+.placeholder_text {
+	display: block;
+	margin: 200px 0;
+	text-align: center;
+	font-size: 3em;
+	color: lighten($text, 50);
+}

@@ -1,0 +1,28 @@
+{
+	"dwimm": {
+		"login": {
+			"title": "Login",
+			"email": {
+				"placeholder": "E-Mail"
+			},
+			"password": {
+				"placeholder": "Passwort"
+			},
+			"submit": {
+				"text": "Anmelden"
+			},
+			"forgotPassword": {
+				"url": "https://dude-where-is-my.money/de/help/forgot-password",
+				"text": "Passwort vergessen?"
+			},
+			"website": {
+				"url": "https://dude-where-is-my.money/de/",
+				"text": "DWIMM"
+			},
+			"help": {
+				"url": "https://dude-where-is-my.money/de/help/",
+				"text": "Ich brauch' Hilfe!"
+			}
+		}
+	}
+}

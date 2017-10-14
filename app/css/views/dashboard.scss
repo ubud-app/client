@@ -1,0 +1,28 @@
+@import '../definitions/variables';
+
+.dashboard {
+	&_text {
+		margin: 10px 0 30px;
+		color: lighten($text, 20);
+	}
+
+	&_list-empty {
+		display: block;
+		background: lighten($background-box, 3);
+		padding: 80px 0;
+		text-align: center;
+		color: rgba($text, 0.4);
+
+		&--hidden {
+			display: none;
+		}
+	}
+
+	&_add {
+		@extend .button;
+		@extend .button--secondary;
+		@extend .button--inline;
+
+		float: right;
+	}
+}

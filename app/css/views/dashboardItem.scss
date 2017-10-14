@@ -1,0 +1,45 @@
+@import '../definitions/variables';
+
+.dashboard-item {
+	display: block;
+	position: relative;
+	background: $background-box;
+
+	&:hover {
+		background: darken($background-box, 2);
+	}
+	&:active {
+		background: darken($background-box, 5);
+	}
+
+	& + & {
+		margin-top: 10px;
+	}
+
+	&_name {
+		display: block;
+		margin-right: 75px;
+		padding: 20px;
+		text-decoration: none;
+	}
+
+	&_input {
+		background: none;
+		outline: none;
+		border: none;
+	}
+
+	&_settings {
+		position: absolute;
+		right: 20px;
+		top: 0;
+		font-size: 1.2em;
+		line-height: 62px;
+		opacity: 0.6;
+		@extend [class^="icon-"]:before;
+
+		&--hidden {
+			display: none;
+		}
+	}
+}

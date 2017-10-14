@@ -1,0 +1,89 @@
+@import '../definitions/variables';
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+
+	&_list {
+		display: block;
+		overflow: hidden;
+		background: $background-footer;
+	}
+
+	&_item {
+		display: block;
+
+		&--left {
+			float: left;
+		}
+		&--right {
+			float: right;
+		}
+
+		&-icon {
+			display: block;
+			width: 60px;
+			height: 60px;
+			background: lighten($background-copy, 10);
+
+			font-family: 'dwimm';
+			font-style: normal;
+			font-weight: normal;
+			speak: none;
+
+			font-size: 1.5em;
+			font-variant: normal;
+			text-transform: none;
+			text-align: center;
+			line-height: 60px;
+			text-decoration: none;
+			color: $background;
+
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+
+			&:hover {
+				background: lighten($background-copy, 8);
+			}
+			&:active {
+				background: $background-copy;
+			}
+		}
+		&--left:first-child &-icon {
+			width: $sidebar-width;
+		}
+
+		&--user {
+			overflow: hidden;
+		}
+
+		&-user-img {
+			position: relative;
+			display: block;
+			float: left;
+			width: 60px;
+			height: 60px;
+			background: lighten($background-copy, 8);
+			overflow: hidden;
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&-user-name {
+			margin: 0 35px 0 15px;
+			line-height: 60px;
+			color: lighten($background-copy, 30);
+		}
+	}
+}
+
+.app--initializing .header {
+	display: none;
+}

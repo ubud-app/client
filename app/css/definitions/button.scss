@@ -1,0 +1,57 @@
+@import '../definitions/variables';
+
+.button {
+	display: block;
+	width: 100%;
+	margin-top: 15px;
+	padding: 15px;
+	background: rgba($primary, 0.8);
+	border: 1px solid rgba($primary, 0.8);
+	border-radius: 6px;
+	color: $background;
+
+	&:not(:disabled):hover {
+		background: rgba($primary, 0.9);
+		border-color: $primary;
+	}
+	&:not(:disabled):active {
+		background: $primary;
+		border-color: $primary-dark;
+	}
+	&:disabled {
+		cursor: progress;
+	}
+
+	&--secondary {
+		background: rgba($background-footer, 0.8);
+		border: 1px solid rgba($background-footer, 0.8);
+
+		&:not(:disabled):hover {
+			background: rgba($background-footer, 0.9);
+			border-color: $background-footer;
+		}
+		&:not(:disabled):active {
+			background: $background-footer;
+			border-color: $background-footer;
+		}
+	}
+
+	&--destructive {
+		background: rgba($red, 0.8);
+		border: 1px solid rgba($red, 0.8);
+
+		&:not(:disabled):hover {
+			background: rgba($red, 0.9);
+			border-color: $red;
+		}
+		&:not(:disabled):active {
+			background: $red;
+			border-color: $red;
+		}
+	}
+
+	&--inline {
+		width: auto;
+		display: inline-block;
+	}
+}
