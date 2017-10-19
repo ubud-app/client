@@ -13,7 +13,7 @@ export default class DocumentModel extends BaseModel {
 
 	getAccounts () {
 		const accounts = new AccountCollection();
-		accounts.id = 'documents/' + this.id;
+		accounts.id = 'documents:' + this.id;
 		return accounts;
 	}
 }

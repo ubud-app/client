@@ -7,6 +7,7 @@ import DashboardView from '../views/dashboard';
 import PlaceholderView from '../views/placeholder';
 import DocumentSettingsView from '../views/documentSettings';
 import DocumentAccountSettingsView from '../views/documentAccountSettings';
+import TransactionsView from '../views/transactions';
 
 export default BackboneRouter.extend({
 	routes: {
@@ -44,8 +45,8 @@ export default BackboneRouter.extend({
 		const view = new PlaceholderView({view: 'reports'});
 		this.view.renderView(view);
 	},
-	async documentTransactions() {
-		const view = new PlaceholderView({view: 'transactions'});
+	async documentTransactions(documentId) {
+		const view = new TransactionsView({documentId});
 		this.view.renderView(view);
 	},
 	async documentSettings(documentId) {

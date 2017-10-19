@@ -20,12 +20,13 @@
 	}
 
 	&_content {
-		padding: 60px 0 120px;
+		padding: 60px 0 100px;
 		min-height: 10px;
 	}
 
 	&_layout--page {
 		max-width: 600px;
 		margin: 40px auto;
+		padding-bottom: 120px;
 	}
 }

@@ -1,0 +1,47 @@
+@import '../definitions/variables';
+
+.transactions-item {
+	padding: 5px 0;
+	background: lighten($background-box, 3);
+
+	& + & {
+		margin-top: 2px;
+	}
+
+	&_line {
+		overflow: hidden;
+	}
+
+	&_date,
+	&_payee,
+	&_budget,
+	&_memo,
+	&_amount {
+		display: block;
+		padding: 5px 10px;
+		width: 20%;
+		height: 32px;
+		float: left;
+
+		& + & {
+			border-left: 1px solid darken($background-box, 5);
+		}
+	}
+
+	&_date {
+		width: 10%;
+	}
+	&_payee {
+		width: 20%;
+	}
+	&_budget {
+		width: 20%;
+	}
+	&_memo {
+		width: 40%;
+	}
+	&_amount {
+		width: 10%;
+		text-align: right;
+	}
+}

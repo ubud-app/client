@@ -1,7 +1,7 @@
 {
 	"dwimm": {
 		"login": {
-			"title": "Login",
+			"title": "Einloggen",
 			"email": {
 				"placeholder": "E-Mail"
 			},
@@ -9,7 +9,7 @@
 				"placeholder": "Passwort"
 			},
 			"submit": {
-				"text": "Anmelden"
+				"text": "Login"
 			},
 			"forgotPassword": {
 				"url": "https://dude-where-is-my.money/de/help/forgot-password",
@@ -21,8 +21,100 @@
 			},
 			"help": {
 				"url": "https://dude-where-is-my.money/de/help/",
-				"text": "Ich brauch' Hilfe!"
+				"text": "Hilfe!"
 			}
+		},
+		"firstSetup": {
+			"title": "Anmeldedaten festlegen",
+			"email-1": {
+				"placeholder": "Deine E-Mail-Adresse"
+			},
+			"email-2": {
+				"placeholder": "Deine E-Mail-Adresse (wiederholen)"
+			},
+			"password-1": {
+				"placeholder": "Neues Passwort"
+			},
+			"password-2": {
+				"placeholder": "Neues Passwort (wiederholen)"
+			},
+			"submit": {
+				"text": "Anmeldedaten festlegen"
+			},
+			"newDocument": {
+				"name": "Mein erstes Dokument",
+				"account": "Bargeld"
+			}
+		},
+		"header": {
+			"settings": {
+				"title": "Einstellungen"
+			},
+			"documents": {
+				"title": "Meine Dokumente"
+			}
+		},
+		"sidebar": {
+			"budget": {
+				"title": "Budget öffnen",
+				"name": "Budget"
+			},
+			"reports": {
+				"title": "Reports öffnen",
+				"name": "Reports"
+			},
+			"transactions": {
+				"title": "Transaktionen öffnen",
+				"name": "Transaktionen"
+			}
+		},
+		"dashboard": {
+			"title": "Dashboard",
+			"headline": "Hey na, alles fit?",
+			"text": "Wähle ein bestehendes Dokument aus oder erstelle ein Neues…",
+			"empty": "Keine Dokumente gefunden",
+			"add": {
+				"title": "Klicke hier, um ein neues Dokument zu erstellen",
+				"text": "Neues Dokument erstellen"
+			}
+		},
+		"documentSettings": {
+			"title": "Dokumenten-Einstellungen",
+			"headline": "Dokumenten-Einstellungen",
+			"accounts": {
+				"headline": "Konten"
+			},
+			"dangerous": {
+				"headline": "Gefährliche Zone",
+				"destroy": {
+					"button": {
+						"title": "Ein Klick und das Dokument wird gelöscht.",
+						"text": "Dokument löschen"
+					},
+					"message": "Mit dem roten Button kannst du dieses Dokument löschen. Bitte nur klicken, wenn Du dir wirklich sicher bist. Alle Bankkonten, Transaktionen und Budgets werden unwiederbringlich gelöscht!",
+					"confirm": "Bist du Dir wirklich sicher, dass du dieses Dokument löschen willst? Du kannst es nicht wieder herstellen, außer du hast ein Backup gemacht…"
+				}
+			}
+		},
+		"documentAccountSettings": {
+			"title": "Konto-Einstellungen",
+			"headline": "Konto-Einstellungen"
+		},
+		"budget": {
+			"title": "Budget",
+			"placeholder": "Budget"
+		},
+		"reports": {
+			"title": "Reports",
+			"placeholder": "Reports"
+		},
+		"transactions": {
+			"title": "Transaktionen",
+			"placeholder": "Transaktionen"
+		},
+		"settings": {
+			"title": "Einstellungen",
+			"placeholder": "Einstellungen"
 		}
 	}
 }
