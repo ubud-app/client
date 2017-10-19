@@ -6,6 +6,7 @@ import AppHelper from '../helpers/app';
 import DataHelper from '../helpers/data';
 import StringHelper from '../helpers/string';
 import DocumentModel from '../models/document';
+import AccountModel from '../models/account';
 import FirstSetupTemplate from '../../templates/firstSetup.handlebars';
 
 /**
@@ -32,7 +33,7 @@ export default BaseView.extend({
 
 		return this.checkUser()
 			.then(() => {
-				this.checkDocument();
+				return this.checkDocument();
 			})
 			.catch(e => {
 				throw e;
@@ -53,16 +54,23 @@ export default BaseView.extend({
 	},
 	async checkDocument () {
 		const documents = await DataHelper.getDocuments().wait();
-		if(documents.length === 1 && location.hash.length <= 1) {
+		if (documents.length === 1 && location.hash.length <= 1) {
 			AppHelper.navigate(documents.first().id + '/budget', {trigger: 1});
 		}
-		if(documents.length > 0) {
+		if (documents.length > 0) {
 			return Promise.resolve();
 		}
 
 		const document = new DocumentModel({name: StringHelper.string('firstSetup.newDocument.name')});
 		documents.add(document);
 		await document.save();
+
+		const account = new AccountModel({
+			name: StringHelper.string('firstSetup.newDocument.account'),
+			documentId: document.id,
+			type: 'cash'
+		});
+		await account.save();
 
 		AppHelper.navigate(document.id + '/budget', {trigger: 1});
 		return Promise.resolve();

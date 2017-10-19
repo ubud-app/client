@@ -5,6 +5,7 @@ import AppHelper from '../helpers/app';
 import DataHelper from '../helpers/data';
 import StringHelper from '../helpers/string';
 import DocumentSettingsTemplate from '../../templates/documentSettings.handlebars';
+import DocumentSettingsAccountsView from './documentSettingsAccounts';
 
 /**
  * @module views/documentSettings
@@ -19,7 +20,7 @@ export default BaseView.extend({
 
 	documentId: null,
 
-	_initialize(options) {
+	_initialize (options) {
 		this.documentId = options.documentId;
 	},
 
@@ -28,19 +29,21 @@ export default BaseView.extend({
 
 		const documents = await DataHelper.getDocuments().wait();
 		this.model = documents.get(this.documentId);
-		if(!this.model) {
+		if (!this.model) {
 			AppHelper.navigate('/', {trigger: true, replace: true});
 		}
 
 		this.model.live(this);
-		this.$el.html(DocumentSettingsTemplate());
-		this.listenToOnce(this.model, 'destroy', function() {
+		this.$el.html(DocumentSettingsTemplate({document: this.model.toJSON()}));
+		new DocumentSettingsAccountsView({model: this.model}).appendTo(this, '.document-settings_accounts')
+
+		this.listenToOnce(this.model, 'destroy', function () {
 			AppHelper.navigate('/', {trigger: true, replace: true});
 		});
 	},
 
-	destroyDocument() {
-		if(!confirm(StringHelper.string('documentSettings.confirm'))) {
+	destroyDocument () {
+		if (!confirm(StringHelper.string('documentSettings.dangerous.destroy.confirm'))) {
 			return;
 		}
 

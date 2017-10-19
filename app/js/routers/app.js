@@ -6,6 +6,7 @@ import AppView from '../views/app';
 import DashboardView from '../views/dashboard';
 import PlaceholderView from '../views/placeholder';
 import DocumentSettingsView from '../views/documentSettings';
+import DocumentAccountSettingsView from '../views/documentAccountSettings';
 
 export default BackboneRouter.extend({
 	routes: {
@@ -14,6 +15,8 @@ export default BackboneRouter.extend({
 		':document/reports': 'documentReports',
 		':document/transactions': 'documentTransactions',
 		':document/settings': 'documentSettings',
+		':document/settings/accounts/new': 'documentAccountSettings',
+		':document/settings/accounts/:accountId': 'documentAccountSettings',
 		'settings': 'settings',
 		'*path': 'dashboard'
 	},
@@ -47,6 +50,10 @@ export default BackboneRouter.extend({
 	},
 	async documentSettings(documentId) {
 		const view = new DocumentSettingsView({documentId});
+		this.view.renderView(view);
+	},
+	async documentAccountSettings(documentId, accountId) {
+		const view = new DocumentAccountSettingsView({documentId, accountId});
 		this.view.renderView(view);
 	},
 	async settings() {

@@ -1,6 +1,23 @@
 @import '../definitions/variables';
 
 .document-settings {
+	&_headline {
+		margin: 30px 0 10px;
+		clear: both;
+	}
+
+	&_add-account {
+		@extend .button;
+		@extend .button--secondary;
+		@extend .button--inline;
+
+		float: right;
+	}
+
+	&_message {
+		color: rgba($text, 0.6);
+	}
+
 	&_destroy {
 		@extend .button;
 		@extend .button--destructive;

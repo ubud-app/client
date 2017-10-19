@@ -42,7 +42,8 @@
 				"text": "Update Login Credentials"
 			},
 			"newDocument": {
-				"name": "My first Document"
+				"name": "My first Document",
+				"account": "Bargeld"
 			}
 		},
 		"header": {
@@ -80,11 +81,24 @@
 		"documentSettings": {
 			"title": "Document Settings",
 			"headline": "Document Settings",
-			"destroy": {
-				"title": "Click to destroy document. But only if you know what you are doing!",
-				"text": "Destroy Document"
+			"accounts": {
+				"headline": "Accounts"
 			},
-			"confirm": "Are you really sure to destroy this document? You won't be able to restore it, unless you made a backup before…"
+			"dangerous": {
+				"headline": "Danger Zone",
+				"destroy": {
+					"button": {
+						"title": "Click to destroy document. But only if you know what you are doing!",
+						"text": "Destroy Document"
+					},
+					"message": "If you are very very sure what you are doing, you can delete this document by clicking the big red button below. Please note, that all accounts, transactions, locations, etc. are lost if you do so.",
+					"confirm": "Are you really sure to destroy this document? You won't be able to restore it, unless you made a backup before…"
+				}
+			}
+		},
+		"documentAccountSettings": {
+			"title": "Account Settings",
+			"headline": "Account Settings"
 		},
 		"budget": {
 			"title": "Budget",

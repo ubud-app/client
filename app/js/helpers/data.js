@@ -184,6 +184,9 @@ class DataHelper {
 		if(model instanceof Model && model.id) {
 			body.id = model.id;
 		}
+		if(model instanceof Collection && model.id) {
+			body.id = model.id;
+		}
 
 		return DataHelper.send(resource + '/' + method, body)
 			.then(function(body) {
@@ -201,6 +204,10 @@ class DataHelper {
 	static live(model, view) {
 		model._liveListeners = model._liveListeners || 0;
 		model._liveListeners += 1;
+
+		if(_.size(model.toJSON()) <= 1 && !model.syncing) {
+			model.fetch();
+		}
 
 		view.once('remove', () => {
 			model._liveListeners -= 1;

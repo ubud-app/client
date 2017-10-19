@@ -9,6 +9,7 @@
 	border: 1px solid rgba($primary, 0.8);
 	border-radius: 6px;
 	color: $background;
+	text-decoration: none;
 
 	&:not(:disabled):hover {
 		background: rgba($primary, 0.9);
