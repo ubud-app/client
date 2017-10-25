@@ -12,16 +12,23 @@ export default BaseView.extend({
 	className: 'transactions-month',
 
 	_initialize(options) {
+		this.transactions = options.transactions;
 		this.document = options.document;
+		this.accounts = options.accounts;
+		this.budgets = options.budgets;
+		this.categories = options.categories;
 	},
 
 	render () {
-		//this.$el.attr('data-id', this.collection.id);
-
-		this.listenTo(this.collection, 'add', this.addItem);
-	},
-
-	addItem(model) {
-		new TransactionsItemView({model, document: this.document}).appendTo(this.$el);
+		this.renderChildren(TransactionsItemView, {
+			collection: this.transactions,
+			childOptions: {
+				document: this.document,
+				accounts: this.accounts,
+				budgets: this.budgets,
+				categories: this.categories
+			},
+			modelAttr: 'transaction'
+		});
 	}
 });

@@ -5,7 +5,8 @@ import TransactionModel from '../models/transaction';
 
 const TransactionCollection = BaseCollection.extend({
 	model: TransactionModel,
-	url: 'transactions'
+	url: 'transactions',
+	comparator: 'time'
 });
 
 export default TransactionCollection;

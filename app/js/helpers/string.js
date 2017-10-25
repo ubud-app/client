@@ -19,12 +19,23 @@ export default class StringHelper {
 	}
 
 	static currency (document, amount) {
+		if(document.get('settings').language) {
+			numbro.culture(document.get('settings').language);
+		}
+
+		const precision = parseInt(document.get('settings').currencyPrecision, 10) || 2;
 		return numbro(
-			amount / Math.pow(10, parseInt(document.get('settings').currencyDecimalPlaces || 2, 10))
-		).formatForeignCurrency(
-			document.get('settings').currencySymbol || '$',
-			document.get('settings').currencyFormat || '0,0[.]00'
-		);
+			amount / Math.pow(10, precision)
+		).formatCurrency('0,0[.]' + Array(precision + 1).join('0'));
+	}
+
+	static parseCurrency(document, text) {
+		if(document.get('settings').language) {
+			numbro.culture(document.get('settings').language);
+		}
+
+		const precision = parseInt(document.get('settings').currencyPrecision, 10) || 2;
+		return Math.round(numbro().unformat(text) * Math.pow(10, precision));
 	}
 
 	static percentage () {
@@ -42,6 +53,7 @@ const lang = window.navigator.userLanguage || window.navigator.language;
 translate.registerTranslations('de', require('../../strings/de.json'));
 translate.registerTranslations('en', require('../../strings/en.json'));
 
+numbro.culture('de-DE', require('numbro/dist/languages/de-DE.min'));
 require('moment/locale/de');
 
 moment.locale(lang);

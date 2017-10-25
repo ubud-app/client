@@ -2,9 +2,9 @@
 
 .transactions-footer {
 	position: fixed;
-	left: 0;
+	left: $sidebar-width;
 	right: 0;
 	bottom: 0;
-	height: 100px;
 	background: $background-box;
+	padding: 10px;
 }

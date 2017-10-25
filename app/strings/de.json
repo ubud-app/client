@@ -110,7 +110,16 @@
 		},
 		"transactions": {
 			"title": "Transaktionen",
-			"placeholder": "Transaktionen"
+			"placeholder": "Transaktionen",
+			"multipleBudgets": "Mehrere Budgets",
+			"add": {
+				"text": "Transaktion hinzufügen",
+				"title": "Klicke, um eine Transaktion manuell einzutragen…"
+			},
+			"remove": {
+				"text": "Transaktion löschen",
+				"title": "Diese Transaktion löschen"
+			}
 		},
 		"settings": {
 			"title": "Einstellungen",

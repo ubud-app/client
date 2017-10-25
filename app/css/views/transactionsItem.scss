@@ -1,18 +1,25 @@
 @import '../definitions/variables';
 
 .transactions-item {
-	padding: 5px 0;
+	padding: 5px;
 	background: lighten($background-box, 3);
 
 	& + & {
 		margin-top: 2px;
 	}
+	&--opened {
+		background: darken($background-box, 3);
+	}
 
 	&_line {
 		overflow: hidden;
 	}
+	&--opened &_line {
+		display: none;
+	}
 
 	&_date,
+	&_account,
 	&_payee,
 	&_budget,
 	&_memo,
@@ -22,26 +29,39 @@
 		width: 20%;
 		height: 32px;
 		float: left;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 
-		& + & {
+		* + & {
 			border-left: 1px solid darken($background-box, 5);
 		}
 	}
 
 	&_date {
-		width: 10%;
+		width: 8%;
+	}
+	&_account {
+		width: 15%;
 	}
 	&_payee {
 		width: 20%;
 	}
 	&_budget {
-		width: 20%;
+		width: 17%;
 	}
 	&_memo {
-		width: 40%;
+		width: 30%;
 	}
 	&_amount {
 		width: 10%;
 		text-align: right;
+	}
+
+	&_editor {
+		display: none;
+	}
+	&--opened &_editor {
+		display: block;
 	}
 }

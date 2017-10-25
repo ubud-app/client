@@ -19,10 +19,7 @@
 	}
 
 	&_add {
-		@extend .button;
-		@extend .button--secondary;
-		@extend .button--inline;
-
 		float: right;
+		margin-top: 15px;
 	}
 }

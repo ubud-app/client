@@ -6,9 +6,6 @@ import DataHelper from '../helpers/data';
 import TransactionsScrollView from './transactionsScroll';
 import TransactionsFooterView from './transactionsFooter';
 
-import moment from 'moment';
-import TransactionModel from '../models/transaction';
-
 /**
  * @module views/transactions
  * @class TransactionsView
@@ -22,33 +19,26 @@ export default BaseView.extend({
 	},
 
 	async render () {
+		const v = this;
 		AppHelper.title('transactions.title');
 
 		const documents = await DataHelper.getDocuments().wait();
-		this.model = documents.get(this.documentId);
-		if (!this.model) {
+		v.model = documents.get(this.documentId);
+		if (!v.model) {
 			AppHelper.navigate('/', {trigger: true, replace: true});
 		}
 
-		this.model.live(this);
+		v.model.live(this);
 
-		new TransactionsScrollView({model: this.model}).appendTo(this);
-		new TransactionsFooterView().appendTo(this);
+		const scroll = new TransactionsScrollView({model: v.model}).appendTo(this);
+		const footer = new TransactionsFooterView().appendTo(v);
 
-		this.listenToOnce(this.model, 'destroy', function () {
-			AppHelper.navigate('/', {trigger: true, replace: true});
+		v.listenTo(footer, 'add', function() {
+			scroll.addTransaction();
 		});
 
-
-		/*let m;
-		for(let i = moment().subtract(1, 'y').startOf('month'); moment().add(2, 'M').endOf('month').isAfter(i); i.add(2, 'day')) {
-			m = new TransactionModel({
-				time: i,
-				amount: Math.round(Math.random() * 200000) - 100000,
-				accountId: '18565136-3263-4486-91e0-0e333c372afd'
-			});
-
-			m.save();
-		}*/
+		this.listenToOnce(v.model, 'destroy', function () {
+			AppHelper.navigate('/', {trigger: true, replace: true});
+		});
 	}
 });
