@@ -4,6 +4,7 @@ import {Router as BackboneRouter} from 'backbone';
 import * as _ from 'underscore';
 import AppView from '../views/app';
 import DashboardView from '../views/dashboard';
+import BudgetsView from '../views/budgets';
 import PlaceholderView from '../views/placeholder';
 import DocumentSettingsView from '../views/documentSettings';
 import DocumentAccountSettingsView from '../views/documentAccountSettings';
@@ -13,6 +14,7 @@ export default BackboneRouter.extend({
 	routes: {
 		'': 'dashboard',
 		':document/budget': 'documentBudget',
+		':document/budget/:month': 'documentBudget',
 		':document/reports': 'documentReports',
 		':document/transactions': 'documentTransactions',
 		':document/settings': 'documentSettings',
@@ -37,8 +39,8 @@ export default BackboneRouter.extend({
 		const view = new DashboardView();
 		this.view.renderView(view);
 	},
-	async documentBudget() {
-		const view = new PlaceholderView({view: 'budget'});
+	async documentBudget(documentId, month) {
+		const view = new BudgetsView({documentId, month});
 		this.view.renderView(view);
 	},
 	async documentReports() {

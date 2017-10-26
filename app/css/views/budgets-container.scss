@@ -1,0 +1,11 @@
+@import '../definitions/variables';
+
+.budgets-container {
+	float: left;
+	background: $background-box;
+	padding: 100px 0;
+	margin: 0 10px;
+	width: 400px;
+	text-align: center;
+	min-height: 200px;
+}

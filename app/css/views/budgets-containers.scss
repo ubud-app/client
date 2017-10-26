@@ -1,0 +1,16 @@
+@import '../definitions/variables';
+
+.budgets-containers {
+	position: fixed;
+	top: 60px;
+	left: $sidebar-width;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+
+	&_wrap {
+		padding: 20px calc(25% - 180px);
+		box-sizing: content-box;
+		overflow: hidden;
+	}
+}
