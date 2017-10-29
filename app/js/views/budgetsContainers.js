@@ -14,10 +14,14 @@ import BudgetContainerView from './budgetsContainer';
  */
 export default BaseView.extend({
 	className: 'budgets-containers',
+	labelWidth: 220,
 
 	_initialize (options) {
 		this.document = options.document;
 		this.parent = options.parent;
+		this.categories = options.categories;
+		this.budgets = options.budgets;
+
 		this.width = 0;
 		this.children = {};
 		this.newestMonth = null;
@@ -42,6 +46,9 @@ export default BaseView.extend({
 		v.oldestMonth = m;
 		v.updatePosition();
 		v._activateContainers();
+		v.listenTo(v.parent, 'goTo', () => {
+			v.updatePosition(true);
+		});
 
 		v.$el.scroll(_.debounce(this._activateContainers, 1000));
 		v.$el.scroll(_.throttle(this._addContainers, 100));
@@ -51,11 +58,13 @@ export default BaseView.extend({
 		const v = this;
 		const view = new BudgetContainerView({
 			month,
-			document: v.document
+			document: v.document,
+			categories: v.categories,
+			budgets: v.budgets
 		})[month.isSameOrAfter(v.newestMonth) ? 'appendTo' : 'prependTo'](v, v.$wrap);
 		v.children[month.format('YYYYMM')] = view;
 
-		v.width += view.$el.width() + 20;
+		v.width += view.$el.outerWidth(true);
 		v.$wrap.css({width: v.width});
 		return view;
 	},
@@ -71,25 +80,10 @@ export default BaseView.extend({
 		let offset = child.$el.offset().left;
 
 		// Sidebar
-		offset -= 80;
+		offset -= 60;
 
-		// Window width
-		offset -= v.$el.width() / 2;
-
-		// Element width
-		offset += child.$el.outerWidth(true) / 2;
-
-		// Enough to show next two months as well
-		if ($(window).width() >= 1360) {
-			offset += child.$el.outerWidth();
-			offset += 20;
-		}
-
-		// Enough to show next month as well
-		else if ($(window).width() >= 940) {
-			offset += child.$el.outerWidth() / 2;
-			offset += 10;
-		}
+		// Labels
+		offset -= v.labelWidth;
 
 		if (animate) {
 			v.$el.animate({

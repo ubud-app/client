@@ -61,58 +61,37 @@ export default BaseView.extend({
 
 		// Payee
 		v.listenToAndCall(v.model, 'change:payeeId', () => {
-			// todo payee anzeigen
+			// @todo payee anzeigen
 			$payee.text(v.model.get('payeeId'))
 		});
 
 
 		// Budget
-		v.listenToAndCall(v.model, 'change:units', () => {
-			const units = v.model.getUnits();
+		v.listenToAndCall(v.model, 'change:units change:time', () => {
+			const names = (v.model.getUnits() || []).map(unit => {
+				if(unit.get('budgetId') === 'income-0' || unit.get('budgetId') === 'income-1') {
+					return StringHelper.string('transactions.budgetSelect.incomeFor', {
+						month: moment(v.model.get('time'))
+							.add(unit.get('budgetId') === 'income-0' ? 0 : 1, 'month')
+							.format('MMMM')
+					});
+				}
+				if(v.budgets.get(unit.get('budgetId'))) {
+					return v.budgets.get(unit.get('budgetId')).get('name');
+				}
+			}).filter(n => !!n);
 
-			if(
-				units.length >= 2 &&
-				units.at(0).get('budgetId') &&
-				units.at(1).get('budgetId') &&
-				v.budgets.get(units.at(0).get('budgetId')).get('name') &&
-				v.budgets.get(units.at(1).get('budgetId')).get('name') &&
-				(
-					units.length === 2 || (
-						units.length === 3 && !units.at(2)
-					)
-				)
-			) {
-				$budget.text(
-					v.budgets.get(
-						units.first().get('budgetId')
-					).get('name') +
-					' & ' +
-					v.budgets.get(
-						units.last().get('budgetId')
-					).get('name')
-				);
+			if(names.length === 1) {
+				$budget.text(names[0]);
 			}
-			else if(
-				units.length >= 1 &&
-				units.at(0).get('budgetId') &&
-				v.budgets.get(units.at(0).get('budgetId')).get('name') &&
-				(
-					units.length === 1 || (
-						units.length === 2 && !units.at(1)
-					)
-				)
-			) {
-				$budget.text(
-					v.budgets.get(
-						units.first().get('budgetId')
-					).get('name')
-				);
+			else if(names.length === 2) {
+				$budget.text(names.join(' & '));
 			}
-			else if(units.length === 0) {
-				$budget.text('');
+			else if(names.length > 2) {
+				$budget.text(StringHelper.string('transactions.multipleBudgets'));
 			}
 			else {
-				$budget.text(StringHelper.string('transactions.multipleBudgets'));
+				$budget.text('');
 			}
 		});
 

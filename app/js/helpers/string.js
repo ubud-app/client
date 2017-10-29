@@ -38,8 +38,8 @@ export default class StringHelper {
 		return Math.round(numbro().unformat(text) * Math.pow(10, precision));
 	}
 
-	static percentage () {
-
+	static percentage (p) {
+		return numbro(p).format('0.0%');
 	}
 }
 

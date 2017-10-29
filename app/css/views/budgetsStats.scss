@@ -1,0 +1,37 @@
+@import '../definitions/variables';
+
+.budgets-stats {
+	&_page {
+		height: 62px;
+	}
+
+	&_atbl {
+		display: block;
+		padding: 15px 0 0;
+		font-size: 12px;
+		color: lighten($text, 20);
+	}
+	&_atbv {
+		display: block;
+		margin-top: -1px;
+		font-size: 28px;
+		font-weight: bold;
+		color: lighten($text, 10);
+	}
+
+	&_indicator {
+		display: inline-block;
+		width: 5px;
+		height: 5px;
+		border-radius: 5px;
+		background: darken($background-box, 20);
+
+		& + & {
+			margin-left: 4px;
+		}
+
+		&--active {
+			background: darken($background-box, 40);
+		}
+	}
+}

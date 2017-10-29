@@ -5,7 +5,8 @@ import moment from 'moment';
 import BaseView from './_';
 import AppHelper from '../helpers/app';
 import DataHelper from '../helpers/data';
-import BudgetsContainersView from './budgetsContainers.js';
+import BudgetsLabelsView from './budgetsLabels';
+import BudgetsContainersView from './budgetsContainers';
 
 /**
  * @module views/budgets
@@ -17,7 +18,7 @@ export default BaseView.extend({
 
 	_initialize(options) {
 		this.documentId = options.documentId;
-		this.currentMonth = options.month ? moment(options.month) : moment();
+		this.currentMonth = options.month ? moment(options.month, 'YYYY-MM') : moment();
 		this.currentMonth = this.currentMonth.startOf('month');
 		this.currentPosition = 0;
 	},
@@ -31,8 +32,24 @@ export default BaseView.extend({
 			return;
 		}
 
+		const categories = document.getCategories().live(this);
+		const budgets = document.getBudgets().live(this);
+
 		// new BudgetsTimePicker().appendTo(v);
-		new BudgetsContainersView({document, parent: this}).appendTo(this);
+
+		new BudgetsLabelsView({
+			document,
+			categories,
+			budgets,
+			parent: this
+		}).appendTo(this);
+
+		new BudgetsContainersView({
+			document,
+			categories,
+			budgets,
+			parent: this
+		}).appendTo(this);
 	},
 
 	getPosition() {

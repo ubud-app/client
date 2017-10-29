@@ -4,6 +4,7 @@ import BaseModel from './_';
 import AccountCollection from '../collections/account';
 import BudgetCollection from '../collections/budget';
 import CategoryCollection from '../collections/category';
+import PortionCollection from '../collections/portion';
 
 /**
  * @module models/document
@@ -29,5 +30,11 @@ export default class DocumentModel extends BaseModel {
 		const categories = new CategoryCollection();
 		categories.id = 'document:' + this.id;
 		return categories;
+	}
+
+	getPortionsByMonth (month) {
+		const portions = new PortionCollection();
+		portions.id = 'document:' + this.id + '/month:' + month.format('YYYY-MM');
+		return portions;
 	}
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 import $ from 'jquery';
+import moment from 'moment';
 import BaseView from './_';
 import StringHelper from '../helpers/string';
 import TransActionsEditorBudgetGroupView from './transactionsEditorBudgetGroup';
@@ -20,6 +21,7 @@ export default BaseView.extend({
 	_initialize (options) {
 		this.budgets = options.budgets;
 		this.categories = options.categories;
+		this.transaction = options.transaction;
 		this.allowSplitSelection = options.allowSplitSelection;
 	},
 
@@ -33,10 +35,23 @@ export default BaseView.extend({
 
 		if(this.allowSplitSelection) {
 			$('<option />')
-				.text(StringHelper.string('transactions.multipleBudgets'))
+				.text(StringHelper.string('transactions.budgetSelect.multipleBudgets'))
 				.attr('value', 'split')
 				.appendTo(v.$el);
 		}
+
+		$('<optgroup />').attr('label', StringHelper.string('transactions.budgetSelect.income')).appendTo(v.$el);
+		const $incomeThis = $('<option />').attr('value', 'income-0').appendTo(v.$el);
+		const $incomeNext = $('<option />').attr('value', 'income-1').appendTo(v.$el);
+		v.listenToAndCall(v.transaction, 'change:time', () => {
+			const m = moment(v.transaction.get('time'));
+			$incomeThis.text(StringHelper.string('transactions.budgetSelect.incomeFor', {
+				month: moment(m).format('MMM')
+			}));
+			$incomeNext.text(StringHelper.string('transactions.budgetSelect.incomeFor', {
+				month: moment(m).add(1, 'month').format('MMM')
+			}));
+		});
 
 		v.renderChildren(TransActionsEditorBudgetGroupView, {
 			modelAttr: 'category',

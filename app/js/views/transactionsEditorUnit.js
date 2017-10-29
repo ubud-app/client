@@ -30,7 +30,8 @@ export default BaseView.extend({
 		// Budget
 		const budget = new TransactionsEditorBudgetSelectView({
 			budgets: v.budgets,
-			categories: v.categories
+			categories: v.categories,
+			transaction: v.transaction
 		}).appendTo(v, $budget);
 		v.listenToAndCall(v.model, 'change:budgetId', () => {
 			budget.value(v.model.get('budgetId') || '');

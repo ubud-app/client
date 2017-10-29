@@ -14,7 +14,6 @@ export default BackboneRouter.extend({
 	routes: {
 		'': 'dashboard',
 		':document/budget': 'documentBudget',
-		':document/budget/:month': 'documentBudget',
 		':document/reports': 'documentReports',
 		':document/transactions': 'documentTransactions',
 		':document/settings': 'documentSettings',
@@ -39,8 +38,8 @@ export default BackboneRouter.extend({
 		const view = new DashboardView();
 		this.view.renderView(view);
 	},
-	async documentBudget(documentId, month) {
-		const view = new BudgetsView({documentId, month});
+	async documentBudget(documentId) {
+		const view = new BudgetsView({documentId});
 		this.view.renderView(view);
 	},
 	async documentReports() {

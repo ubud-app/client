@@ -102,7 +102,13 @@
 		},
 		"budget": {
 			"title": "Budget",
-			"placeholder": "Budget"
+			"placeholder": "Budget",
+			"stats": {
+				"available": {
+					"default": "noch zu budgetieren",
+					"overspend": "zu viel budgetiert"
+				}
+			}
 		},
 		"reports": {
 			"title": "Reports",
@@ -111,7 +117,11 @@
 		"transactions": {
 			"title": "Transaktionen",
 			"placeholder": "Transaktionen",
-			"multipleBudgets": "Mehrere Budgets",
+			"budgetSelect": {
+				"income": "Einkommen",
+				"incomeFor": "Einkommen für %(month)s",
+				"multipleBudgets": "Mehrere Budgets"
+			},
 			"add": {
 				"text": "Transaktion hinzufügen",
 				"title": "Klicke, um eine Transaktion manuell einzutragen…"
@@ -119,7 +129,7 @@
 			"remove": {
 				"text": "Transaktion löschen",
 				"title": "Diese Transaktion löschen"
-			}
+			},
 		},
 		"settings": {
 			"title": "Einstellungen",

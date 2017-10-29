@@ -59,6 +59,7 @@ export default BaseView.extend({
 				$o.prop('disabled', !!a.get('pluginId'));
 			});
 		});
+		v.model.set('accountId', $accountSelect.val());
 		$accountSelect.on('change', () => {
 			v.model.set('accountId', $accountSelect.val());
 		});
@@ -76,6 +77,7 @@ export default BaseView.extend({
 		const budget = new TransactionsEditorBudgetSelectView({
 			budgets: v.budgets,
 			categories: v.categories,
+			transaction: v.model,
 			allowSplitSelection: true
 		}).appendTo(v, $budget);
 		v.listenToAndCall(v.model, 'change:units', () => {

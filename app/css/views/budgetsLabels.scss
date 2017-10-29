@@ -1,0 +1,38 @@
+@import '../definitions/variables';
+
+.budgets-labels {
+	position: absolute;
+	display: block;
+	top: 20px;
+	left: $sidebar-width;
+	bottom: 20px;
+	z-index: 10;
+	padding: 130px 0 20px;
+
+	background: lighten($background-box, 4);
+	border-right: 20px solid $background;
+
+	&-category {
+		display: block;
+
+		&_name {
+			display: block;
+			font-weight: bold;
+			width: 200px;
+			height: 45px;
+			padding: 15px 15px 6px;
+			color: lighten($text, 15);
+		}
+	}
+
+	&-budget {
+		display: block;
+		padding: 8px 15px;
+		width: 200px;
+		background: lighten($background-box, 1);
+
+		&:nth-child(2n+1) {
+			background: lighten($background-box, 4);
+		}
+	}
+}
