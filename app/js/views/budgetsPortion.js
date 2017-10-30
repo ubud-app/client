@@ -21,8 +21,26 @@ export default BaseView.extend({
 
 	async render () {
 		const v = this;
+
 		await v.portions.wait();
 		v.model = v.portions.getByBudgetId(v.budget.id);
+		if(!v.model && !v.budget.id) {
+			// seems to be an unsaved budget. wait till it's saved…
+			await new Promise(cb => {
+				v.listenTo(v.budget, 'change:id', () => {
+					cb();
+				});
+			});
+		}
+
+		if(!v.model && v.portions.syncing) {
+			await v.portions.wait();
+			v.model = v.portions.getByBudgetId(v.budget.id);
+		}
+		else if(!v.model) {
+			await v.portions.fetch();
+			v.model = v.portions.getByBudgetId(v.budget.id);
+		}
 
 		// Budgeted
 		const $budgeted = $('<input class="budgets-portion_budgeted" />').appendTo(v.$el);
@@ -39,7 +57,7 @@ export default BaseView.extend({
 		});
 
 		const $balance = $('<span class="budgets-portion_balance" />').appendTo(v.$el);
-		v.listenToAndCall(v.model, 'change:balance', () => {
+		const updateBalance = () => {
 			const balance = v.model.get('balance') || 0;
 			let text = StringHelper.currency(this.document, balance);
 			if(!v.budget.has('goal')) {
@@ -48,9 +66,9 @@ export default BaseView.extend({
 
 			$balance.text(text);
 			$balance.toggleClass('budgets-portion_balance--negative', balance < 0);
-			$balance.toggleClass('budgets-portion_balance--goal', v.budget.has('goal'));
+			$balance.toggleClass('budgets-portion_balance--goal', !!v.budget.get('goal'));
 
-			if(v.budget.has('goal')) {
+			if(v.budget.get('goal')) {
 				const p = balance / v.budget.get('goal');
 				const $g = $('<span class="budgets-portion_goal" />').attr({
 					title: StringHelper.percentage(p)
@@ -61,6 +79,8 @@ export default BaseView.extend({
 					width: Math.min(100, p * 100) + '%'
 				}).appendTo($g)
 			}
-		});
+		};
+		v.listenToAndCall(v.model, 'change:balance', updateBalance);
+		v.listenToAndCall(v.budget, 'change:goal', updateBalance);
 	}
 });

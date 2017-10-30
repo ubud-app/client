@@ -50,21 +50,46 @@
 
 	&-budget {
 		display: block;
-		padding: 8px 15px 8px;
+		position: relative;
 		width: 200px;
 		height: 38px;
 		background: lighten($background-box, 1);
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
 
 		&:nth-child(2n+1) {
 			background: lighten($background-box, 4);
 		}
+
+		&_name {
+			display: block;
+			padding: 8px 15px;
+
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		&:hover &_name {
+			padding-right: 35px;
+		}
+
+		&_edit {
+			@extend [class^="icon-"]:before;
+			position: absolute;
+			display: none;
+			top: 11px;
+			right: 14px;
+			color: lighten($text, 20);
+		}
+		&:hover &_edit {
+			display: block;
+		}
 	}
 
-	&_add {
+	&_addCategory,
+	&_addBudget {
 		width: 178px;
-		margin: 40px 10px;
+		margin: 40px 10px 0;
+	}
+	&_addBudget {
+		margin-top: 10px;
 	}
 }

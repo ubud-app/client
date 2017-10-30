@@ -13,7 +13,8 @@ import StringHelper from '../helpers/string';
 export default BaseView.extend({
 	className: 'budgets-labels',
 	events: {
-		'click .budgets-labels_add': 'add'
+		'click .budgets-labels_addCategory': 'addCategory',
+		'click .budgets-labels_addBudget': 'addBudget'
 	},
 
 	_initialize (options) {
@@ -31,18 +32,36 @@ export default BaseView.extend({
 			where: $ul,
 			childOptions: {
 				document: v.document,
-				budgets: v.budgets
+				budgets: v.budgets,
+				categories: v.categories
 			}
 		});
 
-		$('<button class="budgets-labels_add button button--secondary button--inline button--small" />')
+		$('<button class="budgets-labels_addCategory button button--secondary button--small" />')
 			.text(StringHelper.string('budget.labels.addCategory.text'))
 			.appendTo(v.$el);
+
+		const $addBudget = $('<button class="budgets-labels_addBudget button button--secondary button--small" />')
+			.text(StringHelper.string('budget.labels.addBudget.text'))
+			.appendTo(v.$el);
+		v.listenToAndCall(v.categories, 'add remove sync', () => {
+			$addBudget.prop('disabled', v.categories.length === 0);
+		});
 	},
-	add () {
+	addCategory () {
 		this.categories.add({
 			name: StringHelper.string('budget.labels.addCategory.name'),
 			documentId: this.document.id
+		});
+	},
+	addBudget () {
+		if(!this.categories.length) {
+			return;
+		}
+
+		this.budgets.add({
+			name: StringHelper.string('budget.labels.addBudget.name'),
+			categoryId: this.categories.first().id
 		});
 	}
 });

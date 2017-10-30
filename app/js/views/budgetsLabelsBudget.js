@@ -2,7 +2,7 @@
 
 import $ from 'jquery';
 import BaseView from './_';
-import BudgetsLabelsBudget from './budgetsLabelsBudget';
+import BudgetLabelsBudgetEditorView from './budgetsLabelsBudgetEditor';
 
 /**
  * @module views/budgetsLabelsBudget
@@ -12,13 +12,34 @@ import BudgetsLabelsBudget from './budgetsLabelsBudget';
 export default BaseView.extend({
 	tagName: 'li',
 	className: 'budgets-labels-budget',
+	events: {
+		'click .budgets-labels-budget_edit': 'edit'
+	},
+
+	_initialize(options) {
+		this.document = options.document;
+		this.categories = options.categories;
+	},
 
 	render () {
 		const v = this;
 
-		const $title = $('<span class="budgets-labels-budget_name" />').appendTo(v.$el);
+		const $name = $('<span class="budgets-labels-budget_name" />').appendTo(v.$el);
 		v.listenToAndCall(v.model, 'change:name', () => {
-			$title.text(v.model.get('name'));
+			$name.text(v.model.get('name'));
 		});
+
+		$('<button class="budgets-labels-budget_edit" />').html('&#xe802;').appendTo(v.$el);
+
+		if(!v.model.id) {
+			v.edit();
+		}
+	},
+	edit () {
+		new BudgetLabelsBudgetEditorView({
+			model: this.model,
+			document: this.document,
+			categories: this.categories
+		}).appendTo(this, this.$el);
 	}
 });

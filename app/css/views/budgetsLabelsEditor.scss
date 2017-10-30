@@ -1,6 +1,7 @@
 @import '../definitions/variables';
 
-.budgets-labels-category-editor {
+.budgets-labels-category-editor,
+.budgets-labels-budget-editor {
 	position: absolute;
 	z-index: 5;
 	top: 55px;
@@ -44,7 +45,8 @@
 		padding: 15px 0 4px;
 	}
 
-	&_field {
+	&_field,
+	&_select-wrap {
 		display: block;
 		width: 100%;
 		padding: 10px;
@@ -52,10 +54,23 @@
 		outline: none;
 		background: lighten($background-box, 2);
 	}
+	&_select-wrap {
+		padding: 8.5px 10px 8.5px 2px;
+	}
+
+	&_select  {
+		display: block;
+		width: 100%;
+		font: inherit;
+		border: none;
+		outline: none;
+		background: transparent;
+	}
 
 	&_save,
 	&_cancel,
-	&_remove {
+	&_remove,
+	&_hide {
 		margin-top: 10px;
 	}
 
@@ -69,8 +84,16 @@
 		float: right;
 	}
 
-	&_remove {
+	&_remove,
+	&_hide {
 		opacity: 0.4;
 		float: left;
 	}
+	&_hide--hidden {
+		display: none;
+	}
+}
+
+.budgets-labels-budget-editor {
+	top: 45px;
 }

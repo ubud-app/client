@@ -23,9 +23,7 @@ export default class CategoryModel extends BaseModel {
 				}
 			});
 			v.listenTo(budgets, 'remove', budget => {
-				if(budgets.get(budget.id)) {
-					budgets.remove(budget);
-				}
+				result.remove(budget);
 			});
 		}
 

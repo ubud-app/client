@@ -18,7 +18,6 @@ export default BaseView.extend({
 	},
 
 	_initialize (options) {
-		this.document = options.document;
 		this.budgets = options.budgets;
 	},
 

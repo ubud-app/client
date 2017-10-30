@@ -22,7 +22,7 @@ export default class DocumentModel extends BaseModel {
 
 	getBudgets () {
 		const budgets = new BudgetCollection();
-		budgets.id = 'document:' + this.id;
+		budgets.id = 'document:' + this.id + '/hidden:0';
 		return budgets;
 	}
 

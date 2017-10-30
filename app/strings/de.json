@@ -147,9 +147,6 @@
 					"name": {
 						"label": "Name der Kategorie"
 					},
-					"goal": {
-						"label": "Ziel"
-					},
 					"save": {
 						"text": "Speichern"
 					},
@@ -162,6 +159,31 @@
 							"one": "Kann nicht gelöscht werden, da in dieser Kategorie noch ein Budget eingeordnet ist…",
 							"other": "Kann nicht gelöscht werden, da in dieser Kategorie noch %(count)s Budgets eingeordnet sind…"
 						}
+					}
+				},
+				"addBudget": {
+					"text": "Budget hinzufügen",
+					"name": "Neues Budget"
+				},
+				"editBudget": {
+					"headline": "Budget bearbeiten",
+					"name": {
+						"label": "Name des Budgets"
+					},
+					"category": {
+						"label": "Kategorie"
+					},
+					"goal": {
+						"label": "Ziel"
+					},
+					"save": {
+						"text": "Speichern"
+					},
+					"cancel": {
+						"text": "Abbrechen"
+					},
+					"hide": {
+						"text": "Ausblenden"
 					}
 				}
 			},

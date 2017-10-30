@@ -20,6 +20,7 @@ export default BaseView.extend({
 	_initialize (options) {
 		this.document = options.document;
 		this.category = options.category;
+		this.categories = options.categories;
 		this.budgets = options.budgets;
 	},
 
@@ -30,12 +31,18 @@ export default BaseView.extend({
 		const $name = $('<span class="budgets-labels-category_name" />').appendTo(v.$title);
 		v.listenToAndCall(v.category, 'change:name', () => {
 			$name.text(v.category.get('name'));
-		})
+		});
 
 		$('<button class="budgets-labels-category_edit" />').html('&#xe802;').appendTo(v.$title);
 
 		const budgets = v.category.filterBudgets(v.budgets, v);
-		v.renderChildren(BudgetsLabelsBudget, {collection: budgets});
+		v.renderChildren(BudgetsLabelsBudget, {
+			collection: budgets,
+			childOptions: {
+				document: v.document,
+				categories: v.categories
+			}
+		});
 
 		if(!v.category.id) {
 			v.edit();
@@ -44,7 +51,6 @@ export default BaseView.extend({
 	edit () {
 		new BudgetLabelsCategoryEditorView({
 			model: this.category,
-			document: this.document,
 			budgets: this.budgets
 		}).appendTo(this, this.$title);
 	}
