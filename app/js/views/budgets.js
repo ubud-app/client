@@ -23,7 +23,7 @@ export default BaseView.extend({
 		this.currentPosition = 0;
 	},
 	async render () {
-		AppHelper.title('budgets.title');
+		AppHelper.title('budget.title');
 
 		const documents = await DataHelper.getDocuments().wait();
 		const document = documents.get(this.documentId);

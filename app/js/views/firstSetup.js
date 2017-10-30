@@ -1,10 +1,13 @@
 'use strict';
 
 import $ from 'jquery';
+import {defer} from 'underscore';
 import BaseView from './_';
 import AppHelper from '../helpers/app';
 import DataHelper from '../helpers/data';
 import StringHelper from '../helpers/string';
+import BudgetModel from '../models/budget';
+import CategoryModel from '../models/category';
 import DocumentModel from '../models/document';
 import AccountModel from '../models/account';
 import FirstSetupTemplate from '../../templates/firstSetup.handlebars';
@@ -61,18 +64,129 @@ export default BaseView.extend({
 			return Promise.resolve();
 		}
 
-		const document = new DocumentModel({name: StringHelper.string('firstSetup.newDocument.name')});
+		const document = new DocumentModel({
+			name: StringHelper.string('firstSetup.newDocument.name'),
+			settings: {
+				language: window.navigator.languages ? window.navigator.languages[0] : StringHelper.string('firstSetup.newDocument.language')
+			}
+		});
 		documents.add(document);
 		await document.save();
 
-		const account = new AccountModel({
-			name: StringHelper.string('firstSetup.newDocument.account'),
+		const walletAccount = new AccountModel({
+			name: StringHelper.string('firstSetup.newDocument.accounts.wallet'),
 			documentId: document.id,
 			type: 'cash'
 		});
-		await account.save();
+		const pillowAccount = new AccountModel({
+			name: StringHelper.string('firstSetup.newDocument.accounts.pillow'),
+			documentId: document.id,
+			type: 'cash'
+		});
 
-		AppHelper.navigate(document.id + '/budget', {trigger: 1});
+		const defaultCategory = new CategoryModel({
+			name: StringHelper.string('firstSetup.newDocument.default.name'),
+			documentId: document.id
+		});
+		const monthlyCategory = new CategoryModel({
+			name: StringHelper.string('firstSetup.newDocument.monthly.name'),
+			documentId: document.id
+		});
+		const insuranceCategory = new CategoryModel({
+			name: StringHelper.string('firstSetup.newDocument.insurance.name'),
+			documentId: document.id
+		});
+		const rainyDaysCategory = new CategoryModel({
+			name: StringHelper.string('firstSetup.newDocument.rainyDays.name'),
+			documentId: document.id
+		});
+		const goalsCategory = new CategoryModel({
+			name: StringHelper.string('firstSetup.newDocument.goals.name'),
+			documentId: document.id
+		});
+		await Promise.all([
+			walletAccount.save(),
+			pillowAccount.save(),
+			defaultCategory.save(),
+			monthlyCategory.save(),
+			insuranceCategory.save(),
+			rainyDaysCategory.save(),
+			goalsCategory.save()
+		]);
+
+		const budgets = [];
+
+		// Default
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.default.default'),
+			categoryId: defaultCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.default.lostCash'),
+			categoryId: defaultCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.default.clothing'),
+			categoryId: defaultCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.default.food'),
+			categoryId: defaultCategory.id
+		});
+
+		// Monthly
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.monthly.rent'),
+			categoryId: monthlyCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.monthly.power'),
+			categoryId: monthlyCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.monthly.water'),
+			categoryId: monthlyCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.monthly.heating'),
+			categoryId: monthlyCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.monthly.internet'),
+			categoryId: monthlyCategory.id
+		});
+
+		// Insurance
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.insurance.liability'),
+			categoryId: insuranceCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.insurance.health'),
+			categoryId: insuranceCategory.id
+		});
+
+		// Rainy Days
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.rainyDays.birthdays'),
+			categoryId: rainyDaysCategory.id
+		});
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.rainyDays.christmas'),
+			categoryId: rainyDaysCategory.id
+		});
+
+		// Saving Goals
+		budgets.push({
+			name: StringHelper.string('firstSetup.newDocument.goals.example'),
+			categoryId: goalsCategory.id,
+			goal: parseInt(StringHelper.string('firstSetup.newDocument.goals.value'), 10) || 1337
+		});
+
+		await Promise.all(budgets.map(d => new BudgetModel(d).save()));
+		defer(() => {
+			AppHelper.navigate(document.id + '/budget', {trigger: 1});
+		});
 		return Promise.resolve();
 	},
 

@@ -15,24 +15,56 @@
 	&-category {
 		display: block;
 
+		&_header {
+			position: relative;
+		}
+
 		&_name {
 			display: block;
+			position: relative;
 			font-weight: bold;
 			width: 200px;
 			height: 45px;
 			padding: 15px 15px 6px;
 			color: lighten($text, 15);
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		&_header:hover &_name {
+			padding-right: 35px;
+		}
+
+		&_edit {
+			@extend [class^="icon-"]:before;
+			position: absolute;
+			display: none;
+			top: 19px;
+			right: 14px;
+			color: lighten($text, 20);
+		}
+		&_header:hover &_edit {
+			display: block;
 		}
 	}
 
 	&-budget {
 		display: block;
-		padding: 8px 15px;
+		padding: 8px 15px 8px;
 		width: 200px;
+		height: 38px;
 		background: lighten($background-box, 1);
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 
 		&:nth-child(2n+1) {
 			background: lighten($background-box, 4);
 		}
+	}
+
+	&_add {
+		width: 178px;
+		margin: 40px 10px;
 	}
 }

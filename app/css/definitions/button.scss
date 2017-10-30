@@ -19,7 +19,7 @@
 		border-color: $primary-dark;
 	}
 	&:disabled {
-		cursor: progress;
+		cursor: not-allowed;
 	}
 
 	&--secondary {

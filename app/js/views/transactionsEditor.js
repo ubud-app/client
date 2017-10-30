@@ -33,8 +33,12 @@ export default BaseView.extend({
 		const $amount = $('<input class="transactions-editor_amount" />').appendTo(v.$el);
 		const $units = $('<div class="transactions-editor_units transactions-editor_units--hidden" />').appendTo(v.$el);
 		const $unitDiff = $('<span class="transactions-editor_unit-diff" />').appendTo($units);
-		const $done = $('<button class="transactions-editor_done button button--inline button--small" />').text('Done').appendTo(v.$el);
-		const $cancel = $('<button class="transactions-editor_cancel button button--inline button--small button--text" />').text('Cancel').appendTo(v.$el);
+		const $done = $('<button class="transactions-editor_done button button--inline button--small" />')
+			.text(StringHelper.string('transactions.edit.save'))
+			.appendTo(v.$el);
+		const $cancel = $('<button class="transactions-editor_cancel button button--inline button--small button--text" />')
+			.text(StringHelper.string('transactions.edit.cancel'))
+			.appendTo(v.$el);
 		const $delete = $('<button class="transactions-editor_delete transactions-editor_delete--hidden button button--inline button--small button--destructive" />')
 			.text(StringHelper.string('transactions.remove.text'))
 			.attr('title', StringHelper.string('transactions.remove.title'))

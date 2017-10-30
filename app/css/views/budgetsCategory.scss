@@ -1,5 +1,9 @@
 @import '../definitions/variables';
 
 .budgets-category {
-	padding: 35px 0 0;
+	padding: 45px 0 0;
+
+	&:first-child {
+		padding-top: 35px;
+	}
 }
