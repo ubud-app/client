@@ -55,8 +55,9 @@ export default BaseView.extend({
 	},
 	save () {
 		const v = this;
-		v.model.save();
 		v.remove();
+		v.model.save();
+		v.model.collection.sort();
 	},
 	cancel () {
 		const v = this;

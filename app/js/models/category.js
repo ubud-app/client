@@ -18,9 +18,9 @@ export default class CategoryModel extends BaseModel {
 
 		if(v) {
 			v.listenTo(budgets, 'add', budget => {
-				if(budget.get('categoryId') === this.id) {
-					result.add(budget);
-				}
+				v.listenToAndCall(budget, 'change:categoryId', () => {
+					result[budget.get('categoryId') === this.id ? 'add' : 'remove'](budget);
+				});
 			});
 			v.listenTo(budgets, 'remove', budget => {
 				result.remove(budget);

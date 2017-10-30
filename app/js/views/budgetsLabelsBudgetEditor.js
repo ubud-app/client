@@ -47,9 +47,6 @@ export default BaseView.extend({
 			v.$category.val(v.model.get('categoryId'));
 		});
 		v.model.set('categoryId', v.$category.val());
-		v.$category.on('change', () => {
-			v.model.set('categoryId', v.$category.val());
-		});
 
 		// Goal
 		const $goal = v.$el.find('.budgets-labels-budget-editor_goal');
@@ -79,7 +76,9 @@ export default BaseView.extend({
 	},
 	save () {
 		const v = this;
-		v.model.save();
+		v.model.save({
+			categoryId: v.$category.val()
+		});
 		v.remove();
 	},
 	cancel () {
@@ -96,7 +95,7 @@ export default BaseView.extend({
 	},
 	hide () {
 		const v = this;
-		if(!v.model.id) {
+		if (!v.model.id) {
 			return;
 		}
 

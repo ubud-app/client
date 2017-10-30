@@ -199,13 +199,13 @@ export default class BaseView extends View {
 		const v = this;
 		const collection = options.collection || v.collection;
 
-		const add = function(model) {
+		const add = function (model) {
 			const view = new ChildView(_.extend({}, options.childOptions, {
 				[options.modelAttr || 'model']: model
 			})).appendTo(v, options.where || null, {order: collection, model: model});
 
 			v.listenTo(collection, 'remove', removed => {
-				if(removed.id === model.id) {
+				if (removed.id === model.id) {
 					view.remove();
 				}
 			});
