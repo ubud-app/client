@@ -191,7 +191,11 @@
 				"available": {
 					"default": "noch zu budgetieren",
 					"overspend": "zu viel budgetiert"
-				}
+				},
+				"income": "Einkommen",
+				"budgeted": "Budgetiert",
+				"outflow": "Ausgaben",
+				"balance": "Vermögen"
 			}
 		},
 		"reports": {

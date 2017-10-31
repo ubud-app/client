@@ -111,7 +111,7 @@ export default BaseView.extend({
 		});
 		v.listenTo(v.model, 'change:amount', () => {
 			const value = budget.value();
-			if(value === 'split') {
+			if(value === 'split' || !value) {
 				return;
 			}
 

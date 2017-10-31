@@ -40,7 +40,7 @@ export default BaseView.extend({
 			if(a && !stats) {
 				stats = new BudgetsStatsView({
 					document: v.document,
-					month: v.document
+					month: v.month
 				}).appendTo(v, $stats);
 
 				categories = new BudgetsCategoriesView({
