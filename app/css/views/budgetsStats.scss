@@ -29,6 +29,10 @@
 		font-size: 28px;
 		font-weight: bold;
 		color: lighten($text, 10);
+
+		&--warn {
+			color: darken($red, 10);
+		}
 	}
 	&_page--single &_label,
 	&_page--single &_value {

@@ -26,7 +26,7 @@ export default BaseView.extend({
 
 		v.collection = v.document.getSummaryByMonth(v.month);
 		await v.collection.wait();
-		v.model = v.collection.first();
+		v.model = v.collection.first().live(v);
 		v._pages = [];
 
 		const $p1 = $('<div class="budgets-stats_page budgets-stats_page--single" />').appendTo(v.$el);
@@ -34,10 +34,11 @@ export default BaseView.extend({
 		const $p1_value = $('<span class="budgets-stats_value" />').appendTo($p1);
 		v._pages.push($p1);
 
-		v.listenToAndCall(v.model, 'change:avaialble', () => {
+		v.listenToAndCall(v.model, 'change:available', () => {
 			const a = v.model.get('available');
 			$p1_label.text(StringHelper.string(a < 0 ? 'budget.stats.available.overspend' : 'budget.stats.available.default'));
 			$p1_value.text(StringHelper.currency(v.document, a));
+			$p1_value.toggleClass('budgets-stats_value--warn', a < 0);
 		});
 
 
