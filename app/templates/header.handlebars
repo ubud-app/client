@@ -4,9 +4,21 @@
 	</li>
 	<li class="header_item header_item--right header_item--settings">
 		<a href="#settings" class="header_item-icon" title="{{string 'header.settings.title'}}">&#xe802;</a>
+		<ul class="header_dropdown">
+			<li class="header_dropdown_item">
+				<a href="#settings">{{string 'header.settings.account'}}</a>
+			</li>
+			<li class="header_dropdown_item header_dropdown_item--document">
+				<a href="#fcfa7317-c5a6-4fbf-b063-493e02585d1f/settings">{{string 'header.settings.document'}}</a>
+			</li>
+			<li class="header_dropdown_item">
+				<a href="#logout">{{string 'header.settings.logout'}}</a>
+			</li>
+		</ul>
 	</li>
 	<li class="header_item header_item--right header_item--user">
 		<div class="header_item-user-img"></div>
 		<span class="header_item-user-name">{{user.email}}</span>
 	</li>
 </ul>
+<div class="header_overflow">&nbsp;</div>

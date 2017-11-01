@@ -82,7 +82,10 @@
 		},
 		"header": {
 			"settings": {
-				"title": "Einstellungen"
+				"title": "Einstellungen",
+				"account": "Konto-Einstellungen",
+				"document": "Budget-Einstellungen",
+				"logout": "Abmelden"
 			},
 			"documents": {
 				"title": "Meine Dokumente"
