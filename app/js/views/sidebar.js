@@ -31,6 +31,14 @@ export default BaseView.extend({
 				$a.attr('href', '#' + document.id + '/' + $a.data('href'));
 			});
 
+			this.$el.addClass('sidebar--mini');
+			if(this.timeout) {
+				clearTimeout(this.timeout);
+			}
+			this.timeout = setTimeout(() => {
+				this.$el.removeClass('sidebar--mini');
+			}, 2000);
+
 			this.$el.removeClass('sidebar--hidden');
 		});
 	}
