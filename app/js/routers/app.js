@@ -3,6 +3,7 @@
 import {Router as BackboneRouter} from 'backbone';
 import * as _ from 'underscore';
 import AppView from '../views/app';
+import DataHelper from '../helpers/data';
 import DashboardView from '../views/dashboard';
 import BudgetsView from '../views/budgets';
 import PlaceholderView from '../views/placeholder';
@@ -20,6 +21,7 @@ export default BackboneRouter.extend({
 		':document/settings/accounts/new': 'documentAccountSettings',
 		':document/settings/accounts/:accountId': 'documentAccountSettings',
 		'settings': 'settings',
+		'logout': 'logout',
 		'*path': 'dashboard'
 	},
 
@@ -61,5 +63,9 @@ export default BackboneRouter.extend({
 	async settings() {
 		const view = new PlaceholderView({view: 'settings'});
 		this.view.renderView(view);
+	},
+	async logout() {
+		this.navigate('');
+		DataHelper.logout();
 	}
 });
