@@ -20,7 +20,13 @@ export default BaseView.extend({
 	render () {
 		this.$el.html(DashboardItemTemplate({document: this.model.toJSON()}));
 
-		this.model.live(this);
+		if(this.model.id) {
+			this.model.live(this);
+		}else{
+			this.listenToOnce(this.model, 'change:id', () => {
+				this.model.live(this);
+			});
+		}
 		this.listenToAndCall(this.model, 'change:id change:name', this.updateInput);
 
 		this.listenTo(this.model, 'change:id', this.updateSettingsVisibility);
