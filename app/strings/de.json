@@ -118,6 +118,9 @@
 		"documentSettings": {
 			"title": "Dokumenten-Einstellungen",
 			"headline": "Dokumenten-Einstellungen",
+			"general": {
+				"headline": "Allgemein"
+			},
 			"accounts": {
 				"headline": "Konten"
 			},

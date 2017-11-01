@@ -6,6 +6,22 @@
 		clear: both;
 	}
 
+	&_label {
+		display: block;
+		color: lighten($text, 10);
+		font-size: 14px;
+		padding: 15px 0 4px;
+	}
+
+	&_input {
+		display: block;
+		width: 100%;
+		padding: 10px;
+		border: none;
+		outline: none;
+		background: lighten($background-box, 2);
+	}
+
 	&_add-account {
 		float: right;
 		margin-top: 15px;

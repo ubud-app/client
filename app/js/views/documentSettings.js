@@ -35,6 +35,17 @@ export default BaseView.extend({
 
 		this.model.live(this);
 		this.$el.html(DocumentSettingsTemplate({document: this.model.toJSON()}));
+
+		const $name = this.$el.find('.document-settings_input--name');
+		this.listenToAndCall(this.model, 'change:name', () => {
+			$name.val(this.model.get('name'));
+		});
+		$name.change(() => {
+			this.model.save({
+				name: $name.val()
+			});
+		});
+
 		new DocumentSettingsAccountsView({model: this.model}).appendTo(this, '.document-settings_accounts')
 
 		this.listenToOnce(this.model, 'destroy', function () {
