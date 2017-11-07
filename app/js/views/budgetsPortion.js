@@ -23,7 +23,7 @@ export default BaseView.extend({
 		const v = this;
 
 		await v.portions.wait();
-		v.model = v.portions.getByBudgetId(v.budget.id).live(v);
+		v.model = v.portions.getByBudgetId(v.budget.id);
 		if (!v.model && !v.budget.id) {
 			// seems to be an unsaved budget. wait till it's saved…
 			await new Promise(cb => {
@@ -41,6 +41,7 @@ export default BaseView.extend({
 			await v.portions.fetch();
 			v.model = v.portions.getByBudgetId(v.budget.id);
 		}
+		v.model.live(v);
 
 		// Budgeted
 		const $budgeted = $('<input class="budgets-portion_budgeted" />').appendTo(v.$el);

@@ -76,10 +76,10 @@ export default BaseView.extend({
 	},
 	save () {
 		const v = this;
+		v.remove();
 		v.model.save({
 			categoryId: v.$category.val()
 		});
-		v.remove();
 	},
 	cancel () {
 		const v = this;
