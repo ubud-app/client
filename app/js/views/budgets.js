@@ -14,45 +14,45 @@ import BudgetsContainersView from './budgetsContainers';
  * @augments BaseView
  */
 export default BaseView.extend({
-	className: 'budgets',
+    className: 'budgets',
 
-	_initialize(options) {
-		this.documentId = options.documentId;
-		this.currentMonth = options.month ? moment(options.month, 'YYYY-MM') : moment();
-		this.currentMonth = this.currentMonth.startOf('month');
-		this.currentPosition = 0;
-	},
-	async render () {
-		AppHelper.title('budget.title');
+    _initialize(options) {
+        this.documentId = options.documentId;
+        this.currentMonth = options.month ? moment(options.month, 'YYYY-MM') : moment();
+        this.currentMonth = this.currentMonth.startOf('month');
+        this.currentPosition = 0;
+    },
+    async render() {
+        AppHelper.title('budget.title');
 
-		const documents = await DataHelper.getDocuments().wait();
-		const document = documents.get(this.documentId);
-		if(!document) {
-			AppHelper.navigate('/', {trigger: true, replace: true});
-			return;
-		}
+        const documents = await DataHelper.getDocuments().wait();
+        const document = documents.get(this.documentId);
+        if (!document) {
+            AppHelper.navigate('/', {trigger: true, replace: true});
+            return;
+        }
 
-		const categories = document.getCategories().live(this);
-		const budgets = document.getBudgets().live(this);
+        const categories = document.getCategories().live(this);
+        const budgets = document.getBudgets().live(this);
 
-		// new BudgetsTimePicker().appendTo(v);
+        // new BudgetsTimePicker().appendTo(v);
 
-		new BudgetsLabelsView({
-			document,
-			categories,
-			budgets,
-			parent: this
-		}).appendTo(this);
+        new BudgetsLabelsView({
+            document,
+            categories,
+            budgets,
+            parent: this
+        }).appendTo(this);
 
-		new BudgetsContainersView({
-			document,
-			categories,
-			budgets,
-			parent: this
-		}).appendTo(this);
-	},
+        new BudgetsContainersView({
+            document,
+            categories,
+            budgets,
+            parent: this
+        }).appendTo(this);
+    },
 
-	getPosition() {
-		return {month: this.currentMonth, position: this.currentPosition};
-	}
+    getPosition() {
+        return {month: this.currentMonth, position: this.currentPosition};
+    }
 });

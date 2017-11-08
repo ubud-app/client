@@ -8,25 +8,25 @@ import BudgetCollection from '../collections/budget';
  * @class CategoryModel
  * @augments BaseModel
  */
-export default class CategoryModel extends BaseModel {
-	urlRoot = 'categories';
+export default BaseModel.extend({
+    urlRoot: 'categories',
 
-	filterBudgets (budgets, v) {
-		const result = new BudgetCollection(
-			budgets.filter(budget => budget.get('categoryId') === this.id)
-		);
+    filterBudgets(budgets, v) {
+        const result = new BudgetCollection(
+            budgets.filter(budget => budget.get('categoryId') === this.id)
+        );
 
-		if(v) {
-			v.listenTo(budgets, 'add', budget => {
-				v.listenToAndCall(budget, 'change:categoryId', () => {
-					result[budget.get('categoryId') === this.id ? 'add' : 'remove'](budget);
-				});
-			});
-			v.listenTo(budgets, 'remove', budget => {
-				result.remove(budget);
-			});
-		}
+        if (v) {
+            v.listenTo(budgets, 'add', budget => {
+                v.listenToAndCall(budget, 'change:categoryId', () => {
+                    result[budget.get('categoryId') === this.id ? 'add' : 'remove'](budget);
+                });
+            });
+            v.listenTo(budgets, 'remove', budget => {
+                result.remove(budget);
+            });
+        }
 
-		return result;
-	}
-}
+        return result;
+    }
+});

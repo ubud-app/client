@@ -7,6 +7,6 @@ import BaseModel from './_';
  * @class SummaryModel
  * @augments BaseModel
  */
-export default class SummaryModel extends BaseModel {
-	urlRoot = 'summaries';
-}
+export default BaseModel.extend({
+    urlRoot: 'summaries'
+});

@@ -10,70 +10,70 @@ import DashboardItemTemplate from '../../templates/dashboardItem.handlebars';
  * @augments BaseView
  */
 export default BaseView.extend({
-	tagName: 'li',
-	className: 'dashboard-item',
-	events: {
-		'submit .dashboard-item_form': 'submit',
-		'blur .dashboard-item_input': 'submit'
-	},
+    tagName: 'li',
+    className: 'dashboard-item',
+    events: {
+        'submit .dashboard-item_form': 'submit',
+        'blur .dashboard-item_input': 'submit'
+    },
 
-	render () {
-		this.$el.html(DashboardItemTemplate({document: this.model.toJSON()}));
+    render() {
+        this.$el.html(DashboardItemTemplate({document: this.model.toJSON()}));
 
-		if(this.model.id) {
-			this.model.live(this);
-		}else{
-			this.listenToOnce(this.model, 'change:id', () => {
-				this.model.live(this);
-			});
-		}
-		this.listenToAndCall(this.model, 'change:id change:name', this.updateInput);
+        if (this.model.id) {
+            this.model.live(this);
+        } else {
+            this.listenToOnce(this.model, 'change:id', () => {
+                this.model.live(this);
+            });
+        }
+        this.listenToAndCall(this.model, 'change:id change:name', this.updateInput);
 
-		this.listenTo(this.model, 'change:id', this.updateSettingsVisibility);
-		this.listenToAndCall(DataHelper.getUser(), 'change:isAdmin', this.updateSettingsVisibility);
-	},
+        this.listenTo(this.model, 'change:id', this.updateSettingsVisibility);
+        this.listenToAndCall(DataHelper.getUser(), 'change:isAdmin', this.updateSettingsVisibility);
+    },
 
-	async submit (e) {
-		if (e && e.preventDefault) {
-			e.preventDefault();
-		}
-		if (!this._canSubmit) {
-			return;
-		}
-		this._canSubmit = false;
+    async submit(e) {
+        if (e && e.preventDefault) {
+            e.preventDefault();
+        }
+        if (!this._canSubmit) {
+            return;
+        }
+        this._canSubmit = false;
 
-		const $input = this.$('.dashboard-item_input');
-		$input.blur();
-		$input.prop('readonly', true);
-		const name = $input.val();
-		if (!name) {
-			this.model.collection.remove(this.model);
-			this.remove();
-			return;
-		}
+        const $input = this.$('.dashboard-item_input');
+        $input.blur();
+        $input.prop('readonly', true);
+        const name = $input.val();
+        if (!name) {
+            this.model.collection.remove(this.model);
+            this.remove();
+            return;
+        }
 
-		await this.model.save({name});
-		this.$('.dashboard-item_settings').attr('href', '#' + this.model.id + '/settings');
-	},
+        await this.model.save({name});
+        this.$('.dashboard-item_settings').attr('href', '#' + this.model.id + '/settings');
+    },
 
-	updateInput() {
-		const $input = this.$('.dashboard-item_input');
+    updateInput() {
+        const $input = this.$('.dashboard-item_input');
 
-		if (!this.model.id) {
-			$input.prop('readonly', false).focus();
-			this._canSubmit = true;
-		}else{
-			this._canSubmit = false;
-			$input.blur().prop('readonly', true);
-		}
+        if (!this.model.id) {
+            $input.prop('readonly', false).focus();
+            this._canSubmit = true;
+        } else {
+            this._canSubmit = false;
+            $input.blur().prop('readonly', true);
+        }
 
-		$input.val(this.model.get('name'));
-	},
+        $input.val(this.model.get('name'));
+    },
 
-	updateSettingsVisibility () {
-		this.$('.dashboard-item_settings').toggleClass(
-			'dashboard-item_settings--hidden',
-			!this.model.id || !DataHelper.getUser().get('isAdmin')
-		);
-	}
+    updateSettingsVisibility() {
+        this.$('.dashboard-item_settings').toggleClass(
+            'dashboard-item_settings--hidden',
+            !this.model.id || !DataHelper.getUser().get('isAdmin')
+        );
+    }
 });

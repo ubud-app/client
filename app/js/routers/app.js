@@ -12,60 +12,60 @@ import DocumentAccountSettingsView from '../views/documentAccountSettings';
 import TransactionsView from '../views/transactions';
 
 export default BackboneRouter.extend({
-	routes: {
-		'': 'dashboard',
-		':document/budget': 'documentBudget',
-		':document/reports': 'documentReports',
-		':document/transactions': 'documentTransactions',
-		':document/settings': 'documentSettings',
-		':document/settings/accounts/new': 'documentAccountSettings',
-		':document/settings/accounts/:accountId': 'documentAccountSettings',
-		'settings': 'settings',
-		'logout': 'logout',
-		'*path': 'dashboard'
-	},
+    routes: {
+        '': 'dashboard',
+        ':document/budget': 'documentBudget',
+        ':document/reports': 'documentReports',
+        ':document/transactions': 'documentTransactions',
+        ':document/settings': 'documentSettings',
+        ':document/settings/accounts/new': 'documentAccountSettings',
+        ':document/settings/accounts/:accountId': 'documentAccountSettings',
+        'settings': 'settings',
+        'logout': 'logout',
+        '*path': 'dashboard'
+    },
 
-	initialize () {
-		const r = this;
-		for (let i in r) {
-			if (_.isFunction(r[i])) {
-				_.bindAll(r, i);
-			}
-		}
+    initialize() {
+        const r = this;
+        for (let i in r) {
+            if (_.isFunction(r[i])) {
+                _.bindAll(r, i);
+            }
+        }
 
-		r.view = new AppView().render();
-	},
+        r.view = new AppView().render();
+    },
 
-	async dashboard () {
-		const view = new DashboardView();
-		this.view.renderView(view);
-	},
-	async documentBudget(documentId) {
-		const view = new BudgetsView({documentId});
-		this.view.renderView(view);
-	},
-	async documentReports() {
-		const view = new PlaceholderView({view: 'reports'});
-		this.view.renderView(view);
-	},
-	async documentTransactions(documentId) {
-		const view = new TransactionsView({documentId});
-		this.view.renderView(view);
-	},
-	async documentSettings(documentId) {
-		const view = new DocumentSettingsView({documentId});
-		this.view.renderView(view);
-	},
-	async documentAccountSettings(documentId, accountId) {
-		const view = new DocumentAccountSettingsView({documentId, accountId});
-		this.view.renderView(view);
-	},
-	async settings() {
-		const view = new PlaceholderView({view: 'settings'});
-		this.view.renderView(view);
-	},
-	async logout() {
-		this.navigate('');
-		DataHelper.logout();
-	}
+    async dashboard() {
+        const view = new DashboardView();
+        this.view.renderView(view);
+    },
+    async documentBudget(documentId) {
+        const view = new BudgetsView({documentId});
+        this.view.renderView(view);
+    },
+    async documentReports() {
+        const view = new PlaceholderView({view: 'reports'});
+        this.view.renderView(view);
+    },
+    async documentTransactions(documentId) {
+        const view = new TransactionsView({documentId});
+        this.view.renderView(view);
+    },
+    async documentSettings(documentId) {
+        const view = new DocumentSettingsView({documentId});
+        this.view.renderView(view);
+    },
+    async documentAccountSettings(documentId, accountId) {
+        const view = new DocumentAccountSettingsView({documentId, accountId});
+        this.view.renderView(view);
+    },
+    async settings() {
+        const view = new PlaceholderView({view: 'settings'});
+        this.view.renderView(view);
+    },
+    async logout() {
+        this.navigate('');
+        DataHelper.logout();
+    }
 });

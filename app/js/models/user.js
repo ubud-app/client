@@ -7,6 +7,6 @@ import BaseModel from './_';
  * @class UserModel
  * @augments BaseModel
  */
-export default class UserModel extends BaseModel {
-	urlRoot = 'users';
-}
+export default BaseModel.extend({
+    urlRoot: 'users'
+});

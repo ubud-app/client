@@ -5,263 +5,277 @@ import _ from 'underscore';
 import SocketIO from 'socket.io-client';
 
 class ResponseError extends Error {
-	constructor (response) {
-		super(response.message || 'Unknown Response Error');
-		this.error = response.error;
-		this.attributes = response.attributes;
-		this.reference = response.reference;
-	}
+    constructor(response) {
+        super(response.message || 'Unknown Response Error');
+        this.error = response.error;
+        this.attributes = response.attributes;
+        this.reference = response.reference;
+    }
 }
 
 class DataHelper {
-	static _user = null;
-	static _session = null;
-	static _state = 0; // 0=disconnected 1=connecting 2=connected 3=authenticating 4=ready
-	static _io = null;
-	static _methodMap = {
-		create: 'create',
-		update: 'update',
-		patch: 'update',
-		delete: 'delete',
-		read: 'get'
-	};
+    /*
+     * static _user;
+     * static _session;
+     * static _state; // 0=disconnected 1=connecting 2=connected 3=authenticating 4=ready
+     * static _io;
+     * static _methodMap;
+     *
+     * static DISCONNECTED;
+     * static CONNECTING;
+     * static CONNECTED;
+     * static AUTHENTICATING;
+     * static READY;
+     */
 
-	static DISCONNECTED = 0;
-	static CONNECTING = 1;
-	static CONNECTED = 2;
-	static AUTHENTICATING = 3;
-	static READY = 4;
+    static initialize({endpoint, SessionModel, UserModel, DocumentCollection}) {
+        DataHelper._user = null;
+        DataHelper._session = null;
+        DataHelper._state = 0; // 0=disconnected
+        DataHelper._io = null;
+        DataHelper._methodMap = {
+            create: 'create',
+            update: 'update',
+            patch: 'update',
+            delete: 'delete',
+            read: 'get'
+        };
 
-	static initialize ({endpoint, SessionModel, UserModel, DocumentCollection}) {
-		return new Promise(function (resolve) {
-			if (!SessionModel) {
-				throw new Error('Cant\'t initialize: SessionModel not given!');
-			}
-			if (!UserModel) {
-				throw new Error('Cant\'t initialize: UserModel not given!');
-			}
+        DataHelper.DISCONNECTED = 0;
+        DataHelper.CONNECTING = 1;
+        DataHelper.CONNECTED = 2;
+        DataHelper.AUTHENTICATING = 3;
+        DataHelper.READY = 4;
 
-			// DataHelper.on('all', function () {
-			// 	console.log(arguments);
-			// });
+        return new Promise(function (resolve) {
+            if (!SessionModel) {
+                throw new Error('Cant\'t initialize: SessionModel not given!');
+            }
+            if (!UserModel) {
+                throw new Error('Cant\'t initialize: UserModel not given!');
+            }
 
-			// setup session object
-			DataHelper._session = new SessionModel();
-			DataHelper._session.on('change:id', () => {
-				DataHelper.trigger(DataHelper._session.id ? 'auth:loggedIn' : 'auth:loggedOut');
-			});
+            // DataHelper.on('all', function () {
+            // 	console.log(arguments);
+            // });
 
-			// setup user object
-			DataHelper._user = new UserModel({id: DataHelper._session.get('userId')});
-			DataHelper.once('socket:ready', () => {
-				DataHelper._user.fetch();
-			});
-			DataHelper._session.on('change:userId', () => {
-				DataHelper._user.id = DataHelper._session.get('userId');
-				if(DataHelper._user.id) {
-					DataHelper._user.fetch();
-				}
-			});
+            // setup session object
+            DataHelper._session = new SessionModel();
+            DataHelper._session.on('change:id', () => {
+                DataHelper.trigger(DataHelper._session.id ? 'auth:loggedIn' : 'auth:loggedOut');
+            });
 
-			// setup document collection
-			DataHelper._documents = new DocumentCollection();
-			DataHelper.once('socket:ready', () => {
-				DataHelper._documents.fetch();
-			});
+            // setup user object
+            DataHelper._user = new UserModel({id: DataHelper._session.get('userId')});
+            DataHelper.once('socket:ready', () => {
+                DataHelper._user.fetch();
+            });
+            DataHelper._session.on('change:userId', () => {
+                DataHelper._user.id = DataHelper._session.get('userId');
+                if (DataHelper._user.id) {
+                    DataHelper._user.fetch();
+                }
+            });
 
-			// setup logout app reload
-			DataHelper.once('socket:ready', function() {
-				DataHelper.once('auth:loggedOut', function() {
-					location.reload();
-				});
-			});
+            // setup document collection
+            DataHelper._documents = new DocumentCollection();
+            DataHelper.once('socket:ready', () => {
+                DataHelper._documents.fetch();
+            });
 
-			// ready to connect
-			DataHelper._setState(1);
-			DataHelper._io = SocketIO(endpoint);
-			DataHelper._io.on('connect', () => {
-				DataHelper._setState(2);
+            // setup logout app reload
+            DataHelper.once('socket:ready', function () {
+                DataHelper.once('auth:loggedOut', function () {
+                    location.reload();
+                });
+            });
 
-				if (DataHelper._session.id) {
-					resolve(DataHelper._authenticate());
-				}
+            // ready to connect
+            DataHelper._setState(1);
+            DataHelper._io = SocketIO(endpoint);
+            DataHelper._io.on('connect', () => {
+                DataHelper._setState(2);
 
-				resolve(false);
-			});
-			DataHelper._io.on('update', data => {
-				DataHelper.trigger('update', data);
-			});
-			DataHelper._io.on('disconnect', () => {
-				DataHelper._setState(0);
-			});
-			DataHelper._io.on('error', (error) => {
-				DataHelper.trigger('socket:error', error); // @todo use in UI
-			});
-		});
-	}
+                if (DataHelper._session.id) {
+                    resolve(DataHelper._authenticate());
+                }
 
-	static _setState (id) {
-		DataHelper._state = id;
-		DataHelper.trigger('socket:' + (['disconnected', 'connecting', 'connected', 'authenticating', 'ready'])[id]);
-		DataHelper.trigger('socket:state', (['disconnected', 'connecting', 'connected', 'authenticating', 'ready'])[id]);
-	}
+                resolve(false);
+            });
+            DataHelper._io.on('update', data => {
+                DataHelper.trigger('update', data);
+            });
+            DataHelper._io.on('disconnect', () => {
+                DataHelper._setState(0);
+            });
+            DataHelper._io.on('error', (error) => {
+                DataHelper.trigger('socket:error', error); // @todo use in UI
+            });
+        });
+    }
 
-	static getState () {
-		return DataHelper._state;
-	}
+    static _setState(id) {
+        DataHelper._state = id;
+        DataHelper.trigger('socket:' + ['disconnected', 'connecting', 'connected', 'authenticating', 'ready'][id]);
+        DataHelper.trigger('socket:state', ['disconnected', 'connecting', 'connected', 'authenticating', 'ready'][id]);
+    }
 
-	static login (email, password) {
-		DataHelper._setState(3);
-		return DataHelper.send('sessions/create', {email, password, name: 'DWIMM Web'})
-			.then(session => {
-				this._session.set(session);
-				DataHelper._setState(4);
-				return Promise.resolve();
-			})
-			.catch(e => {
-				DataHelper._setState(2);
-				throw e;
-			});
-	}
+    static getState() {
+        return DataHelper._state;
+    }
 
-	static logout() {
-		if(!DataHelper._session.id) {
-			location.reload();
-			return;
-		}
+    static login(email, password) {
+        DataHelper._setState(3);
+        return DataHelper.send('sessions/create', {email, password, name: 'DWIMM Web'})
+            .then(session => {
+                this._session.set(session);
+                DataHelper._setState(4);
+                return Promise.resolve();
+            })
+            .catch(e => {
+                DataHelper._setState(2);
+                throw e;
+            });
+    }
 
-		DataHelper._session.destroy()
-			.then(function() {
-				location.reload();
-			});
-	}
+    static logout() {
+        if (!DataHelper._session.id) {
+            location.reload();
+            return;
+        }
 
-	static _authenticate () {
-		DataHelper._setState(3);
-		return DataHelper.send('auth', DataHelper._session.toJSON())
-			.then(function () {
-				DataHelper._setState(4);
-				return Promise.resolve(true);
-			})
-			.catch(() => {
-				DataHelper._session.clear();
-				DataHelper._setState(2);
-				return Promise.resolve(false);
-			});
-	}
+        DataHelper._session.destroy()
+            .then(function () {
+                location.reload();
+            });
+    }
 
-	static send (event, data) {
-		return new Promise((resolve, reject) => {
-			DataHelper._io.emit(event, data, (response) => {
-				if(response.error && response.error === 401) {
-					DataHelper._session.clear();
-					DataHelper._setState(2);
-				}
-				if (response.error) {
-					return reject(new ResponseError(response));
-				}
+    static _authenticate() {
+        DataHelper._setState(3);
+        return DataHelper.send('auth', DataHelper._session.toJSON())
+            .then(function () {
+                DataHelper._setState(4);
+                return Promise.resolve(true);
+            })
+            .catch(() => {
+                DataHelper._session.clear();
+                DataHelper._setState(2);
+                return Promise.resolve(false);
+            });
+    }
 
-				resolve(response);
-			});
-		});
-	}
+    static send(event, data) {
+        return new Promise((resolve, reject) => {
+            DataHelper._io.emit(event, data, (response) => {
+                if (response.error && response.error === 401) {
+                    DataHelper._session.clear();
+                    DataHelper._setState(2);
+                }
+                if (response.error) {
+                    return reject(new ResponseError(response));
+                }
 
-	static sync (method, model, options) {
-		const resource = (_.result(model, 'url') || _.result(model, 'urlRoot')).split('/')[0];
+                resolve(response);
+            });
+        });
+    }
 
-		let body = {};
-		options = options || {};
+    static sync(method, model, options) {
+        const resource = (_.result(model, 'url') || _.result(model, 'urlRoot')).split('/')[0];
 
-		method = DataHelper._methodMap[method];
-		if(method === 'get' && model instanceof Collection) {
-			method = 'list';
-		}
-		model.syncing = true;
+        let body = {};
+        options = options || {};
 
-		if(['create', 'update', 'patch'].indexOf(method) > -1) {
-			body = options.attrs || model.toJSON(options);
-		}
-		if(model instanceof Model && model.id) {
-			body.id = model.id;
-		}
-		if(model instanceof Collection && model.id) {
-			body.id = model.id;
-		}
+        method = DataHelper._methodMap[method];
+        if (method === 'get' && model instanceof Collection) {
+            method = 'list';
+        }
+        model.syncing = true;
 
-		return DataHelper.send(resource + '/' + method, body)
-			.then(function(body) {
-				model.set(body);
-				delete model.syncing;
-				model.trigger('sync', model, body, options);
-			})
-			.catch(function(err) {
-				delete model.syncing;
-				model.trigger('error', model, err, options);
-				throw err;
-			});
-	}
+        if (['create', 'update', 'patch'].indexOf(method) > -1) {
+            body = options.attrs || model.toJSON(options);
+        }
+        if (model instanceof Model && model.id) {
+            body.id = model.id;
+        }
+        if (model instanceof Collection && model.id) {
+            body.id = model.id;
+        }
 
-	static live(model, view) {
-		model._liveListeners = model._liveListeners || 0;
-		model._liveListeners += 1;
+        return DataHelper.send(resource + '/' + method, body)
+            .then(function (body) {
+                model.set(body);
+                delete model.syncing;
+                model.trigger('sync', model, body, options);
+            })
+            .catch(function (err) {
+                delete model.syncing;
+                model.trigger('error', model, err, options);
+                throw err;
+            });
+    }
 
-		if(_.size(model.toJSON()) <= 1 && !model.syncing) {
-			model.fetch();
-		}
+    static live(model, view) {
+        model._liveListeners = model._liveListeners || 0;
+        model._liveListeners += 1;
 
-		view.once('remove', () => {
-			model._liveListeners -= 1;
-			if(model._liveListeners > 0 || !model._liveListener) {
-				return;
-			}
+        if (_.size(model.toJSON()) <= 1 && !model.syncing) {
+            model.fetch();
+        }
 
-			this.off('updade', model._liveListener);
-			delete model._liveListener;
-		});
+        view.once('remove', () => {
+            model._liveListeners -= 1;
+            if (model._liveListeners > 0 || !model._liveListener) {
+                return;
+            }
 
-		if(model._liveListeners > 1 && model._liveListener) {
-			return;
-		}
+            this.off('updade', model._liveListener);
+            delete model._liveListener;
+        });
 
-		model._liveListener = function(d) {
-			if(d.action === 'created' && model instanceof Collection && d.name === model.url) {
-				model.add(d.data);
-			}
-			if(d.action === 'updated' && model instanceof Model && d.id === model.id) {
-				model.set(d.data);
-			}
-			if(d.action === 'deleted' && model instanceof Model && d.id === model.id) {
-				model.trigger('destroy', model.collection || null, {});
-			}
-			if(d.action === 'deleted' && model instanceof Collection && d.name === model.url) {
-				model.remove(d.id);
-			}
-		};
-		this.on('update', model._liveListener);
-	}
+        if (model._liveListeners > 1 && model._liveListener) {
+            return;
+        }
 
-	static wait (model) {
-		if(_.size(model.toJSON()) > 1 && !model.syncing) {
-			return Promise.resolve(model);
-		}
-		if(!model.syncing) {
-			model.fetch();
-		}
+        model._liveListener = function (d) {
+            if (d.action === 'created' && model instanceof Collection && d.name === model.url) {
+                model.add(d.data);
+            }
+            if (d.action === 'updated' && model instanceof Model && d.id === model.id) {
+                model.set(d.data);
+            }
+            if (d.action === 'deleted' && model instanceof Model && d.id === model.id) {
+                model.trigger('destroy', model.collection || null, {});
+            }
+            if (d.action === 'deleted' && model instanceof Collection && d.name === model.url) {
+                model.remove(d.id);
+            }
+        };
+        this.on('update', model._liveListener);
+    }
 
-		return new Promise(cb => {
-			model.once('sync', () => {
-				cb(model);
-			});
-		});
-	}
+    static wait(model) {
+        if (_.size(model.toJSON()) > 1 && !model.syncing) {
+            return Promise.resolve(model);
+        }
+        if (!model.syncing) {
+            model.fetch();
+        }
 
-	static getUser() {
-		return DataHelper._user;
-	}
+        return new Promise(cb => {
+            model.once('sync', () => {
+                cb(model);
+            });
+        });
+    }
 
-	static getDocuments() {
-		return DataHelper._documents;
-	}
+    static getUser() {
+        return DataHelper._user;
+    }
+
+    static getDocuments() {
+        return DataHelper._documents;
+    }
 }
 
 _.extend(DataHelper, Events);

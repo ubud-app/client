@@ -11,15 +11,15 @@ import StringHelper from '../helpers/string';
  * @augments BaseView
  */
 export default BaseView.extend({
-	className: 'placeholder app_layout--page',
+    className: 'placeholder app_layout--page',
 
-	_initialize(options) {
-		this.view = options.view;
-	},
+    _initialize(options) {
+        this.view = options.view;
+    },
 
-	render () {
-		AppHelper.title(this.view + '.title');
+    render() {
+        AppHelper.title(this.view + '.title');
 
-		$('<span class="placeholder_text" />').text(StringHelper.string(this.view + '.placeholder')).appendTo(this.$el);
-	}
+        $('<span class="placeholder_text" />').text(StringHelper.string(this.view + '.placeholder')).appendTo(this.$el);
+    }
 });

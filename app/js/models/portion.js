@@ -7,6 +7,6 @@ import BaseModel from './_';
  * @class PortionModel
  * @augments BaseModel
  */
-export default class PortionModel extends BaseModel {
-	urlRoot = 'portions';
-}
+export default BaseModel.extend({
+    urlRoot: 'portions'
+});

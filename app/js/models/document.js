@@ -12,36 +12,36 @@ import SummaryCollection from '../collections/summary';
  * @class DocumentModel
  * @augments BaseModel
  */
-export default class DocumentModel extends BaseModel {
-	urlRoot = 'documents';
+export default BaseModel.extend({
+    urlRoot: 'documents',
 
-	getAccounts () {
-		const accounts = new AccountCollection();
-		accounts.id = 'document:' + this.id;
-		return accounts;
-	}
+    getAccounts() {
+        const accounts = new AccountCollection();
+        accounts.id = 'document:' + this.id;
+        return accounts;
+    },
 
-	getBudgets () {
-		const budgets = new BudgetCollection();
-		budgets.id = 'document:' + this.id + '/hidden:0';
-		return budgets;
-	}
+    getBudgets() {
+        const budgets = new BudgetCollection();
+        budgets.id = 'document:' + this.id + '/hidden:0';
+        return budgets;
+    },
 
-	getCategories () {
-		const categories = new CategoryCollection();
-		categories.id = 'document:' + this.id;
-		return categories;
-	}
+    getCategories() {
+        const categories = new CategoryCollection();
+        categories.id = 'document:' + this.id;
+        return categories;
+    },
 
-	getPortionsByMonth (month) {
-		const portions = new PortionCollection();
-		portions.id = 'document:' + this.id + '/month:' + month.format('YYYY-MM');
-		return portions;
-	}
+    getPortionsByMonth(month) {
+        const portions = new PortionCollection();
+        portions.id = 'document:' + this.id + '/month:' + month.format('YYYY-MM');
+        return portions;
+    },
 
-	getSummaryByMonth (month) {
-		const summary = new SummaryCollection();
-		summary.id = 'document:' + this.id + '/month:' + month.format('YYYY-MM');
-		return summary;
-	}
-}
+    getSummaryByMonth(month) {
+        const summary = new SummaryCollection();
+        summary.id = 'document:' + this.id + '/month:' + month.format('YYYY-MM');
+        return summary;
+    }
+});

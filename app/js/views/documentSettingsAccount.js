@@ -9,31 +9,31 @@ import DocumentSettingsAccountTemplate from '../../templates/documentSettingsAcc
  * @augments BaseView
  */
 export default BaseView.extend({
-	tagName: 'li',
-	className: 'document-settings-account',
-	events: {
-		'click .document-settings-account_link': 'open'
-	},
+    tagName: 'li',
+    className: 'document-settings-account',
+    events: {
+        'click .document-settings-account_link': 'open'
+    },
 
-	_initialize(options) {
-		this.account = options.account;
-		this.document = options.document;
-	},
+    _initialize(options) {
+        this.account = options.account;
+        this.document = options.document;
+    },
 
-	render () {
-		this.$el.html(DocumentSettingsAccountTemplate({
-			document: this.document.toJSON(),
-			account: this.account.toJSON()
-		}));
-		this.account.live(this);
+    render() {
+        this.$el.html(DocumentSettingsAccountTemplate({
+            document: this.document.toJSON(),
+            account: this.account.toJSON()
+        }));
+        this.account.live(this);
 
-		this.listenToAndCall(this.account, 'change:name', () => {
-			this.$('.document-settings-account_name').text(this.account.get('name'));
-		});
+        this.listenToAndCall(this.account, 'change:name', () => {
+            this.$('.document-settings-account_name').text(this.account.get('name'));
+        });
 
-		// @todo
-		/*this.listenToAndCall(this.account, 'change:currentValue', () => {
-			this.$('.document-settings-account_value').text('13,37&nbsp;€');
-		});*/
-	}
+        // @todo
+        /*this.listenToAndCall(this.account, 'change:currentValue', () => {
+            this.$('.document-settings-account_value').text('13,37&nbsp;€');
+        });*/
+    }
 });

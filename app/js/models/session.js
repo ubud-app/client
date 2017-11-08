@@ -10,20 +10,20 @@ import StoreHelper from '../helpers/store';
  * @augments BaseModel
  */
 export default BaseModel.extend({
-	urlRoot: 'sessions',
+    urlRoot: 'sessions',
 
-	_initialize () {
-		const m = this;
+    _initialize() {
+        const m = this;
 
-		m.set(StoreHelper.get('auth'));
-		m.trigger('sync');
+        m.set(StoreHelper.get('auth'));
+        m.trigger('sync');
 
-		m.on('sync change:id', function () {
-			StoreHelper.set('auth', m.toJSON());
-		});
-	},
+        m.on('sync change:id', function () {
+            StoreHelper.set('auth', m.toJSON());
+        });
+    },
 
-	getUser () {
-		return new UserModel(this.get('user'));
-	}
+    getUser() {
+        return new UserModel(this.get('user'));
+    }
 });

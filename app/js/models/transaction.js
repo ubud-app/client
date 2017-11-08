@@ -8,14 +8,14 @@ import UnitCollection from '../collections/unit';
  * @class TransactionModel
  * @augments BaseModel
  */
-export default class TransactionModel extends BaseModel {
-	urlRoot = 'transactions';
+export default BaseModel.extend({
+    urlRoot: 'transactions',
 
-	getUnits (view) {
-		return this._buildSubCollection({
-			attribute: 'units',
-			collection: UnitCollection,
-			view
-		});
-	}
-}
+    getUnits(view) {
+        return this._buildSubCollection({
+            attribute: 'units',
+            collection: UnitCollection,
+            view
+        });
+    }
+});

@@ -12,33 +12,33 @@ import TransactionsFooterView from './transactionsFooter';
  * @augments BaseView
  */
 export default BaseView.extend({
-	className: 'transactions',
+    className: 'transactions',
 
-	_initialize (options) {
-		this.documentId = options.documentId;
-	},
+    _initialize(options) {
+        this.documentId = options.documentId;
+    },
 
-	async render () {
-		const v = this;
-		AppHelper.title('transactions.title');
+    async render() {
+        const v = this;
+        AppHelper.title('transactions.title');
 
-		const documents = await DataHelper.getDocuments().wait();
-		v.model = documents.get(this.documentId);
-		if (!v.model) {
-			AppHelper.navigate('/', {trigger: true, replace: true});
-		}
+        const documents = await DataHelper.getDocuments().wait();
+        v.model = documents.get(this.documentId);
+        if (!v.model) {
+            AppHelper.navigate('/', {trigger: true, replace: true});
+        }
 
-		v.model.live(this);
+        v.model.live(this);
 
-		const scroll = new TransactionsScrollView({model: v.model}).appendTo(this);
-		const footer = new TransactionsFooterView().appendTo(v);
+        const scroll = new TransactionsScrollView({model: v.model}).appendTo(this);
+        const footer = new TransactionsFooterView().appendTo(v);
 
-		v.listenTo(footer, 'add', function() {
-			scroll.addTransaction();
-		});
+        v.listenTo(footer, 'add', function () {
+            scroll.addTransaction();
+        });
 
-		this.listenToOnce(v.model, 'destroy', function () {
-			AppHelper.navigate('/', {trigger: true, replace: true});
-		});
-	}
+        this.listenToOnce(v.model, 'destroy', function () {
+            AppHelper.navigate('/', {trigger: true, replace: true});
+        });
+    }
 });
