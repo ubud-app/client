@@ -4,6 +4,9 @@ node_js:
   - node
 
 cache:
+  - yarn
+  directories:
+      - node_modules
 
 install:
   - yarn install
@@ -13,9 +16,10 @@ script:
 
 jobs:
   include:
-  - stage: deploy
+  - stage: deploy-next
     script: skip
     node_js: lts/*
+    before_deploy: npm version prerelease
     deploy:
       provider: npm
       email: mail@sebbo.net
