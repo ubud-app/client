@@ -13,8 +13,8 @@
 		"bump:reset:next": "export MODULEVERSION=$(npm view @dwimm/client-web@next version) && npm run bump:reset:package && npm run bump:reset:lock",
 		"bump:reset:package": "cat ./package.json | jq -S \".version = \\\"${MODULEVERSION}\\\"\" > ./package.json",
 		"bump:reset:lock": "cat ./package-lock.json | jq -S \".version = \\\"${MODULEVERSION}\\\"\" > ./package-lock.json",
-		"bump:develop": "npm run bump:reset:next && npm --no-git-tag-version version prerelease && npm publish --tag next",
-		"bump:production": "npm run bump:reset && npm --no-git-tag-version version from-git && npm publish"
+		"bump:develop": "npm run bump:reset:next && npm --no-git-tag-version version prerelease",
+		"bump:production": "npm run bump:reset && npm --no-git-tag-version version from-git"
 	},
 	"author": "Sebastian Pekarek <bugs@sebbo.net>",
 	"devDependencies": {

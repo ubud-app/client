@@ -19,7 +19,7 @@ jobs:
   - stage: deploy@next
     script: skip
     node_js: lts/*
-    before_deploy: npm version prerelease
+    before_deploy: npm run bump:develop
     deploy:
       provider: npm
       email: mail@sebbo.net
