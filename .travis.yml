@@ -16,7 +16,7 @@ script:
 
 jobs:
   include:
-  - stage: deploy-next
+  - stage: deploy@next
     script: skip
     node_js: lts/*
     before_deploy: npm version prerelease
