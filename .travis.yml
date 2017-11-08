@@ -15,7 +15,7 @@ jobs:
   include:
   - stage: deploy
     script: skip
-    node_js: lets/*
+    node_js: lts/*
     deploy:
       provider: npm
       email: mail@sebbo.net
