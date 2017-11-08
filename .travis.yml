@@ -19,7 +19,9 @@ jobs:
   - stage: deploy@next
     script: skip
     node_js: lts/*
-    before_deploy: npm run bump:develop
+    before_deploy:
+      - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+      - npm run bump:develop
     deploy:
       provider: npm
       email: mail@sebbo.net
