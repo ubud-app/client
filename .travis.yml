@@ -1,12 +1,16 @@
 language: node_js
 node_js:
-- lts/*
-- node
-cache: yarn
+  - lts/*
+  - node
+
+cache:
+
 install:
-- yarn install
+  - yarn install
+
 script:
-- npm pipeline
+  - npm run pipeline
+
 jobs:
   include:
   - stage: deploy
