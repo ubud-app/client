@@ -1,6 +1,6 @@
 {
 	"name": "@dwimm/client-web",
-	"version": "develop",
+	"version": null,
 	"description": "DWIMM Web Client",
 	"scripts": {
 		"check": "npm run check:eslint",
