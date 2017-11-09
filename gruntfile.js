@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 
     console.log('\n\n#####################################################################');
     console.log('#                                                                   #');
-    console.log('#                    Hey man, where is my money?                    #');
+    console.log('#                      Dude, where is my money?                     #');
     console.log('#                        Client Build Script                        #');
     console.log('#                                                                   #');
 
@@ -284,6 +284,18 @@ module.exports = function (grunt) {
 
     grunt.registerTask('setProduction', function () {
         configuration.production = true;
+    });
+
+    grunt.registerTask('setVersion', function () {
+        let json = require('./package.json');
+        json.version = grunt.option('value');
+        grunt.file.write('./package.json', JSON.stringify(json, null, '\t'));
+        grunt.log.oklns('Updated package.json to ' + json.version);
+
+        json = require('./package-lock.json');
+        json.version = grunt.option('value');
+        grunt.file.write('./package-lock.json', JSON.stringify(json, null, '\t'));
+        grunt.log.oklns('Updated package-lock.json to ' + json.version);
     });
 
     grunt.registerTask('development', [

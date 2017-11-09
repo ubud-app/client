@@ -1,5 +1,6 @@
 {
 	"name": "@dwimm/client-web",
+	"version": "develop",
 	"description": "DWIMM Web Client",
 	"scripts": {
 		"check": "npm run check:eslint",
@@ -9,10 +10,9 @@
 		"build:production": "PRODUCTION=1 grunt --production",
 		"build:dev": "grunt dev",
 		"pipeline": "npm run check && npm run visualize && npm run build",
-		"bump:reset": "export MODULEVERSION=$(npm view @dwimm/client-web version) && echo \"Current Version: ${MODULEVERSION}\" && npm run bump:reset:package && npm run bump:reset:lock",
-		"bump:reset:next": "export MODULEVERSION=$(npm view @dwimm/client-web@next version) && echo \"Current Version: ${MODULEVERSION}\" && npm run bump:reset:package && npm run bump:reset:lock",
-		"bump:reset:package": "cat ./package.json | jq -S \".version = \\\"${MODULEVERSION}\\\"\" > ./package.json",
-		"bump:reset:lock": "cat ./package-lock.json | jq -S \".version = \\\"${MODULEVERSION}\\\"\" > ./package-lock.json",
+		"bump:reset": "export MODULEVERSION=$(npm view @dwimm/client-web version) && npm run bump:reset:save",
+		"bump:reset:next": "export MODULEVERSION=$(npm view @dwimm/client-web@next version) && npm run bump:reset:save",
+		"bump:reset:save": "grunt setVersion --value=${MODULEVERSION}",
 		"bump:develop": "npm run bump:reset:next && npm --no-git-tag-version version prerelease",
 		"bump:production": "npm run bump:reset && npm --no-git-tag-version version from-git"
 	},
