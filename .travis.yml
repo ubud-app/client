@@ -9,11 +9,6 @@ cache:
   directories:
       - node_modules
 
-addons:
-  apt:
-    packages:
-    - jq
-
 install:
   - yarn install
 
@@ -27,9 +22,7 @@ jobs:
     node_js: lts/*
     before_deploy:
       - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-      - cat ./package.json
       - npm run bump:develop
-      - cat ./package.json
     deploy:
       provider: npm
       skip_cleanup: true
