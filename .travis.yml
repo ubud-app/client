@@ -13,7 +13,8 @@ install:
   - yarn install
 
 script:
-  - npm run pipeline
+  - npm run check
+  - npm run build
 
 jobs:
   include:
