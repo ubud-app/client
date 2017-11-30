@@ -253,7 +253,7 @@ module.exports = function (grunt) {
                     paths.app.templates + '/*'
                 ],
                 tasks: [
-                    'browserify:app',
+                    'browserify:develop',
                     'replace:jsConfiguration',
                     'clean:tmp'
                 ]

@@ -24,10 +24,10 @@ export default BaseView.extend({
 
     render() {
         const v = this;
-        const $date = $('<span class="transactions-editor_date" />').appendTo(v.$el);
+        const $date = $('<input class="transactions-editor_date" />').appendTo(v.$el);
         const $account = $('<span class="transactions-editor_account" />').appendTo(v.$el);
         const $accountSelect = $('<select class="transactions-editor_account-select" />').appendTo($account);
-        //@todo const $payee = $('<span class="transactions-editor_payee" />').appendTo(v.$el);
+        const $payee = $('<span class="transactions-editor_payee" />').appendTo(v.$el);
         const $budget = $('<span class="transactions-editor_budget" />').appendTo(v.$el);
         const $memo = $('<input class="transactions-editor_memo" />').appendTo(v.$el);
         const $amount = $('<input class="transactions-editor_amount" />').appendTo(v.$el);
@@ -45,14 +45,23 @@ export default BaseView.extend({
             .appendTo(v.$el);
 
 
-        // Date & Time (#34)
-        // @see https://github.com/sebbo2002/dwimm-client/issues/34
+        // Date & Time
         if (!v.model.has('time')) {
             v.model.set('time', moment().toJSON());
         }
         v.listenToAndCall(v.model, 'change:time', () => {
             const m = moment(v.model.get('time'));
-            $date.text(m.format('L'));
+            $date.val(m.format('L'));
+        });
+        $date.on('change', () => {
+            const date = moment($date.val(), 'L');
+            $date.toggleClass('transactions-editor_date--invalid', !date.isValid());
+            if(!date.isValid()) {
+                return;
+            }
+
+            $date.val(date.format('L'));
+            v.model.set('time', date.toJSON());
         });
 
 

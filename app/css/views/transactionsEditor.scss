@@ -6,7 +6,12 @@
 	&_date {
 		@extend .transactions-item_date;
 		background: $background;
-		color: #7F7F7F;
+		border: none;
+		outline: none;
+
+		&--invalid {
+			background: rgba($red, 0.2);
+		}
 	}
 	&_account {
 		@extend .transactions-item_account;
