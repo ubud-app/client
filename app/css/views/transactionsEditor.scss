@@ -1,7 +1,7 @@
 @import '../definitions/variables';
 
 .transactions-editor {
-	overflow: hidden;
+	height: 73px;
 
 	&_date {
 		@extend .transactions-item_date;
@@ -26,10 +26,64 @@
 			margin-top: -2px;
 		}
 	}
+
 	&_payee {
 		@extend .transactions-item_payee;
 		background: $background;
+		padding: 0 !important;
+		overflow: visible !important;
 	}
+	&-payee-select {
+		position: relative;
+
+		&_input,
+		&_value {
+			width: 100%;
+			padding: 5px 10px;
+			height: 32px;
+			float: left;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		&_input {
+			display: none;
+			border: none;
+
+			&--visible {
+				display: block;
+			}
+		}
+		&_value {
+			display: block;
+
+			&--hidden {
+				display: none;
+			}
+		}
+
+		&_results-box {
+			display: none;
+			position: absolute;
+			width: 100%;
+			background: $background;
+			margin-top: 32px;
+
+			&--visible {
+				display: block;
+			}
+		}
+		&_item {
+			padding: 5px 10px;
+			cursor: pointer;
+
+			&--selected {
+				background: rgba($text, 0.04);
+			}
+		}
+	}
+
 	&_budget {
 		@extend .transactions-item_budget;
 		background: $background;

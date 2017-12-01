@@ -5,6 +5,7 @@ import moment from 'moment';
 import BaseView from './_';
 import StringHelper from '../helpers/string';
 import TransactionsEditorBudgetSelectView from './transactionsEditorBudgetSelect';
+import TransactionsEditorPayeeSelectView from './transactionsEditorPayeeSelect';
 import TransactionsEditorUnitsView from './transactionsEditorUnits';
 
 /**
@@ -27,18 +28,21 @@ export default BaseView.extend({
         const $date = $('<input class="transactions-editor_date" />').appendTo(v.$el);
         const $account = $('<span class="transactions-editor_account" />').appendTo(v.$el);
         const $accountSelect = $('<select class="transactions-editor_account-select" />').appendTo($account);
-        const $payee = $('<span class="transactions-editor_payee" />').appendTo(v.$el);
+        const $payee = $('<div class="transactions-editor_payee" />').appendTo(v.$el);
         const $budget = $('<span class="transactions-editor_budget" />').appendTo(v.$el);
         const $memo = $('<input class="transactions-editor_memo" />').appendTo(v.$el);
         const $amount = $('<input class="transactions-editor_amount" />').appendTo(v.$el);
         const $units = $('<div class="transactions-editor_units transactions-editor_units--hidden" />').appendTo(v.$el);
         const $unitDiff = $('<span class="transactions-editor_unit-diff" />').appendTo($units);
+
         const $done = $('<button class="transactions-editor_done button button--inline button--small" />')
             .text(StringHelper.string('transactions.edit.save'))
             .appendTo(v.$el);
+
         const $cancel = $('<button class="transactions-editor_cancel button button--inline button--small button--text" />')
             .text(StringHelper.string('transactions.edit.cancel'))
             .appendTo(v.$el);
+
         const $delete = $('<button class="transactions-editor_delete transactions-editor_delete--hidden button button--inline button--small button--destructive" />')
             .text(StringHelper.string('transactions.remove.text'))
             .attr('title', StringHelper.string('transactions.remove.title'))
@@ -76,6 +80,11 @@ export default BaseView.extend({
                 $o.prop('disabled', !!a.get('pluginId'));
             });
         });
+        if(!v.model.get('accountId')) {
+            v.model.set({
+                accountId: $accountSelect.val()
+            });
+        }
         $accountSelect.on('change', () => {
             v.model.set('accountId', $accountSelect.val());
         });
@@ -87,6 +96,13 @@ export default BaseView.extend({
 
             $accountSelect.prop('disabled', account && account.get('pluginId'));
         });
+
+
+        // Payee
+        new TransactionsEditorPayeeSelectView({
+            model: v.model,
+            document: v.document
+        }).appendTo(v, $payee);
 
 
         // Budget

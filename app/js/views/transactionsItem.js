@@ -4,6 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import BaseView from './_';
 import StringHelper from '../helpers/string';
+import PayeeModel from '../models/payee';
 import TransactionsEditorView from './transactionsEditor';
 
 /**
@@ -61,8 +62,17 @@ export default BaseView.extend({
 
         // Payee
         v.listenToAndCall(v.model, 'change:payeeId', () => {
-            // @todo payee anzeigen
-            $payee.text(v.model.get('payeeId'));
+            if(!v.model.has('payeeId')) {
+                $payee.text('-');
+                return;
+            }
+
+            const payee = new PayeeModel({id: v.model.get('payeeId')});
+            v.listenToOnce(payee, 'change:name', () => {
+                $payee.text(payee.get('name'));
+            });
+
+            payee.fetch();
         });
 
 

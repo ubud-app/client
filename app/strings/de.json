@@ -216,6 +216,9 @@
 				"incomeFor": "Einkommen für %(month)s",
 				"multipleBudgets": "Mehrere Budgets"
 			},
+			"payeeSelect": {
+				"create": "%(q)s anlegen"
+			},
 			"add": {
 				"text": "Transaktion hinzufügen",
 				"title": "Klicke, um eine Transaktion manuell einzutragen…"
