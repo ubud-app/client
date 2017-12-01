@@ -53,6 +53,10 @@ export default BaseView.extend({
             const m = moment(v.model.get('time'));
             $date.val(m.format('L'));
         });
+        v.listenToAndCall(v.model, 'change:accountId', () => {
+            const account = v.accounts.get(v.model.get('accountId'));
+            $date.prop('disabled', account && account.get('pluginId'));
+        });
         $date.on('change', () => {
             const date = moment($date.val(), 'L');
             $date.toggleClass('transactions-editor_date--invalid', !date.isValid());
@@ -72,7 +76,6 @@ export default BaseView.extend({
                 $o.prop('disabled', !!a.get('pluginId'));
             });
         });
-        v.model.set('accountId', $accountSelect.val());
         $accountSelect.on('change', () => {
             v.model.set('accountId', $accountSelect.val());
         });
