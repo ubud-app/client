@@ -3,7 +3,7 @@
 export default class StoreHelper {
     static get(key) {
         try {
-            return JSON.parse(localStorage['hmwimm-' + key]);
+            return JSON.parse(localStorage['dwimm-' + key]);
         }
         catch (err) {
             return null;
@@ -12,7 +12,7 @@ export default class StoreHelper {
 
     static set(key, value) {
         try {
-            localStorage['hmwimm-' + key] = JSON.stringify(value);
+            localStorage['dwimm-' + key] = JSON.stringify(value);
             return true;
         }
         catch (err) {
@@ -22,7 +22,7 @@ export default class StoreHelper {
 
     static reset() {
         for (let i in localStorage) {
-            if (i.indexOf('hmwimm-') === 0) {
+            if (i.indexOf('dwimm-') === 0) {
                 try {
                     delete localStorage[i];
                 }

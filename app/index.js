@@ -1,6 +1,6 @@
 /**
  *
- * HMWIMM
+ * DWIMM
  *
  */
 
@@ -33,12 +33,12 @@ module.exports = {
             }
         },
         css: {
-            banner: '/**\n * HMWIMM Client\n * <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n */\n'
+            banner: '/**\n * DWIMM Client\n * <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n */\n'
         },
         js: {
             banner: {
-                production: '/**\n * HMWIMM Client\n * build #<%= build %>\n * <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n */\n',
-                develop: '/**\n * HMWIMM Client\n * development\n */\n'
+                production: '/**\n * DWIMM Client\n * build #<%= build %>\n * <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n */\n',
+                develop: '/**\n * DWIMM Client\n * development\n */\n'
             }
         }
     }

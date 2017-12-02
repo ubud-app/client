@@ -2,6 +2,7 @@
 	"name": "@dwimm/client-web",
 	"version": null,
 	"description": "DWIMM Web Client",
+	"main": "./app/index.js",
 	"scripts": {
 		"check": "npm run check:eslint",
 		"check:eslint": "eslint ./",
