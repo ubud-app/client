@@ -101,7 +101,7 @@ export default BaseView.extend({
         }
 
         const payees = new PayeeCollection();
-        payees.id = 'document:' + v.document.id + '/limit:4/q:' + q.replace(/[:|\/|*]/g, '%');
+        payees.id = 'document:' + v.document.id + '/limit:4/q:' + q.replace(/[:|/|*]/g, '%');
         await payees.fetch();
         if(q !== v._lastQ) {
             return;
@@ -129,7 +129,7 @@ export default BaseView.extend({
                 $i.addClass('transactions-editor-payee-select_item--selected');
             }
 
-            $i.appendTo(v.$results)
+            $i.appendTo(v.$results);
         });
 
         v._selected = 0;
