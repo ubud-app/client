@@ -109,30 +109,6 @@ module.exports = function (grunt) {
             }
         },
         replace: {
-            jsProduction: {
-                options: {
-                    patterns: [
-                        {
-                            match: 'jsFile',
-                            replacement: './main.min.js'
-                        }
-                    ]
-                },
-                src: paths.app.html + '/index.html',
-                dest: paths.static + '/index.html'
-            },
-            jsDevelopment: {
-                options: {
-                    patterns: [
-                        {
-                            match: 'jsFile',
-                            replacement: './main.js'
-                        }
-                    ]
-                },
-                src: paths.app.html + '/index.html',
-                dest: paths.static + '/index.html'
-            },
             jsConfiguration: {
                 options: {
                     patterns: [
@@ -217,7 +193,7 @@ module.exports = function (grunt) {
             },
             htmlmin: {
                 files: [paths.app.html + '/*.html'],
-                tasks: ['htmlmin:app', 'replace:jsDevelopment']
+                tasks: ['htmlmin:app']
             },
             sass: {
                 files: [
@@ -301,7 +277,6 @@ module.exports = function (grunt) {
     grunt.registerTask('development', [
         'clean:all',
         'htmlmin:app',
-        'replace:jsDevelopment',
         'sass:app',
         'cssmin:app',
         'copy:fonts',
@@ -313,7 +288,6 @@ module.exports = function (grunt) {
         'setProduction',
         'clean:all',
         'htmlmin:app',
-        'replace:jsProduction',
         'sass:app',
         'cssmin:app',
         'copy:fonts',
