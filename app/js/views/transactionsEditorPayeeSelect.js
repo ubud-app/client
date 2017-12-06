@@ -111,9 +111,6 @@ export default BaseView.extend({
         v.$resultsBox.addClass('transactions-editor-payee-select_results-box--visible');
 
         v.$results.empty();
-        if(!payees.length) {
-            v.$resultsBox.removeClass('transactions-editor-payee-select_results-box--visible');
-        }
         payees.each((payee, i) => {
             const $i = $('<div class="transactions-editor-payee-select_item" />')
                 .text(payee.get('name'))
