@@ -26,6 +26,7 @@ export default BaseView.extend({
         v.model = documents.get(this.documentId);
         if (!v.model) {
             AppHelper.navigate('/', {trigger: true, replace: true});
+            return;
         }
 
         v.model.live(this);

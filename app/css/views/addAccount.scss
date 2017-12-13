@@ -1,0 +1,43 @@
+@import '../definitions/variables';
+
+.add-account {
+	&_headline {
+		margin: 30px 0 20px;
+		clear: both;
+	}
+
+	&_types {
+		margin: 40px 0 0;
+		display: block;
+		width: 100%;
+		overflow: hidden;
+	}
+	&_type {
+		float: left;
+		width: 33.3333%;
+		display: block;
+		padding: 10px;
+	}
+	&_type-link {
+		display: block;
+		text-decoration: none;
+		padding: 15px 0;
+		background: lighten($background-box, 1);
+		color: lighten($text, 10);
+
+		&:hover {
+			background: lighten($background-box, 0);
+			color: lighten($text, 5);
+		}
+	}
+	&_icon {
+		display: block;
+		font-size: 48px;
+		text-align: center;
+	}
+	&_type-name {
+		display: block;
+		margin-top: 8px;
+		text-align: center;
+	}
+}

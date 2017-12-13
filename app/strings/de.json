@@ -122,7 +122,8 @@
 				"headline": "Allgemein"
 			},
 			"accounts": {
-				"headline": "Konten"
+				"headline": "Konten",
+				"add": "Account hinzufügen"
 			},
 			"dangerous": {
 				"headline": "Gefährliche Zone",
@@ -139,6 +140,16 @@
 		"documentAccountSettings": {
 			"title": "Konto-Einstellungen",
 			"headline": "Konto-Einstellungen"
+		},
+		"addAccount": {
+			"index": {
+				"title": "neuer Account",
+				"headline": "Account hinzufügen",
+				"text": "Was für eine Art von Account willst du zu deinem Dokument hinzufügen?",
+				"bank": "Bank-Account",
+				"cash": "Bargeld",
+				"other": "etwas anderes"
+			}
 		},
 		"budget": {
 			"title": "Budget",

@@ -28,6 +28,10 @@
 		background: none;
 		outline: none;
 		border: none;
+
+		&:read-only {
+			cursor: pointer;
+		}
 	}
 
 	&_settings {

@@ -9,6 +9,7 @@ import BudgetsView from '../views/budgets';
 import PlaceholderView from '../views/placeholder';
 import DocumentSettingsView from '../views/documentSettings';
 import DocumentAccountSettingsView from '../views/documentAccountSettings';
+import AddAccountView from '../views/addAccount';
 import TransactionsView from '../views/transactions';
 
 export default BackboneRouter.extend({
@@ -18,7 +19,7 @@ export default BackboneRouter.extend({
         ':document/reports': 'documentReports',
         ':document/transactions': 'documentTransactions',
         ':document/settings': 'documentSettings',
-        ':document/settings/accounts/new': 'documentAccountSettings',
+        ':document/settings/accounts/new': 'addAccount',
         ':document/settings/accounts/:accountId': 'documentAccountSettings',
         'settings': 'settings',
         'logout': 'logout',
@@ -58,6 +59,10 @@ export default BackboneRouter.extend({
     },
     async documentAccountSettings(documentId, accountId) {
         const view = new DocumentAccountSettingsView({documentId, accountId});
+        this.view.renderView(view);
+    },
+    async addAccount(documentId) {
+        const view = new AddAccountView({documentId});
         this.view.renderView(view);
     },
     async settings() {
