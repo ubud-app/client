@@ -139,12 +139,44 @@
 		},
 		"documentAccountSettings": {
 			"title": "Konto-Einstellungen",
-			"headline": "Konto-Einstellungen"
+			"headline": {
+				"add": "Neues Konto hinzufügen",
+				"edit": "Konto bearbeiten"
+			},
+			"name": {
+				"label": "Name des Kontos",
+				"default": "Geldbeutel"
+			},
+			"type": {
+				"label": "Konto-Typ",
+				"checking": "Girokonto",
+				"savings": "Sparkonto",
+				"creditCard": "Kreditkarte",
+				"cash": "Bargeld",
+				"mortage": "Hypothek",
+				"asset": "Vermögenswert",
+				"loan": "Leihgabe"
+			},
+			"balance": {
+				"label": "Aktueller Kontostand"
+			},
+			"recordDate": {
+				"label": "Stichtag"
+			},
+			"save": {
+				"text": "Speichern"
+			},
+			"cancel": {
+				"text": "Abbrechen"
+			},
+			"transaction": {
+				"memo": "Kontostand zum Stichtag"
+			}
 		},
 		"addAccount": {
 			"index": {
-				"title": "neuer Account",
-				"headline": "Account hinzufügen",
+				"title": "neues Konto",
+				"headline": "Konto hinzufügen",
 				"text": "Was für eine Art von Account willst du zu deinem Dokument hinzufügen?",
 				"bank": "Bank-Account",
 				"cash": "Bargeld",

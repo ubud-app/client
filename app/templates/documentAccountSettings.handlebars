@@ -1,19 +1,37 @@
-<h2>{{string 'documentAccountSettings.headline'}}</h2>
+<h2 class="document-account-settings_headline">{{headline}}</h2>
 
-<div class="document-account-settings_grid">
-	<label for="document-account-settings_name">Name:</label>
-	<input type="text" id="document-account-settings_name" class="document-account-settings_name" />
-</div>
-<div class="document-account-settings_grid">
-	<label for="document-account-settings_type">Typ:</label>
-	<select id="document-account-settings_type" class="document-account-settings_type">
-		<option value="checking">Checking</option>
-		<option value="savings">Savings</option>
-		<option value="creditCard">Credit Card</option>
-		<option value="cash">Cash</option>
-		<option value="paypal">PayPal</option>
-		<option value="mortgage">Mortgage</option>
-		<option value="asset">Asset</option>
-		<option value="loan">Loan</option>
+<label class="document-account-settings_label" for="document-account-settings_name">
+	{{string 'documentAccountSettings.name.label'}}
+</label>
+<input type="text" name="name" id="document-account-settings_name" placeholder="{{string 'documentAccountSettings.name.default'}}" class="document-account-settings_input"/>
+
+<label class="document-account-settings_label" for="document-account-settings_type">
+	{{string 'documentAccountSettings.type.label'}}
+</label>
+<span class="document-account-settings_select-wrap">
+	<select id="document-account-settings_type" class="document-account-settings_select">
+		<option value="checking">{{string 'documentAccountSettings.type.checking'}}</option>
+		<option value="savings">{{string 'documentAccountSettings.type.savings'}}</option>
+		<option value="creditCard">{{string 'documentAccountSettings.type.creditCard'}}</option>
+		<option value="cash">{{string 'documentAccountSettings.type.cash'}}</option>
+		<option value="mortgage">{{string 'documentAccountSettings.type.mortage'}}</option>
+		<option value="asset">{{string 'documentAccountSettings.type.asset'}}</option>
+		<option value="loan">{{string 'documentAccountSettings.type.loan'}}</option>
 	</select>
+</span>
+
+<div class="document-account-settings_transaction">
+	<label class="document-account-settings_label" for="document-account-settings_balance">
+		{{string 'documentAccountSettings.balance.label'}}
+	</label>
+	<input type="text" name="name" id="document-account-settings_balance" class="document-account-settings_input" />
+
+	<label class="document-account-settings_label" for="document-account-settings_record-date">
+		{{string 'documentAccountSettings.recordDate.label'}}
+	</label>
+	<input type="text" name="name" id="document-account-settings_record-date" class="document-account-settings_input" />
 </div>
+
+
+<button type="submit" class="document-account-settings_save button button--inline button--small">{{string 'documentAccountSettings.save.text'}}</button>
+<button type="reset" class="document-account-settings_cancel button button--inline button--small button--text">{{string 'documentAccountSettings.cancel.text'}}</button>

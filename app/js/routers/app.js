@@ -20,6 +20,8 @@ export default BackboneRouter.extend({
         ':document/transactions': 'documentTransactions',
         ':document/settings': 'documentSettings',
         ':document/settings/accounts/new': 'addAccount',
+        ':document/settings/accounts/new/cash': 'documentAccountSettingsCash',
+        ':document/settings/accounts/new/other': 'documentAccountSettingsOther',
         ':document/settings/accounts/:accountId': 'documentAccountSettings',
         'settings': 'settings',
         'logout': 'logout',
@@ -59,6 +61,14 @@ export default BackboneRouter.extend({
     },
     async documentAccountSettings(documentId, accountId) {
         const view = new DocumentAccountSettingsView({documentId, accountId});
+        this.view.renderView(view);
+    },
+    async documentAccountSettingsCash(documentId) {
+        const view = new DocumentAccountSettingsView({documentId, accountType: 'cash'});
+        this.view.renderView(view);
+    },
+    async documentAccountSettingsOther(documentId) {
+        const view = new DocumentAccountSettingsView({documentId, accountType: 'asset'});
         this.view.renderView(view);
     },
     async addAccount(documentId) {

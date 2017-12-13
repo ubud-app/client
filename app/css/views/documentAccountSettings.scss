@@ -1,0 +1,72 @@
+@import '../definitions/variables';
+
+.document-account-settings {
+	&_headline {
+		margin: 30px 0 10px;
+		clear: both;
+	}
+
+	&_label {
+		display: block;
+		color: lighten($text, 10);
+		font-size: 14px;
+		padding: 15px 0 4px;
+	}
+
+	&_input,
+	&_select-wrap{
+		display: block;
+		width: 100%;
+		padding: 10px;
+		border: none;
+		outline: none;
+		background: lighten($background-box, 2);
+	}
+
+	&_select-wrap {
+		padding: 8.5px 10px 8.5px 2px;
+	}
+
+	&_select  {
+		display: block;
+		width: 100%;
+		font: inherit;
+		border: none;
+		outline: none;
+		background: transparent;
+	}
+
+	&_transaction {
+		display: none;
+
+		&--visible {
+			display: block;
+		}
+	}
+
+	&_save,
+	&_cancel,
+	&_remove,
+	&_hide {
+		margin-top: 40px;
+	}
+
+	&_save {
+		margin-left: 10px;
+		float: right;
+	}
+
+	&_cancel {
+		opacity: 0.6;
+		float: right;
+	}
+
+	&_remove,
+	&_hide {
+		opacity: 0.4;
+		float: left;
+	}
+	&_hide--hidden {
+		display: none;
+	}
+}
