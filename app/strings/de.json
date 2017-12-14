@@ -181,6 +181,25 @@
 				"bank": "Bank-Account",
 				"cash": "Bargeld",
 				"other": "etwas anderes"
+			},
+			"searchBank": {
+				"title": "Bank suchen",
+				"headline": "Konto-Plugin suchen",
+				"text": "Du kannst nach Plugins suchen, die automatisch dein Konto abfragen und Transaktionen synchronisieren. So ist dein Budget immer aktuell. Um zu prüfen, ob es ein Plugin für deine Bank oder dein Online-Konto gibt, gebe bitte die BIC der Bank unten ein. Falls du keine BIC zur Hand hast, funktioniert alternativ auch der Name der Bank.",
+				"q": {
+					"label": "BIC oder Name der Bank"
+				},
+				"empty": {
+					"text": "Kein Plugin gefunden",
+					"msg": "Leider wurde für deine Bank kein Plugin gefunden. Du kannst das Konto aber manuell anlegen.",
+					"manual": "Konto manuell anlegen"
+				},
+				"install": "Installieren",
+				"notThat": {
+					"text": "Kein passendes Plugin dabei?",
+					"msg": "Du kannst das Konto trotzdem manuell anlegen.",
+					"manual": "Konto manuell anlegen"
+				}
 			}
 		},
 		"budget": {

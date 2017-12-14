@@ -10,6 +10,7 @@ import PlaceholderView from '../views/placeholder';
 import DocumentSettingsView from '../views/documentSettings';
 import DocumentAccountSettingsView from '../views/documentAccountSettings';
 import AddAccountView from '../views/addAccount';
+import AddAccountSearchBankView from '../views/addAccountSearchBank';
 import TransactionsView from '../views/transactions';
 
 export default BackboneRouter.extend({
@@ -20,6 +21,7 @@ export default BackboneRouter.extend({
         ':document/transactions': 'documentTransactions',
         ':document/settings': 'documentSettings',
         ':document/settings/accounts/new': 'addAccount',
+        ':document/settings/accounts/new/bank': 'addAccountSearchBank',
         ':document/settings/accounts/new/cash': 'documentAccountSettingsCash',
         ':document/settings/accounts/new/other': 'documentAccountSettingsOther',
         ':document/settings/accounts/:accountId': 'documentAccountSettings',
@@ -73,6 +75,10 @@ export default BackboneRouter.extend({
     },
     async addAccount(documentId) {
         const view = new AddAccountView({documentId});
+        this.view.renderView(view);
+    },
+    async addAccountSearchBank(documentId) {
+        const view = new AddAccountSearchBankView({documentId});
         this.view.renderView(view);
     },
     async settings() {
