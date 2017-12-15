@@ -6,6 +6,7 @@ import DataHelper from '../helpers/data';
 import StringHelper from '../helpers/string';
 import DocumentSettingsTemplate from '../../templates/documentSettings.handlebars';
 import DocumentSettingsAccountsView from './documentSettingsAccounts';
+import DocumentSettingsPluginsView from './documentSettingsPlugins';
 
 /**
  * @module views/documentSettings
@@ -48,6 +49,7 @@ export default BaseView.extend({
         });
 
         new DocumentSettingsAccountsView({model: this.model}).appendTo(this, '.document-settings_accounts');
+        new DocumentSettingsPluginsView({model: this.model}).appendTo(this, '.document-settings_plugins');
 
         this.listenToOnce(this.model, 'destroy', function () {
             AppHelper.navigate('/', {trigger: true, replace: true});

@@ -22,7 +22,21 @@
 		background: lighten($background-box, 2);
 	}
 
-	&_add-account {
+	&-accounts_empty,
+	&-plugins_empty {
+		display: none;
+		background: lighten($background-box, 4);
+		padding: 30px;
+		text-align: center;
+		color: lighten($text, 30);
+
+		&--visible {
+			display: block;
+		}
+	}
+
+	&_add-account,
+	&_add-plugin {
 		float: right;
 		margin-top: 15px;
 	}

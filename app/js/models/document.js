@@ -6,6 +6,7 @@ import BudgetCollection from '../collections/budget';
 import CategoryCollection from '../collections/category';
 import PortionCollection from '../collections/portion';
 import SummaryCollection from '../collections/summary';
+import PluginInstancesCollection from '../collections/pluginInstance';
 
 /**
  * @module models/document
@@ -43,5 +44,11 @@ export default BaseModel.extend({
         const summary = new SummaryCollection();
         summary.id = 'document:' + this.id + '/month:' + month.format('YYYY-MM');
         return summary;
+    },
+
+    getPluginInstances() {
+        const plugins = new PluginInstancesCollection();
+        plugins.id = 'document:' + this.id;
+        return plugins;
     }
 });

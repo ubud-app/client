@@ -1,6 +1,7 @@
 'use strict';
 
 import BaseView from './_';
+import DocumentSettingsAccountsTemplate from '../../templates/documentSettingsAccounts.handlebars';
 import DocumentSettingsAccountView from './documentSettingsAccount';
 
 /**
@@ -13,6 +14,7 @@ export default BaseView.extend({
     className: 'document-settings-accounts',
 
     async render() {
+        this.$el.html(DocumentSettingsAccountsTemplate());
         this.collection = this.model.getAccounts().live(this);
         this.listenTo(this.collection, 'add', this.addAccount);
         this.listenToAndCall(this.collection, 'add remove reset', this.showOrHideEmptyMessage);
@@ -21,8 +23,8 @@ export default BaseView.extend({
 
     showOrHideEmptyMessage() {
         this.$('.document-settings-accounts_empty').toggleClass(
-            'document-settings-accounts_empty--hidden',
-            this.collection.length > 0
+            'document-settings-accounts_empty--visible',
+            this.collection.length === 0
         );
     },
 

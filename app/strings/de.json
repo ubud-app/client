@@ -123,7 +123,19 @@
 			},
 			"accounts": {
 				"headline": "Konten",
-				"add": "Konto hinzufügen"
+				"add": "Konto hinzufügen",
+				"empty": "Keine Konten eingerichtet"
+			},
+			"plugins": {
+				"headline": "Plugins",
+				"add": "Plugin installieren",
+				"empty": "Keine Plugins eingerichtet",
+				"status": {
+					"initializing": "Startet",
+					"configuration": "Wartet auf Konfiguration",
+					"ready": "Bereit",
+					"shutdown": "Stoppt"
+				}
 			},
 			"dangerous": {
 				"headline": "Gefährliche Zone",

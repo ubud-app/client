@@ -1,0 +1,60 @@
+@import '../definitions/variables';
+
+.document-settings-plugin {
+	display: block;
+	position: relative;
+
+	& + & {
+		margin-top: 10px;
+	}
+
+	&_link {
+		display: block;
+		background: $background-box;
+		padding: 15px 20px;
+		text-decoration: none;
+	}
+
+	&_status {
+		display: inline-block;
+		border: 1px solid red;
+		color: red;
+
+		margin-left: 10px;
+		padding: 2px 5px;
+		border-radius: 4px;
+
+		font-size: 12px;
+
+		&--initializing,
+		&--shutdown {
+			color: $text;
+			border-color: $text;
+		}
+
+		&--configuration {
+			color: $red;
+			border-color: $red;
+		}
+		&--ready {
+			color: $primary;
+			border-color: $primary;
+		}
+	}
+
+	&_value {
+		float: right;
+		margin-right: 45px;
+		color: rgba($text, 0.4);
+	}
+
+	&_settings {
+		position: absolute;
+		right: 20px;
+		top: 0;
+		font-size: 1.2em;
+		line-height: 55px;
+		opacity: 0.6;
+		@extend [class^="icon-"]:before;
+	}
+}
