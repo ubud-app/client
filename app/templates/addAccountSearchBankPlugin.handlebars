@@ -1,15 +1,24 @@
 <ul class="add-account-search-bank-plugin-links">
-	<li class="add-account-search-bank-plugin-link"><a href="#">GitHub</a></li>
-	<li class="add-account-search-bank-plugin-link"><a href="#">Website</a></li>
-	<li class="add-account-search-bank-plugin-link"><a href="#">Documentation</a></li>
+	{{#if plugin.github}}<li class="add-account-search-bank-plugin-link"><a href="{{plugin.github}}">{{string 'addAccount.searchBank.github'}}</a></li>{{/if}}
+	{{#if plugin.website}}<li class="add-account-search-bank-plugin-link"><a href="{{plugin.website}}">{{string 'addAccount.searchBank.website'}}</a></li>{{/if}}
+	{{#if plugin.documentation}}<li class="add-account-search-bank-plugin-link"><a href="{{plugin.documentation}}">{{string 'addAccount.searchBank.documentation'}}</a></li>{{/if}}
 </ul>
 
-<span class="add-account-search-bank-plugin-headline">N26 Plugin</span>
-<span class="add-account-search-bank-plugin-id">@dwimm/plugin-n26@0.0.2</span>
+<span class="add-account-search-bank-plugin-headline">{{plugin.name}}</span>
+<span class="add-account-search-bank-plugin-id">{{plugin.id}}{{#if plugin.channels.latest}}@{{plugin.channels.latest}}{{/if}}</span>
 
-<span class="add-account-search-bank-plugin-supports">Unterstützt diese Konten:</span>
+{{#if supports.accounts}}
+<span class="add-account-search-bank-plugin-supports">{{string 'addAccount.searchBank.supports.account'}}</span>
 <ul class="add-account-search-bank-plugin-supports-ul">
-	<li><a href="https://n26.com/">N26</a></li>
+	{{#each supports.accounts}}<li><a href="{{this.website}}">{{this.name}}</a></li>{{/each}}
 </ul>
+{{/if}}
 
-<button type="submit" class="add-account-search-bank-plugin-install button button--small">N26 Plugin installieren</button>
+{{#if supports.shops}}
+<span class="add-account-search-bank-plugin-supports">{{string 'addAccount.searchBank.supports.shop'}}</span>
+<ul class="add-account-search-bank-plugin-supports-ul">
+	{{#each supports.shops}}<li><a href="{{this.website}}">{{this.name}}</a> ({{this.what}})</li>{{/each}}
+</ul>
+{{/if}}
+
+<button type="submit" class="add-account-search-bank-plugin-install button button--small">{{plugin.name}} Plugin installieren</button>

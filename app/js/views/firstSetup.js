@@ -185,7 +185,7 @@ export default BaseView.extend({
 
         await Promise.all(budgets.map(d => new BudgetModel(d).save()));
         defer(() => {
-            AppHelper.navigate(document.id + '/budget', {trigger: 1});
+            AppHelper.navigate(document.id + '/settings', {trigger: 1});
         });
         return Promise.resolve();
     },

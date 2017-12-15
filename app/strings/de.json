@@ -195,6 +195,15 @@
 					"manual": "Konto manuell anlegen"
 				},
 				"install": "Installieren",
+				"github": "GitHub",
+				"website": "Website",
+				"documentation": "Dokumentation",
+				"supports": {
+					"account": "Unterstützt diese Konten:",
+					"shop": "Unterstützt diese Shops:",
+					"metadata": "Informationen zu Transaktionen",
+					"goal": "Ziele"
+				},
 				"notThat": {
 					"text": "Kein passendes Plugin dabei?",
 					"msg": "Du kannst das Konto trotzdem manuell anlegen.",

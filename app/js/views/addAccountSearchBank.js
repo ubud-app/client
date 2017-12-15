@@ -5,6 +5,7 @@ import AppHelper from '../helpers/app';
 import DataHelper from '../helpers/data';
 import PluginCollection from '../collections/plugin';
 import AddAccountSearchBankPluginView from './addAccountSearchBankPlugin';
+import DocumentAccountSettingsView from './documentAccountSettings';
 import AddAccountSearchBankTemplate from '../../templates/addAccountSearchBank.handlebars';
 
 
@@ -16,7 +17,9 @@ import AddAccountSearchBankTemplate from '../../templates/addAccountSearchBank.h
 export default BaseView.extend({
     className: 'add-account-search-bank app_layout--page',
     events: {
-        'keyup .add-account-search-bank_input': 'search'
+        'keyup .add-account-search-bank_input': 'search',
+        'click .add-account-search-bank_end-action': 'manual',
+        'click .add-account-search-bank_empty-action': 'manual'
     },
 
     _initialize(options) {
@@ -60,7 +63,7 @@ export default BaseView.extend({
         const q = this.$input.val();
         this.$empty.toggleClass('add-account-search-bank_empty--visible', !this.plugins.length && q.length >= 2);
         this.$end.toggleClass('add-account-search-bank_end--visible', this.plugins.length > 0 && q.length >= 2);
-        
+
         if(!q || q.length < 2) {
             this.plugins.set([]);
             this.plugins.trigger('sync');
@@ -69,5 +72,9 @@ export default BaseView.extend({
 
         this.plugins.id = 'q:' + q;
         this.plugins.fetch();
+    },
+    manual() {
+        const view = new DocumentAccountSettingsView({documentId: this.model.id, accountType: 'checking'});
+        AppHelper.view().renderView(view);
     }
 });
