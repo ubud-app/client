@@ -1,7 +1,9 @@
 'use strict';
 
 import BaseView from './_';
+import AppHelper from '../helpers/app';
 import StringHelper from '../helpers/string';
+import PluginInstanceModel from '../models/pluginInstance';
 import AddAccountSearchBankPluginTemplate from '../../templates/addAccountSearchBankPlugin.handlebars';
 
 
@@ -13,6 +15,9 @@ import AddAccountSearchBankPluginTemplate from '../../templates/addAccountSearch
 export default BaseView.extend({
     tagName: 'li',
     className: 'add-account-search-bank-plugin',
+    events: {
+        'click .add-account-search-bank-plugin-install': 'install'
+    },
 
     _initialize(options) {
         this.document = options.document;
@@ -47,5 +52,24 @@ export default BaseView.extend({
             plugin: this.model.toJSON(),
             supports
         }));
+    },
+    async install() {
+        this.$el.addClass('add-account-search-bank-plugin--loading');
+
+        const instance = new PluginInstanceModel({
+            documentId: this.document.id,
+            type: this.model.id
+        });
+
+        try {
+            await instance.save();
+        }
+        catch(err) {
+            this.$el.removeClass('add-account-search-bank-plugin--loading');
+            window.alert(err);
+            return;
+        }
+
+        AppHelper.navigate(this.document.id + '/settings/plugins/' + instance.id);
     }
 });
