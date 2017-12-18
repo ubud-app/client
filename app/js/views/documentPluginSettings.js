@@ -142,6 +142,7 @@ export default BaseView.extend({
             await this.model.save();
             this.$('.document-plugin-settings_input--error').removeClass('document-plugin-settings_input--error');
             this.$(':focus').blur();
+            this.$('input[type="password"]').val('');
         }
         catch(err) {
             if(err.attributes && Object.entries(err.attributes).length > 0) {
