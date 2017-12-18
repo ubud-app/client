@@ -134,7 +134,8 @@
 					"initializing": "Startet",
 					"configuration": "Wartet auf Konfiguration",
 					"ready": "Bereit",
-					"shutdown": "Stoppt"
+					"shutdown": "Stoppt",
+					"error": "Fehler"
 				}
 			},
 			"dangerous": {
@@ -184,6 +185,20 @@
 			"transaction": {
 				"memo": "Kontostand zum Stichtag"
 			}
+		},
+		"documentPluginSettings": {
+			"title": "Plugin-Einstellungen",
+			"status": {
+				"headline": "Status",
+				"validateConfig": "Einstellungen gültig",
+				"getAccounts": "Accounts abrufen",
+				"getTransactions": "Transaktionen abrufen",
+				"getMetadata": "Informationen zu Transaktionen abrufen",
+				"getGoals": "Ziele abrufenn"
+			},
+			"settings": "Einstellungen",
+			"save": "Speichern",
+			"cancel": "Abbrechen"
 		},
 		"addAccount": {
 			"index": {
@@ -285,6 +300,13 @@
 				"budgeted": "Budgetiert",
 				"outflow": "Ausgaben",
 				"balance": "Vermögen"
+			}
+		},
+		"plugins": {
+			"label": {
+				"username": "Username",
+				"email": "E-Mail-Adresse",
+				"password": "Passwort"
 			}
 		},
 		"reports": {

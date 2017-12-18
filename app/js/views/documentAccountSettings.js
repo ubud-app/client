@@ -33,7 +33,7 @@ export default BaseView.extend({
 
         const documents = await DataHelper.getDocuments().wait();
         this.document = documents.get(this.documentId);
-        if (!document) {
+        if (!this.document) {
             AppHelper.navigate('/', {trigger: true, replace: true});
             return;
         }

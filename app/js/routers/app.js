@@ -11,6 +11,7 @@ import DocumentSettingsView from '../views/documentSettings';
 import DocumentAccountSettingsView from '../views/documentAccountSettings';
 import AddAccountView from '../views/addAccount';
 import AddAccountSearchBankView from '../views/addAccountSearchBank';
+import DocumentPluginSettingsView from '../views/documentPluginSettings';
 import TransactionsView from '../views/transactions';
 
 export default BackboneRouter.extend({
@@ -25,6 +26,7 @@ export default BackboneRouter.extend({
         ':document/settings/accounts/new/cash': 'documentAccountSettingsCash',
         ':document/settings/accounts/new/other': 'documentAccountSettingsOther',
         ':document/settings/accounts/:accountId': 'documentAccountSettings',
+        ':document/settings/plugins/:pluginId': 'documentPluginSettings',
         'settings': 'settings',
         'logout': 'logout',
         '*path': 'dashboard'
@@ -61,6 +63,7 @@ export default BackboneRouter.extend({
         const view = new DocumentSettingsView({documentId});
         this.view.renderView(view);
     },
+
     async documentAccountSettings(documentId, accountId) {
         const view = new DocumentAccountSettingsView({documentId, accountId});
         this.view.renderView(view);
@@ -81,6 +84,12 @@ export default BackboneRouter.extend({
         const view = new AddAccountSearchBankView({documentId});
         this.view.renderView(view);
     },
+
+    async documentPluginSettings(documentId, pluginId) {
+        const view = new DocumentPluginSettingsView({documentId, pluginId});
+        this.view.renderView(view);
+    },
+
     async settings() {
         const view = new PlaceholderView({view: 'settings'});
         this.view.renderView(view);
