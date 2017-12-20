@@ -46,6 +46,10 @@
 	}
 	&_payee {
 		width: 20%;
+
+		&--temporary {
+			color: rgba($text, 0.4);
+		}
 	}
 	&_budget {
 		width: 17%;

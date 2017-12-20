@@ -97,10 +97,10 @@ export default BaseView.extend({
 
         // Record date
         const $recordDate = this.$('#document-account-settings_record-date');
-        $recordDate.attr('placeholder', moment().format('L'));
+        $recordDate.attr('placeholder', moment().startOf('month').format('L'));
         $recordDate.on('change', () => {
             const m = moment($recordDate.val(), 'L');
-            $recordDate.val((m.isValid() ? m : moment()).format('L'));
+            $recordDate.val((m.isValid() ? m : moment().startOf('month')).format('L'));
         });
     },
     async save(e) {

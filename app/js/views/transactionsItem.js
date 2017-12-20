@@ -62,6 +62,13 @@ export default BaseView.extend({
 
         // Payee
         v.listenToAndCall(v.model, 'change:payeeId', () => {
+            if(!v.model.has('payeeId') && v.model.has('pluginsOwnPayeeId')) {
+                $payee.addClass('transactions-item_payee--temporary');
+                $payee.text(v.model.get('pluginsOwnPayeeId'));
+                return;
+            }
+
+            $payee.removeClass('transactions-item_payee--temporary');
             if(!v.model.has('payeeId')) {
                 $payee.text('-');
                 return;

@@ -70,6 +70,9 @@ export default BaseView.extend({
             return;
         }
 
-        AppHelper.navigate(this.document.id + '/settings/plugins/' + instance.id);
+        // some extra time for getConfig, so that the loading indicator woun't flicker
+        setTimeout(() => {
+            AppHelper.navigate(this.document.id + '/settings/plugins/' + instance.id, {trigger: true});
+        }, 1000);
     }
 });

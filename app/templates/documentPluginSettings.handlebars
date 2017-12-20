@@ -6,11 +6,18 @@
 </div>
 
 
-<div class="document-plugin-settings_settings-wrap document-plugin-settings_settings-wrap--hidden">
+<div class="document-plugin-settings_settings-wrap document-plugin-settings_settings--loading">
 	<h3 class="document-plugin-settings_subheadline">{{string 'documentPluginSettings.settings'}}</h3>
 
 	<div class="document-plugin-settings_settings"></div>
 
-	<button type="submit" class="document-account-settings_save button button--inline button--small">{{string 'documentPluginSettings.save'}}</button>
-	<button type="reset" class="document-account-settings_cancel button button--inline button--small button--text">{{string 'documentPluginSettings.cancel'}}</button>
+	<button type="submit" class="document-plugin-settings_save button button--inline button--small">{{string 'documentPluginSettings.save'}}</button>
+	<button type="reset" class="document-plugin-settings_cancel button button--inline button--small button--text">{{string 'documentPluginSettings.cancel'}}</button>
+</div>
+
+<div class="document-plugin-settings_uninstall-wrap">
+	<h3 class="document-plugin-settings_subheadline">{{string 'documentPluginSettings.uninstall.headline'}}</h3>
+
+	<p class="document-plugin-settings_message">{{string 'documentPluginSettings.uninstall.message'}}</p>
+	<button class="document-plugin-settings_uninstall button button--destructive" type="button" title="{{string 'documentPluginSettings.uninstall.button.title'}}">{{string 'documentPluginSettings.uninstall.button.text'}}</button>
 </div>

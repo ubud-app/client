@@ -36,15 +36,20 @@ export default BaseView.extend({
         // value
         v.$value = $('<span class="transactions-editor-payee-select_value" />').appendTo(v.$el);
         v.listenToAndCall(v.model, 'change:payeeId', () => {
+            if(!v.model.has('payeeId') && v.model.has('pluginsOwnPayeeId')) {
+                v.$value.text(v.model.get('pluginsOwnPayeeId')).addClass('transactions-editor-payee-select_value--temp');
+                v.$input.attr('placeholder', v.model.get('pluginsOwnPayeeId'));
+                return;
+            }
             if(!v.model.has('payeeId')) {
-                v.$value.text('-');
+                v.$value.text('-').removeClass('transactions-editor-payee-select_value--temp');
                 v.$input.attr('placeholder', '');
                 return;
             }
 
             const payee = new PayeeModel({id: v.model.get('payeeId')});
             v.listenToOnce(payee, 'change:name', () => {
-                v.$value.text(payee.get('name'));
+                v.$value.text(payee.get('name')).removeClass('transactions-editor-payee-select_value--temp');
                 v.$input.attr('placeholder', payee.get('name'));
             });
 

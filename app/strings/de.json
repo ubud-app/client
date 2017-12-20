@@ -197,6 +197,15 @@
 				"getGoals": "Ziele abrufenn"
 			},
 			"settings": "Einstellungen",
+			"uninstall": {
+				"headline": "Plugin entfernen",
+				"message": "Wenn du dieses Plugin nicht mehr verwenden willst, kannst du es vom Dokument entfernen. Alle synchronisierten Daten bleiben dabei erhalten und können anschließend manuell bearbeitet oder entfernt werden.",
+				"button": {
+					"title": "Plugin entfernen",
+					"text": "Plugin entfernen"
+				},
+				"confirm": "Bist du Dir wirklich sicher, dass du dieses Plugin entfernen willst? Alle synchronisierten Daten bleiben erhalten und können nur noch manuell bearbeitet werden."
+			},
 			"save": "Speichern",
 			"cancel": "Abbrechen"
 		},

@@ -59,7 +59,7 @@ export default BaseView.extend({
         });
         v.listenToAndCall(v.model, 'change:accountId', () => {
             const account = v.accounts.get(v.model.get('accountId'));
-            $date.prop('disabled', account && account.get('pluginId'));
+            $date.prop('disabled', account && account.get('pluginInstanceId'));
         });
         $date.on('change', () => {
             const date = moment($date.val(), 'L');
@@ -76,8 +76,8 @@ export default BaseView.extend({
         // Account
         v.accounts.each(a => {
             const $o = $('<option />').text(a.get('name')).attr('value', a.id).appendTo($accountSelect);
-            v.listenToAndCall(a, 'change:pluginId', () => {
-                $o.prop('disabled', !!a.get('pluginId'));
+            v.listenToAndCall(a, 'change:pluginInstanceId', () => {
+                $o.prop('disabled', !!a.get('pluginInstanceId'));
             });
         });
         if(!v.model.get('accountId')) {
@@ -94,7 +94,7 @@ export default BaseView.extend({
                 $accountSelect.val(account.id);
             }
 
-            $accountSelect.prop('disabled', account && account.get('pluginId'));
+            $accountSelect.prop('disabled', account && account.get('pluginInstanceId'));
         });
 
 
@@ -172,14 +172,14 @@ export default BaseView.extend({
         });
         v.listenToAndCall(v.model, 'change:accountId', () => {
             const account = v.accounts.get(v.model.get('accountId'));
-            $amount.prop('disabled', account && account.get('pluginId'));
+            $amount.prop('disabled', account && account.get('pluginInstanceId'));
         });
 
 
         // Delete Button
         v.listenToAndCall(v.model, 'change:accountId', () => {
             const account = v.accounts.get(v.model.get('accountId'));
-            $delete.toggleClass('transactions-editor_delete--hidden', account && !!account.get('pluginId') || false);
+            $delete.toggleClass('transactions-editor_delete--hidden', account && !!account.get('pluginInstanceId') || false);
         });
         $delete.click(e => {
             e.stopPropagation();
@@ -190,7 +190,7 @@ export default BaseView.extend({
             }
 
             const account = v.accounts.get(v.model.get('accountId'));
-            if (!account || account.get('pluginId')) {
+            if (!account || account.get('pluginInstanceId')) {
                 return;
             }
 

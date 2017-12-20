@@ -19,7 +19,8 @@ export default BaseView.extend({
     className: 'document-plugin-settings app_layout--page',
     events: {
         'submit': 'save',
-        'reset': 'back'
+        'reset': 'back',
+        'click .document-plugin-settings_uninstall': 'uninstall'
     },
 
     _initialize(options) {
@@ -43,6 +44,7 @@ export default BaseView.extend({
             return;
         }
 
+        this.model.live(this);
         this.$el.html(DocumentPluginSettingsTemplate());
 
 
@@ -69,6 +71,8 @@ export default BaseView.extend({
             $statusWrap.toggleClass('document-plugin-settings_status-wrap--hidden', !show);
         });
         this.listenToAndCall(this.model, 'change:supported change:errors', () => {
+            $status.empty();
+
             this.model.get('supported').forEach(method => {
                 const $li = $('<li class="document-plugin-settings_status-item" />').appendTo($status);
                 if(this.model.get('errors')[method]) {
@@ -87,12 +91,24 @@ export default BaseView.extend({
                     $('<pre />').text(this.model.get('errors')[method]).appendTo($error);
                 }
             });
+
+            if(!this.model.get('supported').find(m => this.model.get('errors')[m] !== null)) {
+                this.trigger('working');
+            }
         });
 
 
         // Settings
-        const $settings = this.$('.document-plugin-settings_settings');
-        const $settingsWrap = this.$('.document-plugin-settings_settings-wrap');
+        this.$settings = this.$('.document-plugin-settings_settings');
+        this.$settingsWrap = this.$('.document-plugin-settings_settings-wrap');
+
+        if(this.model.get('errors').getConfig === undefined) {
+            this.listenToOnce(this.model, 'change:errors change:config', this.renderConfigFields);
+        }else{
+            this.renderConfigFields();
+        }
+    },
+    renderConfigFields() {
         let focused = false;
 
         this.model.get('config').forEach(field => {
@@ -109,7 +125,7 @@ export default BaseView.extend({
             $('<label class="document-plugin-settings_label" />')
                 .attr('for', 'document-plugin-settings_input-' + field.id)
                 .text(label)
-                .appendTo($settings);
+                .appendTo(this.$settings);
 
             const $input = $('<input class="document-plugin-settings_input"/>')
                 .attr('type', field.type)
@@ -120,7 +136,7 @@ export default BaseView.extend({
                     placeholder: field.placeholder
                 })
                 .val(field.value || defaultValue || '')
-                .appendTo($settings);
+                .appendTo(this.$settings);
 
             if(!focused && !$input.val() && this.model.get('status') === 'configuration') {
                 setTimeout(() => {$input.focus();}, 0);
@@ -128,10 +144,12 @@ export default BaseView.extend({
             }
         });
 
-        $settingsWrap.toggleClass('document-plugin-settings_settings-wrap--hidden', this.model.get('config').length === 0);
+        this.$settings.removeClass('document-plugin-settings_settings--loading');
+        this.$settingsWrap.toggleClass('document-plugin-settings_settings-wrap--hidden', this.model.get('config').length === 0);
     },
     async save(e) {
         e.preventDefault();
+        this.$settings.addClass('document-plugin-settings_settings--loading');
 
         this.$el.serializeArray().forEach(field => {
             const config = this.model.get('config').find(c => c.id === field.name);
@@ -140,9 +158,6 @@ export default BaseView.extend({
 
         try {
             await this.model.save();
-            this.$('.document-plugin-settings_input--error').removeClass('document-plugin-settings_input--error');
-            this.$(':focus').blur();
-            this.$('input[type="password"]').val('');
         }
         catch(err) {
             if(err.attributes && Object.entries(err.attributes).length > 0) {
@@ -156,14 +171,43 @@ export default BaseView.extend({
                         $input.focus();
                         focused = true;
                     }
+
+                    this.$settings.removeClass('document-plugin-settings_settings--loading');
                 });
             }else{
+                this.$settings.removeClass('document-plugin-settings_settings--loading');
                 window.alert(err.toString());
             }
+
+            return;
         }
+
+        this.$('.document-plugin-settings_input--error').removeClass('document-plugin-settings_input--error');
+        this.$(':focus').blur();
+        this.$('input[type="password"]').val('');
+        this.$settings.removeClass('document-plugin-settings_settings--loading');
+
+        this.once('working', () => {
+            setTimeout(() => {
+                AppHelper.navigate(this.document.id + '/settings', {trigger: true});
+            }, 1500);
+        });
     },
     back(e) {
         e.preventDefault();
         window.history.back();
+    },
+    async uninstall() {
+        if (!confirm(StringHelper.string('documentPluginSettings.uninstall.confirm'))) {
+            return;
+        }
+
+        try {
+            await this.model.destroy();
+            AppHelper.navigate(this.documentId + '/settings', {trigger: true});
+        }
+        catch(err) {
+            window.alert(err.toString());
+        }
     }
 });

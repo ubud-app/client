@@ -58,6 +58,9 @@
 		&_value {
 			display: block;
 
+			&--temp {
+				color: rgba($text, 0.4);
+			}
 			&--hidden {
 				display: none;
 			}
