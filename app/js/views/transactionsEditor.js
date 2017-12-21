@@ -166,6 +166,8 @@ export default BaseView.extend({
         // Amount
         v.listenToAndCall(v.model, 'change:amount', () => {
             $amount.val(StringHelper.currency(this.document, v.model.get('amount') || 0));
+            $amount.toggleClass('transactions-editor_amount--negative', v.model.get('amount') < 0);
+            $amount.toggleClass('transactions-editor_amount--positive', v.model.get('amount') > 0);
         });
         $amount.on('change', () => {
             v.model.set('amount', StringHelper.parseCurrency(this.document, $amount.val()));

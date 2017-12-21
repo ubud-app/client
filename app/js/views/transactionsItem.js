@@ -122,6 +122,8 @@ export default BaseView.extend({
         // Amount
         v.listenToAndCall(v.model, 'change:amount', () => {
             $amount.text(StringHelper.currency(this.document, v.model.get('amount') || 0));
+            $amount.toggleClass('transactions-item_amount--negative', v.model.get('amount') < 0);
+            $amount.toggleClass('transactions-item_amount--positive', v.model.get('amount') > 0);
         });
 
         v.listenToOnce(v.model, 'destroy', function () {

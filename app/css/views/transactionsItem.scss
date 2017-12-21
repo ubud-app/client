@@ -60,6 +60,10 @@
 	&_amount {
 		width: 10%;
 		text-align: right;
+
+		&--positive {
+			color: $primary;
+		}
 	}
 
 	&_editor {

@@ -115,6 +115,10 @@
 		&:disabled {
 			color: #7F7F7F;
 		}
+
+		&--positive {
+			color: $primary;
+		}
 	}
 
 	&_date,
