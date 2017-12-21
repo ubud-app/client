@@ -20,7 +20,7 @@ export default BaseView.extend({
         'keyup .transactions-editor-payee-select_input': 'process',
         'keydown .transactions-editor-payee-select_input': 'selectByKeyboard',
         'blur .transactions-editor-payee-select_input': 'blur',
-        'click .transactions-aditor-payee-select_create': 'create'
+        'click .transactions-editor-payee-select_create': 'create'
     },
 
     _initialize(options) {
@@ -83,7 +83,7 @@ export default BaseView.extend({
         const v = this;
         _.delay(() => {
             v.deactivate();
-        }, 100);
+        }, 250);
     },
 
     async process() {
@@ -121,7 +121,6 @@ export default BaseView.extend({
                 .text(payee.get('name'))
                 .data('id', payee.id)
                 .click(function() {
-                    v.deactivate();
                     v.model.set({
                         payeeId: payee.id
                     });
