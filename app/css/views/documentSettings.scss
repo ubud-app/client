@@ -9,4 +9,12 @@
 			display: block;
 		}
 	}
+
+	&_users-wrap {
+		margin-top: 30px;
+
+		&--hidden {
+			display: none;
+		}
+	}
 }

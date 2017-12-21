@@ -138,6 +138,11 @@
 					"error": "Fehler"
 				}
 			},
+			"users": {
+				"headline": "Zugriffsrechte",
+				"add": "Neuen Benutzer anlegen",
+				"admin": "Administrator"
+			},
 			"dangerous": {
 				"headline": "Gefährliche Zone",
 				"destroy": {
