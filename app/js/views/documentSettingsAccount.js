@@ -1,6 +1,7 @@
 'use strict';
 
 import BaseView from './_';
+import StringHelper from '../helpers/string';
 import DocumentSettingsAccountTemplate from '../../templates/documentSettingsAccount.handlebars';
 
 /**
@@ -31,9 +32,10 @@ export default BaseView.extend({
             this.$('.document-settings-account_name').text(this.account.get('name'));
         });
 
-        // @todo
-        /*this.listenToAndCall(this.account, 'change:currentValue', () => {
-            this.$('.document-settings-account_value').text('13,37&nbsp;€');
-        });*/
+        this.listenToAndCall(this.account, 'change:balance', () => {
+            this.$('.document-settings-account_value').text(
+                StringHelper.currency(this.document, this.account.get('balance'))
+            );
+        });
     }
 });
