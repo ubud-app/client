@@ -48,7 +48,7 @@ export default BaseView.extend({
         view.appendTo(v.$content, v);
 
         $('body').scrollTop(0);
-        
+
         return v;
     },
 

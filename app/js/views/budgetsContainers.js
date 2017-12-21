@@ -50,8 +50,8 @@ export default BaseView.extend({
             v.updatePosition(true);
         });
 
-        v.$el.scroll(_.debounce(this._activateContainers, 1000));
-        v.$el.scroll(_.throttle(this._addContainers, 100));
+        v.$el.scroll(_.debounce(this._activateContainers, 100));
+        v.$el.scroll(_.throttle(this._addContainers, 50));
     },
 
     addContainer(month) {

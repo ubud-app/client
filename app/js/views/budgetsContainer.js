@@ -37,26 +37,23 @@ export default BaseView.extend({
         const $categories = $('<div class="budgets-container_categories loading" />').appendTo(v.$el);
 
         let todo = 0;
-        const check = (o) => {
-            if(!o.syncing) {
-                return;
-            }
-
+        let active = false;
+        const check = async function(o) {
             todo++;
-            v.listenToOnce(o, 'sync', () => {
-                todo--;
-                if(todo <= 0) {
-                    $categories.removeClass('loading');
-                }
-            });
+            await o.wait();
+            todo--;
+            if(todo <= 0 && active) {
+                $categories.removeClass('loading');
+            }
         };
 
-        check(v.month);
         check(v.categories);
         check(v.budgets);
 
         v.on('active', function (a) {
             if (a && !stats) {
+                active = true;
+
                 stats = new BudgetsStatsView({
                     document: v.document,
                     month: v.month
@@ -68,13 +65,21 @@ export default BaseView.extend({
                     categories: v.categories,
                     budgets: v.budgets
                 }).appendTo(v, $categories);
+
+                if(todo <= 0) {
+                    $categories.removeClass('loading');
+                }
             }
             else if (!a && stats) {
+                active = false;
+
                 stats.remove();
                 stats = null;
 
                 categories.remove();
                 categories = null;
+
+                $categories.addClass('loading');
             }
         });
     },
