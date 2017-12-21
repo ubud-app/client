@@ -14,7 +14,7 @@ import BudgetsContainersView from './budgetsContainers';
  * @augments BaseView
  */
 export default BaseView.extend({
-    className: 'budgets',
+    className: 'budgets loading',
 
     _initialize(options) {
         this.documentId = options.documentId;
@@ -50,6 +50,8 @@ export default BaseView.extend({
             budgets,
             parent: this
         }).appendTo(this);
+
+        this.$el.removeClass('loading');
     },
 
     getPosition() {

@@ -2,4 +2,7 @@
 
 .transactions-scroll {
 	padding: 30px;
+
+	@extend .b-loader;
+	@extend .b-loader--light;
 }

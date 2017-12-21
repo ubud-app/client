@@ -25,4 +25,9 @@
 		height: 81px;
 		//overflow: hidden;
 	}
+
+	&_categories {
+		@extend .b-loader;
+		@extend .b-loader--light;
+	}
 }

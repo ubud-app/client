@@ -34,7 +34,26 @@ export default BaseView.extend({
 
         let stats, categories;
         const $stats = $('<div class="budgets-container_stats" />').appendTo(v.$el);
-        const $categories = $('<div class="budgets-container_categories" />').appendTo(v.$el);
+        const $categories = $('<div class="budgets-container_categories loading" />').appendTo(v.$el);
+
+        let todo = 0;
+        const check = (o) => {
+            if(!o.syncing) {
+                return;
+            }
+
+            todo++;
+            v.listenToOnce(o, 'sync', () => {
+                todo--;
+                if(todo <= 0) {
+                    $categories.removeClass('loading');
+                }
+            });
+        };
+
+        check(v.month);
+        check(v.categories);
+        check(v.budgets);
 
         v.on('active', function (a) {
             if (a && !stats) {

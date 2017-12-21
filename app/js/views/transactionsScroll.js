@@ -14,7 +14,7 @@ import TransactionCollection from '../collections/transaction';
  * @augments BaseView
  */
 export default BaseView.extend({
-    className: 'transactions-scroll',
+    className: 'transactions-scroll loading',
 
     nextMonthLock: false,
     emptyMonths: 0,
@@ -48,6 +48,8 @@ export default BaseView.extend({
         v.once('remove', () => {
             $(window).off('scroll', v.scroll);
         });
+
+        this.$el.removeClass('loading');
 
         Promise.all([
             v.addMonth('future'),
@@ -100,13 +102,17 @@ export default BaseView.extend({
             transactions.id = 'document:' + this.model.id + '/month:' + month.format('YYYY-MM');
         }
 
-        new TransactionMonthView({
+        const view = new TransactionMonthView({
             transactions: transactions,
             document: this.model,
             accounts: this.accounts,
             budgets: this.budgets,
             categories: this.categories
         })[month === 'future' ? 'appendTo' : 'prependTo'](this);
+
+        if(month !== 'future') {
+            view.$el.addClass('loading b-loader b-loader--light');
+        }
 
         if (month !== 'future' && moment().isSame(month, 'month')) {
             this.on('add', t => {
@@ -116,6 +122,7 @@ export default BaseView.extend({
 
         return transactions.fetch()
             .then(() => {
+                view.$el.removeClass('loading b-loader b-loader--light');
                 return Promise.resolve(transactions);
             })
             .catch(e => {

@@ -4,4 +4,7 @@
 	position: relative;
 	padding-left: $sidebar-width;
 	overflow: hidden;
+
+	@extend .b-loader;
+	@extend .b-loader--light;
 }
