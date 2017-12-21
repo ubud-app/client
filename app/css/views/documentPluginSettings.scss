@@ -1,21 +1,8 @@
 @import '../definitions/variables';
 
 .document-plugin-settings {
-	&_headline {
-		margin: 30px 0 10px;
-		clear: both;
-	}
-
-	&_subheadline {
-		margin: 50px 0 10px;
-		clear: both;
-	}
-	&_headline + &_subheadline {
-		margin-top: 20px;
-	}
-
 	&_status-wrap--hidden,
-	&_settings-wrap--hidden{
+	&_settings-wrap--hidden {
 		display: none;
 	}
 
@@ -69,100 +56,14 @@
 	}
 
 	&_settings {
-		position: relative;
-
-		&:before,
-		&:after {
-			display: none;
-			position: absolute;
-		}
-		&--loading {
-			min-height: 200px;
-		}
-		&--loading:before,
-		&--loading:after {
-			display: block;
-		}
-		&:before {
-			content: '';
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: rgba($background, 0.2);
-		}
-		&:after {
-			content: '\e809';
-			top: 50%;
-			left: 50%;
-			margin: -25px 0 0 -20px;
-			width: 40px;
-			height: 40px;
-
-			@extend [class^="icon-"]:before;
-			font-size: 2.5em;
-			color: rgba($background-copy, 0.6);
-			animation:spin 1s linear infinite;
-		}
+		@extend .b-loader;
+		@extend .b-loader--light;
+	}
+	&_settings-wrap {
+		margin-top: 20px;
 	}
 
-	&_label {
-		display: block;
-		color: lighten($text, 10);
-		font-size: 14px;
-		padding: 15px 0 4px;
-	}
-
-	&_input,
-	&_select-wrap {
-		display: block;
-		width: 100%;
-		padding: 9px;
-		border: 1px solid lighten($background-box, 2);
-		outline: none;
-		background: lighten($background-box, 2);
-
-		&--error {
-			border-color: $red;
-			background: lighten($red, 35);
-		}
-	}
-
-	&_select-wrap {
-		padding: 8.5px 10px 8.5px 2px;
-	}
-
-	&_select  {
-		display: block;
-		width: 100%;
-		font: inherit;
-		border: none;
-		outline: none;
-		background: transparent;
-	}
-
-	&_save,
-	&_cancel,
-	&_remove {
-		margin-top: 40px;
-		margin-bottom: 40px;
-	}
-
-	&_save {
-		margin-left: 10px;
-		float: right;
-	}
-
-	&_cancel {
-		opacity: 0.6;
-		float: right;
-	}
-
-	&_message {
-		color: rgba($text, 0.6);
-	}
-
-	&_uninstall {
-		margin-top: 15px;
+	&_uninstall-wrap {
+		margin-top: 20px;
 	}
 }

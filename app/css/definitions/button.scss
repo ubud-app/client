@@ -72,6 +72,11 @@
 		display: inline-block;
 	}
 
+	&--right {
+		float: right;
+		margin-top: 15px;
+	}
+
 	&--small {
 		font-size: 0.9em;
 		border-radius: 3px;

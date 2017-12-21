@@ -122,12 +122,12 @@ export default BaseView.extend({
                 defaultValue = DataHelper.getUser().get('email');
             }
 
-            $('<label class="document-plugin-settings_label" />')
+            $('<label class="b-form-label" />')
                 .attr('for', 'document-plugin-settings_input-' + field.id)
                 .text(label)
                 .appendTo(this.$settings);
 
-            const $input = $('<input class="document-plugin-settings_input"/>')
+            const $input = $('<input class="b-form-input"/>')
                 .attr('type', field.type)
                 .attr({
                     type: field.type,
@@ -144,12 +144,12 @@ export default BaseView.extend({
             }
         });
 
-        this.$settings.removeClass('document-plugin-settings_settings--loading');
+        this.$settings.removeClass('loading');
         this.$settingsWrap.toggleClass('document-plugin-settings_settings-wrap--hidden', this.model.get('config').length === 0);
     },
     async save(e) {
         e.preventDefault();
-        this.$settings.addClass('document-plugin-settings_settings--loading');
+        this.$settings.addClass('loading');
 
         this.$el.serializeArray().forEach(field => {
             const config = this.model.get('config').find(c => c.id === field.name);
@@ -158,34 +158,35 @@ export default BaseView.extend({
 
         try {
             await this.model.save();
+            this.$('.b-form-input').removeClass('b-form-input--error');
         }
         catch(err) {
             if(err.attributes && Object.entries(err.attributes).length > 0) {
                 let focused = false;
-                this.$('.document-plugin-settings_input').each((i, input) => {
+                this.$('.b-form-input').each((i, input) => {
                     const $input = $(input);
                     const id = $input.attr('name');
-                    $input.toggleClass('document-plugin-settings_input--error', !!err.attributes[id]);
+                    $input.toggleClass('b-form-input--error', !!err.attributes[id]);
 
                     if(err.attributes[id] && !focused) {
                         $input.focus();
                         focused = true;
                     }
-
-                    this.$settings.removeClass('document-plugin-settings_settings--loading');
                 });
+
+                this.$settings.removeClass('loading');
             }else{
-                this.$settings.removeClass('document-plugin-settings_settings--loading');
+                this.$settings.removeClass('loading');
                 window.alert(err.toString());
             }
 
             return;
         }
 
-        this.$('.document-plugin-settings_input--error').removeClass('document-plugin-settings_input--error');
+        this.$('.document-plugin-settings_input--error').removeClass('b-form-input--error');
         this.$(':focus').blur();
         this.$('input[type="password"]').val('');
-        this.$settings.removeClass('document-plugin-settings_settings--loading');
+        this.$settings.removeClass('loading');
 
         this.once('working', () => {
             setTimeout(() => {

@@ -33,65 +33,6 @@
 		border-width: 0 15px 15px 15px;
 		border-color: transparent transparent $background transparent;
 	}
-
-	&_headline {
-		font-size: 18px;
-	}
-
-	&_label {
-		display: block;
-		color: lighten($text, 10);
-		font-size: 14px;
-		padding: 15px 0 4px;
-	}
-
-	&_field,
-	&_select-wrap {
-		display: block;
-		width: 100%;
-		padding: 10px;
-		border: none;
-		outline: none;
-		background: lighten($background-box, 2);
-	}
-	&_select-wrap {
-		padding: 8.5px 10px 8.5px 2px;
-	}
-
-	&_select  {
-		display: block;
-		width: 100%;
-		font: inherit;
-		border: none;
-		outline: none;
-		background: transparent;
-	}
-
-	&_save,
-	&_cancel,
-	&_remove,
-	&_hide {
-		margin-top: 10px;
-	}
-
-	&_save {
-		margin-left: 10px;
-		float: right;
-	}
-
-	&_cancel {
-		opacity: 0.6;
-		float: right;
-	}
-
-	&_remove,
-	&_hide {
-		opacity: 0.4;
-		float: left;
-	}
-	&_hide--hidden {
-		display: none;
-	}
 }
 
 .budgets-labels-budget-editor {

@@ -54,7 +54,7 @@ export default BaseView.extend({
         }));
     },
     async install() {
-        this.$el.addClass('add-account-search-bank-plugin--loading');
+        this.$el.addClass('loading');
 
         const instance = new PluginInstanceModel({
             documentId: this.document.id,
@@ -65,7 +65,7 @@ export default BaseView.extend({
             await instance.save();
         }
         catch(err) {
-            this.$el.removeClass('add-account-search-bank-plugin--loading');
+            this.$el.removeClass('loading');
             window.alert(err);
             return;
         }

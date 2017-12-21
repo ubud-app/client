@@ -11,10 +11,11 @@ import StringHelper from '../helpers/string';
  * @augments BaseView
  */
 export default BaseView.extend({
+    tagName: 'form',
     className: 'budgets-labels-budget-editor',
     events: {
-        'click .budgets-labels-budget-editor_save': 'save',
-        'click .budgets-labels-budget-editor_cancel': 'cancel',
+        'submit': 'save',
+        'reset': 'cancel',
         'click .budgets-labels-budget-editor_hide': 'hide'
     },
 
@@ -74,8 +75,10 @@ export default BaseView.extend({
             $option.remove();
         });
     },
-    save() {
+    save(e) {
         const v = this;
+        e.preventDefault();
+
         v.remove();
         v.model.save({
             categoryId: v.$category.val()

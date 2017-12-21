@@ -1,15 +1,11 @@
-<h2 class="document-account-settings_headline">{{headline}}</h2>
+<h2 class="document-account-settings_headline b-headline-l1">{{headline}}</h2>
 
-<label class="document-account-settings_label" for="document-account-settings_name">
-	{{string 'documentAccountSettings.name.label'}}
-</label>
-<input type="text" name="name" id="document-account-settings_name" placeholder="{{string 'documentAccountSettings.name.default'}}" class="document-account-settings_input"/>
+<label class="b-form-label" for="document-account-settings_name">{{string 'documentAccountSettings.name.label'}}</label>
+<input type="text" name="name" id="document-account-settings_name" placeholder="{{string 'documentAccountSettings.name.default'}}" class="b-form-input"/>
 
-<label class="document-account-settings_label" for="document-account-settings_type">
-	{{string 'documentAccountSettings.type.label'}}
-</label>
-<span class="document-account-settings_select-wrap">
-	<select id="document-account-settings_type" class="document-account-settings_select">
+<label class="b-form-label" for="document-account-settings_type">{{string 'documentAccountSettings.type.label'}}</label>
+<span class="b-form-select-wrap">
+	<select id="document-account-settings_type" class="b-form-select">
 		<option value="checking">{{string 'documentAccountSettings.type.checking'}}</option>
 		<option value="savings">{{string 'documentAccountSettings.type.savings'}}</option>
 		<option value="creditCard">{{string 'documentAccountSettings.type.creditCard'}}</option>
@@ -21,17 +17,12 @@
 </span>
 
 <div class="document-account-settings_transaction">
-	<label class="document-account-settings_label" for="document-account-settings_balance">
-		{{string 'documentAccountSettings.balance.label'}}
-	</label>
-	<input type="text" name="name" id="document-account-settings_balance" class="document-account-settings_input" />
+	<label class="b-form-label" for="document-account-settings_balance">{{string 'documentAccountSettings.balance.label'}}</label>
+	<input type="text" name="name" id="document-account-settings_balance" class="b-form-input" />
 
-	<label class="document-account-settings_label" for="document-account-settings_record-date">
-		{{string 'documentAccountSettings.recordDate.label'}}
-	</label>
-	<input type="text" name="name" id="document-account-settings_record-date" class="document-account-settings_input" />
+	<label class="b-form-label" for="document-account-settings_record-date">{{string 'documentAccountSettings.recordDate.label'}}</label>
+	<input type="text" name="name" id="document-account-settings_record-date" class="b-form-input" />
 </div>
 
-
-<button type="submit" class="document-account-settings_save button button--inline button--small">{{string 'documentAccountSettings.save.text'}}</button>
-<button type="reset" class="document-account-settings_cancel button button--inline button--small button--text">{{string 'documentAccountSettings.cancel.text'}}</button>
+<button type="submit" class="document-account-settings_save b-form-save">{{string 'documentAccountSettings.save.text'}}</button>
+<button type="reset" class="document-account-settings_cancel b-form-cancel">{{string 'documentAccountSettings.cancel.text'}}</button>

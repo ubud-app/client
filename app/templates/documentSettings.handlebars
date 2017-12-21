@@ -1,17 +1,17 @@
 <h2>{{string 'documentSettings.headline'}}</h2>
 
-<h3 class="document-settings_headline">{{string 'documentSettings.general.headline'}}</h3>
-<label class="document-settings_label" for="document-settings_input--name">Name des Budgets</label>
-<input type="text" name="name" id="document-settings_input--name" class="document-settings_input document-settings_input--name">
+<h3 class="document-settings_headline b-headline-l1">{{string 'documentSettings.general.headline'}}</h3>
+<label class="document-settings_label b-form-label" for="document-settings_input--name">Name des Budgets</label>
+<input type="text" name="name" id="document-settings_input--name" class="document-settings_input document-settings_input--name b-form-input">
 
-<h3 class="document-settings_headline">{{string 'documentSettings.accounts.headline'}}</h3>
+<h3 class="document-settings_headline b-headline-l2">{{string 'documentSettings.accounts.headline'}}</h3>
 <div class="document-settings_accounts"></div>
-<a href="#{{document.id}}/settings/accounts/new" class="document-settings_add-account button button--secondary button--small button--inline">{{string 'documentSettings.accounts.add'}}</a>
+<a href="#{{document.id}}/settings/accounts/new" class="document-settings_add-account button button--secondary button--small button--inline button--right">{{string 'documentSettings.accounts.add'}}</a>
 
-<h3 class="document-settings_headline">{{string 'documentSettings.plugins.headline'}}</h3>
+<h3 class="document-settings_headline b-headline-l2">{{string 'documentSettings.plugins.headline'}}</h3>
 <div class="document-settings_plugins"></div>
-<!-- <a href="#{{document.id}}/settings/plugins/new" class="document-settings_add-plugin button button--secondary button--small button--inline">{{string 'documentSettings.plugins.add'}}</a> -->
+<!-- <a href="#{{document.id}}/settings/plugins/new" class="document-settings_add-plugin button button--secondary button--small button--inline button--right">{{string 'documentSettings.plugins.add'}}</a> -->
 
-<h3 class="document-settings_headline">{{string 'documentSettings.dangerous.headline'}}</h3>
-<p class="document-settings_message">{{string 'documentSettings.dangerous.destroy.message'}}</p>
-<button class="document-settings_destroy button button--destructive" title="{{string 'documentSettings.dangerous.destroy.button.title'}}">{{string 'documentSettings.dangerous.destroy.button.text'}}</button>
+<h3 class="document-settings_headline b-headline-l2">{{string 'documentSettings.dangerous.headline'}}</h3>
+<p class="document-settings_message b-danger-text">{{string 'documentSettings.dangerous.destroy.message'}}</p>
+<button class="document-settings_destroy b-danger-button" title="{{string 'documentSettings.dangerous.destroy.button.title'}}">{{string 'documentSettings.dangerous.destroy.button.text'}}</button>
