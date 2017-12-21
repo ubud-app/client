@@ -14,7 +14,12 @@ import TransactionsEditorUnitsView from './transactionsEditorUnits';
  * @augments BaseView
  */
 export default BaseView.extend({
+    tagName: 'form',
     className: 'transactions-editor',
+    events: {
+        'submit': 'save',
+        'reset': 'cancel'
+    },
 
     _initialize(options) {
         this.document = options.document;
@@ -35,15 +40,15 @@ export default BaseView.extend({
         const $units = $('<div class="transactions-editor_units transactions-editor_units--hidden" />').appendTo(v.$el);
         const $unitDiff = $('<span class="transactions-editor_unit-diff" />').appendTo($units);
 
-        const $done = $('<button class="transactions-editor_done button button--inline button--small" />')
+        $('<button type="submit" class="transactions-editor_done button button--inline button--small" />')
             .text(StringHelper.string('transactions.edit.save'))
             .appendTo(v.$el);
 
-        const $cancel = $('<button class="transactions-editor_cancel button button--inline button--small button--text" />')
+        $('<button type="reset" class="transactions-editor_cancel button button--inline button--small button--text" />')
             .text(StringHelper.string('transactions.edit.cancel'))
             .appendTo(v.$el);
 
-        const $delete = $('<button class="transactions-editor_delete transactions-editor_delete--hidden button button--inline button--small button--destructive" />')
+        const $delete = $('<button type="delete" class="transactions-editor_delete transactions-editor_delete--hidden button button--inline button--small button--destructive" />')
             .text(StringHelper.string('transactions.remove.text'))
             .attr('title', StringHelper.string('transactions.remove.title'))
             .appendTo(v.$el);
@@ -199,29 +204,6 @@ export default BaseView.extend({
             v.model.destroy();
         });
 
-        // Cancel Button
-        $cancel.click((e) => {
-            e.stopPropagation();
-
-            if (!v.model.id) {
-                v.trigger('close');
-                v.model.collection.remove(v.model);
-                return;
-            }
-
-            v.model.set(v.model.previousAttributes());
-            v.model.fetch();
-
-            v.trigger('close');
-        });
-
-        // Done Button
-        $done.click(e => {
-            e.stopPropagation();
-            v.model.save();
-            v.trigger('close');
-        });
-
 
         // Units
         new TransactionsEditorUnitsView({
@@ -242,5 +224,24 @@ export default BaseView.extend({
             $unitDiff.text(StringHelper.currency(v.document, diff));
         });
 
+    },
+
+    save(e) {
+        e.stopPropagation();
+        this.model.save();
+        this.trigger('close');
+    },
+
+    cancel() {
+        if (!this.model.id) {
+            this.trigger('close');
+            this.model.collection.remove(this.model);
+            return;
+        }
+
+        this.model.set(this.model.previousAttributes());
+        this.model.fetch();
+
+        this.trigger('close');
     }
 });
