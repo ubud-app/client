@@ -255,7 +255,7 @@ class DataHelper {
     }
 
     static wait(model) {
-        if (_.size(model.toJSON()) > 1 && !model.syncing) {
+        if ((model.length > 0 || _.size(model.toJSON()) > 1) && !model.syncing) {
             return Promise.resolve(model);
         }
         if (!model.syncing) {
