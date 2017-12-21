@@ -40,8 +40,6 @@ export default BaseView.extend({
     renderView(view) {
         const v = this;
 
-        $('body').scrollTop(0);
-
         if (v.child) {
             v.child.remove();
         }
@@ -49,6 +47,8 @@ export default BaseView.extend({
         v.child = view;
         view.appendTo(v.$content, v);
 
+        $('body').scrollTop(0);
+        
         return v;
     },
 
