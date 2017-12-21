@@ -47,7 +47,7 @@ Handlebars.registerHelper('percentage', StringHelper.formatPercentage);
 const lang = window.navigator.userLanguage || window.navigator.language;
 
 translate.registerTranslations('de', require('../../strings/de.json'));
-translate.registerTranslations('en', require('../../strings/en.json'));
+translate.registerTranslations('en', require('../../strings/de.json'));
 
 numbro.culture('de-DE', require('numbro/dist/languages/de-DE.min'));
 require('moment/locale/de');
