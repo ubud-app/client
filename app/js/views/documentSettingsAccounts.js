@@ -11,20 +11,22 @@ import DocumentSettingsAccountView from './documentSettingsAccount';
  */
 export default BaseView.extend({
     tagName: 'ul',
-    className: 'document-settings-accounts',
+    className: 'document-settings-accounts loading',
 
     async render() {
         this.$el.html(DocumentSettingsAccountsTemplate());
         this.collection = this.model.getAccounts().live(this);
         this.listenTo(this.collection, 'add', this.addAccount);
-        this.listenToAndCall(this.collection, 'add remove reset', this.showOrHideEmptyMessage);
+        this.listenToAndCall(this.collection, 'add remove reset sync request', this.showOrHideEmptyMessage);
         this.collection.each(this.addAccount);
+
+        this.listenToOnce(this.collection, 'sync', () => {this.$el.removeClass('loading');});
     },
 
     showOrHideEmptyMessage() {
         this.$('.document-settings-accounts_empty').toggleClass(
             'document-settings-accounts_empty--visible',
-            this.collection.length === 0
+            this.collection.length === 0 && !this.collection.syncing
         );
     },
 

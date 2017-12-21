@@ -11,7 +11,7 @@ import DocumentSettingsUserView from './documentSettingsUser';
  */
 export default BaseView.extend({
     tagName: 'ul',
-    className: 'document-settings-users',
+    className: 'document-settings-users loading',
 
     async render() {
         this.collection = new UserCollection().live(this);
@@ -19,5 +19,7 @@ export default BaseView.extend({
         this.renderChildren(DocumentSettingsUserView, {
             childOptions: {document: this.model}
         });
+
+        this.listenToOnce(this.collection, 'sync', () => {this.$el.removeClass('loading');});
     }
 });

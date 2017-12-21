@@ -1,6 +1,13 @@
 @import '../definitions/variables';
 
 .document-settings {
+	&-accounts,
+	&-plugins,
+	&-users {
+		@extend .b-loader;
+		@extend .b-loader--light;
+	}
+
 	&-accounts_empty,
 	&-plugins_empty {
 		display: none;
