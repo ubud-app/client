@@ -65,6 +65,9 @@
 			background: $red;
 			border-color: $red;
 		}
+		&:disabled {
+			opacity: 0.6;
+		}
 	}
 
 	&--inline {

@@ -19,7 +19,8 @@ export default BaseView.extend({
     className: 'document-account-settings app_layout--page',
     events: {
         'submit': 'save',
-        'reset': 'back'
+        'reset': 'back',
+        'click .document-settings_destroy': 'destroy'
     },
 
     _initialize(options) {
@@ -102,6 +103,29 @@ export default BaseView.extend({
             const m = moment($recordDate.val(), 'L');
             $recordDate.val((m.isValid() ? m : moment().startOf('month')).format('L'));
         });
+
+        // Destroy Message
+        const $message = this.$('.document-account-settings_message');
+        const $button = this.$('.document-settings_destroy');
+        this.listenToAndCall(this.model, 'change:pluginInstanceId change:transactions', () => {
+            if(this.model.has('pluginInstanceId')) {
+                $message.text(StringHelper.string('documentAccountSettings.dangerous.destroy.message.plugin'));
+                $button.prop('disabled', true);
+            }
+            else if(this.model.get('transactions') === 0) {
+                $message.text(StringHelper.string('documentAccountSettings.dangerous.destroy.message.empty'));
+                $button.prop('disabled', false);
+            }
+            else {
+                $message.text(StringHelper.string('documentAccountSettings.dangerous.destroy.message.dangerous'));
+                $button.prop('disabled', false);
+            }
+        });
+
+        // Destroy
+        this.listenToOnce(this.model, 'destroy', function () {
+            AppHelper.navigate(this.documentId + '/settings', {trigger: true, replace: true});
+        });
     },
     async save(e) {
         e.preventDefault();
@@ -142,5 +166,20 @@ export default BaseView.extend({
     back(e) {
         e.preventDefault();
         window.history.back();
+    },
+    destroy(e) {
+        e.preventDefault();
+
+        // managed account: not allowed
+        if(this.model.has('pluginInstanceId')) {
+            return;
+        }
+
+        // confirmation
+        if(this.model.get('transactions') !== 0 && !confirm(StringHelper.string('documentAccountSettings.dangerous.destroy.confirm'))) {
+            return;
+        }
+
+        this.model.destroy();
     }
 });

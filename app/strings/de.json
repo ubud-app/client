@@ -189,6 +189,19 @@
 			},
 			"transaction": {
 				"memo": "Kontostand zum Stichtag"
+			},
+			"dangerous": {
+				"headline": "Gefährliche Zone",
+				"destroy": {
+					"message": {
+						"plugin": "Du kannst dieses Konto leider nicht löschen, da es von einem Plugin verwaltet wird. Entferne zuerst das Plugin vom Dokument.",
+						"empty": "Du kannst dieses Konto gefahrlos löschen, da keine Transaktionen auf diesem Konto verzeichnet sind. Dein Budget ändert sich dadurch nicht.",
+						"dangerous": "Durch das Löschen des Kontos werden alle Transaktionen darin gelöscht. Dadurch wird dein Budget vermutlich nicht mehr aufgehen."
+					},
+					"title": "Account und alle Transaktionen darauf löschen",
+					"text": "Account löschen",
+					"confirm": "Bist du Dir sicher, dass du diesen Account sowie alle Transaktionen darin löschen willst? Dein Budget wird danach nicht mehr aufgehen!"
+				}
 			}
 		},
 		"documentPluginSettings": {
