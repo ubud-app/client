@@ -263,7 +263,8 @@
 					"msg": "Du kannst das Konto trotzdem manuell anlegen.",
 					"manual": "Konto manuell anlegen"
 				}
-			}
+			},
+			"cancel": "Abbrechen"
 		},
 		"budget": {
 			"title": "Budget",
