@@ -25,6 +25,8 @@ export default BaseView.extend({
 
     render() {
         const v = this;
+        $('<div class="budgets-labels_header" />').appendTo(v.$el);
+
         const $ul = $('<ul class="budgets-labels_categories" />').appendTo(v.$el);
         v.renderChildren(BudgetLabelsCategory, {
             collection: v.categories,

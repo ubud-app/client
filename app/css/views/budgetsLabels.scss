@@ -12,6 +12,15 @@
 	background: lighten($background-box, 4);
 	border-right: 20px solid $background;
 
+	&_header {
+		position: fixed;
+		top: 60px;
+		width: 200px;
+		height: 145px;
+		background: lighten($background-box, 4);
+		z-index: 1;
+	}
+
 	&-category {
 		display: block;
 

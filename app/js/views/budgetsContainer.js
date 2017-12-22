@@ -14,35 +14,39 @@ export default BaseView.extend({
     className: 'budgets-container',
     rendered: false,
 
-    _initialize(options) {
+    _initialize (options) {
         this.document = options.document;
         this.month = options.month;
         this.categories = options.categories;
         this.budgets = options.budgets;
     },
 
-    render() {
+    render () {
         const v = this;
+        v.$headerWrap = $('<div class="budgets-container-header" />').appendTo(v.$el);
+        v.$containers = $('.budgets-containers');
 
         $('<span class="budgets-container_month" />')
             .text(this.month.format('MMMM'))
-            .appendTo(v.$el);
+            .appendTo(v.$headerWrap);
 
         $('<span class="budgets-container_year" />')
             .text(this.month.format('YYYY'))
-            .appendTo(v.$el);
+            .appendTo(v.$headerWrap);
 
         let stats, categories;
-        const $stats = $('<div class="budgets-container_stats" />').appendTo(v.$el);
+        const $stats = $('<div class="budgets-container_stats" />').appendTo(v.$headerWrap);
         const $categories = $('<div class="budgets-container_categories loading" />').appendTo(v.$el);
 
+
+        // Loading Indicator
         let todo = 0;
         let active = false;
-        const check = async function(o) {
+        const check = async function (o) {
             todo++;
             await o.wait();
             todo--;
-            if(todo <= 0 && active) {
+            if (todo <= 0 && active) {
                 $categories.removeClass('loading');
             }
         };
@@ -50,6 +54,8 @@ export default BaseView.extend({
         check(v.categories);
         check(v.budgets);
 
+
+        // Activation / Deactivation
         v.on('active', function (a) {
             if (a && !stats) {
                 active = true;
@@ -66,7 +72,11 @@ export default BaseView.extend({
                     budgets: v.budgets
                 }).appendTo(v, $categories);
 
-                if(todo <= 0) {
+                v.$containers.on('scroll', v.scroll);
+                $(document).on('scroll', v.scroll);
+                v.scroll();
+
+                if (todo <= 0) {
                     $categories.removeClass('loading');
                 }
             }
@@ -79,12 +89,35 @@ export default BaseView.extend({
                 categories.remove();
                 categories = null;
 
+                v.$containers.off('scroll', v.scroll);
+                $(document).off('scroll', v.scroll);
+                this.$headerWrap
+                    .removeClass('budgets-container-header--fixed')
+                    .css({left: null});
+
                 $categories.addClass('loading');
             }
         });
+
+
+        // Scroll Magic
+        v.on('remove', () => {
+            v.$containers.off('scroll', v.scroll);
+        });
     },
 
-    active(value) {
+    active (value) {
         this.trigger('active', !!value);
+    },
+
+    scroll () {
+        const top = $(document).scrollTop();
+
+        this.$headerWrap
+            .addClass('budgets-container-header--fixed')
+            .css({
+                top: Math.max(45, 85 - top),
+                left: this.$el.offset().left
+            });
     }
 });
