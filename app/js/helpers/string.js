@@ -53,7 +53,7 @@ numbro.culture('de-DE', require('numbro/dist/languages/de-DE.min'));
 require('moment/locale/de');
 
 moment.locale(lang);
-translate.setLocale(lang);
+translate.setLocale(lang.split('-')[0]);
 
 translate.onTranslationNotFound(function (locale, key) {
     const err = new Error('StringHelper: Key `' + key + '` not found in locale `' + locale + '`!');
