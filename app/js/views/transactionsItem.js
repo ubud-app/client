@@ -151,6 +151,8 @@ export default BaseView.extend({
 
             v.listenTo(v.editor, 'close', () => {
                 v.$el.removeClass('transactions-item--opened');
+                v.editor.remove();
+                v.editor = null;
             });
         }
 
