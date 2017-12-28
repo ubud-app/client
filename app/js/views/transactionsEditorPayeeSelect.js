@@ -86,9 +86,10 @@ export default BaseView.extend({
         }, 250);
     },
 
-    async process() {
+    async process(e) {
         const v = this;
         const q = v.$input.val();
+        e.stopPropagation();
 
         if(!q && !v._lastQ) {
             v.deactivate();
@@ -161,6 +162,7 @@ export default BaseView.extend({
             return;
         }
 
+        e.preventDefault();
         const $items = v.$resultsBox.find('.transactions-editor-payee-select_item');
         if(e.keyCode === 13 && $items.length > v._selected) {
             const id = $items.eq(v._selected).data('id');
