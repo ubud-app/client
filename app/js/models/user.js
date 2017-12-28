@@ -1,6 +1,7 @@
 'use strict';
 
 import BaseModel from './_';
+import SessionCollection from '../collections/session';
 
 /**
  * @module models/user
@@ -8,5 +9,11 @@ import BaseModel from './_';
  * @augments BaseModel
  */
 export default BaseModel.extend({
-    urlRoot: 'users'
+    urlRoot: 'users',
+
+    getSessions() {
+        const sessions = new SessionCollection();
+        sessions.id = 'user:' + this.id;
+        return sessions;
+    }
 });

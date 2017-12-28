@@ -13,6 +13,7 @@ import AddAccountView from '../views/addAccount';
 import AddAccountSearchBankView from '../views/addAccountSearchBank';
 import DocumentPluginSettingsView from '../views/documentPluginSettings';
 import TransactionsView from '../views/transactions';
+import SettingsView from '../views/settings';
 
 export default BackboneRouter.extend({
     routes: {
@@ -91,7 +92,7 @@ export default BackboneRouter.extend({
     },
 
     async settings() {
-        const view = new PlaceholderView({view: 'settings'});
+        const view = new SettingsView();
         this.view.renderView(view);
     },
     async logout() {

@@ -1,0 +1,13 @@
+@import '../definitions/variables';
+
+.settings-session {
+	display: block;
+	position: relative;
+	background: $background-box;
+	padding: 15px 20px;
+	text-decoration: none;
+
+	& + & {
+		margin-top: 10px;
+	}
+}

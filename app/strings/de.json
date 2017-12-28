@@ -367,6 +367,11 @@
 		},
 		"settings": {
 			"title": "Einstellungen",
+			"headline": "Einstellungen",
+			"sessions": {
+				"headline": "Meine Geräte",
+				"add": "Gerät hinzufügen"
+			},
 			"placeholder": "Einstellungen"
 		}
 	}
