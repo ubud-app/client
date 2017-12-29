@@ -50,6 +50,7 @@
 		"jquery": "^3.2.1",
 		"moment": "^2.19.4",
 		"numbro": "^1.11.1",
+		"qrcode-svg": "^1.0.0",
 		"raven-js": "^3.20.1",
 		"socket.io-client": "^2.0.4",
 		"underscore": "^1.8.3"

@@ -11,6 +11,9 @@ import SettingsSessionTemplate from '../../templates/settingsSession.handlebars'
 export default BaseView.extend({
     tagName: 'li',
     className: 'settings-session',
+    events: {
+        'click .settings-session_delete': 'logout'
+    },
 
     render() {
         this.$el.html(SettingsSessionTemplate({
@@ -22,5 +25,9 @@ export default BaseView.extend({
         this.listenToAndCall(this.model, 'change:name', () => {
             this.$('.settings-session_name').text(this.model.get('name'));
         });
+    },
+
+    logout() {
+        this.model.destroy();
     }
 });

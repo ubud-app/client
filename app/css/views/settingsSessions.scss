@@ -10,4 +10,18 @@
 	& + & {
 		margin-top: 10px;
 	}
+
+	&_delete {
+		display: none;
+		position: absolute;
+		right: 20px;
+		top: 0;
+		font-size: 1.2em;
+		line-height: 55px;
+		opacity: 0.6;
+		@extend [class^="icon-"]:before;
+	}
+	&:hover &_delete {
+		display: block;
+	}
 }

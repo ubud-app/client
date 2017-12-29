@@ -12,7 +12,7 @@ import StoreHelper from '../helpers/store';
 export default BaseModel.extend({
     urlRoot: 'sessions',
 
-    _initialize() {
+    load() {
         const m = this;
 
         m.set(StoreHelper.get('auth'));
@@ -21,6 +21,8 @@ export default BaseModel.extend({
         m.on('sync change:id', function () {
             StoreHelper.set('auth', m.toJSON());
         });
+
+        return m;
     },
 
     getUser() {

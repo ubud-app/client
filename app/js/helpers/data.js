@@ -60,7 +60,7 @@ class DataHelper {
             // });
 
             // setup session object
-            DataHelper._session = new SessionModel();
+            DataHelper._session = new SessionModel().load();
             DataHelper._session.on('change:id', () => {
                 DataHelper.trigger(DataHelper._session.id ? 'auth:loggedIn' : 'auth:loggedOut');
             });

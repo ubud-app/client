@@ -14,6 +14,7 @@ import AddAccountSearchBankView from '../views/addAccountSearchBank';
 import DocumentPluginSettingsView from '../views/documentPluginSettings';
 import TransactionsView from '../views/transactions';
 import SettingsView from '../views/settings';
+import SettingsAddSessionView from '../views/settingsAddSession';
 
 export default BackboneRouter.extend({
     routes: {
@@ -29,6 +30,7 @@ export default BackboneRouter.extend({
         ':document/settings/accounts/:accountId': 'documentAccountSettings',
         ':document/settings/plugins/:pluginId': 'documentPluginSettings',
         'settings': 'settings',
+        'settings/sessions/new': 'settingsAddSession',
         'logout': 'logout',
         '*path': 'dashboard'
     },
@@ -93,6 +95,10 @@ export default BackboneRouter.extend({
 
     async settings() {
         const view = new SettingsView();
+        this.view.renderView(view);
+    },
+    async settingsAddSession() {
+        const view = new SettingsAddSessionView();
         this.view.renderView(view);
     },
     async logout() {

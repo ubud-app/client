@@ -372,6 +372,17 @@
 				"headline": "Meine Geräte",
 				"add": "Gerät hinzufügen"
 			},
+			"addSession": {
+				"title": "Gerät hinzufügen",
+				"headline": "Gerät zum Konto hinzufügen",
+				"info": {
+					"scan": "Scanne den folgenden QR-Code in deiner DWIMM-App, um die dort mit diesem Account einzuloggen. Du hast dann in der App Zugriff auf all deine Dokumente und Einstellungen.",
+					"accept": "Der Client \"%(name)s\" möchte Zugriff auf dein DWIMM-Konto erhalten. Damit besitzt die Applikation die nötigen Rechte, um alle Dokumente in deinem Konto einzusehen und zu bearbeiten. Der Client kann diese Berechtigung weitergeben, ohne Dich darüber zu benachrichtigen. Vertraust du diesem Client und erlaubst den Zugriff?"
+				},
+				"deviceName": "Neues Gerät",
+				"accept": "Zugriff erlauben",
+				"deny": "Gerät ignorieren und abbrechen"
+			},
 			"placeholder": "Einstellungen"
 		}
 	}
