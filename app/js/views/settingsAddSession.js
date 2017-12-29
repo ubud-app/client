@@ -89,9 +89,11 @@ export default BaseView.extend({
             this.model.destroy();
         }
 
-        await this.model.save({id: null});
+        await this.model.save({id: null}).live(this);
 
         const url = 'dwimm://' + this.model.id + ':' + this.model.get('secret') + '@' + document.location.host;
+        console.log('Current QR-Code URL:', url);
+
         this.$qr.html(
             new QRCode({
                 content: url,
