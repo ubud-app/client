@@ -28,9 +28,6 @@ export default BaseView.extend({
             });
         }
         this.listenToAndCall(this.model, 'change:id change:name', this.updateInput);
-
-        this.listenTo(this.model, 'change:id', this.updateSettingsVisibility);
-        this.listenToAndCall(DataHelper.getUser(), 'change:isAdmin', this.updateSettingsVisibility);
     },
 
     async submit(e) {
@@ -68,12 +65,5 @@ export default BaseView.extend({
         }
 
         $input.val(this.model.get('name'));
-    },
-
-    updateSettingsVisibility() {
-        this.$('.dashboard-item_settings').toggleClass(
-            'dashboard-item_settings--hidden',
-            !this.model.id || !DataHelper.getUser().get('isAdmin')
-        );
     }
 });
