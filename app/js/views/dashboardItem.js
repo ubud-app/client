@@ -1,7 +1,6 @@
 'use strict';
 
 import BaseView from './_';
-import DataHelper from '../helpers/data';
 import DashboardItemTemplate from '../../templates/dashboardItem.handlebars';
 
 /**
