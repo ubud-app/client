@@ -57,13 +57,26 @@ export default BaseView.extend({
 
 
         // Plugins
-        new DocumentSettingsPluginsView({model: this.model}).appendTo(this, '.document-settings_plugins');
+        let plugins;
+        const me = await DataHelper.getUser().live(this).wait();
+        const $pluginsWrap = this.$('.document-settings_plugins-wrap');
+        this.listenToAndCall(me, 'change:isAdmin', () => {
+            $pluginsWrap.toggleClass('document-settings_plugins-wrap--hidden', !me.get('isAdmin'));
+
+            if(me.get('isAdmin') && !plugins) {
+                plugins = new DocumentSettingsPluginsView({model: this.model})
+                    .appendTo(this, '.document-settings_plugins');
+            }
+            else if(!me.get('isAdmin') && plugins) {
+                plugins.remove();
+                plugins = null;
+            }
+        });
 
 
         // Users
         new DocumentSettingsUsersView({model: this.model}).appendTo(this, '.document-settings_users');
 
-        const me = await DataHelper.getUser().live(this).wait();
         const $usersWrap = this.$('.document-settings_users-wrap');
         this.listenToAndCall(me, 'change:isAdmin', () => {
             $usersWrap.toggleClass('document-settings_users-wrap--hidden', !me.get('isAdmin'));
