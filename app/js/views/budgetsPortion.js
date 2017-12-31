@@ -68,16 +68,16 @@ export default BaseView.extend({
         const updateBalance = () => {
             const balance = v.model.get('balance') || 0;
             let text = StringHelper.currency(this.document, balance);
-            if (!v.budget.has('goal')) {
-                text = '= ' + text;
-            }
 
-            $balance.text(text);
+            $balance.empty();
             $balance.toggleClass('budgets-portion_balance--negative', balance < 0);
             $balance.toggleClass('budgets-portion_balance--goal', !!v.budget.get('goal'));
 
             if (v.budget.get('goal')) {
                 const p = balance / v.budget.get('goal');
+                
+                $('<span class="budgets-portion_progress-value" />').text(text).appendTo($balance);
+
                 const $g = $('<span class="budgets-portion_goal" />').attr({
                     title: StringHelper.percentage(p)
                 }).appendTo($balance);
@@ -86,6 +86,9 @@ export default BaseView.extend({
                 $('<span class="budgets-portion_progress" />').css({
                     width: Math.min(100, p * 100) + '%'
                 }).appendTo($g);
+            }else{
+                text = '= ' + text;
+                $balance.text(text);
             }
         };
         v.listenToAndCall(v.model, 'change:balance', updateBalance);
