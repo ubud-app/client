@@ -39,7 +39,8 @@ publish_npm_next:
   script:
     - node -v
     - yarn -v
-    - yarn installnpm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+    - yarn install
+    - yarn config set //registry.npmjs.org/:_authToken $NPM_TOKEN
     - yarn run bump:develop
     - yarn run build
     - yarn publish --tag "next"
