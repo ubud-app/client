@@ -43,6 +43,6 @@ publish_npm_next:
     - yarn config set //registry.npmjs.org/:_authToken $NPM_TOKEN
     - yarn run bump:develop
     - yarn run build
-    - yarn publish --tag "next"
+    - yarn publish --tag "next" --version "${MODULEVERSION}"
   only:
     - develop

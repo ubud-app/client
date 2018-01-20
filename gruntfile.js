@@ -262,18 +262,6 @@ module.exports = function (grunt) {
         configuration.production = true;
     });
 
-    grunt.registerTask('setVersion', function () {
-        let json = require('./package.json');
-        json.version = grunt.option('value');
-        grunt.file.write('./package.json', JSON.stringify(json, null, '\t'));
-        grunt.log.oklns('Updated package.json to ' + json.version);
-
-        json = require('./package-lock.json');
-        json.version = grunt.option('value');
-        grunt.file.write('./package-lock.json', JSON.stringify(json, null, '\t'));
-        grunt.log.oklns('Updated package-lock.json to ' + json.version);
-    });
-
     grunt.registerTask('development', [
         'clean:all',
         'htmlmin:app',

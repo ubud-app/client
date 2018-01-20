@@ -11,9 +11,8 @@
 		"build": "npm run build:production",
 		"build:production": "PRODUCTION=1 grunt --production",
 		"build:dev": "grunt dev",
-		"bump:reset": "export MODULEVERSION=$(npm view @dwimm/client-web version) && npm run bump:reset:save",
-		"bump:reset:next": "export MODULEVERSION=$(npm view @dwimm/client-web@next version) && npm run bump:reset:save",
-		"bump:reset:save": "grunt setVersion --value=${MODULEVERSION}",
+		"bump:reset": "export MODULEVERSION=$(npm view @dwimm/client-web version)",
+		"bump:reset:next": "export MODULEVERSION=$(npm view @dwimm/client-web@next version)",
 		"bump:develop": "npm run bump:reset:next && npm --no-git-tag-version version prerelease",
 		"bump:production": "npm run bump:reset && npm --no-git-tag-version version from-git"
 	},
