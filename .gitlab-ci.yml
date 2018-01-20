@@ -43,6 +43,7 @@ publish_npm_next:
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
     - npm run bump:develop
     - npm run build
-    - npm publish --tag "next" --version "$(cat ./package.json | jq '.version' -rce)"
+    - echo "Version: $(cat ./package.json | jq '.version' -rce)"
+    - npm publish --tag "next"
   only:
     - develop
