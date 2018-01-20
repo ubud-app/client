@@ -1,0 +1,43 @@
+stages:
+  - build
+  - check
+  - publish
+
+publish_github:
+  stage: build
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - git push "https://${GITHUB_AUTH}@github.com/dwimm/client-web.git" --all
+    - git push "https://${GITHUB_AUTH}@github.com/dwimm/client-web.git" --tags
+
+check_lint:
+  stage: check
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - node -v
+    - npm run check
+
+# visualize:
+#   stage: check
+#   tags:
+#     - matt.sebbo.net
+#     - ssh
+#   script:
+#     - npm run visualize
+
+publish_npm_next:
+  stage: publish
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+    - npm run bump:develop
+    - npm run build
+    - npm publish --tag "next"
+  only:
+    - develop
