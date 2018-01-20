@@ -40,10 +40,9 @@ publish_npm_next:
     - node -v
     - yarn -v
     - yarn install
-    - yarn config set //registry.npmjs.org/:_authToken $NPM_TOKEN
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-    - yarn run bump:develop
-    - yarn run build
-    - yarn publish --tag "next" --version "${MODULEVERSION}"
+    - npm run bump:develop
+    - npm run build
+    - npm publish --tag "next" --version "$(cat ./package.json | jq '.version' -rce)"
   only:
     - develop
