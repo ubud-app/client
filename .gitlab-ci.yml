@@ -9,8 +9,8 @@ publish_github:
     - matt.sebbo.net
     - ssh
   script:
-    - git push "https://${GITHUB_AUTH}@github.com/dwimm/client-web.git" --all
-    - git push "https://${GITHUB_AUTH}@github.com/dwimm/client-web.git" --tags
+    - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --all
+    - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --tags
 
 check_lint:
   stage: check
