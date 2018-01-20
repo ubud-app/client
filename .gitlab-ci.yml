@@ -19,7 +19,9 @@ check_lint:
     - ssh
   script:
     - node -v
-    - npm run check
+    - yarn -v
+    - yarn install
+    - yarn run check
 
 # visualize:
 #   stage: check
