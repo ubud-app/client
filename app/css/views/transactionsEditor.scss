@@ -1,7 +1,7 @@
 @import '../definitions/variables';
 
 .transactions-editor {
-	height: 73px;
+	min-height: 73px; // min-height, otherwise multiple units may look ugly…
 
 	&_date {
 		@extend .transactions-item_date;
