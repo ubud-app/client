@@ -1,6 +1,7 @@
 'use strict';
 
 import $ from 'jquery';
+import _ from 'underscore';
 import BaseView from './_';
 import BudgetsStatsView from './budgetsStats';
 import BudgetsCategoriesView from './budgetsCategories';
@@ -23,6 +24,8 @@ export default BaseView.extend({
 
     render () {
         const v = this;
+        this.scroll = _.throttle(this._scroll, 10);
+
         v.$headerWrap = $('<div class="budgets-container-header" />').appendTo(v.$el);
         v.$containers = $('.budgets-containers');
 
@@ -69,6 +72,7 @@ export default BaseView.extend({
 
                 v.$containers.on('scroll', v.scroll);
                 $(document).on('scroll', v.scroll);
+                $(window).on('resize', v.scroll);
                 v.scroll();
 
                 if (!loading) {
@@ -86,6 +90,7 @@ export default BaseView.extend({
 
                 v.$containers.off('scroll', v.scroll);
                 $(document).off('scroll', v.scroll);
+                $(window).off('resize', v.scroll);
                 this.$headerWrap
                     .removeClass('budgets-container-header--fixed')
                     .css({left: null});
@@ -98,6 +103,8 @@ export default BaseView.extend({
         // Scroll Magic
         v.on('remove', () => {
             v.$containers.off('scroll', v.scroll);
+            $(document).off('scroll', v.scroll);
+            $(window).off('resize', v.scroll);
         });
     },
 
@@ -105,7 +112,7 @@ export default BaseView.extend({
         this.trigger('active', !!value);
     },
 
-    scroll () {
+    _scroll () {
         const top = $(document).scrollTop();
 
         this.$headerWrap
