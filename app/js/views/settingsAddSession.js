@@ -50,16 +50,14 @@ export default BaseView.extend({
                 i = null;
             }
         });
+
+        // Accept or Deny
         this.listenToOnce(this.model, 'change:name', () => {
             if (i) {
                 clearInterval(i);
                 i = null;
             }
-        });
 
-
-        // Accept or Deny
-        this.listenToOnce(this.model, 'change:name', () => {
             $message.text(StringHelper.string('settings.addSession.info.accept', {
                 name: this.model.get('name')
             }));
