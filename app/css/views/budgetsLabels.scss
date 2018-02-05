@@ -4,7 +4,7 @@
 	position: absolute;
 	display: block;
 	top: 20px;
-	left: $sidebar-width;
+	left: 0;
 	bottom: 20px;
 	z-index: 10;
 	padding: 130px 0 20px;
@@ -15,7 +15,7 @@
 	&_header {
 		position: fixed;
 		top: 60px;
-		width: 200px;
+		width: (200px + $sidebar-width);
 		height: 145px;
 		background: lighten($background-box, 4);
 		z-index: 1;
@@ -32,9 +32,9 @@
 			display: block;
 			position: relative;
 			font-weight: bold;
-			width: 200px;
+			width: (200px + $sidebar-width);
 			height: 45px;
-			padding: 15px 15px 6px;
+			padding: 15px 15px 6px (15px + $sidebar-width);
 			color: lighten($text, 15);
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -60,7 +60,7 @@
 	&-budget {
 		display: block;
 		position: relative;
-		width: 200px;
+		width: (200px + $sidebar-width);
 		height: 38px;
 		background: lighten($background-box, 1);
 
@@ -70,7 +70,7 @@
 
 		&_name {
 			display: block;
-			padding: 8px 15px;
+			padding: 8px 15px 8px  (15px + $sidebar-width);
 
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -96,7 +96,7 @@
 	&_addCategory,
 	&_addBudget {
 		width: 178px;
-		margin: 40px 10px 0;
+		margin: 40px 10px 0 (10px + $sidebar-width);
 	}
 	&_addBudget {
 		margin-top: 10px;
