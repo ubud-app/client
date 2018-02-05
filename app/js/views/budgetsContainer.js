@@ -40,19 +40,14 @@ export default BaseView.extend({
 
 
         // Loading Indicator
-        let todo = 0;
         let active = false;
-        const check = async function (o) {
-            todo++;
-            await o.wait();
-            todo--;
-            if (todo <= 0 && active) {
+        let loading = true;
+        Promise.all([v.categories, v.budgets].map(o => o.wait())).then(() => {
+            if (active) {
+                loading = false;
                 $categories.removeClass('loading');
             }
-        };
-
-        check(v.categories);
-        check(v.budgets);
+        });
 
 
         // Activation / Deactivation
@@ -76,7 +71,7 @@ export default BaseView.extend({
                 $(document).on('scroll', v.scroll);
                 v.scroll();
 
-                if (todo <= 0) {
+                if (!loading) {
                     $categories.removeClass('loading');
                 }
             }
