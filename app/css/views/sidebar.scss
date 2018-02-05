@@ -15,7 +15,8 @@
 	border-right: 1px solid $background-box;
 
 	.sidebar--mini {
-		transition: width 0.2s ease-out, transform ease-out 0.3s;
+		width: $sidebar-width;
+		transition: width 0s ease-out, transform ease-out 0s;
 	}
 
 	&:not(.sidebar--mini):hover {
