@@ -147,12 +147,8 @@
 		float: right;
 	}
 
-	&_delete {
-		float: left;
-
-		&--hidden {
-			display: none;
-		}
+	&_delete--hidden {
+		visibility: hidden;
 	}
 
 	&_units {

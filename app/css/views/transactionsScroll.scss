@@ -6,3 +6,7 @@
 	@extend .b-loader;
 	@extend .b-loader--light;
 }
+
+.transactions-month + .transactions-month {
+	margin-top: 2px;
+}
