@@ -18,6 +18,7 @@ export default BaseView.extend({
 
     nextMonthLock: false,
     emptyMonths: 0,
+    startup: true,
 
     async render() {
         const v = this;
@@ -44,55 +45,58 @@ export default BaseView.extend({
         });
 
         v.scroll = _.throttle(v.checkMonths, 100, {leading: false});
+        this.$el.removeClass('loading');
+
+        await Promise.all([
+            v.addMonth('future'),
+            v.addMonth(moment())
+        ]);
+
+        $(window).scrollTop($(document).height());
+
         $(window).on('scroll', v.scroll);
         v.once('remove', () => {
             $(window).off('scroll', v.scroll);
         });
 
-        this.$el.removeClass('loading');
-
-        Promise.all([
-            v.addMonth('future'),
-            v.addMonth(moment())
-        ])
-            .then(() => {
-                $(window).scrollTop($(document).height());
-                return v.checkMonths();
-            });
+        await v.checkMonths();
+        this.startup = false;
     },
     resize() {
         this.$el.css('min-height', $(window).height() - 100 - 60);
     },
-    checkMonths() {
+    async checkMonths() {
         if ($(window).scrollTop() < (2 * $(window).height())) {
-            this.addNextMonth();
+            return this.addNextMonth();
         }
     },
-    addNextMonth() {
+    async addNextMonth() {
         const v = this;
         if (v.nextMonthLock) {
             return;
         }
 
         v.nextMonthLock = true;
-        v.addMonth(moment(v.oldestMonth).subtract(1, 'month').startOf('month')).then(function (transactions) {
-            if (transactions.length) {
-                v.emptyMonths = 0;
-            } else {
-                v.emptyMonths += 1;
-            }
+        const transactions = await v.addMonth(
+            moment(v.oldestMonth).subtract(1, 'month').startOf('month')
+        );
 
-            if (v.emptyMonths > 4) {
-                // the end is near…
-                return;
-            }
+        if (transactions.length) {
+            v.emptyMonths = 0;
+        } else {
+            v.emptyMonths += 1;
+        }
 
-            v.nextMonthLock = false;
-            v.checkMonths();
-        });
+        if (v.emptyMonths > 4) {
+            // the end is near…
+            return;
+        }
+
+        v.nextMonthLock = false;
+        return v.checkMonths();
     },
 
-    addMonth(month) {
+    async addMonth(month) {
         const transactions = new TransactionCollection();
         this.oldestMonth = month;
 
@@ -120,14 +124,15 @@ export default BaseView.extend({
             });
         }
 
-        return transactions.fetch()
-            .then(() => {
-                view.$el.removeClass('loading b-loader b-loader--light');
-                return Promise.resolve(transactions);
-            })
-            .catch(e => {
-                throw e;
-            });
+        await transactions.fetch();
+
+        if(this.startup) {
+            $(window).scrollTop($(document).height());
+        }
+        
+        view.$el.removeClass('loading b-loader b-loader--light');
+
+        return transactions;
     },
 
     addTransaction() {
