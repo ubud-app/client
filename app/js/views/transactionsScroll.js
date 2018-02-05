@@ -138,5 +138,6 @@ export default BaseView.extend({
     addTransaction() {
         const t = new TransactionModel({time: moment().toJSON()});
         this.trigger('add', t);
+        $(window).scrollTop($(document).height());
     }
 });
