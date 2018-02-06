@@ -14,6 +14,7 @@ export default BaseModel.extend({
     getSessions() {
         const sessions = new SessionCollection();
         sessions.id = 'user:' + this.id;
+        sessions.addFilter = user => user.get('userId') === this.id;
         return sessions;
     }
 });

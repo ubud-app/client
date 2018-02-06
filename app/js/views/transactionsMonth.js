@@ -20,6 +20,8 @@ export default BaseView.extend({
     },
 
     render() {
+        this.transactions.live(this);
+
         this.renderChildren(TransactionsItemView, {
             collection: this.transactions,
             childOptions: {

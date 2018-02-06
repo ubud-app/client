@@ -238,7 +238,22 @@ class DataHelper {
         }
 
         model._liveListener = function (d) {
-            if (d.action === 'created' && model instanceof Collection && d.name === model.url) {
+            if (
+                d.action === 'created' &&
+                model instanceof Collection &&
+                !model.id &&
+                d.name === _.result(model, 'url')
+            ) {
+                model.add(d.data);
+            }
+            else if (
+                d.action === 'created' &&
+                model instanceof Collection &&
+                model.id &&
+                d.name === _.result(model, 'url') &&
+                _.isFunction(model.addFilter) &&
+                model.addFilter(new model.model(d.data))
+            ) {
                 model.add(d.data);
             }
             if (d.action === 'updated' && model instanceof Model && d.id === model.id) {

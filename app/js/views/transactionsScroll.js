@@ -102,8 +102,10 @@ export default BaseView.extend({
 
         if (month === 'future') {
             transactions.id = 'document:' + this.model.id + '/future';
+            transactions.addFilter = transaction => moment(transaction.get('time')).isAfter(moment().endOf('month'));
         } else {
             transactions.id = 'document:' + this.model.id + '/month:' + month.format('YYYY-MM');
+            transactions.addFilter = transaction => moment(transaction.get('time')).isSame(month, 'month');
         }
 
         const view = new TransactionMonthView({
