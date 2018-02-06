@@ -5,7 +5,7 @@
 	position: absolute;
 	z-index: 5;
 	top: 55px;
-	left: 10px;
+	left: (10px + $sidebar-width);
 	width: 400px;
 	padding: 10px;
 	background: $background;
