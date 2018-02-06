@@ -17,6 +17,11 @@ export default BaseModel.extend({
         );
 
         if (v) {
+            budgets.each(budget => {
+                v.listenToAndCall(budget, 'change:categoryId', () => {
+                    result[budget.get('categoryId') === this.id ? 'add' : 'remove'](budget);
+                });
+            });
             v.listenTo(budgets, 'add', budget => {
                 v.listenToAndCall(budget, 'change:categoryId', () => {
                     result[budget.get('categoryId') === this.id ? 'add' : 'remove'](budget);
