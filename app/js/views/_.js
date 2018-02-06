@@ -10,7 +10,7 @@ import $ from 'jquery';
  * @augments Backbone.View
  */
 export default class BaseView extends View {
-    constructor(...args) {
+    constructor (...args) {
         super(...args);
     }
 
@@ -20,7 +20,7 @@ export default class BaseView extends View {
      * @param {Object} [options]
      * @returns {BaseView}
      */
-    initialize(options) {
+    initialize (options) {
         const v = this;
 
         for (let i in v) {
@@ -48,7 +48,7 @@ export default class BaseView extends View {
      * @param {Backbone.Model} [options.model] Required if child.model is not set and ordering is enabled
      * @returns {BaseView}
      */
-    appendTo(parent, child, options) {
+    appendTo (parent, child, options) {
         options = options || {};
 
         const v = this;
@@ -115,7 +115,7 @@ export default class BaseView extends View {
      * @param {String} [appendMethod] Method to run on jQuery Object to append it, defaults to `prependTo`
      * @returns {BaseView}
      */
-    prependTo(parent, child, appendMethod) {
+    prependTo (parent, child, appendMethod) {
         appendMethod = appendMethod || 'prependTo';
         this.appendTo(parent, child, {appendMethod});
         return this;
@@ -130,7 +130,7 @@ export default class BaseView extends View {
      * @param {Backbone.Model} model Model
      * @private
      */
-    _appendAt($appendTo, collection, model) {
+    _appendAt ($appendTo, collection, model) {
         const v = this;
         const $children = $appendTo.children();
         const index = collection.indexOf(model);
@@ -173,7 +173,7 @@ export default class BaseView extends View {
      * @param {Function} callback
      * @returns {BaseView}
      */
-    listenToAndCall(object, event, callback) {
+    listenToAndCall (object, event, callback) {
         this.listenTo(object, event, function () {
             callback(object);
         });
@@ -193,19 +193,42 @@ export default class BaseView extends View {
      * @param {Object} [options.childOptions] Options to pass in new ChildView()
      * @param {String} [options.modelAttr="model"] Attribute where the childs model is passed in. Defaults to `model`
      * @param {jQuery|String} [options.where] Where append all the views?
+     * @param {function} [options.filter] Filter method to dynamically apply on children
      * @returns {BaseView}
      */
-    renderChildren(ChildView, options) {
+    renderChildren (ChildView, options) {
         const v = this;
         const collection = options.collection || v.collection;
 
         const add = function (model) {
             const view = new ChildView(_.extend({}, options.childOptions, {
                 [options.modelAttr || 'model']: model
-            })).appendTo(v, options.where || null, {order: collection, model: model});
+            }));
+            let rendered = false;
+
+            if (options.filter) {
+                if (options.filter(model)) {
+                    rendered = true;
+                    view.appendTo(v, options.where || null, {order: collection, model: model});
+                }
+
+                v.listenToAndCall(model, 'change', () => {
+                    if (options.filter(model) && !rendered) {
+                        rendered = true;
+                        view.appendTo(v, options.where || null, {order: collection, model: model});
+                    }
+                    else if (options.filter(model) && !rendered) {
+                        rendered = false;
+                        view.remove();
+                    }
+                });
+            } else {
+                rendered = true;
+                view.appendTo(v, options.where || null, {order: collection, model: model});
+            }
 
             v.listenTo(collection, 'remove', removed => {
-                if (removed.id === model.id) {
+                if (removed.id === model.id && rendered) {
                     view.remove();
                 }
             });
@@ -222,7 +245,7 @@ export default class BaseView extends View {
      * Entfernt die View
      * @returns {BaseView}
      */
-    remove() {
+    remove () {
         const v = this;
         v.trigger('remove');
         if (v.$el) {
