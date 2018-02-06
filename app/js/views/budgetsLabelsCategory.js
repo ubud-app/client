@@ -41,7 +41,8 @@ export default BaseView.extend({
             childOptions: {
                 document: v.document,
                 categories: v.categories
-            }
+            },
+            filter: budget => !budget.get('hidden')
         });
 
         if (!v.category.id) {

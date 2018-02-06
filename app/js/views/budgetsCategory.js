@@ -10,7 +10,7 @@ export default BaseView.extend({
     tagName: 'li',
     className: 'budgets-category',
 
-    _initialize(options) {
+    _initialize (options) {
         this.month = options.month;
         this.document = options.document;
         this.category = options.category;
@@ -18,7 +18,7 @@ export default BaseView.extend({
         this.portions = options.portions;
     },
 
-    render() {
+    render () {
         const v = this;
         v.renderChildren(BudgetsPortionView, {
             collection: v.category.filterBudgets(v.budgets, v),
@@ -27,7 +27,8 @@ export default BaseView.extend({
                 month: v.month,
                 portions: v.portions,
                 document: v.document
-            }
+            },
+            filter: budget => !budget.get('hidden')
         });
     }
 });

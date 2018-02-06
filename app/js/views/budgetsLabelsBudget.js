@@ -23,7 +23,6 @@ export default BaseView.extend({
 
     render() {
         const v = this;
-
         const $name = $('<span class="budgets-labels-budget_name" />').appendTo(v.$el);
         v.listenToAndCall(v.model, 'change:name', () => {
             $name.text(v.model.get('name'));

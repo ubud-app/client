@@ -56,7 +56,10 @@ export default BaseView.extend({
         v.renderChildren(TransActionsEditorBudgetGroupView, {
             modelAttr: 'category',
             collection: v.categories,
-            childOptions: {budgets: v.budgets}
+            childOptions: {
+                budgets: v.budgets,
+                transaction: v.transaction
+            }
         });
     },
 

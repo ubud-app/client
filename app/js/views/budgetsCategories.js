@@ -12,14 +12,14 @@ export default BaseView.extend({
     tagName: 'ul',
     className: 'budgets-categories',
 
-    _initialize(options) {
+    _initialize (options) {
         this.month = options.month;
         this.document = options.document;
         this.categories = options.categories;
         this.budgets = options.budgets;
     },
 
-    render() {
+    render () {
         const v = this;
         v.portions = v.document.getPortionsByMonth(v.month).live(v);
 

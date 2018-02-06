@@ -15,6 +15,7 @@ export default BaseView.extend({
     _initialize(options) {
         this.budgets = options.budgets;
         this.category = options.category;
+        this.transaction = options.transaction;
     },
 
     render() {
@@ -30,11 +31,17 @@ export default BaseView.extend({
             .attr('value', budget.id)
             .text(budget.get('name'));
 
-        v.listenToAndCall(budget, 'change:categoryId', () => {
-            if (budget.get('categoryId') !== v.category.id) {
-                $option.detach();
-            } else {
+        v.listenToAndCall(budget, 'change:categoryId change:hidden', () => {
+            if(
+                (
+                    !budget.get('hidden') ||
+                    v.transaction.getUnits().find(unit => unit.get('budgetId') === budget.id)
+                ) &&
+                budget.get('categoryId') === v.category.id
+            ) {
                 $option.appendTo(v.$el);
+            } else {
+                $option.detach();
             }
         });
     }
