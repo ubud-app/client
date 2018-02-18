@@ -17,11 +17,12 @@ export default BaseView.extend({
         this.document = options.document;
         this.categories = options.categories;
         this.budgets = options.budgets;
+        this.portions = options.portions || this.document.getPortionsByMonth(this.month);
     },
 
     render () {
         const v = this;
-        v.portions = v.document.getPortionsByMonth(v.month).live(v);
+        v.portions.live(v);
 
         v.renderChildren(BudgetsCategory, {
             collection: v.categories,

@@ -328,6 +328,11 @@
 				"budgeted": "Budgetiert",
 				"outflow": "Ausgaben",
 				"balance": "Vermögen"
+			},
+			"tips": {
+				"actions": {
+					"useBudgetedLastMonth": "Budget von letztem Monat verwenden"
+				}
 			}
 		},
 		"plugins": {
