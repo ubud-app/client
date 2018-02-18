@@ -16,7 +16,7 @@ export default class StringHelper {
 
     static currency(document, amount) {
         if (document.get('settings').language) {
-            numbro.culture(document.get('settings').language);
+            numbro.setLanguage(document.get('settings').language);
         }
 
         const precision = parseInt(document.get('settings').currencyPrecision, 10) || 2;
@@ -27,7 +27,7 @@ export default class StringHelper {
 
     static parseCurrency(document, text) {
         if (document.get('settings').language) {
-            numbro.culture(document.get('settings').language);
+            numbro.setLanguage(document.get('settings').language);
         }
 
         const precision = parseInt(document.get('settings').currencyPrecision, 10) || 2;
@@ -49,7 +49,7 @@ const lang = window.navigator.userLanguage || window.navigator.language;
 translate.registerTranslations('de', require('../../strings/de.json'));
 translate.registerTranslations('en', require('../../strings/de.json'));
 
-numbro.culture('de-DE', require('numbro/dist/languages/de-DE.min'));
+numbro.registerLanguage(require('numbro/dist/languages/de-DE.min'));
 require('moment/locale/de');
 
 moment.locale(lang);
