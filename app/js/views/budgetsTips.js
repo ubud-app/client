@@ -115,7 +115,7 @@ export default BaseView.extend({
             if(lastOne && lastOne.get('budgeted')) {
                 thisOne.save({
                     budgeted: lastOne.get('budgeted')
-                })
+                });
             }
         });
     }
