@@ -31,7 +31,7 @@ export default class StringHelper {
         }
 
         const precision = parseInt(document.get('settings').currencyPrecision, 10) || 2;
-        return Math.round(numbro().unformat(text) * Math.pow(10, precision));
+        return Math.round(numbro.unformat(text) * Math.pow(10, precision));
     }
 
     static percentage(p) {
