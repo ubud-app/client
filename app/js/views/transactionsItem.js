@@ -28,7 +28,14 @@ export default BaseView.extend({
 
     render() {
         const v = this;
-        v.model.live(this);
+
+        if(v.model.id) {
+            v.model.live(this);
+        }else{
+            v.listenToOnce(v.model, 'sync', () => {
+                v.model.live(this);
+            });
+        }
 
         const $line = $('<div class="transactions-item_line" />').appendTo(v.$el);
         v.$editor = $('<div class="transactions-item_editor" />').appendTo(v.$el);
