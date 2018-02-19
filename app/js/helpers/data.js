@@ -91,10 +91,10 @@ class DataHelper {
             });
 
             // ready to connect
-            DataHelper._setState(1);
+            DataHelper._setState(DataHelper.CONNECTING);
             DataHelper._io = SocketIO(endpoint);
             DataHelper._io.on('connect', () => {
-                DataHelper._setState(2);
+                DataHelper._setState(DataHelper.CONNECTED);
 
                 if (DataHelper._session.id) {
                     resolve(DataHelper._authenticate());
@@ -106,7 +106,7 @@ class DataHelper {
                 DataHelper.trigger('update', data);
             });
             DataHelper._io.on('disconnect', () => {
-                DataHelper._setState(0);
+                DataHelper._setState(DataHelper.DISCONNECTED);
             });
             DataHelper._io.on('error', (error) => {
                 DataHelper.trigger('socket:error', error); // @todo use in UI
@@ -125,15 +125,15 @@ class DataHelper {
     }
 
     static login(email, password) {
-        DataHelper._setState(3);
+        DataHelper._setState(DataHelper.AUTHENTICATING);
         return DataHelper.send('sessions/create', {email, password, name: 'DWIMM Web'})
             .then(session => {
                 this._session.set(session);
-                DataHelper._setState(4);
+                DataHelper._setState(DataHelper.READY);
                 return Promise.resolve();
             })
             .catch(e => {
-                DataHelper._setState(2);
+                DataHelper._setState(DataHelper.CONNECTED);
                 throw e;
             });
     }
@@ -151,15 +151,15 @@ class DataHelper {
     }
 
     static _authenticate() {
-        DataHelper._setState(3);
+        DataHelper._setState(DataHelper.AUTHENTICATING);
         return DataHelper.send('auth', DataHelper._session.toJSON())
             .then(function () {
-                DataHelper._setState(4);
+                DataHelper._setState(DataHelper.READY);
                 return Promise.resolve(true);
             })
             .catch(() => {
                 DataHelper._session.clear();
-                DataHelper._setState(2);
+                DataHelper._setState(DataHelper.CONNECTED);
                 return Promise.resolve(false);
             });
     }
@@ -169,7 +169,7 @@ class DataHelper {
             DataHelper._io.emit(event, data, (response) => {
                 if (response.error && response.error === 401) {
                     DataHelper._session.clear();
-                    DataHelper._setState(2);
+                    DataHelper._setState(DataHelper.CONNECTED);
                 }
                 if (response.error) {
                     return reject(new ResponseError(response));

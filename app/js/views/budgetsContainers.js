@@ -7,6 +7,9 @@ import _ from 'underscore';
 import BaseView from './_';
 import BudgetContainerView from './budgetsContainer';
 
+const DEFAULT_NUMBER_OF_MONTHS_RENDERED = 3;
+const SCROLL_THROTTLE_TIME = 25;
+
 /**
  * @module views/budgetsContainers
  * @class BudgetsContainersView
@@ -33,11 +36,11 @@ export default BaseView.extend({
         let m;
 
         v.$wrap = $('<div class="budgets-containers_wrap" />').appendTo(v.$el);
-        v.newestMonth = moment().add(3, 'months').startOf('month');
+        v.newestMonth = moment().add(DEFAULT_NUMBER_OF_MONTHS_RENDERED, 'months').startOf('month');
 
         for (
             m = moment(v.newestMonth);
-            m.isSameOrAfter(moment().subtract(3, 'months').startOf('month'));
+            m.isSameOrAfter(moment().subtract(DEFAULT_NUMBER_OF_MONTHS_RENDERED, 'months').startOf('month'));
             m.subtract(1, 'month')
         ) {
             v.addContainer(moment(m));
@@ -50,8 +53,8 @@ export default BaseView.extend({
             v.updatePosition(true);
         });
 
-        v.$el.scroll(_.debounce(this._activateContainers, 100));
-        v.$el.scroll(_.throttle(this._addContainers, 50));
+        v.$el.scroll(_.debounce(this._activateContainers, SCROLL_THROTTLE_TIME * 2));
+        v.$el.scroll(_.throttle(this._addContainers, SCROLL_THROTTLE_TIME));
     },
 
     addContainer(month) {

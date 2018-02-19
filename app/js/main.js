@@ -15,6 +15,8 @@ import SessionModel from './models/session';
 import UserModel from './models/user';
 import DocumentCollection from './collections/document';
 
+const BOOT_UNANIMATED_TIME = 250;
+
 // initialize raven / sentry
 if (ConfigurationHelper.isProduction() && ConfigurationHelper.getRavenURL()) {
     Raven
@@ -30,7 +32,7 @@ if (ConfigurationHelper.isProduction() && ConfigurationHelper.getRavenURL()) {
 const $app = $('#app');
 _.delay(function () {
     $app.addClass('app--init-animate');
-}, 250);
+}, BOOT_UNANIMATED_TIME);
 
 
 (async function () {

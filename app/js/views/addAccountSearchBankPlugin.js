@@ -6,6 +6,8 @@ import StringHelper from '../helpers/string';
 import PluginInstanceModel from '../models/pluginInstance';
 import AddAccountSearchBankPluginTemplate from '../../templates/addAccountSearchBankPlugin.handlebars';
 
+const SUCCESS_REDIRECT_DELAY = 1000;
+
 
 /**
  * @module views/addAccountSearchBankPlugin
@@ -73,6 +75,6 @@ export default BaseView.extend({
         // some extra time for getConfig, so that the loading indicator woun't flicker
         setTimeout(() => {
             AppHelper.navigate(this.document.id + '/settings/plugins/' + instance.id, {trigger: true});
-        }, 1000);
+        }, SUCCESS_REDIRECT_DELAY);
     }
 });
