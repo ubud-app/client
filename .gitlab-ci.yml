@@ -2,6 +2,7 @@ stages:
   - build
   - check
   - publish
+  - done
 
 publish_github:
   stage: build
@@ -23,13 +24,17 @@ check_lint:
     - yarn install
     - yarn run check
 
-# visualize:
-#   stage: check
-#   tags:
-#     - matt.sebbo.net
-#     - ssh
-#   script:
-#     - npm run visualize
+
+visualize:
+  stage: check
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - npm run visualize
+    - rm -rf /var/docker/static/d.sebbo.net/dwimm/client-web/plato/*
+    - mv ./code-visualization/* /var/docker/static/d.sebbo.net/dwimm/client-web/plato/
+
 
 publish_npm_next:
   stage: publish
@@ -47,3 +52,12 @@ publish_npm_next:
     - npm publish --tag "next"
   only:
     - develop
+
+
+build_server:
+  stage: done
+  tags:
+      - matt.sebbo.net
+      - ssh
+  script:
+      - curl --request POST --form "token=$CI_JOB_TOKEN" --form ref=master https://gitlab.sebbo.net/api/v4/projects/9/trigger/pipeline
