@@ -60,7 +60,7 @@ build_server:
     - ssh
   script:
     - curl --request POST
-        --form "token=${GITLAB_TOKEN}"
+        --form "token=${GITLAB_SERVER_TRIGGER}"
         --form "ref=${CI_COMMIT_REF_NAME}"
         https://git.sebbo.net/api/v4/projects/67/trigger/pipeline
   only:
