@@ -32,7 +32,7 @@ visualize:
     - yarn install
     - npm run visualize
     - rm -rf /var/docker/static/d.sebbo.net/dwimm/client-web/plato/*
-    - mv ./code-visualization/* /var/docker/static/d.sebbo.net/dwimm/client-web/plato/
+    - mv ./code-visualization/* /var/docker/static/dwimm/client-web/plato/
 
 
 publish_npm_next:
@@ -59,4 +59,4 @@ build_server:
       - matt.sebbo.net
       - ssh
   script:
-      - curl --request POST --form "token=$CI_JOB_TOKEN" --form ref=master https://gitlab.sebbo.net/api/v4/projects/9/trigger/pipeline
+      - curl --request POST --form "token=$CI_JOB_TOKEN" --form ref=master https://git.sebbo.net/api/v4/projects/9/trigger/pipeline
