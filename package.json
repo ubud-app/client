@@ -1,12 +1,13 @@
 {
 	"name": "@dwimm/client-web",
-	"version": null,
 	"description": "DWIMM Web Client",
 	"main": "./app/index.js",
 	"scripts": {
-		"check": "npm run check:eslint",
+		"check": "npm run check:eslint && npm run check:npm && npm run check:nsp",
 		"check:quick": "npm run check:eslint",
 		"check:eslint": "eslint ./",
+		"check:nsp": "nsp check || true",
+		"check:npm": "npm-check -s",
 		"visualize": "plato -rt dwimm-client-web -d ./code-visualization -e \".eslintrc.json\" ./app/js/**/*.js",
 		"build": "npm run build:production",
 		"build:production": "PRODUCTION=1 grunt --production",
@@ -40,6 +41,8 @@
 		"grunt-sass": "^2.1.0",
 		"handlebars": "^4.0.11",
 		"hbsfy": "^2.8.1",
+		"npm-check": "^5.5.2",
+		"nsp": "^3.2.1",
 		"plato": "^1.7.0",
 		"stringify": "^5.2.0",
 		"uglifyify": "^4.0.5"
