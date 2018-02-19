@@ -101,7 +101,7 @@ export default BaseView.extend({
         }
         v._lastQ = q;
 
-        if(q.length < 4) {
+        if(q.length < 2) {
             v.$resultsBox.removeClass('transactions-editor-payee-select_results-box--visible');
             return;
         }
