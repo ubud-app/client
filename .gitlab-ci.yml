@@ -31,7 +31,7 @@ visualize:
   script:
     - yarn install
     - npm run visualize
-    - rm -rf /var/docker/static/d.sebbo.net/dwimm/client-web/plato/*
+    - rm -rf /var/docker/static/dwimm/client-web/plato/*
     - mv ./code-visualization/* /var/docker/static/dwimm/client-web/plato/
 
 
