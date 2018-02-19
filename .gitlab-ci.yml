@@ -19,8 +19,6 @@ check_lint:
     - matt.sebbo.net
     - ssh
   script:
-    - node -v
-    - yarn -v
     - yarn install
     - yarn run check
 
@@ -31,6 +29,7 @@ visualize:
     - matt.sebbo.net
     - ssh
   script:
+    - yarn install
     - npm run visualize
     - rm -rf /var/docker/static/d.sebbo.net/dwimm/client-web/plato/*
     - mv ./code-visualization/* /var/docker/static/d.sebbo.net/dwimm/client-web/plato/
