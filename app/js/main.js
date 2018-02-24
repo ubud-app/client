@@ -29,7 +29,7 @@ if (ConfigurationHelper.isProduction() && ConfigurationHelper.getRavenURL()) {
             .install();
     }
     catch(err) {
-        console.warn('Unable to enable raven: %s', err);
+        console.warn('Unable to enable raven: %s', err); // eslint-disable-line no-console
     }
 }
 
