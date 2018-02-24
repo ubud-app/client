@@ -128,6 +128,10 @@ module.exports = function (grunt) {
                         {
                             match: 'CONFIGURATION_ENDPOINT',
                             replacement: configuration.endpoint || ''
+                        },
+                        {
+                            match: 'CONFIGURATION_RAVEN',
+                            replacement: configuration.raven || ''
                         }
                     ]
                 },
