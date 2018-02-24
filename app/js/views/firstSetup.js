@@ -78,7 +78,7 @@ export default BaseView.extend({
         const document = new DocumentModel({
             name: StringHelper.string('firstSetup.newDocument.name'),
             settings: {
-                language: window.navigator.languages ? window.navigator.languages[0] : StringHelper.string('firstSetup.newDocument.language')
+                language: StringHelper.string('firstSetup.newDocument.language')
             }
         });
         documents.add(document);
