@@ -6,6 +6,7 @@ import DataHelper from '../helpers/data';
 import DocumentModel from '../models/document';
 import DashboardItemView from './dashboardItem';
 import DashboardTemplate from '../../templates/dashboard.handlebars';
+import StringHelper from '../helpers/string';
 
 /**
  * @module views/dashboard
@@ -37,7 +38,11 @@ export default BaseView.extend({
 
     addDocument(document) {
         if (!document || !(document instanceof DocumentModel)) {
-            document = new DocumentModel();
+            document = new DocumentModel({
+                settings: {
+                    language: StringHelper.string('firstSetup.newDocument.language')
+                }
+            });
             this.collection.add(document);
             return;
         }
