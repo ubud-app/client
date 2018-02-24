@@ -27,7 +27,7 @@
 		"babel-preset-es2015": "^6.24.1",
 		"babel-preset-stage-0": "^6.24.1",
 		"babelify": "^8.0.0",
-		"eslint": "^4.18.0",
+		"eslint": "^4.18.1",
 		"eslint-plugin-security": "^1.4.0",
 		"grunt": "^1.0.2",
 		"grunt-browser-sync": "^2.2.0",
