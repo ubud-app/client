@@ -10,7 +10,7 @@ module.exports = function (grunt) {
         },
         production: !!grunt.option('production'),
         endpoint: grunt.option('endpoint') || process.env.ENDPOINT || null,
-        raven: grunt.option('production') || process.env.RAVEN_URL || null
+        raven: grunt.option('raven-url') || process.env.RAVEN_URL || null
     };
 
     let i;

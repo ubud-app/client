@@ -19,13 +19,18 @@ const BOOT_UNANIMATED_TIME = 250;
 
 // initialize raven / sentry
 if (ConfigurationHelper.isProduction() && ConfigurationHelper.getRavenURL()) {
-    Raven
-        .config(ConfigurationHelper.getRavenURL(), {
-            release: ConfigurationHelper.getBuildCommit(),
-            environment: ConfigurationHelper.getBuildEnvironment(),
-            tags: {buildId: ConfigurationHelper.getBuildId()}
-        })
-        .install();
+    try {
+        Raven
+            .config(ConfigurationHelper.getRavenURL(), {
+                release: ConfigurationHelper.getBuildCommit(),
+                environment: ConfigurationHelper.getBuildEnvironment(),
+                tags: {buildId: ConfigurationHelper.getBuildId()}
+            })
+            .install();
+    }
+    catch(err) {
+        console.warn('Unable to enable raven: %s', err);
+    }
 }
 
 // for startup animation purposes
