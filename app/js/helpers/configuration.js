@@ -8,7 +8,7 @@ const configurationData = {
         environment: '@@CONFIGURATION_BUILD_ENVIRONMENT' || null
     },
     endpoint: '@@CONFIGURATION_ENDPOINT' || null,
-    raven: null
+    raven: '@@CONFIGURATION_RAVEN' || null
 };
 
 export default class ConfigurationHelper {

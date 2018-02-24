@@ -4,12 +4,13 @@ module.exports = function (grunt) {
     const paths = require('./app/index.js');
     const configuration = {
         build: {
-            id: grunt.option('build') || null,
+            id: grunt.option('build') || process.env.CI_PIPELINE_ID || null,
             commit: process.env.CI_COMMIT_SHA || null,
             environment: process.env.CI_ENVIRONMENT_NAME || null
         },
         production: !!grunt.option('production'),
-        endpoint: grunt.option('endpoint') || process.env.ENDPOINT || ''
+        endpoint: grunt.option('endpoint') || process.env.ENDPOINT || null,
+        raven: grunt.option('production') || process.env.RAVEN_URL || null
     };
 
     let i;
