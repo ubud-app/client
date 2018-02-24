@@ -2,7 +2,6 @@ stages:
   - build
   - check
   - publish
-  - done
 
 publish_github:
   stage: build
@@ -50,19 +49,4 @@ publish_npm_next:
     - echo $(cat ./package.json | jq '.version' -rce)
     - npm publish --tag "next"
   only:
-    - develop
-
-
-build_server:
-  stage: done
-  tags:
-    - matt.sebbo.net
-    - ssh
-  script:
-    - curl --request POST
-        --form "token=${GITLAB_SERVER_TRIGGER}"
-        --form "ref=${CI_COMMIT_REF_NAME}"
-        https://git.sebbo.net/api/v4/projects/67/trigger/pipeline
-  only:
-    - master
     - develop
