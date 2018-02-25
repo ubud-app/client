@@ -49,10 +49,14 @@ export default BaseView.extend({
         });
         v.model.set('categoryId', v.$category.val());
 
-        // Goal
+        // Goal & Plugin Notice
         const $goal = v.$el.find('.budgets-labels-budget-editor_goal');
-        v.listenToAndCall(v.model, 'change:goal', () => {
+        const $pluginNotice = v.$el.find('.budgets-labels-budget-editor_pluginNotice');
+        v.listenToAndCall(v.model, 'change:goal change:pluginInstanceId', () => {
             $goal.val(StringHelper.currency(this.document, v.model.get('goal') || 0));
+            $goal.prop('disabled', !!v.model.get('pluginInstanceId'));
+            $goal.prop('readonly', !!v.model.get('pluginInstanceId'));
+            $pluginNotice.toggleClass('budgets-labels-budget-editor_pluginNotice--hidden', !v.model.get('pluginInstanceId'));
         });
         $goal.on('change', () => {
             v.model.set('goal', StringHelper.parseCurrency(this.document, $goal.val()));

@@ -308,6 +308,7 @@
 					"goal": {
 						"label": "Ziel"
 					},
+					"pluginNotice": "Dieses Budget wird von einem Plugin verwaltet. Du kannst das Ziel daher nicht editieren, solange das Plugin installiert ist.",
 					"save": {
 						"text": "Speichern"
 					},
