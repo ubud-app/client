@@ -30,13 +30,13 @@ export default BaseView.extend({
 
     render() {
         const v = this;
-        const $date = $('<input class="transactions-editor_date" />').appendTo(v.$el);
+        const $date = $('<input class="transactions-editor_date" tabindex="1" />').appendTo(v.$el);
         const $account = $('<span class="transactions-editor_account" />').appendTo(v.$el);
-        const $accountSelect = $('<select class="transactions-editor_account-select" />').appendTo($account);
+        const $accountSelect = $('<select class="transactions-editor_account-select" tabindex="2" />').appendTo($account);
         const $payee = $('<div class="transactions-editor_payee" />').appendTo(v.$el);
         const $budget = $('<span class="transactions-editor_budget" />').appendTo(v.$el);
-        const $memo = $('<input class="transactions-editor_memo" />').appendTo(v.$el);
-        const $amount = $('<input class="transactions-editor_amount" />').appendTo(v.$el);
+        const $memo = $('<input class="transactions-editor_memo" tabindex="5" />').appendTo(v.$el);
+        const $amount = $('<input class="transactions-editor_amount" tabindex="6" />').appendTo(v.$el);
         const $units = $('<div class="transactions-editor_units transactions-editor_units--hidden" />').appendTo(v.$el);
         const $unitDiff = $('<span class="transactions-editor_unit-diff" />').appendTo($units);
 

@@ -28,6 +28,8 @@ export default BaseView.extend({
     render() {
         const v = this;
 
+        v.$el.attr({tabindex: '4'});
+
         v.$empty = $('<option />')
             .text('-')
             .attr('value', '')

@@ -31,7 +31,10 @@ export default BaseView.extend({
         const v = this;
 
         // input
-        v.$input = $('<input class="transactions-editor-payee-select_input" />').appendTo(v.$el);
+        v.$input = $('<input class="transactions-editor-payee-select_input" tabindex="3" />').appendTo(v.$el);
+        v.$input.on('focus', () => {
+            this.activate();
+        });
 
         // value
         v.$value = $('<span class="transactions-editor-payee-select_value" />').appendTo(v.$el);
@@ -65,7 +68,11 @@ export default BaseView.extend({
     activate() {
         const v = this;
         v.$value.addClass('transactions-editor-payee-select_value--hidden');
-        v.$input.addClass('transactions-editor-payee-select_input--visible').focus();
+        v.$input.addClass('transactions-editor-payee-select_input--visible');
+
+        if(!v.$input.is(':focus')) {
+            v.$input.focus();
+        }
     },
 
     deactivate() {
@@ -91,7 +98,7 @@ export default BaseView.extend({
         const q = v.$input.val();
         e.stopPropagation();
 
-        if(!q && !v._lastQ) {
+        if(!q && !v._lastQ && e.keyCode === 8) {
             v.deactivate();
             v.model.set({payeeId: null});
             return;

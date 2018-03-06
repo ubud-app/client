@@ -48,14 +48,15 @@
 		}
 
 		&_input {
-			display: none;
+			opacity: 0;
 			border: none;
 
 			&--visible {
-				display: block;
+				opacity: 1;
 			}
 		}
 		&_value {
+			position: absolute;
 			display: block;
 
 			&--temp {
