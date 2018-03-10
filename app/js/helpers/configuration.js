@@ -3,6 +3,7 @@
 const configurationData = {
     build: {
         id: '@@CONFIGURATION_BUILD_ID' || null,
+        version: '@@CONFIGURATION_BUILD_VERSION' || null,
         commit: '@@CONFIGURATION_BUILD_COMMIT' || null,
         production: !!('@@CONFIGURATION_PRODUCTION') || false,
         environment: '@@CONFIGURATION_BUILD_ENVIRONMENT' || null
@@ -14,6 +15,10 @@ const configurationData = {
 export default class ConfigurationHelper {
     static getBuildId() {
         return configurationData.build.id;
+    }
+
+    static getBuildVersion() {
+        return configurationData.build.version;
     }
 
     static getBuildCommit() {

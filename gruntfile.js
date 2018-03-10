@@ -2,9 +2,11 @@ module.exports = function (grunt) {
     'use strict';
 
     const paths = require('./app/index.js');
+    const pkg = grunt.file.readJSON('package.json');
     const configuration = {
         build: {
             id: grunt.option('build') || process.env.CI_PIPELINE_ID || null,
+            version: pkg.version || null,
             commit: process.env.CI_COMMIT_SHA || null,
             environment: process.env.CI_ENVIRONMENT_NAME || null
         },
@@ -73,7 +75,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browser-sync');
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: pkg,
         build: configuration.build,
 
         clean: {
@@ -118,6 +120,10 @@ module.exports = function (grunt) {
                         {
                             match: 'CONFIGURATION_BUILD_ID',
                             replacement: configuration.build.id || ''
+                        },
+                        {
+                            match: 'CONFIGURATION_BUILD_VERSION',
+                            replacement: configuration.build.version || ''
                         },
                         {
                             match: 'CONFIGURATION_BUILD_COMMIT',

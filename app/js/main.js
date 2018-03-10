@@ -22,9 +22,8 @@ if (ConfigurationHelper.isProduction() && ConfigurationHelper.getRavenURL()) {
     try {
         Raven
             .config(ConfigurationHelper.getRavenURL(), {
-                release: ConfigurationHelper.getBuildCommit(),
-                environment: ConfigurationHelper.getBuildEnvironment(),
-                tags: {buildId: ConfigurationHelper.getBuildId()}
+                release: ConfigurationHelper.getBuildVersion(),
+                tags: {build: ConfigurationHelper.getBuildId()}
             })
             .install();
     }
