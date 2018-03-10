@@ -1,10 +1,9 @@
 stages:
-  - build
   - check
   - publish
 
 publish_github:
-  stage: build
+  stage: check
   tags:
     - matt.sebbo.net
     - ssh
