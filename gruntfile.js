@@ -69,10 +69,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-uglify-es');
     grunt.loadNpmTasks('grunt-browser-sync');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        build: configuration.build,
 
         clean: {
             all: [paths.static + '/**'],
@@ -184,11 +186,22 @@ module.exports = function (grunt) {
                     transform: [
                         ['stringify'],
                         ['hbsfy', {'t': []}],
-                        ['babelify', grunt.file.readJSON(__dirname + '/.babelrc')],
-                        ['uglifyify']
+                        ['babelify', grunt.file.readJSON(__dirname + '/.babelrc')]
                     ]
                 },
                 src: paths.app.js + '/main.js',
+                dest: paths.static + '/main.js'
+            }
+        },
+        uglify: {
+            production: {
+                options: {
+                    sourceMap: true,
+                    'sourceMap.includeSources': true,
+                    banner: paths.options.js.banner.production,
+                    'output.comments': false
+                },
+                src: paths.static + '/main.js',
                 dest: paths.static + '/main.js'
             }
         },
@@ -299,6 +312,7 @@ module.exports = function (grunt) {
         'copy:images',
         'browserify:production',
         'replace:jsConfiguration',
+        'uglify:production',
         'clean:tmp'
     ]);
 

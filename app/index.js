@@ -37,7 +37,7 @@ module.exports = {
         },
         js: {
             banner: {
-                production: '/**\n * DWIMM Client\n * build #<%= build %>\n * <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n */\n',
+                production: '/**\n * DWIMM Client\n * Version <%= pkg.version %> / Build <%= build.id %>\n * <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n */\n',
                 develop: '/**\n * DWIMM Client\n * development\n */\n'
             }
         }
