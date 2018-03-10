@@ -47,7 +47,6 @@ publish_npm_next:
     - npm run build
     - echo $(cat ./package.json | jq '.version' -rce)
     - npx sentry-cli releases new "$(cat ./package.json| jq -rM '.version')"
-    - npx sentry-cli releases set-commits "$(cat ./package.json| jq -rM '.version')" --auto
     - npx sentry-cli releases files "$(cat ./package.json| jq -rM '.version')" upload-sourcemaps ./dist/main.js.map --rewrite
     - npm publish --tag "next"
     - npx sentry-cli releases finalize "$(cat ./package.json| jq -rM '.version')"
