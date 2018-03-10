@@ -20,6 +20,7 @@
 	},
 	"author": "Sebastian Pekarek <bugs@sebbo.net>",
 	"devDependencies": {
+		"@sentry/cli": "^1.30.3",
 		"babel-core": "^6.26.0",
 		"babel-loader": "^7.1.4",
 		"babel-polyfill": "^6.26.0",

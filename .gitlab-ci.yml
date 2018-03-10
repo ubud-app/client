@@ -47,10 +47,10 @@ publish_npm_next:
     - npm run bump:develop
     - npm run build
     - echo $(cat ./package.json | jq '.version' -rce)
-    - sentry-cli releases new "$(cat ./package.json| jq -rM '.version')"
-    - sentry-cli releases set-commits "$(cat ./package.json| jq -rM '.version')" --auto
-    - sentry-cli releases files "$(cat ./package.json| jq -rM '.version')" upload-sourcemaps ./dist/main.js.map --rewrite
+    - npx sentry-cli releases new "$(cat ./package.json| jq -rM '.version')"
+    - npx sentry-cli releases set-commits "$(cat ./package.json| jq -rM '.version')" --auto
+    - npx sentry-cli releases files "$(cat ./package.json| jq -rM '.version')" upload-sourcemaps ./dist/main.js.map --rewrite
     - npm publish --tag "next"
-    - sentry-cli releases finalize "$(cat ./package.json| jq -rM '.version')"
+    - npx sentry-cli releases finalize "$(cat ./package.json| jq -rM '.version')"
   only:
     - develop
