@@ -14,14 +14,16 @@
 	transition: width 0.8s ease-in-out 0.25s, transform ease-out 0.3s;
 	border-right: 1px solid $background-box;
 
-	.sidebar--mini {
-		width: $sidebar-width;
-		transition: width 0s ease-out, transform ease-out 0s;
-	}
+	@include greater(1024) {
+		.sidebar--mini {
+			width: $sidebar-width;
+			transition: width 0s ease-out, transform ease-out 0s;
+		}
 
-	&:not(.sidebar--mini):hover {
-		width: $sidebar-width * 3.5;
-		transition: width 0.25s ease-out 1s, transform ease-out 0.3s;
+		&:not(.sidebar--mini):hover {
+			width: $sidebar-width * 3.5;
+			transition: width 0.25s ease-out 1s, transform ease-out 0.3s;
+		}
 	}
 
 	&--hidden {
@@ -39,13 +41,16 @@
 
 		&-link {
 			display: block;
-			width: $sidebar-width * 3;
+			width: $sidebar-width;
 			height: $sidebar-width;
 			text-decoration: none;
 			line-height: $sidebar-width;
 			color: lighten($background-footer, 45);
 			box-sizing: content-box;
 
+			@include greater(1024) {
+				width: $sidebar-width * 3;
+			}
 			&:hover {
 				color: lighten($background-footer, 10);
 			}
@@ -78,12 +83,16 @@
 		}
 
 		&-name {
-			display: block;
+			display: none;
 			float: left;
 			white-space: nowrap;
 			font-size: 1em;
 			width: $sidebar-width * 2;
 			opacity: 0.6;
+
+			@include greater(1024) {
+				display: block;
+			}
 		}
 
 		& + & {
