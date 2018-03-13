@@ -48,10 +48,10 @@ export default BaseView.extend({
         }
 
         v.oldestMonth = m;
-        //v._activateContainers();
         v.updatePosition();
+        v._activateContainers();
         v.listenTo(v.parent, 'goTo', () => {
-            //v.updatePosition(true);
+            v.updatePosition(true);
         });
 
         v.$el.scroll(_.debounce(this._activateContainers, SCROLL_THROTTLE_TIME * 2));
