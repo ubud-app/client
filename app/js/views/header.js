@@ -16,6 +16,10 @@ export default BaseView.extend({
     tagName: 'header',
     className: 'header',
 
+    events: {
+        'click .header_settings': 'headerClick'
+    },
+
     async render() {
         const user = await DataHelper.getUser().wait();
         user.live(this);
@@ -46,5 +50,15 @@ export default BaseView.extend({
 
             $documentLink.attr('href', '#' + document.id + '/settings');
         });
+    },
+
+    /**
+     * Used to do nothing when clicking on cog.
+     * Has to be a link for tablet users…
+     *
+     * @param e
+     */
+    headerClick(e) {
+        e.preventDefault();
     }
 });
