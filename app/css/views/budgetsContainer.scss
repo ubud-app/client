@@ -45,5 +45,9 @@
 
 		@extend .b-loader;
 		@extend .b-loader--light;
+
+		&.loading:after {
+			top: 75%;
+		}
 	}
 }

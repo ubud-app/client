@@ -7,7 +7,8 @@ import _ from 'underscore';
 import BaseView from './_';
 import BudgetContainerView from './budgetsContainer';
 
-const DEFAULT_NUMBER_OF_MONTHS_RENDERED = 3;
+const DEFAULT_NUMBER_OF_MONTHS_RENDERED_BEFORE = 2;
+const DEFAULT_NUMBER_OF_MONTHS_RENDERED_AFTER = 4;
 const SCROLL_THROTTLE_TIME = 25;
 
 /**
@@ -36,21 +37,21 @@ export default BaseView.extend({
         let m;
 
         v.$wrap = $('<div class="budgets-containers_wrap" />').appendTo(v.$el);
-        v.newestMonth = moment().add(DEFAULT_NUMBER_OF_MONTHS_RENDERED, 'months').startOf('month');
+        v.newestMonth = moment().add(DEFAULT_NUMBER_OF_MONTHS_RENDERED_AFTER, 'months').startOf('month');
 
         for (
             m = moment(v.newestMonth);
-            m.isSameOrAfter(moment().subtract(DEFAULT_NUMBER_OF_MONTHS_RENDERED, 'months').startOf('month'));
+            m.isSameOrAfter(moment().subtract(DEFAULT_NUMBER_OF_MONTHS_RENDERED_BEFORE, 'months').startOf('month'));
             m.subtract(1, 'month')
         ) {
             v.addContainer(moment(m));
         }
 
         v.oldestMonth = m;
+        //v._activateContainers();
         v.updatePosition();
-        v._activateContainers();
         v.listenTo(v.parent, 'goTo', () => {
-            v.updatePosition(true);
+            //v.updatePosition(true);
         });
 
         v.$el.scroll(_.debounce(this._activateContainers, SCROLL_THROTTLE_TIME * 2));
@@ -83,7 +84,7 @@ export default BaseView.extend({
         let offset = child.$el.offset().left;
 
         // Sidebar
-        offset -= 60;
+        offset -= 80;
 
         // Labels
         offset -= v.labelWidth;
@@ -103,7 +104,7 @@ export default BaseView.extend({
 
         _.each(v.children, child => {
             const offset = child.$el.offset().left;
-            child.active(offset - 80 >= -1200 && offset < width + 880);
+            child.active(offset >= -120 && offset < width + 80);
         });
     },
     _addContainers() {
@@ -114,7 +115,7 @@ export default BaseView.extend({
             v.oldestMonth.subtract(1, 'month');
 
             const view = v.addContainer(moment(v.oldestMonth));
-            v.$el.scrollLeft(sl + view.$el.outerWidth());
+            v.$el.scrollLeft(sl + view.$el.width() + 20);
         }
         if (v.$wrap.width() - sl < v.$el.width() * 1) {
             v.newestMonth.add(1, 'month');

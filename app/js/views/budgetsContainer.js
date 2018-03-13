@@ -47,9 +47,11 @@ export default BaseView.extend({
         // Loading Indicator
         let active = false;
         let loading = true;
+
         Promise.all([v.categories, v.budgets].map(o => o.wait())).then(() => {
+            loading = false;
+
             if (active) {
-                loading = false;
                 $categories.removeClass('loading');
             }
         });
@@ -85,9 +87,10 @@ export default BaseView.extend({
                 $(window).on('resize', v.scroll);
                 v.scroll();
 
-                if (!loading) {
-                    $categories.removeClass('loading');
-                }
+                $categories.toggleClass('loading', !!loading);
+            }
+            else if(a) {
+                $categories.toggleClass('loading', !!loading);
             }
             else if (!a && stats) {
                 active = false;

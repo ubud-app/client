@@ -5,7 +5,8 @@
 	padding: 0 0 333px;
 
 	&_wrap {
-		padding: 20px calc(25% - 180px);
+		//padding: 20px calc(25% - 180px);
+		padding: 20px 5px 20px 210px;
 		box-sizing: content-box;
 		overflow: hidden;
 	}
