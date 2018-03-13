@@ -228,6 +228,8 @@ export default BaseView.extend({
 
     save(e) {
         e.stopPropagation();
+        e.preventDefault();
+        
         this.model.save();
         this.trigger('close');
     },
