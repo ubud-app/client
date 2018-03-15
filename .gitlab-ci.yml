@@ -17,7 +17,7 @@ check_lint:
   tags:
     - matt.sebbo.net
     - ssh
-  retry: 3
+  retry: 2
   script:
     - yarn install
     - yarn run check
@@ -28,7 +28,7 @@ visualize:
   tags:
     - matt.sebbo.net
     - ssh
-  retry: 3
+  retry: 2
   script:
     - yarn install
     - npm run visualize
@@ -41,7 +41,7 @@ publish_npm_next:
   tags:
     - matt.sebbo.net
     - ssh
-  retry: 3
+  retry: 2
   script:
     - node -v
     - yarn -v
