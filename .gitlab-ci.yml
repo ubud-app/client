@@ -7,6 +7,7 @@ publish_github:
   tags:
     - matt.sebbo.net
     - ssh
+  retry: 2
   script:
     - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --all
     - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --tags
@@ -16,6 +17,7 @@ check_lint:
   tags:
     - matt.sebbo.net
     - ssh
+  retry: 3
   script:
     - yarn install
     - yarn run check
@@ -26,6 +28,7 @@ visualize:
   tags:
     - matt.sebbo.net
     - ssh
+  retry: 3
   script:
     - yarn install
     - npm run visualize
@@ -38,6 +41,7 @@ publish_npm_next:
   tags:
     - matt.sebbo.net
     - ssh
+  retry: 3
   script:
     - node -v
     - yarn -v
