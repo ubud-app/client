@@ -170,13 +170,13 @@ class DataHelper {
         return DataHelper.send('auth', DataHelper._session.toJSON())
             .then(function () {
                 DataHelper._setState(DataHelper.READY);
-                this.on('update', this.logoutListener);
+                DataHelper.on('update', DataHelper.logoutListener);
                 return Promise.resolve(true);
             })
-            .catch(() => {
+            .catch(err => {
                 DataHelper._session.clear();
                 DataHelper._setState(DataHelper.CONNECTED);
-                return Promise.resolve(false);
+                return Promise.resolve(err);
             });
     }
 
