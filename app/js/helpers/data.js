@@ -5,7 +5,7 @@ import _ from 'underscore';
 import SocketIO from 'socket.io-client';
 
 class ResponseError extends Error {
-    constructor(response) {
+    constructor (response) {
         super(response.message || 'Unknown Response Error');
         this.error = response.error;
         this.attributes = response.attributes;
@@ -28,7 +28,7 @@ class DataHelper {
      * static READY;
      */
 
-    static initialize({endpoint, SessionModel, UserModel, DocumentCollection}) {
+    static initialize ({endpoint, SessionModel, UserModel, DocumentCollection}) {
         DataHelper._user = null;
         DataHelper._session = null;
         DataHelper._state = 0; // 0=disconnected
@@ -114,22 +114,31 @@ class DataHelper {
         });
     }
 
-    static _setState(id) {
+    static _setState (id) {
         DataHelper._state = id;
         DataHelper.trigger('socket:' + ['disconnected', 'connecting', 'connected', 'authenticating', 'ready'][id]);
         DataHelper.trigger('socket:state', ['disconnected', 'connecting', 'connected', 'authenticating', 'ready'][id]);
     }
 
-    static getState() {
+    static getState () {
         return DataHelper._state;
     }
 
-    static login(email, password) {
+    static login (email, password) {
         DataHelper._setState(DataHelper.AUTHENTICATING);
-        return DataHelper.send('sessions/create', {email, password, name: 'DWIMM Web'})
+
+        const UAParser = require('ua-parser-js');
+        const user = new UAParser();
+
+        return DataHelper.send('sessions/create', {
+            email,
+            password,
+            name: user.getBrowser().name + ' (' + user.getOS().name + ' ' + user.getOS().version + ')'
+        })
             .then(session => {
                 this._session.set(session);
                 DataHelper._setState(DataHelper.READY);
+                this.on('update', this.logoutListener);
                 return Promise.resolve();
             })
             .catch(e => {
@@ -138,7 +147,13 @@ class DataHelper {
             });
     }
 
-    static logout() {
+    static logoutListener(d) {
+        if (d.action === 'deleted' && this._session && this._session.id && d.id === this._session.id) {
+            location.reload();
+        }
+    }
+
+    static logout () {
         if (!DataHelper._session.id) {
             location.reload();
             return;
@@ -150,11 +165,12 @@ class DataHelper {
             });
     }
 
-    static _authenticate() {
+    static _authenticate () {
         DataHelper._setState(DataHelper.AUTHENTICATING);
         return DataHelper.send('auth', DataHelper._session.toJSON())
             .then(function () {
                 DataHelper._setState(DataHelper.READY);
+                this.on('update', this.logoutListener);
                 return Promise.resolve(true);
             })
             .catch(() => {
@@ -164,7 +180,7 @@ class DataHelper {
             });
     }
 
-    static send(event, data) {
+    static send (event, data) {
         return new Promise((resolve, reject) => {
             DataHelper._io.emit(event, data, (response) => {
                 if (response.error && response.error === 401) {
@@ -180,7 +196,7 @@ class DataHelper {
         });
     }
 
-    static sync(method, model, options) {
+    static sync (method, model, options) {
         const resource = (_.result(model, 'url') || _.result(model, 'urlRoot')).split('/')[0];
 
         let body = {};
@@ -215,7 +231,7 @@ class DataHelper {
             });
     }
 
-    static live(model, view) {
+    static live (model, view) {
         model._liveListeners = model._liveListeners || 0;
         model._liveListeners += 1;
 
@@ -269,7 +285,7 @@ class DataHelper {
         this.on('update', model._liveListener);
     }
 
-    static wait(model) {
+    static wait (model) {
         if ((model.length > 0 || _.size(model.toJSON()) > 1) && !model.syncing) {
             return Promise.resolve(model);
         }
@@ -284,11 +300,11 @@ class DataHelper {
         });
     }
 
-    static getUser() {
+    static getUser () {
         return DataHelper._user;
     }
 
-    static getDocuments() {
+    static getDocuments () {
         return DataHelper._documents;
     }
 }

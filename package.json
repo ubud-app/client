@@ -58,6 +58,7 @@
 		"qrcode-svg": "^1.0.0",
 		"raven-js": "^3.23.2",
 		"socket.io-client": "^2.0.4",
+		"ua-parser-js": "^0.7.17",
 		"underscore": "^1.8.3"
 	}
 }
