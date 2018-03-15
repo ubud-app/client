@@ -49,7 +49,7 @@ export default BaseView.extend({
             .text(StringHelper.string('transactions.edit.cancel'))
             .appendTo(v.$el);
 
-        const $delete = $('<button type="delete" class="transactions-editor_delete transactions-editor_delete--hidden button button--inline button--small button--destructive" />')
+        const $delete = $('<button type="button" class="transactions-editor_delete transactions-editor_delete--hidden button button--inline button--small button--destructive" />')
             .text(StringHelper.string('transactions.remove.text'))
             .attr('title', StringHelper.string('transactions.remove.title'))
             .appendTo(v.$el);
@@ -240,7 +240,9 @@ export default BaseView.extend({
         this.trigger('close');
     },
 
-    cancel() {
+    cancel(e) {
+        e.preventDefault();
+
         if (!this.model.id) {
             this.trigger('close');
             this.model.collection.remove(this.model);
