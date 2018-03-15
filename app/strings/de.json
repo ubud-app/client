@@ -266,6 +266,33 @@
 			},
 			"cancel": "Abbrechen"
 		},
+		"addPlugin": {
+			"title": "Plugin suchen",
+			"headline": "Plugin suchen",
+			"text": "Du kannst nach Plugins suchen, die automatisch dein Konto abfragen, Informationen über Transaktionen abrufen oder Spar-Ziele für dich anlegen. Um zu prüfen, ob es ein Plugin für deine Bank oder deinen Online-Shop gibt, gebe bitte den Namen des Shops oder der Bank unten ein.",
+			"q": {
+				"label": "Name des Online-Shops oder der Bank"
+			},
+			"empty": {
+				"text": "Kein Plugin gefunden",
+				"msg": "Tut mir leid, leider wurde für deinen Begriff kein Plugin gefunden."
+			},
+			"install": "Installieren",
+			"github": "GitHub",
+			"website": "Website",
+			"documentation": "Dokumentation",
+			"supports": {
+				"account": "Unterstützt diese Konten:",
+				"shop": "Unterstützt diese Shops:",
+				"metadata": "Informationen zu Transaktionen",
+				"goal": "Ziele"
+			},
+			"notThat": {
+				"text": "Nicht das richtige Plugin dabei?",
+				"msg": "Das tut uns leid."
+			},
+			"cancel": "Abbrechen"
+		},
 		"budget": {
 			"title": "Budget",
 			"placeholder": "Budget",

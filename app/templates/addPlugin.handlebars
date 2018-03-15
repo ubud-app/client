@@ -1,0 +1,19 @@
+<h2 class="b-headline-l1">{{string 'addPlugin.headline'}}</h2>
+
+<p class="add-plugin_text">{{string 'addPlugin.text'}}</p>
+
+<label class="b-form-label" for="add-plugin_q">{{string 'addPlugin.q.label'}}</label>
+<input type="text" name="name" id="add-plugin_q" autocomplete="off" class="b-form-input add-plugin_input"/>
+
+<div class="add-plugin_empty">
+	<span class="add-plugin_empty-icon icon icon-search"></span>
+	<span class="add-plugin_empty-text">{{string 'addPlugin.empty.text'}}</span>
+	<span class="add-plugin_empty-msg">{{string 'addPlugin.empty.msg'}}</span>
+</div>
+<ul class="add-plugin_results"></ul>
+<div class="add-plugin_end">
+	<span class="add-plugin_end-text">{{string 'addPlugin.notThat.text'}}</span>
+	<span class="add-plugin_end-msg">{{string 'addPlugin.notThat.msg'}}</span>
+</div>
+
+<a href="#{{document.id}}/settings" class="b-form-cancel">{{string 'addPlugin.cancel'}}</a>

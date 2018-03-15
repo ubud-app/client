@@ -70,7 +70,7 @@ export default BaseView.extend({
             return;
         }
 
-        this.plugins.id = 'q:' + q;
+        this.plugins.id = 'account:1/q:' + q;
         this.plugins.fetch();
     },
     manual() {
