@@ -7,6 +7,7 @@ import StringHelper from '../helpers/string';
 import TransactionsEditorBudgetSelectView from './transactionsEditorBudgetSelect';
 import TransactionsEditorPayeeSelectView from './transactionsEditorPayeeSelect';
 import TransactionsEditorUnitsView from './transactionsEditorUnits';
+import StoreHelper from '../helpers/store';
 
 /**
  * @module views/transactionsEditor
@@ -87,11 +88,16 @@ export default BaseView.extend({
         });
         if(!v.model.get('accountId')) {
             v.model.set({
-                accountId: $accountSelect.val()
+                accountId: StoreHelper.get(this.document.id + '-defaultAccount') || $accountSelect.val()
             });
         }
         $accountSelect.on('change', () => {
-            v.model.set('accountId', $accountSelect.val());
+            const id = $accountSelect.val();
+            v.model.set('accountId', id);
+
+            if(!v.model.id) {
+                StoreHelper.set(this.document.id + '-defaultAccount', id);
+            }
         });
         v.listenToAndCall(v.model, 'change:accountId', () => {
             const account = v.accounts.get(v.model.get('accountId'));
