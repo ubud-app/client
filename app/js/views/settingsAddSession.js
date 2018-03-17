@@ -43,7 +43,7 @@ export default BaseView.extend({
 
         let i = setInterval(() => {
             this.generateCode();
-        }, 30000);
+        }, 60000);
         this.once('remove', () => {
             if (i) {
                 clearInterval(i);
