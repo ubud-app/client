@@ -85,6 +85,7 @@
 				"title": "Einstellungen",
 				"account": "Konto-Einstellungen",
 				"document": "Budget-Einstellungen",
+				"reconcile": "Konten abgleichen",
 				"logout": "Abmelden"
 			},
 			"documents": {
@@ -113,6 +114,24 @@
 			"add": {
 				"title": "Klicke hier, um ein neues Dokument zu erstellen",
 				"text": "Neues Dokument erstellen"
+			}
+		},
+		"documentReconcile": {
+			"title": "Konten abgleichen",
+			"headline": "Konten abgleichen",
+			"noAccounts": "Du hast kein manuells Konto, das abgeglichen werden müsste.",
+			"amountPrefix": "Auf dem Konto sind aktuell",
+			"adjustment": {
+				"text": {
+					"negative": "Oh, da hast du vermutlich etwas vergessen einzutragen. Um das auszugleichen, wird eine neue Transaktion über %(amount)s erzeugt. Budget und Beschreibung kannst du unten festlegen.",
+					"positive": "Glückwunsch, du hast eigentlich mehr Geld auf dem Konto als eingetragen. Um das nachzutragen wird eine neue Transaktion über %(amount)s erzeugt. Budget und Beschreibung kannst du unten festlegen."
+				}
+			},
+			"defaultMemo": "Konto abgleichen",
+			"label": {
+				"memo": "optionale Beschreibung der Transaktion",
+				"saveAndNext": "Okay, weiter zum nächsten Konto…",
+				"save": "Abgleich abschließen"
 			}
 		},
 		"documentSettings": {

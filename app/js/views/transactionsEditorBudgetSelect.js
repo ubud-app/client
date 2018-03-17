@@ -14,6 +14,7 @@ import TransActionsEditorBudgetGroupView from './transactionsEditorBudgetGroup';
 export default BaseView.extend({
     tagName: 'select',
     className: 'transactions-editor-budget-select',
+
     events: {
         'change': 'sendChange'
     },

@@ -38,17 +38,21 @@ export default BaseView.extend({
         });
 
         const documents = await DataHelper.getDocuments().wait();
-        const $document = this.$el.find('.header_dropdown_item--document');
-        const $documentLink = $document.children('a');
+        const $documentSettings = this.$el.find('.header_dropdown_item--documentSettings');
+        const $documentReconcile = this.$el.find('.header_dropdown_item--documentReconcile');
+        const $documentSettingsLink = $documentSettings.children('a');
+        const $documentReconcileLink = $documentReconcile.children('a');
 
         this.listenToAndCall(AppHelper.router(), 'route', () => {
             const document = documents.get(location.hash.substr(1).split('/')[0]);
-            $document.toggleClass('header_dropdown_item--hidden', !document);
+            $documentSettings.toggleClass('header_dropdown_item--hidden', !document);
+            $documentReconcile.toggleClass('header_dropdown_item--hidden', !document);
             if (!document) {
                 return;
             }
 
-            $documentLink.attr('href', '#' + document.id + '/settings');
+            $documentSettingsLink.attr('href', '#' + document.id + '/settings');
+            $documentReconcileLink.attr('href', '#' + document.id + '/reconcile');
         });
     },
 

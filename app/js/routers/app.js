@@ -7,6 +7,7 @@ import DataHelper from '../helpers/data';
 import DashboardView from '../views/dashboard';
 import BudgetsView from '../views/budgets';
 import PlaceholderView from '../views/placeholder';
+import DocumentReconcileView from '../views/documentReconcile';
 import DocumentSettingsView from '../views/documentSettings';
 import DocumentAccountSettingsView from '../views/documentAccountSettings';
 import AddAccountView from '../views/addAccount';
@@ -23,6 +24,7 @@ export default BackboneRouter.extend({
         ':document/budget': 'documentBudget',
         ':document/reports': 'documentReports',
         ':document/transactions': 'documentTransactions',
+        ':document/reconcile': 'documentReconcile',
         ':document/settings': 'documentSettings',
         ':document/settings/accounts/new': 'addAccount',
         ':document/settings/accounts/new/bank': 'addAccountSearchBank',
@@ -62,6 +64,10 @@ export default BackboneRouter.extend({
     },
     async documentTransactions(documentId) {
         const view = new TransactionsView({documentId});
+        this.view.renderView(view);
+    },
+    async documentReconcile(documentId) {
+        const view = new DocumentReconcileView({documentId});
         this.view.renderView(view);
     },
     async documentSettings(documentId) {
