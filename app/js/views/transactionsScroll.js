@@ -102,10 +102,14 @@ export default BaseView.extend({
 
         if (month === 'future') {
             transactions.id = 'document:' + this.model.id + '/future';
-            transactions.addFilter = transaction => moment(transaction.get('time')).isAfter(moment().endOf('month'));
+            transactions.addFilter = t => {
+                return moment(t.get('time')).isAfter(moment().endOf('month')) && this.accounts.get(t.get('accountId'));
+            };
         } else {
             transactions.id = 'document:' + this.model.id + '/month:' + month.format('YYYY-MM');
-            transactions.addFilter = transaction => moment(transaction.get('time')).isSame(month, 'month');
+            transactions.addFilter = t => {
+                return moment(t.get('time')).isSame(month, 'month') && this.accounts.get(t.get('accountId'));
+            };
         }
 
         const view = new TransactionMonthView({
