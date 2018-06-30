@@ -386,7 +386,9 @@
 			"label": {
 				"username": "Username",
 				"email": "E-Mail-Adresse",
-				"password": "Passwort"
+				"password": "Passwort",
+				"apiKey": "API Key",
+				"accounts": "Accounts"
 			}
 		},
 		"reports": {
