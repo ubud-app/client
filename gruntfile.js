@@ -151,7 +151,8 @@ module.exports = function (grunt) {
             options: {
                 sourceMap: true,
                 outputStyle: 'expanded',
-                sourceComments: true
+                sourceComments: true,
+                implementation: require('node-sass')
             },
             app: {
                 src: paths.app.css + '/app.scss',
