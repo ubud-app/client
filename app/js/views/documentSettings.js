@@ -51,6 +51,18 @@ export default BaseView.extend({
             });
         });
 
+        // Document Region
+        const $region = this.$el.find('.document-settings_input--region');
+        this.listenToAndCall(this.model, 'change:settings', () => {
+            $region.val(this.model.get('settings').language);
+        });
+        $region.change(() => {
+            const settings = Object.assign(this.model.get('settings'), {
+                language: $region.val()
+            });
+            this.model.save({settings});
+        });
+
 
         // Accounts
         new DocumentSettingsAccountsView({model: this.model}).appendTo(this, '.document-settings_accounts');

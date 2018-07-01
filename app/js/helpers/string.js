@@ -44,16 +44,41 @@ Handlebars.registerHelper('number', StringHelper.formatNumber);
 Handlebars.registerHelper('currency', StringHelper.formatCurrency);
 Handlebars.registerHelper('percentage', StringHelper.formatPercentage);
 
+
+// Load Languages
 const lang = window.navigator.userLanguage || window.navigator.language;
+const supportedLanguages = [
+    ['de', require('../../strings/de.json'), require('moment/locale/de')],
+    ['en', require('../../strings/en.json'), require('moment/locale/en-gb')]
+];
 
-translate.registerTranslations('de', require('../../strings/de.json'));
-translate.registerTranslations('en', require('../../strings/de.json'));
+// Register Languages
+supportedLanguages.forEach(([language, strings]) => {
+    translate.registerTranslations(language, strings);
+});
 
-numbro.registerLanguage(require('numbro/dist/languages/de-DE.min'));
-require('moment/locale/de');
+// Load numbro formatters
+[
+    require('numbro/dist/languages/de-DE.min'),
+    require('numbro/dist/languages/en-GB.min'),
+    require('numbro/dist/languages/ru-RU.min'),
+    require('numbro/dist/languages/fr-FR.min'),
+    require('numbro/dist/languages/it-IT.min'),
+    require('numbro/dist/languages/es-ES.min')
+].forEach(def => numbro.registerLanguage(def));
 
+
+// Set Language: Moment
 moment.locale(lang);
-translate.setLocale(lang.split('-')[0]);
+
+// Set Language: Counterpart
+const languageCode = lang.split('-')[0];
+if(supportedLanguages.find(([lang]) => languageCode === lang.split('-')[0])) {
+    translate.setLocale(languageCode);
+}else{
+    translate.setLocale('en');
+}
+
 
 translate.onTranslationNotFound(function (locale, key) {
     const err = new Error('StringHelper: Key `' + key + '` not found in locale `' + locale + '`!');

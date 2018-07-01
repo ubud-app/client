@@ -12,16 +12,16 @@
 				"text": "Login"
 			},
 			"forgotPassword": {
-				"url": "https://dude-where-is-my.money/de/help/forgot-password",
+				"url": "https://dwimm.org/de/help/forgot-password",
 				"text": "Passwort vergessen?"
 			},
 			"website": {
-				"url": "https://dude-where-is-my.money/de/",
+				"url": "https://dwimm.org/de/",
 				"text": "DWIMM"
 			},
 			"help": {
-				"url": "https://dude-where-is-my.money/de/help/",
-				"text": "Hilfe!"
+				"url": "https://dwimm.org/de/help/",
+				"text": "Hilf mir!"
 			}
 		},
 		"firstSetup": {
@@ -119,7 +119,7 @@
 		"documentReconcile": {
 			"title": "Konten abgleichen",
 			"headline": "Konten abgleichen",
-			"noAccounts": "Du hast kein manuells Konto, das abgeglichen werden müsste.",
+			"noAccounts": "Du hast kein manuelles Konto, das abgeglichen werden müsste.",
 			"amountPrefix": "Auf dem Konto sind aktuell",
 			"adjustment": {
 				"text": {
@@ -138,7 +138,17 @@
 			"title": "Dokumenten-Einstellungen",
 			"headline": "Dokumenten-Einstellungen",
 			"general": {
-				"headline": "Allgemein"
+				"headline": "Allgemein",
+				"name": "Name des Budgets",
+				"region": {
+					"label": "Region",
+					"de-DE": "Deutschland",
+					"en-GB": "Vereinigtes Königreich",
+					"ru-RU": "Russland",
+					"fr-FR": "Frankreich",
+					"it-IT": "Italien",
+					"es-ES": "Spanien"
+				}
 			},
 			"accounts": {
 				"headline": "Konten",
@@ -231,7 +241,7 @@
 				"getAccounts": "Accounts abrufen",
 				"getTransactions": "Transaktionen abrufen",
 				"getMetadata": "Informationen zu Transaktionen abrufen",
-				"getGoals": "Ziele abrufenn"
+				"getGoals": "Ziele abrufen"
 			},
 			"settings": "Einstellungen",
 			"uninstall": {
