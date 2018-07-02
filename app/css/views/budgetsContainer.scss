@@ -21,6 +21,15 @@
 		&--fixed {
 			position: fixed;
 		}
+
+		&_current-line {
+			display: block;
+			position: fixed;
+			width: inherit;
+			height: 5px;
+			background: $primary;
+			top: -5px;
+		}
 	}
 
 	&_month {

@@ -2,6 +2,8 @@
 
 import $ from 'jquery';
 import _ from 'underscore';
+import moment from 'moment';
+
 import BaseView from './_';
 import BudgetsStatsView from './budgetsStats';
 import BudgetsCategoriesView from './budgetsCategories';
@@ -30,6 +32,10 @@ export default BaseView.extend({
         v.$headerWrap = $('<div class="budgets-container-header" />').appendTo(v.$el);
         v.$tipWrap = $('<div class="budgets-container-tip" />').appendTo(v.$el);
         v.$containers = $('.budgets-containers');
+
+        if (moment().isSame(this.month, 'month')) {
+            v.$thisMonthMarker = $('<div class="budgets-container-header_current-line" />').appendTo(v.$headerWrap);
+        }
 
         $('<span class="budgets-container_month" />')
             .text(this.month.format('MMMM'))
@@ -89,7 +95,7 @@ export default BaseView.extend({
 
                 $categories.toggleClass('loading', !!loading);
             }
-            else if(a) {
+            else if (a) {
                 $categories.toggleClass('loading', !!loading);
             }
             else if (!a && stats) {
@@ -139,7 +145,13 @@ export default BaseView.extend({
                 left: this.$el.offset().left
             });
 
-        if(this.tips) {
+        if(this.$thisMonthMarker) {
+            this.$thisMonthMarker.css({
+                top: Math.max(-5, Math.min(top - 25, 15))
+            });
+        }
+
+        if (this.tips) {
             this.tips.$el.css({
                 top: Math.min(0, 43 - top)
             });
