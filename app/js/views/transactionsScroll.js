@@ -81,11 +81,14 @@ export default BaseView.extend({
         this.$dropzoneFile = $('<div class="transactions-scroll_dropzone-file" />').appendTo(this.$dropzoneWrap);
         this.$dropzoneAccountWrap = $('<div class="transactions-scroll_dropzone-account-wrap" />').appendTo(this.$dropzoneWrap);
         this.$dropzoneAccount = $('<select class="transactions-scroll_dropzone-account" />').appendTo(this.$dropzoneAccountWrap);
-        this.accounts.each(account => $('<option />')
-            .attr('value', account.id)
-            .text(account.get('name'))
-            .appendTo(this.$dropzoneAccount)
-        );
+        this.accounts.each(account => {
+            if (!account.get('pluginInstanceId')) {
+                $('<option />')
+                    .attr('value', account.id)
+                    .text(account.get('name'))
+                    .appendTo(this.$dropzoneAccount);
+            }
+        });
 
         this.$dropzone.get(0).addEventListener('dragover', e => e.preventDefault(), false);
         this.$dropzone.get(0).addEventListener('drop', this.drop, false);
@@ -240,10 +243,10 @@ export default BaseView.extend({
                 this.dragCounter = 0;
             },
             error: (jqXHR, status, error) => {
-                if(jqXHR.responseJSON && jqXHR.responseJSON.message) {
+                if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
                     alert(jqXHR.responseJSON.message);
                 }
-                else if(jqXHR.responseText) {
+                else if (jqXHR.responseText) {
                     alert(jqXHR.responseText);
                 }
                 else {
