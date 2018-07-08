@@ -9,6 +9,8 @@ publish_github:
     - ssh
   retry: 2
   script:
+    - git checkout $CI_COMMIT_REF_NAME
+    - git pull
     - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --all
     - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --tags
 
