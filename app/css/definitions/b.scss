@@ -139,6 +139,9 @@
 		&--light:before {
 			background: rgba($background, 0.4);
 		}
+		&--nobg:before {
+			background: transparent;
+		}
 
 		&:after {
 			content: '\e809';

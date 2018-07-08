@@ -420,6 +420,10 @@
 				"text": "Transaktion hinzufügen",
 				"title": "Klicke, um eine Transaktion manuell einzutragen…"
 			},
+			"import": {
+				"onlyOne": "Ziehe bitte nur eine Datei gleichzeitig hier rein, sonst komme ich ganz durcheinander…",
+				"label": "Importiere %(file)s auf folgendes Konto:"
+			},
 			"edit": {
 				"save": "Speichern",
 				"cancel": "Abbrechen"

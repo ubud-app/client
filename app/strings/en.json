@@ -420,6 +420,10 @@
 				"text": "Add Transaction",
 				"title": "Click to enter a transaction manually..."
 			},
+			"import": {
+				"onlyOne": "Please only drag one file into this at a time, otherwise I get completely confused...",
+				"label": "Import %(file)s on this account:"
+			},
 			"edit": {
 				"save": "Save",
 				"cancel": "Cancel"

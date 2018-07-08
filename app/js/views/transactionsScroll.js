@@ -3,10 +3,16 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import moment from 'moment';
+
 import BaseView from './_';
+
 import TransactionModel from '../models/transaction';
 import TransactionMonthView from './transactionsMonth';
 import TransactionCollection from '../collections/transaction';
+
+import ConfigurationHelper from '../helpers/configuration';
+import DataHelper from '../helpers/data';
+import StringHelper from '../helpers/string';
 
 /**
  * @module views/transactionsScroll
@@ -15,12 +21,17 @@ import TransactionCollection from '../collections/transaction';
  */
 export default BaseView.extend({
     className: 'transactions-scroll loading',
+    events: {
+        'dragenter': 'dragEnter',
+        'dragleave': 'dragLeave',
+        'change .transactions-scroll_dropzone-account': 'importFile'
+    },
 
     nextMonthLock: false,
     emptyMonths: 0,
     startup: true,
 
-    async render() {
+    async render () {
         const v = this;
 
         // this.model -> Document Model
@@ -61,16 +72,33 @@ export default BaseView.extend({
 
         await v.checkMonths();
         this.startup = false;
+
+
+        // Drag & Drop Importer
+        this.dragCounter = 0;
+        this.$dropzone = $('<div class="transactions-scroll_dropzone" />').hide().appendTo(this.$el);
+        this.$dropzoneWrap = $('<div class="transactions-scroll_dropzone-wrap" />').hide().appendTo(this.$dropzone);
+        this.$dropzoneFile = $('<div class="transactions-scroll_dropzone-file" />').appendTo(this.$dropzoneWrap);
+        this.$dropzoneAccountWrap = $('<div class="transactions-scroll_dropzone-account-wrap" />').appendTo(this.$dropzoneWrap);
+        this.$dropzoneAccount = $('<select class="transactions-scroll_dropzone-account" />').appendTo(this.$dropzoneAccountWrap);
+        this.accounts.each(account => $('<option />')
+            .attr('value', account.id)
+            .text(account.get('name'))
+            .appendTo(this.$dropzoneAccount)
+        );
+
+        this.$dropzone.get(0).addEventListener('dragover', e => e.preventDefault(), false);
+        this.$dropzone.get(0).addEventListener('drop', this.drop, false);
     },
-    resize() {
+    resize () {
         this.$el.css('min-height', $(window).height() - 100 - 60);
     },
-    async checkMonths() {
+    async checkMonths () {
         if ($(window).scrollTop() < (2 * $(window).height())) {
             return this.addNextMonth();
         }
     },
-    async addNextMonth() {
+    async addNextMonth () {
         const v = this;
         if (v.nextMonthLock) {
             return;
@@ -96,7 +124,7 @@ export default BaseView.extend({
         return v.checkMonths();
     },
 
-    async addMonth(month) {
+    async addMonth (month) {
         const transactions = new TransactionCollection();
         this.oldestMonth = month;
 
@@ -120,7 +148,7 @@ export default BaseView.extend({
             categories: this.categories
         })[month === 'future' ? 'appendTo' : 'prependTo'](this);
 
-        if(month !== 'future') {
+        if (month !== 'future') {
             view.$el.addClass('loading b-loader b-loader--light');
         }
 
@@ -132,18 +160,99 @@ export default BaseView.extend({
 
         await transactions.fetch();
 
-        if(this.startup) {
+        if (this.startup) {
             $(window).scrollTop($(document).height());
         }
-        
+
         view.$el.removeClass('loading b-loader b-loader--light');
 
         return transactions;
     },
 
-    addTransaction() {
+    addTransaction () {
         const t = new TransactionModel({time: moment().toJSON()});
         this.trigger('add', t);
         $(window).scrollTop($(document).height());
+    },
+
+    dragEnter (e) {
+        e.preventDefault();
+        this.dragCounter++;
+        if (this.dragCounter === 1) {
+            this.$dropzoneWrap.removeClass('loading').hide();
+            this.$dropzoneFile.show();
+            this.$dropzoneAccountWrap.show();
+            this.$dropzoneAccount.val(null);
+            this.$dropzone.show();
+        }
+    },
+
+    dragLeave (e) {
+        e.preventDefault();
+        this.dragCounter--;
+        if (this.dragCounter === 0) {
+            this.$dropzone.hide();
+        }
+    },
+
+    drop (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const files = e.dataTransfer.files;
+        if (files.length > 1) {
+            alert(StringHelper.string('transactions.import.onlyOne'));
+        }
+
+        const file = files[0];
+        this.$dropzoneFile.text(StringHelper.string('transactions.import.label', {file: file.name}));
+        this.$dropzoneWrap.show();
+        this.importFile = file;
+    },
+
+    importFile () {
+        const accountId = this.$dropzoneAccount.val();
+        if (!this.importFile || !accountId) {
+            return;
+        }
+
+        this.$dropzoneFile.hide();
+        this.$dropzoneAccountWrap.hide();
+        this.$dropzoneWrap.addClass('loading').show();
+
+        const formData = new FormData();
+        formData.append('file', this.importFile);
+
+        $.ajax({
+            url: ConfigurationHelper.getEndpoint() + '/api/imports?account=' + accountId,
+            data: formData,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    'Authorization',
+                    'Basic ' + btoa(DataHelper._session.id + ':' + DataHelper._session.get('secret'))
+                );
+            },
+            success: () => {
+                this.$dropzone.hide();
+                this.dragCounter = 0;
+            },
+            error: (jqXHR, status, error) => {
+                if(jqXHR.responseJSON && jqXHR.responseJSON.message) {
+                    alert(jqXHR.responseJSON.message);
+                }
+                else if(jqXHR.responseText) {
+                    alert(jqXHR.responseText);
+                }
+                else {
+                    alert(error || status);
+                }
+
+                this.$dropzone.hide();
+                this.dragCounter = 0;
+            }
+        });
     }
 });
