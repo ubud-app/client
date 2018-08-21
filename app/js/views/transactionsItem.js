@@ -114,7 +114,7 @@ export default BaseView.extend({
                 $budget.text(names.join(' & '));
             }
             else if (names.length > 2) {
-                $budget.text(StringHelper.string('transactions.multipleBudgets'));
+                $budget.text(StringHelper.string('transactions.budgetSelect.multipleBudgets'));
             }
             else {
                 $budget.text('');
