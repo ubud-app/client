@@ -17,6 +17,7 @@ export default BaseView.extend({
         this.month = options.month;
         this.document = options.document;
         this.portionsThisMonth = options.portions || this.document.getPortionsByMonth(this.month);
+        this.budgets = options.budgets;
         this.portionsLastMonth = null;
     },
 
@@ -105,6 +106,14 @@ export default BaseView.extend({
     },
     async useLastMonthsBudgetedAction () {
         this.portionsThisMonth.each(thisOne => {
+            const budget = this.budgets.get(thisOne.get('budgetId'));
+
+            // don't update value if budget is hidden
+            if(budget.get('hidden') === true) {
+                return;
+            }
+
+            // don't update value when already set
             if(thisOne.get('budgeted') !== null && thisOne.get('budgeted') !== 0) {
                 return;
             }

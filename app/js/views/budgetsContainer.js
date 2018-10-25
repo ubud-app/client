@@ -77,7 +77,8 @@ export default BaseView.extend({
                 v.tips = new BudgetsTipsView({
                     document: v.document,
                     month: v.month,
-                    portions: portions
+                    portions: portions,
+                    budgets: v.budgets
                 }).appendTo(v, $stats);
 
                 categories = new BudgetsCategoriesView({
