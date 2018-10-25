@@ -1,8 +1,5 @@
 'use strict';
 
-require('babel-core/register');
-require('babel-polyfill');
-
 import $ from 'jquery';
 import BaseView from './_';
 import DataHelper from '../helpers/data';

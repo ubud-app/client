@@ -20,14 +20,12 @@
 	},
 	"author": "Sebastian Pekarek <bugs@sebbo.net>",
 	"devDependencies": {
+		"@babel/core": "^7.1.2",
+		"@babel/plugin-proposal-class-properties": "^7.1.0",
+		"@babel/preset-env": "^7.1.0",
+		"@babel/register": "^7.0.0",
 		"@sentry/cli": "^1.36.3",
-		"babel-core": "^6.26.3",
-		"babel-loader": "^7.1.5",
-		"babel-polyfill": "^6.26.0",
-		"babel-preset-env": "^1.7.0",
-		"babel-preset-es2015": "^6.24.1",
-		"babel-preset-stage-0": "^6.24.1",
-		"babelify": "^8.0.0",
+		"babelify": "^10.0.0",
 		"eslint": "^5.7.0",
 		"eslint-plugin-security": "^1.4.0",
 		"grunt": "^1.0.3",
@@ -50,6 +48,7 @@
 		"stringify": "^5.2.0"
 	},
 	"dependencies": {
+		"@babel/polyfill": "^7.0.0",
 		"backbone": "^1.3.3",
 		"counterpart": "^0.18.6",
 		"gravatar-url": "^2.0.0",
