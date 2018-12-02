@@ -20,13 +20,13 @@
 	},
 	"author": "Sebastian Pekarek <bugs@sebbo.net>",
 	"devDependencies": {
-		"@babel/core": "^7.1.2",
+		"@babel/core": "^7.1.6",
 		"@babel/plugin-proposal-class-properties": "^7.1.0",
-		"@babel/preset-env": "^7.1.0",
+		"@babel/preset-env": "^7.1.6",
 		"@babel/register": "^7.0.0",
-		"@sentry/cli": "^1.36.3",
+		"@sentry/cli": "^1.37.0",
 		"babelify": "^10.0.0",
-		"eslint": "^5.7.0",
+		"eslint": "^5.9.0",
 		"eslint-plugin-security": "^1.4.0",
 		"grunt": "^1.0.3",
 		"grunt-browser-sync": "^2.2.0",
@@ -41,7 +41,7 @@
 		"grunt-sass": "^3.0.2",
 		"handlebars": "^4.0.12",
 		"hbsfy": "^2.8.1",
-		"node-sass": "^4.9.4",
+		"node-sass": "^4.10.0",
 		"npm-check": "^5.9.0",
 		"nsp": "^3.2.1",
 		"plato": "^1.7.0",
@@ -57,8 +57,8 @@
 		"numbro": "^2.1.1",
 		"qrcode-svg": "^1.0.0",
 		"raven-js": "^3.27.0",
-		"socket.io-client": "^2.1.1",
-		"ua-parser-js": "^0.7.18",
+		"socket.io-client": "^2.2.0",
+		"ua-parser-js": "^0.7.19",
 		"underscore": "^1.9.1"
 	}
 }
