@@ -34,10 +34,38 @@ export default BaseView.extend({
             transaction: v.transaction
         }).appendTo(v, $budget);
         v.listenToAndCall(v.model, 'change:budgetId', () => {
-            budget.value(v.model.get('budgetId') || '');
+            if (v.model.get('type') === 'INCOME') {
+                budget.value('income');
+            }
+            else if (v.model.get('type') === 'INCOME_NEXT') {
+                budget.value('income:next');
+            }
+            else if (v.model.get('type') === 'BUDGET') {
+                budget.value('budget:' + v.model.get('budgetId'));
+            }
+            else {
+                budget.value('');
+            }
         });
         v.listenTo(budget, 'update', function (value) {
-            v.model.set('budgetId', value);
+            if(value === 'income') {
+                v.model.set({
+                    type: 'INCOME',
+                    budgetId: null
+                });
+            }
+            else if(value === 'income:next') {
+                v.model.set({
+                    type: 'INCOME_NEXT',
+                    budgetId: null
+                });
+            }
+            else if(value.substr(0, 7) === 'budget:') {
+                v.model.set({
+                    type: 'BUDGET',
+                    budgetId: value.substr(7)
+                });
+            }
         });
 
         // Memo

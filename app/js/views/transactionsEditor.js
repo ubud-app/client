@@ -129,8 +129,14 @@ export default BaseView.extend({
             if (units.length === 0) {
                 budget.value('');
             }
-            else if (units.length === 1) {
-                budget.value(units.first().get('budgetId'));
+            else if (units.length === 1 && units.first().get('type') === 'INCOME') {
+                budget.value('income');
+            }
+            else if (units.length === 1 && units.first().get('type') === 'INCOME_NEXT') {
+                budget.value('income:next');
+            }
+            else if (units.length === 1 && units.first().get('type') === 'BUDGET') {
+                budget.value('budget:' + units.first().get('budgetId'));
             }
             else {
                 budget.value('split');
@@ -143,11 +149,26 @@ export default BaseView.extend({
                 return;
             }
 
+            const unit = {
+                amount: v.model.get('amount'),
+                type: null
+            };
+
+            if(value === 'income') {
+                unit.type = 'INCOME';
+                unit.budgetId = null;
+            }
+            else if(value === 'income:next') {
+                unit.type = 'INCOME_NEXT';
+                unit.budgetId = null;
+            }
+            else if(value.substr(0, 7) === 'budget:') {
+                unit.type = 'BUDGET';
+                unit.budgetId = value.substr(7);
+            }
+
             v.model.set({
-                units: [{
-                    amount: v.model.get('amount'),
-                    budgetId: value
-                }]
+                units: [unit]
             });
         });
         v.listenTo(v.model, 'change:amount', () => {

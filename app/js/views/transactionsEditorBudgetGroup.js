@@ -28,7 +28,7 @@ export default BaseView.extend({
     addBudget(budget) {
         const v = this;
         const $option = $('<option />')
-            .attr('value', budget.id)
+            .attr('value', 'budget:' + budget.id)
             .text(budget.get('name'));
 
         v.listenToAndCall(budget, 'change:categoryId change:hidden', () => {

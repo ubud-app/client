@@ -95,10 +95,10 @@ export default BaseView.extend({
         // Budget
         v.listenToAndCall(v.model, 'change:units change:time', () => {
             const names = (v.model.getUnits() || []).map(unit => {
-                if (unit.get('budgetId') === 'income-0' || unit.get('budgetId') === 'income-1') {
+                if (unit.get('type') === 'INCOME' || unit.get('type') === 'INCOME_NEXT') {
                     return StringHelper.string('transactions.budgetSelect.incomeFor', {
                         month: moment(v.model.get('time'))
-                            .add(unit.get('budgetId') === 'income-0' ? 0 : 1, 'month')
+                            .add(unit.get('type') === 'INCOME' ? 0 : 1, 'month')
                             .format('MMMM')
                     });
                 }

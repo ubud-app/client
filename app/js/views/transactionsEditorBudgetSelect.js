@@ -44,8 +44,8 @@ export default BaseView.extend({
         }
 
         $('<optgroup />').attr('label', StringHelper.string('transactions.budgetSelect.income')).appendTo(v.$el);
-        const $incomeThis = $('<option />').attr('value', 'income-0').appendTo(v.$el);
-        const $incomeNext = $('<option />').attr('value', 'income-1').appendTo(v.$el);
+        const $incomeThis = $('<option />').attr('value', 'income').appendTo(v.$el);
+        const $incomeNext = $('<option />').attr('value', 'income:next').appendTo(v.$el);
         v.listenToAndCall(v.transaction, 'change:time', () => {
             const m = moment(v.transaction.get('time'));
             $incomeThis.text(StringHelper.string('transactions.budgetSelect.incomeFor', {
