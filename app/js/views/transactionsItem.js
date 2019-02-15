@@ -4,6 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import BaseView from './_';
 import StringHelper from '../helpers/string';
+import AccountModel from '../models/account';
 import PayeeModel from '../models/payee';
 import TransactionsEditorView from './transactionsEditor';
 
@@ -70,8 +71,26 @@ export default BaseView.extend({
 
 
         // Payee
-        v.listenToAndCall(v.model, 'change:payeeId', () => {
-            if(!v.model.has('payeeId') && v.model.has('pluginsOwnPayeeId')) {
+        v.listenToAndCall(v.model, 'change:payeeId change:units', () => {
+
+            // Transfers
+            const transfers = (v.model.getUnits() || []).filter(unit => unit.get('type') === 'TRANSFER');
+            if(transfers.length) {
+                $payee.removeClass('transactions-item_payee--temporary');
+
+                Promise
+                    .all(transfers.map(async transfer => {
+                        const account = new AccountModel({id: transfer.get('transferAccountId')});
+                        await account.fetch();
+                        return account.get('name');
+                    }))
+                    .then(accounts => {
+                        $payee.text('→ ' + accounts.join(', '));
+                    });
+                return;
+            }
+
+            else if(!v.model.has('payeeId') && v.model.has('pluginsOwnPayeeId')) {
                 $payee.addClass('transactions-item_payee--temporary');
                 $payee.text(v.model.get('pluginsOwnPayeeId'));
                 return;
@@ -129,10 +148,17 @@ export default BaseView.extend({
 
 
         // Amount
-        v.listenToAndCall(v.model, 'change:amount', () => {
-            $amount.text(StringHelper.currency(this.document, v.model.get('amount') || 0));
+        v.listenToAndCall(v.model, 'change:amount change:units', () => {
+            const isTransfer = !!(v.model.get('units') || []).find(u => u.type === 'TRANSFER');
+
+            $amount.text(StringHelper.currency(
+                this.document,
+                (v.model.get('amount') || 0) * (isTransfer ? -1 : 1)
+            ));
+
             $amount.toggleClass('transactions-item_amount--negative', v.model.get('amount') < 0);
             $amount.toggleClass('transactions-item_amount--positive', v.model.get('amount') > 0);
+            $amount.toggleClass('transactions-item_amount--transfer', isTransfer);
         });
 
         v.listenToOnce(v.model, 'destroy', function () {
@@ -162,6 +188,10 @@ export default BaseView.extend({
                 v.$el.removeClass('transactions-item--opened');
                 v.editor.remove();
                 v.editor = null;
+            });
+
+            v.listenTo(v.editor, 'duplicate', () => {
+                this.remove();
             });
         }
 

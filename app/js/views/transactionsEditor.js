@@ -86,11 +86,23 @@ export default BaseView.extend({
                 $o.prop('disabled', !!a.get('pluginInstanceId'));
             });
         });
-        if(!v.model.get('accountId')) {
-            v.model.set({
-                accountId: StoreHelper.get(this.document.id + '-defaultAccount') || $accountSelect.val()
+
+        const defaultAccountId = StoreHelper.get(this.document.id + '-defaultAccount');
+        if(
+            !this.model.get('accountId') &&
+            defaultAccountId &&
+            this.accounts.get(defaultAccountId)
+        ) {
+            this.model.set({
+                accountId: defaultAccountId
             });
         }
+        else if(!v.model.get('accountId')) {
+            this.model.set({
+                accountId: this.accounts.find(a => !a.get('pluginInstanceId')).id
+            });
+        }
+
         $accountSelect.on('change', () => {
             const id = $accountSelect.val();
             v.model.set('accountId', id);
@@ -112,7 +124,8 @@ export default BaseView.extend({
         // Payee
         new TransactionsEditorPayeeSelectView({
             model: v.model,
-            document: v.document
+            document: v.document,
+            accounts: v.accounts
         }).appendTo(v, $payee);
 
 
@@ -125,6 +138,7 @@ export default BaseView.extend({
         }).appendTo(v, $budget);
         v.listenToAndCall(v.model, 'change:units', () => {
             const units = v.model.getUnits();
+            $budget.toggleClass('transactions-editor_budget--transfer', !!units.find(u => u.get('type') === 'TRANSFER'));
 
             if (units.length === 0) {
                 budget.value('');
@@ -196,13 +210,29 @@ export default BaseView.extend({
 
 
         // Amount
-        v.listenToAndCall(v.model, 'change:amount', () => {
-            $amount.val(StringHelper.currency(this.document, v.model.get('amount') || 0));
+        v.listenToAndCall(v.model, 'change:amount change:units', () => {
+            const isTransfer = !!(v.model.get('units') || []).find(u => u.type === 'TRANSFER');
+
+            $amount.val(StringHelper.currency(
+                this.document,
+                (v.model.get('amount') || 0) * (isTransfer ? -1 : 1)
+            ));
+
             $amount.toggleClass('transactions-editor_amount--negative', v.model.get('amount') < 0);
             $amount.toggleClass('transactions-editor_amount--positive', v.model.get('amount') > 0);
+            $amount.toggleClass('transactions-editor_amount--transfer', isTransfer);
         });
         $amount.on('change', () => {
-            v.model.set('amount', StringHelper.parseCurrency(this.document, $amount.val()));
+            const isTransfer = !!(v.model.get('units') || []).find(u => u.type === 'TRANSFER');
+            const amount = StringHelper.parseCurrency(this.document, $amount.val()) * (isTransfer ? -1 : 1);
+
+            v.model.set('amount', amount);
+
+            const units = v.model.get('units');
+            if(units.length === 1) {
+                units[0].amount = amount;
+                v.model.set('units', units);
+            }
         });
         v.listenToAndCall(v.model, 'change:accountId', () => {
             const account = v.accounts.get(v.model.get('accountId'));
@@ -253,12 +283,17 @@ export default BaseView.extend({
 
     },
 
-    save(e) {
+    async save(e) {
         e.stopPropagation();
         e.preventDefault();
-        
-        this.model.save();
+
+        const wasNew = !this.model.id;
         this.trigger('close');
+
+        await this.model.save();
+        if(wasNew) {
+            this.trigger('duplicate');
+        }
     },
 
     cancel(e) {

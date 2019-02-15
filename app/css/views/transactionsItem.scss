@@ -69,6 +69,10 @@
 		&--positive {
 			color: $primary;
 		}
+		&--transfer {
+			color: $text;
+			opacity: 0.5;
+		}
 	}
 
 	&_editor {

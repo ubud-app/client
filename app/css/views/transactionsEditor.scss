@@ -100,6 +100,10 @@
 			font: inherit;
 			margin-top: -2px;
 		}
+
+		&--transfer {
+			opacity: 0;
+		}
 	}
 	&_memo {
 		@extend .transactions-item_memo;
@@ -119,6 +123,9 @@
 
 		&--positive {
 			color: $primary;
+		}
+		&--transfer {
+			color: $text;
 		}
 	}
 
