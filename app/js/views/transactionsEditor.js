@@ -98,9 +98,12 @@ export default BaseView.extend({
             });
         }
         else if(!v.model.get('accountId')) {
-            this.model.set({
-                accountId: this.accounts.find(a => !a.get('pluginInstanceId')).id
-            });
+            const account = this.accounts.find(a => !a.get('pluginInstanceId'));
+            if(account) {
+                this.model.set({
+                    accountId: account.id
+                });
+            }
         }
 
         $accountSelect.on('change', () => {
