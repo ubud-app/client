@@ -194,12 +194,11 @@ export default BaseView.extend({
                 return;
             }
 
-            v.model.set({
-                units: [{
-                    amount: v.model.get('amount'),
-                    budgetId: value
-                }]
-            });
+            const units = v.model.get('units');
+            if(units.length === 1) {
+                units[0].amount = v.model.get('amount');
+                v.model.set({units});
+            }
         });
 
 
@@ -230,12 +229,6 @@ export default BaseView.extend({
             const amount = StringHelper.parseCurrency(this.document, $amount.val()) * (isTransfer ? -1 : 1);
 
             v.model.set('amount', amount);
-
-            const units = v.model.get('units');
-            if(units.length === 1) {
-                units[0].amount = amount;
-                v.model.set('units', units);
-            }
         });
         v.listenToAndCall(v.model, 'change:accountId', () => {
             const account = v.accounts.get(v.model.get('accountId'));

@@ -164,7 +164,7 @@ export default BaseView.extend({
                 const $i = $('<div class="transactions-editor-payee-select_item" />')
                     .text('→ ' + account.get('name'))
                     .data('id', 'account:' + account.id)
-                    .click(function () {
+                    .click(() => {
                         this.selectItem('account:' + account.id);
                     });
 
@@ -179,7 +179,7 @@ export default BaseView.extend({
             const $i = $('<div class="transactions-editor-payee-select_item" />')
                 .text(payee.get('name'))
                 .data('id', 'payee:' + payee.id)
-                .click(function () {
+                .click(() => {
                     this.selectItem('payee:' + payee.id);
                 });
 
