@@ -61,7 +61,10 @@ export default BaseView.extend({
 
         const $outflow = $('<span class="budgets-portion_outflow" />').appendTo(v.$el);
         v.listenToAndCall(v.model, 'change:outflow', () => {
-            $outflow.text(StringHelper.currency(this.document, v.model.get('outflow') || 0));
+            $outflow.text(StringHelper.currency(
+                this.document,
+                v.model.has('outflow') ? v.model.get('outflow') * -1 : 0
+            ));
         });
 
         const $balance = $('<span class="budgets-portion_balance" />').appendTo(v.$el);
