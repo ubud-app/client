@@ -21,8 +21,8 @@ check_lint:
     - ssh
   retry: 2
   script:
-    - yarn install
-    - yarn run check
+    - npm ci
+    - npm run check
 
 
 visualize:
@@ -32,7 +32,7 @@ visualize:
     - ssh
   retry: 2
   script:
-    - yarn install
+    - npm install
     - npm run visualize
     - rm -rf /var/docker/static/dwimm/client-web/plato/*
     - mv ./code-visualization/* /var/docker/static/dwimm/client-web/plato/
@@ -45,9 +45,7 @@ publish_npm_next:
     - ssh
   retry: 2
   script:
-    - node -v
-    - yarn -v
-    - yarn install
+    - npm ci
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
     - npm run bump:develop
     - npm run build
