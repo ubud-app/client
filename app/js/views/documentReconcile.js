@@ -186,15 +186,31 @@ export default BaseView.extend({
         const amount = StringHelper.parseCurrency(this.document, this.$input.val());
         if (amount !== this.account.get('balance')) {
             const diff = amount - this.account.get('balance');
+            const value = this.budget.value();
+            const unit = {
+                amount: diff,
+                type: null
+            };
+
+            if(value === 'income') {
+                unit.type = 'INCOME';
+                unit.budgetId = null;
+            }
+            else if(value === 'income:next') {
+                unit.type = 'INCOME_NEXT';
+                unit.budgetId = null;
+            }
+            else if(value.substr(0, 7) === 'budget:') {
+                unit.type = 'BUDGET';
+                unit.budgetId = value.substr(7);
+            }
+
             await new TransactionModel({
                 time: moment().toJSON(),
                 amount: diff,
                 accountId: this.account.id,
                 memo: this.$memo.val(),
-                units: [{
-                    'budgetId': this.budget.value(),
-                    'amount': diff
-                }]
+                units: [unit]
             }).save();
         }
 
