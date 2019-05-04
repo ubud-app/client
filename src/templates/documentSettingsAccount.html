@@ -1,0 +1,22 @@
+<div class="document-settings-account__wrap b-form b-loader b-loader--light" rv-class-loading="meta.loading">
+	<h1 class="document-settings-account__headline b-headline-l1">{ 'documentSettingsAccount.headline' | string }</h1>
+	<h2 class="document-settings-account__document b-headline-l2">{ document:name }</h2>
+
+	<ul class="document-settings-account__list">
+		<li class="document-settings-account__empty b-empty-message" rv-if="meta.empty">
+			{ 'documentSettingsAccount.empty' | string}
+		</li>
+
+		<li class="document-settings-account__item" rv-each-account="accounts">
+			<a rv-href="account.url" class="document-settings-account__link">
+				<span class="document-settings-account__balance">{ account.balance | currency }</span>
+				<span class="document-settings-account__name">{ account.name }</span>
+				<span class="document-settings-account__meta">{ account.meta }</span>
+			</a>
+		</li>
+	</ul>
+
+	<button type="button" class="document-settings-account__add button button--right button--secondary button--inline button--small">
+		{ 'documentSettingsAccount.add' | string}
+	</button>
+</div>

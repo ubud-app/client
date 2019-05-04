@@ -1,0 +1,67 @@
+$font_default: 'OpenSans';
+
+$primary: #e15c34;
+$primary-dark: darken(#e15c34, 20);
+$text: #B6B6B6;
+
+$green: #03B781;
+$red: #E64C65;
+$orange: #F38149;
+$text: #333333;
+
+$background: #FFFFFF;
+$background-box: #EBF0F6;
+$background-footer: #2A2F36;
+$background-copy: #22262C;
+
+$header-icon-mobile-size: 40px;
+$sidebar-width: 80px;
+
+$size-s: 320;
+$size-m: 640;
+$size-l: 920;
+$size-xl: 1260;
+
+
+
+
+$hover: "&:focus, &:hover, &:active";
+
+$wrapvalue: 5.5;
+$unwrap: (100 * $wrapvalue)/(100 - (2 * $wrapvalue)) * 1%;
+$wrap: $wrapvalue * 1%;
+
+@mixin clearfix() {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@function em($px, $context: 16) {
+	@return ($px / $context) * 1em;
+}
+
+@mixin hideme() {
+	position: absolute;
+	left: -3000px;
+}
+
+@mixin smaller($px) {
+	@media only screen and (max-width: em($px)) {
+		@content;
+	}
+}
+
+@mixin greater($px) {
+	@media only screen and (min-width: em($px + 1)) {
+		@content;
+	}
+}
+
+@mixin sharptext() {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smoothing: antialiased;
+}

@@ -1,0 +1,21 @@
+<div class="login__wrap">
+	<div class="login__icons" rv-html="meta.icons"></div>
+	<div class="login__logo"></div>
+
+	<form class="login__form" rv-on-submit="view.submit">
+		<div class="login__form-box" rv-class-login__form-box--error="meta.error">
+			<input class="login__form-input login__form-input--email" type="email" autocomplete="username" rv-placeholder="'login.email.placeholder' | string" rv-value="form.username" required />
+			<input class="login__form-input login__form-input--password" type="password" autocomplete="current-password" rv-placeholder="'login.password.placeholder' | string" rv-value="form.password" required />
+		</div>
+
+		<button type="submit" class="button login__submit" rv-disabled="meta.disabled">{ 'login.submit.text' | string }</button>
+
+		<div class="login__minilinks">
+			<a rv-href="'login.forgotPassword.url' | string">{ 'login.forgotPassword.text' | string }</a>
+		</div>
+	</form>
+</div>
+<div class="login__footer">
+	&copy; { meta.year } <a rv-href="'login.website.url' | string">{ 'login.website.text' | string }</a> |
+	<a rv-href="'login.help.url' | string">{ 'login.help.text' | string}</a>
+</div>

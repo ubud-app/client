@@ -1,0 +1,452 @@
+{
+	"app.name": "DWIMM",
+	"app.shortName": "DWIMM",
+	"app.description": "DWIMM is a simple and self-hosted budgeting software.",
+	"app.developerName": "Sebastian Pekarek",
+	"app.developerUrl": "https://dwimm.org",
+
+	"notFound.headline": "Page not found",
+	"notFound.message": "Sorry, but the page you were looking for wasn't found.",
+
+	"autoNumeric": {
+		"percentage": "percentageEU2dec"
+	},
+
+	"account": {
+		"type": {
+			"checking": "Checking",
+			"savings": "Savings",
+			"creditCard": "Credit Card",
+			"cash": "Cash",
+			"mortage": "Mortage",
+			"asset": "Asset",
+			"loan": "Loan"
+		}
+	},
+
+	"error": {
+		"labels": {
+			"stacktrace": "Stacktrace",
+			"reference": "Reference"
+		},
+		"default": {
+			"headline": "An error has occurred...",
+			"message": "Unfortunately an unexpected error occurred. Please try again."
+		}
+	},
+	"login": {
+		"title": "Sign in",
+		"email": {
+			"placeholder": "Email"
+		},
+		"password": {
+			"placeholder": "Password"
+		},
+		"submit": {
+			"text": "Sign in"
+		},
+		"forgotPassword": {
+			"url": "https://dude-where-is-my.money/en/help/forgot-password",
+			"text": "Forgot Password?"
+		},
+		"website": {
+			"url": "https://dude-where-is-my.money/en/",
+			"text": "DWIMM"
+		},
+		"help": {
+			"url": "https://dude-where-is-my.money/en/help/",
+			"text": "Help me!"
+		},
+		"pawned": "Das eingegebene Passwort scheint nicht sicher zu sein, wir haben es in <a href=\"https://haveibeenpwned.com/Passwords\">diversen Daten-Leaks</a> gefunden. <br />Bitte verwende ein sicheres Passwort oder verwende einen Passwort-Manager."
+	},
+	"firstSetup": {
+		"title": "Setup login credentials",
+		"email-1": {
+			"placeholder": "Your Email"
+		},
+		"email-2": {
+			"placeholder": "Your Email (repeat)"
+		},
+		"password-1": {
+			"placeholder": "Your password"
+		},
+		"password-2": {
+			"placeholder": "Your password (repeat)"
+		},
+		"submit": {
+			"text": "Save login credentials"
+		},
+		"newDocument": {
+			"name": "My first document",
+			"language": "en-GB",
+			"accounts": {
+				"wallet": "Wallet",
+				"pillow": "Under my pillow"
+			},
+			"default": {
+				"name": "1. Everyday",
+				"default": "Other",
+				"lostCash": "Lost Coins",
+				"clothing": "Clothing",
+				"food": "Food"
+			},
+			"monthly": {
+				"name": "2. Monthly",
+				"rent": "Rent",
+				"power": "Electricity",
+				"water": "Water",
+				"heating": "Heating",
+				"internet": "Internet"
+			},
+			"insurance": {
+				"name": "3. Insurances",
+				"liability": "Liability Insurance",
+				"health": "Health Insurance"
+			},
+			"rainyDays": {
+				"name": "4. Rainy Days",
+				"birthdays": "Birthdays",
+				"christmas": "Christmas"
+			},
+			"goals": {
+				"name": "5. Goals",
+				"example": "become a billionaire",
+				"value": "100000000"
+			}
+		}
+	},
+	"header": {
+		"settings": {
+			"title": "Settings",
+			"document": {
+				"headline": "Budget",
+				"noDocument": "No budget selected",
+				"general": "General Settings",
+				"accounts": "Accounts",
+				"plugins": "Plugins",
+				"permissions": "Permissions",
+				"notifications": "Notifications"
+			},
+			"instance": {
+				"headline": "Administration",
+				"general": "My instance",
+				"updates": "Updates",
+				"users": "Users",
+				"plugins": "Plugins",
+				"backups": "Backups"
+			},
+			"account": {
+				"headline": "Account",
+				"devices": "My Devices",
+				"authentication": "Change Password",
+				"logout": "Log out"
+			}
+		},
+		"documents": {
+			"title": "My Documents",
+			"new": {
+				"prompt": "What name should the document have?",
+				"unnamed": "Unnamed document"
+			}
+		},
+		"connection": {
+			"disconnected": "Connection lost",
+			"connecting": "Connecting…",
+			"connected": "Connected",
+			"authenticating": "Authenticating",
+			"ready": "Connected"
+		}
+	},
+	"sidebar": {
+		"budget": {
+			"title": "open budget",
+			"name": "Budget"
+		},
+		"reports": {
+			"title": "open reports",
+			"name": "Reports"
+		},
+		"transactions": {
+			"title": "open transactions",
+			"name": "Transactions"
+		},
+		"settings": {
+			"title": "open document settings",
+			"name": "Settings"
+		},
+		"add": {
+			"title": "add a new transaction"
+		}
+	},
+
+
+
+	"documentReconcile": {
+		"title": "Reconcile accounts",
+		"headline": "Reconcile accounts",
+		"noAccounts": "You do not have a manual account that needs to be reconciled.",
+		"amountPrefix": "The account currently holds",
+		"adjustment": {
+			"text": {
+				"negative": "Oh, you probably forgot to put something in there. To compensate for this, a new transaction for %(amount)s is created. You can define budget and description below.",
+				"positive": "Congratulations, you actually have more money in your account than you registered. A new transaction is created for %(amount)s to add this. You can define budget and description below."
+			}
+		},
+		"defaultMemo": "Reconcile account",
+		"label": {
+			"memo": "optional description of the transaction",
+			"saveAndNext": "Okay, on to the next account...",
+			"save": "Complete the adjustment"
+		}
+	},
+	"documentSettings": {
+		"headline": "Document Settings",
+		"general": {
+			"headline": "General Settings",
+			"description": "Change name of document and currency used, delete document"
+		},
+		"accounts": {
+			"headline": "Accounts",
+			"description": "Add and remove bank accounts, credit cards and other assets"
+		},
+		"plugins": {
+			"headline": "Plugins",
+			"description": "List of plugins activated in this document"
+		},
+		"permissions": {
+			"headline": "Permissions",
+			"description": "Release of the document to third parties"
+		}
+	},
+	"documentSettingsGeneral": {
+		"headline": "General Document Settings",
+		"labels": {
+			"name": "Document Name",
+			"currency": "Currency used"
+		},
+		"currency": {
+			"euro": "Euro (€)",
+			"dollar": "Dollar ($)"
+		}
+	},
+	"documentSettingsAccount": {
+		"headline": "Account Settings",
+		"empty": "No accounts are currently defined in this document.",
+		"add": "Add account"
+	},
+
+	"budget": {
+		"title": "Budget",
+		"stats": {
+			"available": {
+				"negative": "Overbudgeted",
+				"positive": "To budget"
+			},
+			"income": "Income",
+			"budgeted": "Budgeted",
+			"outflow": "Outflow",
+			"balance": "Balance"
+		}
+	},
+	"transactions": {
+		"title": "Transactions",
+		"budget": {
+			"income": "Income for {{month}}",
+			"noBudget": "no budget selected"
+		}
+	},
+	"transactionDetails": {
+		"labels": {
+			"time": "Date and time",
+			"payee": "Payee",
+			"account": "Account",
+			"amount": "Amount",
+			"memo": "Notes"
+		},
+		"headlines": {
+			"budgeting": "Budgeting",
+			"original": "Original bank import"
+		},
+		"placeholders": {
+			"memo": "Notes (optional)"
+		},
+		"budget": {
+			"income": "Income for {{month}}"
+		},
+		"reconciling": "This transaction was inserted automatically, since the account balance in DWIMM and the account balance in the bank's history was different. Now everything should fit again. Do you often find such transactions, this could be an indication that something is wrong with the synchronization.",
+		"remove": "Remove transaction"
+	},
+
+	"documentAccountSettings": {
+		"title": "Account Settings",
+		"headline": {
+			"add": "Add new account",
+			"edit": "Edit account"
+		},
+		"name": {
+			"label": "Name of account",
+			"default": "Wallet"
+		},
+		"type": {
+			"label": "Type of account",
+			"checking": "Checking",
+			"savings": "Savings",
+			"creditCard": "Credit Card",
+			"cash": "Cash",
+			"mortage": "Mortage",
+			"asset": "Asset",
+			"loan": "Loan"
+		},
+		"balance": {
+			"label": "Current balance"
+		},
+		"recordDate": {
+			"label": "Record date"
+		},
+		"save": {
+			"text": "Save"
+		},
+		"cancel": {
+			"text": "Cancel"
+		},
+		"transaction": {
+			"memo": "Account balance on key date"
+		},
+		"dangerous": {
+			"headline": "Dangerous Zone",
+			"destroy": {
+				"message": {
+					"plugin": "You cannot delete this account because it is managed by a plugin. First remove the plugin from the document.",
+					"empty": "You can safely delete this account as there are no transactions on this account. Your budget will not change.",
+					"dangerous": "Deleting the account deletes all transactions in it. Your budget will probably no longer work out."
+				},
+				"title": "Delete account and all transactions on it",
+				"text": "Delete account",
+				"confirm": "Are you sure you want to delete this account and all transactions in it? Your budget won't work out afterwards!"
+			}
+		}
+	},
+	"documentPluginSettings": {
+		"title": "Plugin Settings",
+		"status": {
+			"headline": "Status",
+			"validateConfig": "Configuration valid",
+			"getAccounts": "Getting Accounts",
+			"getTransactions": "Getting Transactions",
+			"getMetadata": "Getting Information about Transactions",
+			"getGoals": "Getting Goals"
+		},
+		"settings": "Settings",
+		"uninstall": {
+			"headline": "Remove plugin",
+			"message": "If you no longer want to use this plugin, you can remove it from the document. All synchronized data is retained and can then be edited or removed manually.",
+			"button": {
+				"title": "Remove plugin",
+				"text": "Remove plugin"
+			},
+			"confirm": "Are you really sure you want to remove this plugin? All synchronized data is retained and can be edited manually."
+		},
+		"save": "Save",
+		"cancel": "Cancel"
+	},
+	"addAccount": {
+		"index": {
+			"title": "Add Account",
+			"headline": "Add Account",
+			"text": "What kind of account do you want to add to your document?",
+			"bank": "Bank account",
+			"cash": "Cash",
+			"other": "Other"
+		},
+		"searchBank": {
+			"title": "Search bank",
+			"headline": "Search for Bank Plugin",
+			"text": "You can search for plugins that automatically query your account and sync transactions. So your budget is always up to date. To check if there is a plugin for your bank or your online account, please enter the bank's BIC below. If you do not have a BIC at hand, the name of the bank will also work alternatively.",
+			"q": {
+				"label": "BIC or name of bank"
+			},
+			"empty": {
+				"text": "No plugin found",
+				"msg": "Unfortunately no plugin was found for your bank. However, you can create the account manually.",
+				"manual": "Create account manually"
+			},
+			"install": "Install",
+			"github": "GitHub",
+			"website": "Website",
+			"documentation": "Documentation",
+			"supports": {
+				"account": "Supports these accounts:",
+				"shop": "Supports these shops:",
+				"metadata": "Information on transactions",
+				"goal": "Goals"
+			},
+			"notThat": {
+				"text": "No suitable plugin available?",
+				"msg": "You can still create the account manually.",
+				"manual": "Create account manually"
+			}
+		},
+		"cancel": "Cancel"
+	},
+	"addPlugin": {
+		"title": "Search Plugin",
+		"headline": "Search Plugin",
+		"text": "You can search for plugins that automatically retrieve your account, retrieve transaction information or create savings targets for you. To check if there is a plugin for your bank or online shop, please enter the name of the shop or bank below.",
+		"q": {
+			"label": "Name of the online shop or bank"
+		},
+		"empty": {
+			"text": "No plugin found",
+			"msg": "Sorry, no plugin was found for your term."
+		},
+		"install": "Install",
+		"github": "GitHub",
+		"website": "Website",
+		"documentation": "Documentation",
+		"supports": {
+			"account": "Supports these accounts:",
+			"shop": "Supports these shops:",
+			"metadata": "Information on transactions",
+			"goal": "Goals"
+		},
+		"notThat": {
+			"text": "Not the right plugin available?",
+			"msg": "Sorry about that."
+		},
+		"cancel": "Cancel"
+	},
+	"plugins": {
+		"label": {
+			"username": "Username",
+			"email": "Email",
+			"password": "Password",
+			"apiKey": "API Key",
+			"accounts": "Accounts"
+		}
+	},
+	"reports": {
+		"title": "Reports",
+		"placeholder": "Reports"
+	},
+
+	"settings": {
+		"title": "Account Settings",
+		"headline": "Account Settings",
+		"sessions": {
+			"headline": "My Devices",
+			"add": "Add Device"
+		},
+		"addSession": {
+			"title": "Add Device",
+			"headline": "Add Device to your Account",
+			"info": {
+				"scan": "Scan the following QR code in your DWIMM app to log in with this account. You will then have access to all your documents and settings in the app.",
+				"accept": "Client \"%(name)s\" wants access to your DWIMM account. This gives the application the necessary rights to view and edit all documents in your account. The client can pass this permission without notifying you. Do you trust this client and allow access?"
+			},
+			"deviceName": "New Device",
+			"accept": "Allow access",
+			"deny": "Ignore device and cancel"
+		},
+		"placeholder": "Settings"
+	}
+}

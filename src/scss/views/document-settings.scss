@@ -1,0 +1,94 @@
+@import '../definitions/variables';
+
+.document-settings {
+	margin: 1em;
+
+	@include greater($size-l) {
+		width: 90%;
+		margin: 4em auto;
+	}
+
+
+	&__list {
+		margin: 0;
+
+		@include greater($size-m) {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: stretch;
+			margin: -0.5em;
+		}
+
+		@include greater($size-l) {
+			margin: 0 -0.5em;
+		}
+	}
+
+	&__item {
+		& + & {
+			margin-top: 1em;
+		}
+
+		@include greater($size-m) {
+			width: calc(50% - 1em);
+			margin: 0.5em;
+
+			& + & {
+				margin-top: 0.5em;
+			}
+		}
+
+		@include greater(1200) {
+			width: calc(25% - 1em);
+			max-width: 24em;
+		}
+	}
+
+	&__link {
+		display: block;
+		background: $background-box;
+		text-decoration: none;
+		padding: 2em;
+		min-height: 100%;
+
+		&:before {
+			display: block;
+			width: 100%;
+			font-size: 2em;
+			text-align: center;
+			margin: 0 0 0.6em;
+			color: lighten($text, 30);
+
+			@include greater($size-l) {
+				font-size: 2.4em;
+			}
+		}
+
+		@include greater($size-l) {
+			&:hover {
+				background: darken($background-box, 2);
+
+				&:before {
+					color: lighten($text, 20);
+				}
+			}
+			&:active {
+				background: darken($background-box, 4);
+
+				&:before {
+					color: lighten($text, 15);
+				}
+			}
+		}
+	}
+
+	&__title {
+		display: block;
+	}
+
+	&__description {
+		margin-top: -0.2em;
+		font-size: 0.8em;
+		color: lighten($text, 20);
+	}
+}

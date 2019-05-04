@@ -1,0 +1,29 @@
+<h1 class="document-settings__headline b-headline-l1">{ 'documentSettings.headline' | string }</h1>
+<h2 class="document-settings__document b-headline-l2">{ document:name }</h2>
+
+<ul class="document-settings__list">
+	<li class="document-settings__item">
+		<a rv-href="urls.general" class="document-settings__link icon-cog">
+			<span class="document-settings__title">{ 'documentSettings.general.headline' | string }</span>
+			<span class="document-settings__description">{ 'documentSettings.general.description' | string }</span>
+		</a>
+	</li>
+	<li class="document-settings__item">
+		<a rv-href="urls.accounts" class="document-settings__link icon-wallet">
+			<span class="document-settings__title">{ 'documentSettings.accounts.headline' | string }</span>
+			<span class="document-settings__description">{ 'documentSettings.accounts.description' | string }</span>
+		</a>
+	</li>
+	<li class="document-settings__item">
+		<a rv-href="urls.plugins" class="document-settings__link icon-lightbulb">
+			<span class="document-settings__title">{ 'documentSettings.plugins.headline' | string }</span>
+			<span class="document-settings__description">{ 'documentSettings.plugins.description' | string }</span>
+		</a>
+	</li>
+	<li class="document-settings__item">
+		<a rv-href="urls.permissions" class="document-settings__link icon-comment">
+			<span class="document-settings__title">{ 'documentSettings.permissions.headline' | string }</span>
+			<span class="document-settings__description">{ 'documentSettings.permissions.description' | string }</span>
+		</a>
+	</li>
+</ul>

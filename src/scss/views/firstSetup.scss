@@ -1,0 +1,95 @@
+@import '../definitions/variables';
+
+$wrap-margin: 2em;
+
+.first-setup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	&__gradient {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(
+						ellipse at center,
+						lighten($background-box, 100) 0%,
+						$background-box 90%,
+						$background-box 100%
+		);
+	}
+
+	&__form {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 300px;
+		height: 310px;
+		margin: -155px 0 0 -150px;
+
+		&-close {
+			color: darken($background-box, 10);
+			font-size: 32px;
+		}
+
+		&-box {
+			background: $background-box;
+			border: 4px solid darken($background-box, 10);
+			border-radius: 6px;
+			margin-bottom: 15px;
+			padding: 0 5px;
+
+			transform: translate3d(0, 0, 0);
+			backface-visibility: hidden;
+			perspective: 1000px;
+
+			&--error {
+				animation: error 0.85s cubic-bezier(.35,.07,.20,.97) both;
+			}
+			&--hidden {
+				display: none;
+			}
+		}
+
+		&-input {
+			display: block;
+			box-sizing: border-box;
+			width: 100%;
+			padding: 12px 10px;
+
+			background: none;
+			border: none;
+			outline: none;
+
+			&::placeholder {
+				opacity: .6;
+			}
+
+			&--error {
+				background: rgba($red, 0.1);
+			}
+
+			&+& {
+				border-top: 1px solid darken($background-box, 10);
+			}
+		}
+
+		&-error {
+			display: block;
+			margin: 1em 0;
+
+			color: $red;
+			font-weight: bold;
+			font-size: 0.7em;
+
+			a:link,
+			a:visited {
+				display: inline-block;
+				margin-bottom: -4px;
+				color: inherit;
+			}
+		}
+	}
+}

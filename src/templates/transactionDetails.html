@@ -1,0 +1,124 @@
+<form class="transaction-details__container" rv-on-submit="view.submit">
+	<div class="transaction-details__header">
+		<button class="transaction-details__close" rv-on-click="view.hide">⨯</button>
+	</div>
+	<div class="transaction-details__fields">
+		<div class="transaction-details__field">
+			<label for="transaction-details__datetime"
+				   class="transaction-details__field-label">{ 'transactionDetails.labels.time' | string }</label>
+			<input type="datetime-local"
+				   class="transaction-details__field-input transaction_details__input--datetime"
+				   id="transaction-details__datetime"
+				   rv-datetime-value="model:time">
+		</div>
+		<div class="transaction-details__field">
+			<label for="transaction-details__payee"
+				   class="transaction-details__field-label">{ 'transactionDetails.labels.payee' | string }</label>
+			<input type="text"
+				   class="transaction-details__field-input transaction_details__input--autocomplete transaction-details__input--payee"
+				   autocomplete="off"
+				   rv-value="fields.payee"
+				   rv-on-input="view.updatePayeeSelect"
+				   rv-on-keydown="view.updatePayeeSelection"
+				   rv-on-blur="view.blurPayeeSelection"
+				   id="transaction-details__payee">
+			<ul class="transaction-details__autocomplete" rv-if="autoCompletion">
+				<li class="transaction-details__autocomplete-suggestion"
+					rv-each-suggestion="autoCompletion"
+				    rv-class-transaction-details__autocomplete-suggestion--selected="suggestion.selected">
+					<button class="transaction-details__autocomplete-button">{ suggestion.model:name }</button>
+				</li>
+				<li class="transaction-details__autocomplete-suggestion transaction-details__autocomplete-suggestion--create"
+					rv-if="fields.autoCompletionCreateText"
+					rv-class-transaction-details__autocomplete-suggestion--selected="fields.autoCompletionCreateSelected">
+					<button class="transaction-details__autocomplete-button">{ fields.autoCompletionCreateText }</button>
+				</li>
+			</ul>
+		</div>
+		<div class="transaction-details__field" rv-unless="fields.isManaged">
+			<label for="transaction-details__account"
+				   class="transaction-details__field-label">{ 'transactionDetails.labels.account' | string }</label>
+			<div class="transaction-details__field-select-wrap">
+				<select class="transaction-details__field-select transaction_details__field-select--account"
+						id="transaction-details__account"
+						rv-value="model:accountId">
+					<option rv-value="account:id" rv-each-account="accounts">{ account:name }</option>
+				</select>
+			</div>
+		</div>
+		<div class="transaction-details__field">
+			<label for="transaction-details__amount"
+				   class="transaction-details__field-label">{ 'transactionDetails.labels.amount' | string }</label>
+			<input type="text"
+				   class="transaction-details__field-input transaction_details__input--amount"
+				   id="transaction-details__amount"
+				   rv-currency-value="model:amount">
+		</div>
+		<div class="transaction-details__field">
+			<label for="transaction-details__memo"
+				   class="transaction-details__field-label">{ 'transactionDetails.labels.memo' | string }</label>
+			<input type="text"
+				   class="transaction-details__field-input transaction_details__input--memo"
+				   id="transaction-details__memo"
+				   rv-value="model:memo">
+		</div>
+		<div class="transaction-details__clearfix"></div>
+	</div>
+	<span class="transaction-details__units-headline">▾ { 'transactionDetails.headlines.budgeting' | string }</span>
+	<ul class="transaction-details__units">
+		<li class="transaction-details__unit"
+			rv-class-transaction-details__unit--invalid="unit.invalid"
+			rv-class-transaction-details__unit--memo="fields.showBudgetMemos"
+			rv-each-unit="units">
+			<div class="transaction-details__unit-budget">
+				<input type="text"
+					   rv-currency-value="unit.amount"
+					   class="transaction-details__unit-amount"
+					   rv-on-keyup="view.checkUnits" />
+				<select class="transaction-details__unit-budget-select"
+						rv-value="unit.type"
+						rv-on-change="view.checkUnits">
+					<option value="REMOVE">-</option>
+					<optgroup label="Einkommen">
+						<option value="INCOME">{ typeSelector.incomeLabel }</option>
+						<option value="INCOME_NEXT">{ typeSelector.incomeNextLabel }</option>
+					</optgroup>
+					<optgroup label="Transfer">
+						<option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">{ account:name }</option>
+					</optgroup>
+					<optgroup rv-label="category.model:name" rv-each-category="typeSelector.categories">
+						<option rv-value="budget:id | prepend 'BUDGET:'" rv-each-budget="category.budgets">{ budget:name }</option>
+					</optgroup>
+				</select>
+				<input type="text"
+					   rv-value="unit.memo"
+					   class="transaction-details__unit-memo"
+					   rv-if="fields.showBudgetMemos"
+					   rv-placeholder="'transactionDetails.placeholders.memo' | string"/>
+			</div>
+		</li>
+		<li class="transaction-details__unit transaction-details__unit--add"
+			rv-class-transaction-details__unit--add-animate="fields.animateBudgetFields"
+			rv-class-transaction-details__unit--memo="fields.showBudgetMemos">
+			<button class="transaction-details__unit-add" type="button" rv-on-click="view.addUnit">+</button>
+		</li>
+	</ul>
+	<div class="transaction-details__original" rv-if="forms.isManaged">
+		<button class="transaction-details__original-toggle">▾ { 'transactionDetails.headlines.original' | string }</button>
+		<div class="transaction-details__original-content">
+			<span class="transaction-details__original-datetime">{ model:time | datetime }</span>
+			<span class="transaction-details__original-payee">{ model:pluginsOwnPayeeId }</span>
+			<span class="transaction-details__original-memo">{ model:pluginsOwnMemo }</span>
+			<span class="transaction-details__original-amount">{ model:amount | currency }</span>
+		</div>
+		<p class="transaction-details__original-reconcile" rv-if="model:isReconciling">
+			{ 'transactionDetails.reconciling' | string }
+		</p>
+	</div>
+
+	<!-- <button class="button button--right button--destructive"
+			rv-unless="forms.isManaged"
+			rv-on-click="view.removeTransaction">
+		{ 'transactionDetails.remove' | string }
+	</button> -->
+</form>

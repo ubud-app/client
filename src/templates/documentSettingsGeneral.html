@@ -1,0 +1,29 @@
+<form class="document-general-settings__form b-form b-loader b-loader--light"
+	  rv-on-submit="view.submit"
+      rv-class-loading="document:isSyncing">
+	<h1 class="document-general-settings__headline b-headline-l1">{ 'documentSettingsGeneral.headline' | string }</h1>
+	<h2 class="document-general-settings__document b-headline-l2">{ document:name }</h2>
+
+	<label class="b-form-label" for="document-general-settings__input--name">
+		{ 'documentSettingsGeneral.labels.name' | string }
+	</label>
+	<input type="text"
+		   name="name"
+		   id="document-general-settings__input--name"
+		   class="b-form-input"
+		   rv-value="document:name"
+		   rv-on-change="view.save"/>
+
+	<label class="document-settings_label b-form-label" for="document-general-settings__input--name">
+		{ 'documentSettingsGeneral.labels.currency' | string }
+	</label>
+	<span class="b-form-select-wrap">
+		<select name="region" id="document-settings_input--region"
+				class="document-settings_input document-settings_input--region b-form-select"
+				rv-value="document:settings.currency | fallback 'euro'"
+				rv-on-change="view.save">
+			<option value="euro">{ 'documentSettingsGeneral.currency.euro' | string }</option>
+			<option value="dollar">{ 'documentSettingsGeneral.currency.dollar' | string }</option>
+		</select>
+	</span>
+</form>

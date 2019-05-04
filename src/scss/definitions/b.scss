@@ -1,0 +1,200 @@
+@import '../definitions/variables';
+
+.b {
+
+	/** Headlines **/
+	&-headline {
+		&-l1,
+		&-l2 {
+			display: none;
+			margin: 3em 0 2em;
+
+			@include greater($size-l) {
+				display: block;
+			}
+
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+
+		&-l1 {
+			font-size: 1.8em;
+
+			& + .b-headline-l2 {
+				color: lighten($text, 20);
+				font-size: 1.1em;
+				margin-top: -2.8em;
+			}
+		}
+
+		&-l2 {
+			font-size: 1.4em;
+		}
+	}
+
+
+	/** Forms **/
+	&-form {
+		margin: 1em;
+		overflow: hidden;
+
+		@include greater($size-m) {
+			width: 90%;
+			max-width: 46em;
+			margin: 4em auto;
+		}
+
+
+		&-label {
+			display: block;
+			color: lighten($text, 10);
+			font-size: 14px;
+			margin: 11px 0 0;
+			padding: 4px 0;
+		}
+
+		&-input,
+		&-select-wrap {
+			appearance: none;
+			display: block;
+			width: 100%;
+			padding: 9px;
+			border: 1px solid lighten($background-box, 2);
+			outline: none;
+			background: lighten($background-box, 2);
+
+			&--error {
+				border-color: $red;
+				background: lighten($red, 35);
+			}
+		}
+
+		&-select-wrap {
+			padding: 8.5px 10px 8.5px 2px;
+			border: none;
+		}
+
+		&-select {
+			display: block;
+			width: 100%;
+			font: inherit;
+			border: none;
+			outline: none;
+			background: transparent;
+		}
+
+		&-save,
+		&-cancel,
+		&-remove,
+		&-hide {
+			margin-top: 40px;
+		}
+		&-save {
+			@extend .button;
+			@extend .button--inline;
+			@extend .button--small;
+
+			margin-left: 10px;
+			float: right;
+		}
+		&-cancel {
+			@extend .button;
+			@extend .button--inline;
+			@extend .button--small;
+			@extend .button--text;
+
+			opacity: 0.6;
+			float: right;
+		}
+		&-remove,
+		&-hide {
+			@extend .button;
+			@extend .button--inline;
+			@extend .button--small;
+
+			opacity: 0.4;
+			float: left;
+
+			&--text {
+				@extend .button--text;
+			}
+			&--hidden {
+				display: none;
+			}
+		}
+		&-remove {
+			@extend .button--destructive;
+		}
+	}
+
+
+	/** Loader **/
+	&-loader {
+		position: relative;
+		min-height: 100px;
+
+		&:before,
+		&:after {
+			display: none;
+			position: absolute;
+		}
+
+		&.loading:before,
+		&.loading:after {
+			display: block;
+		}
+
+		&:before {
+			content: '';
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba($background-copy, 0.2);
+		}
+		&--light:before {
+			background: rgba($background, 0.4);
+		}
+		&--nobg:before {
+			background: transparent;
+		}
+
+		&:after {
+			content: '\e809';
+			top: 50%;
+			left: 50%;
+			margin: -25px 0 0 -20px;
+			width: 40px;
+			height: 40px;
+
+			@extend [class^="icon-"]:before;
+			font-size: 2.5em;
+			color: rgba($background-copy, 0.6);
+			animation:spin 1s linear infinite;
+		}
+	}
+
+
+	/** Empty Message **/
+	&-empty-message {
+		background: lighten($background-box, 4);
+		padding: 4em 2em;
+		text-align: center;
+		color: lighten($text, 30);
+	}
+
+
+	/** Danger Zone **/
+	&-danger {
+		&-text {
+			color: rgba($text, 0.6);
+		}
+
+		&-button {
+			@extend .button;
+			@extend .button--destructive;
+			margin-top: 15px;
+		}
+	}
+}

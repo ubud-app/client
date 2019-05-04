@@ -1,0 +1,17 @@
+<div class="error__wrap">
+	<span class="error__icon icon-fire"></span>
+
+	<h1 class="error__headline">{ error.headline }</h1>
+	<p class="error__message">{ error.message }</p>
+
+
+	<div class="error__info" rv-if="error.reference">
+		<span class="error__info-label">{ 'error.labels.reference' | string }</span>
+		<pre class="error__info-content">{ error.reference }</pre>
+	</div>
+
+	<div class="error__info" rv-if="error.stacktrace">
+		<span class="error__info-label">{ 'error.labels.stacktrace' | string }</span>
+		<pre class="error__info-content">{ error.stacktrace }</pre>
+	</div>
+</div>

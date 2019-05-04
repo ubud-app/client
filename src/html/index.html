@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="<%= language %>">
+
+<head>
+  <meta charset="utf-8">
+  <title><%= appName %></title>
+  <meta name="description" content="<%= appDescription %>">
+  <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover">
+
+  <%= metaTags %>
+
+  <link rel="stylesheet" href="/style.css">
+  <meta name="theme-color" content="#EC5C3D">
+</head>
+
+<body>
+	<main id="app" class="app app--initializing">
+		<section class="app__content"></section>
+	</main>
+
+	<script src="/<%= language %>/app.config.js"></script>
+	<script src="/app.js"></script>
+</body>
+
+</html>

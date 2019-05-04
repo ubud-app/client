@@ -1,0 +1,234 @@
+@import '../definitions/variables';
+
+.transactions {
+	height: 100%;
+	min-height: 100%;
+	overflow: scroll;
+	user-select: none;
+
+	&__pages {
+		@include greater($size-l) {
+			padding: 4em 0;
+		}
+		@include greater($size-xl) {
+			width: #{$size-xl}px;
+			margin: 0 auto;
+		}
+	}
+
+
+	&__separator {
+		font-size: 1.4em;
+		color: lighten($text, 20);
+		padding: 5em 0 1em 1em;
+
+		@include greater($size-xl) {
+			padding-left: 0;
+		}
+		&:last-child {
+			display: none;
+		}
+	}
+
+	&__item {
+		& + & {
+			border-top: 1px solid $background-box;
+		}
+	}
+
+	&__button {
+		display: block;
+		width: 100%;
+		position: relative;
+		padding: 1em 1em 1em 0;
+		overflow: hidden;
+		text-align: left;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 3px;
+			left: 0;
+			bottom: 3px;
+			width: 3px;
+			background: $primary;
+			border-radius: 0 5px 5px 0;
+		}
+
+		@include greater($size-l) {
+			padding: 1em;
+
+			&:hover {
+				background: lighten($background-box, 3);
+			}
+		}
+
+		&--approved:before {
+			background: transparent;
+		}
+		&--normal,
+		&--pending {
+			opacity: 0.6;
+		}
+	}
+
+	&__date,
+	&__account,
+	&__payee,
+	&__budget,
+	&__memo,
+	&__amount {
+		display: block;
+		box-sizing: border-box;
+		width: 52%;
+		min-height: 1em;
+		float: left;
+
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+
+		@include greater($size-l) {
+			width: 20%;
+
+			& + & {
+				padding-left: 1.5em;
+			}
+		}
+		@include greater($size-xl) {
+			& + & {
+				padding-left: 1.8em;
+			}
+		}
+	}
+
+	&__date {
+		display: block;
+		width: 20%;
+		height: 100%;
+		text-align: center;
+		margin-top: 0.1em;
+
+		&-big,
+		&-small,
+		&-full,
+		&-time {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		&-big {
+			display: block;
+			font-size: 1.6em;
+			color: lighten($text, 30);
+
+			&:after {
+				content: '.';
+			}
+		}
+		&-small {
+			display: none;
+			font-size: 0.8em;
+			color: lighten($text, 10);
+		}
+		&-full {
+			display: none;
+		}
+
+		@include greater($size-l) {
+			width: 14%;
+			text-align: left;
+
+			&-big,
+			&-small {
+				display: none;
+			}
+
+			&-full {
+				display: block;
+			}
+		}
+	}
+	&__button--memo &__date {
+		margin-top: 0.3em;
+
+		@include greater($size-l) {
+			margin-top: 0;
+		}
+	}
+	&__button--memo &__date-small {
+		display: block;
+
+		@include greater($size-l) {
+			display: none;
+		}
+	}
+
+
+	&__payee {
+		font-size: 0.8em;
+		color: lighten($text, 50);
+
+		&--set {
+			color: lighten($text, 10);
+		}
+
+		@include greater($size-l) {
+			font-size: 1em;
+			color: lighten($text, 50);
+
+			&--set {
+				color: $text;
+			}
+		}
+	}
+
+	&__budget {
+		@include greater($size-l) {
+			width: 23%;
+		}
+
+		&--empty {
+			@include greater($size-l) {
+				opacity: 0;
+			}
+		}
+	}
+
+	&__memo {
+		margin-top: 0.6em;
+		font-size: 0.8em;
+		color: lighten($text, 10);
+		@include greater($size-l) {
+			margin-top: 0;
+			font-size: 1em;
+			width: 30%;
+			color: lighten($text, 20);
+		}
+	}
+
+	&__amount {
+		position: absolute;
+		top: 50%;
+		right: 1em;
+		margin-top: -0.6em;
+
+		width: 25%;
+		height: 1.2em;
+		font-size: 1.2em;
+		text-align: right;
+		color: lighten($text, 10);
+		vertical-align: middle;
+
+		&--negative {
+			color: $red;
+		}
+
+		@include greater($size-l) {
+			font-size: 1em;
+			width: 12%;
+			height: auto;
+		}
+	}
+}

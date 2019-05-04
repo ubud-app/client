@@ -1,0 +1,62 @@
+<div class="header-settings__content">
+	<div class="header-settings__wrap header-settings__wrap--mobile-avatar" rv-class-header-settings__wrap--hidden="avatar.hidden" rv-if="avatar.url">
+		<div class="header-settings__mobile-avatar"><img rv-src="avatar.url"></div>
+	</div>
+	<div class="header-settings__wrap header-settings__wrap--budget" rv-class-header-settings__wrap--hidden="budget.hidden" rv-class-header-settings__wrap--disabled="budget.disabled">
+		<h3 class="header-settings__headline">{ 'header.settings.document.headline' | string }</h3>
+		<h4 class="header-settings__subheadline">{ budget.name }</h4>
+		<ul class="header-settings__menu">
+			<li class="header-settings__item">
+				<a rv-href="budget.url.general" class="header-settings__link">{ 'header.settings.document.general' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a rv-href="budget.url.accounts" class="header-settings__link">{ 'header.settings.document.accounts' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a rv-href="budget.url.plugins" class="header-settings__link">{ 'header.settings.document.plugins' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a rv-href="budget.url.permissions" class="header-settings__link">{ 'header.settings.document.permissions' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a rv-href="budget.url.notifications" class="header-settings__link">{ 'header.settings.document.notifications' | string }</a>
+			</li>
+		</ul>
+	</div>
+	<div class="header-settings__wrap header-settings__wrap--admin" rv-class-header-settings__wrap--hidden="admin.hidden">
+		<h3 class="header-settings__headline">{ 'header.settings.instance.headline' | string }</h3>
+		<h4 class="header-settings__subheadline">dwimm.sebbo.net</h4>
+		<ul class="header-settings__menu">
+			<li class="header-settings__item">
+				<a href="#admin/" class="header-settings__link">{ 'header.settings.instance.general' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a href="#admin/updates" class="header-settings__link">{ 'header.settings.instance.updates' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a href="#admin/users" class="header-settings__link">{ 'header.settings.instance.users' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a href="#admin/plugins" class="header-settings__link">{ 'header.settings.instance.plugins' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a href="#admin/backups" class="header-settings__link">{ 'header.settings.instance.backups' | string }</a>
+			</li>
+		</ul>
+	</div>
+	<div class="header-settings__wrap header-settings__wrap--user" rv-class-header-settings__wrap--hidden="user.hidden">
+		<h3 class="header-settings__headline">{ 'header.settings.account.headline' | string }</h3>
+		<h4 class="header-settings__subheadline">mail@sebbo.net</h4>
+		<ul class="header-settings__menu">
+			<li class="header-settings__item">
+				<a href="#account/devices" class="header-settings__link">{ 'header.settings.account.devices' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a href="#account/authentication" class="header-settings__link">{ 'header.settings.account.authentication' | string }</a>
+			</li>
+			<li class="header-settings__item">
+				<a href="#logout" class="header-settings__link header-settings__link--logout">{ 'header.settings.account.logout' | string }</a>
+			</li>
+		</ul>
+	</div>
+</div>

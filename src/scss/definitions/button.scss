@@ -1,0 +1,89 @@
+@import '../definitions/variables';
+
+.button {
+	display: block;
+	width: 100%;
+	padding: 15px;
+	background: rgba($primary, 0.8);
+	border: 1px solid rgba($primary, 0.8);
+	border-radius: 6px;
+	color: $background;
+	text-decoration: none;
+
+	&:not(:disabled):hover {
+		background: rgba($primary, 0.9);
+		border-color: $primary;
+	}
+	&:not(:disabled):active {
+		background: $primary;
+		border-color: $primary-dark;
+	}
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+
+	&--secondary {
+		background: rgba($background-footer, 0.8);
+		border: 1px solid rgba($background-footer, 0.8);
+
+		&:not(:disabled):hover {
+			background: rgba($background-footer, 0.9);
+			border-color: $background-footer;
+		}
+		&:not(:disabled):active {
+			background: $background-footer;
+			border-color: $background-footer;
+		}
+	}
+
+	&--text {
+		color: rgba($background-footer, 0.8);
+		background: transparent;
+		border: 1px solid transparent;
+
+		&:not(:disabled):hover {
+			background: transparent;
+			border-color: transparent;
+			text-decoration: underline;
+		}
+		&:not(:disabled):active {
+			background: transparent;
+			border-color: transparent;
+			text-decoration: underline;
+		}
+	}
+
+	&--destructive {
+		background: rgba($red, 0.8);
+		border: 1px solid rgba($red, 0.8);
+
+		&:not(:disabled):hover {
+			background: rgba($red, 0.9);
+			border-color: $red;
+		}
+		&:not(:disabled):active {
+			background: $red;
+			border-color: $red;
+		}
+		&:disabled {
+			opacity: 0.6;
+		}
+	}
+
+	&--inline {
+		width: auto;
+		display: inline-block;
+	}
+
+	&--right {
+		float: right;
+		margin-top: 15px;
+	}
+
+	&--small {
+		font-size: 0.9em;
+		border-radius: 3px;
+		padding: 5px 16px;
+	}
+}

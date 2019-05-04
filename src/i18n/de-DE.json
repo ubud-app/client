@@ -1,0 +1,494 @@
+{
+	"app.name": "DWIMM",
+	"app.shortName": "DWIMM",
+	"app.description": "DWIMM is a simple and self-hosted budgeting software.",
+	"app.developerName": "Sebastian Pekarek",
+	"app.developerUrl": "https://dwimm.org",
+
+	"notFound.headline": "Seite nicht gefunden",
+	"notFound.message": "Entschuldigung, aber die Seite, die du suchst, wurde nicht gefunden.",
+
+	"error": {
+		"labels": {
+			"stacktrace": "Stacktrace",
+			"reference": "Referenz"
+		},
+		"default": {
+			"headline": "Es ist ein Fehler aufgetreten…",
+			"message": "Leider ist ein unerwarteter Fehler aufgetreten. Bitte versuche es erneut."
+		}
+	},
+	"login": {
+		"title": "Einloggen",
+		"email": {
+			"placeholder": "E-Mail"
+		},
+		"password": {
+			"placeholder": "Passwort"
+		},
+		"submit": {
+			"text": "Login"
+		},
+		"forgotPassword": {
+			"url": "https://dwimm.org/de/help/forgot-password",
+			"text": "Passwort vergessen?"
+		},
+		"website": {
+			"url": "https://dwimm.org/de/",
+			"text": "DWIMM"
+		},
+		"help": {
+			"url": "https://dwimm.org/de/help/",
+			"text": "Hilf mir!"
+		}
+	},
+	"firstSetup": {
+		"title": "Anmeldedaten festlegen",
+		"email-1": {
+			"placeholder": "Deine E-Mail-Adresse"
+		},
+		"email-2": {
+			"placeholder": "Deine E-Mail-Adresse (wiederholen)"
+		},
+		"password-1": {
+			"placeholder": "Neues Passwort"
+		},
+		"password-2": {
+			"placeholder": "Neues Passwort (wiederholen)"
+		},
+		"submit": {
+			"text": "Anmeldedaten festlegen"
+		},
+		"newDocument": {
+			"name": "Mein erstes Dokument",
+			"language": "de-DE",
+			"accounts": {
+				"wallet": "Geldbeutel",
+				"pillow": "Unter dem Kopfkissen"
+			},
+			"default": {
+				"name": "1. Alltägliches",
+				"default": "Sonstiges",
+				"lostCash": "Barschwund",
+				"clothing": "Kleidung",
+				"food": "Essen & Trinken"
+			},
+			"monthly": {
+				"name": "2. Monatliches",
+				"rent": "Miete",
+				"power": "Strom",
+				"water": "Wasser",
+				"heating": "Heizung",
+				"internet": "Internet"
+			},
+			"insurance": {
+				"name": "3. Versicherungen",
+				"liability": "Haftpflichtversicherung",
+				"health": "Krankenversicherung"
+			},
+			"rainyDays": {
+				"name": "4. Für schwere Zeiten",
+				"birthdays": "Geburtstage",
+				"christmas": "Weihnachten"
+			},
+			"goals": {
+				"name": "5. Ziele",
+				"example": "Millionär werden",
+				"value": "100000000"
+			}
+		}
+	},
+	"header": {
+		"settings": {
+			"title": "Einstellungen",
+			"document": {
+				"headline": "Budget",
+				"noDocument": "Kein Budget ausgewählt",
+				"general": "Allgemeine Einstellungen",
+				"accounts": "Konten",
+				"plugins": "Plugins",
+				"permissions": "Freigaben",
+				"notifications": "Benachrichtigungen"
+			},
+			"instance": {
+				"headline": "Administration",
+				"general": "Mein Hub",
+				"updates": "Updates",
+				"users": "User",
+				"plugins": "Plugins",
+				"backups": "Backups"
+			},
+			"account": {
+				"headline": "Account",
+				"devices": "Meine Geräte",
+				"authentication": "Passwort ändern",
+				"logout": "Abmelden"
+			}
+		},
+		"documents": {
+			"title": "Meine Dokumente",
+			"new": "Welchen Namen soll das neue Dokument haben?"
+		}
+	},
+	"sidebar": {
+		"budget": {
+			"title": "Budget öffnen",
+			"name": "Budget"
+		},
+		"reports": {
+			"title": "Reports öffnen",
+			"name": "Reports"
+		},
+		"transactions": {
+			"title": "Transaktionen öffnen",
+			"name": "Transaktionen"
+		}
+	},
+	"dashboard": {
+		"title": "Dashboard",
+		"headline": "Hey na, alles fit?",
+		"text": "Wähle ein bestehendes Dokument aus oder erstelle ein Neues…",
+		"empty": "Keine Dokumente gefunden",
+		"add": {
+			"title": "Klicke hier, um ein neues Dokument zu erstellen",
+			"text": "Neues Dokument erstellen"
+		}
+	},
+	"documentReconcile": {
+		"title": "Konten abgleichen",
+		"headline": "Konten abgleichen",
+		"noAccounts": "Du hast kein manuelles Konto, das abgeglichen werden müsste.",
+		"amountPrefix": "Auf dem Konto sind aktuell",
+		"adjustment": {
+			"text": {
+				"negative": "Oh, da hast du vermutlich etwas vergessen einzutragen. Um das auszugleichen, wird eine neue Transaktion über %(amount)s erzeugt. Budget und Beschreibung kannst du unten festlegen.",
+				"positive": "Glückwunsch, du hast eigentlich mehr Geld auf dem Konto als eingetragen. Um das nachzutragen wird eine neue Transaktion über %(amount)s erzeugt. Budget und Beschreibung kannst du unten festlegen."
+			}
+		},
+		"defaultMemo": "Konto abgleichen",
+		"label": {
+			"memo": "optionale Beschreibung der Transaktion",
+			"saveAndNext": "Okay, weiter zum nächsten Konto…",
+			"save": "Abgleich abschließen"
+		}
+	},
+	"documentSettings": {
+		"title": "Dokumenten-Einstellungen",
+		"headline": "Dokumenten-Einstellungen",
+		"general": {
+			"headline": "Allgemein",
+			"name": "Name des Budgets",
+			"region": {
+				"label": "Region",
+				"de-DE": "Deutschland",
+				"en-GB": "Vereinigtes Königreich",
+				"ru-RU": "Russland",
+				"fr-FR": "Frankreich",
+				"it-IT": "Italien",
+				"es-ES": "Spanien"
+			}
+		},
+		"accounts": {
+			"headline": "Konten",
+			"add": "Konto hinzufügen",
+			"empty": "Keine Konten eingerichtet"
+		},
+		"plugins": {
+			"headline": "Plugins",
+			"add": "Plugin installieren",
+			"empty": "Keine Plugins eingerichtet",
+			"status": {
+				"initializing": "Startet",
+				"configuration": "Wartet auf Konfiguration",
+				"ready": "Bereit",
+				"shutdown": "Stoppt",
+				"error": "Fehler"
+			}
+		},
+		"users": {
+			"headline": "Zugriffsrechte",
+			"add": "Neuen Benutzer anlegen",
+			"admin": "Administrator"
+		},
+		"dangerous": {
+			"headline": "Gefährliche Zone",
+			"destroy": {
+				"button": {
+					"title": "Ein Klick und das Dokument wird gelöscht.",
+					"text": "Dokument löschen"
+				},
+				"message": "Mit dem roten Button kannst du dieses Dokument löschen. Bitte nur klicken, wenn Du dir wirklich sicher bist. Alle Bankkonten, Transaktionen und Budgets werden unwiederbringlich gelöscht!",
+				"confirm": "Bist du Dir wirklich sicher, dass du dieses Dokument löschen willst? Du kannst es nicht wieder herstellen, außer du hast ein Backup gemacht…"
+			}
+		}
+	},
+	"documentAccountSettings": {
+		"title": "Konto-Einstellungen",
+		"headline": {
+			"add": "Neues Konto hinzufügen",
+			"edit": "Konto bearbeiten"
+		},
+		"name": {
+			"label": "Name des Kontos",
+			"default": "Geldbeutel"
+		},
+		"type": {
+			"label": "Konto-Typ",
+			"checking": "Girokonto",
+			"savings": "Sparkonto",
+			"creditCard": "Kreditkarte",
+			"cash": "Bargeld",
+			"mortage": "Hypothek",
+			"asset": "Vermögenswert",
+			"loan": "Leihgabe"
+		},
+		"balance": {
+			"label": "Aktueller Kontostand"
+		},
+		"recordDate": {
+			"label": "Stichtag"
+		},
+		"save": {
+			"text": "Speichern"
+		},
+		"cancel": {
+			"text": "Abbrechen"
+		},
+		"transaction": {
+			"memo": "Kontostand zum Stichtag"
+		},
+		"dangerous": {
+			"headline": "Gefährliche Zone",
+			"destroy": {
+				"message": {
+					"plugin": "Du kannst dieses Konto leider nicht löschen, da es von einem Plugin verwaltet wird. Entferne zuerst das Plugin vom Dokument.",
+					"empty": "Du kannst dieses Konto gefahrlos löschen, da keine Transaktionen auf diesem Konto verzeichnet sind. Dein Budget ändert sich dadurch nicht.",
+					"dangerous": "Durch das Löschen des Kontos werden alle Transaktionen darin gelöscht. Dadurch wird dein Budget vermutlich nicht mehr aufgehen."
+				},
+				"title": "Account und alle Transaktionen darauf löschen",
+				"text": "Account löschen",
+				"confirm": "Bist du Dir sicher, dass du diesen Account sowie alle Transaktionen darin löschen willst? Dein Budget wird danach nicht mehr aufgehen!"
+			}
+		}
+	},
+	"documentPluginSettings": {
+		"title": "Plugin-Einstellungen",
+		"status": {
+			"headline": "Status",
+			"validateConfig": "Einstellungen gültig",
+			"getAccounts": "Accounts abrufen",
+			"getTransactions": "Transaktionen abrufen",
+			"getMetadata": "Informationen zu Transaktionen abrufen",
+			"getGoals": "Ziele abrufen"
+		},
+		"settings": "Einstellungen",
+		"uninstall": {
+			"headline": "Plugin entfernen",
+			"message": "Wenn du dieses Plugin nicht mehr verwenden willst, kannst du es vom Dokument entfernen. Alle synchronisierten Daten bleiben dabei erhalten und können anschließend manuell bearbeitet oder entfernt werden.",
+			"button": {
+				"title": "Plugin entfernen",
+				"text": "Plugin entfernen"
+			},
+			"confirm": "Bist du Dir wirklich sicher, dass du dieses Plugin entfernen willst? Alle synchronisierten Daten bleiben erhalten und können nur noch manuell bearbeitet werden."
+		},
+		"save": "Speichern",
+		"cancel": "Abbrechen"
+	},
+	"addAccount": {
+		"index": {
+			"title": "neues Konto",
+			"headline": "Konto hinzufügen",
+			"text": "Was für eine Art von Account willst du zu deinem Dokument hinzufügen?",
+			"bank": "Bank-Account",
+			"cash": "Bargeld",
+			"other": "etwas anderes"
+		},
+		"searchBank": {
+			"title": "Bank suchen",
+			"headline": "Konto-Plugin suchen",
+			"text": "Du kannst nach Plugins suchen, die automatisch dein Konto abfragen und Transaktionen synchronisieren. So ist dein Budget immer aktuell. Um zu prüfen, ob es ein Plugin für deine Bank oder dein Online-Konto gibt, gebe bitte die BIC der Bank unten ein. Falls du keine BIC zur Hand hast, funktioniert alternativ auch der Name der Bank.",
+			"q": {
+				"label": "BIC oder Name der Bank"
+			},
+			"empty": {
+				"text": "Kein Plugin gefunden",
+				"msg": "Leider wurde für deine Bank kein Plugin gefunden. Du kannst das Konto aber manuell anlegen.",
+				"manual": "Konto manuell anlegen"
+			},
+			"install": "Installieren",
+			"github": "GitHub",
+			"website": "Website",
+			"documentation": "Dokumentation",
+			"supports": {
+				"account": "Unterstützt diese Konten:",
+				"shop": "Unterstützt diese Shops:",
+				"metadata": "Informationen zu Transaktionen",
+				"goal": "Ziele"
+			},
+			"notThat": {
+				"text": "Kein passendes Plugin dabei?",
+				"msg": "Du kannst das Konto trotzdem manuell anlegen.",
+				"manual": "Konto manuell anlegen"
+			}
+		},
+		"cancel": "Abbrechen"
+	},
+	"addPlugin": {
+		"title": "Plugin suchen",
+		"headline": "Plugin suchen",
+		"text": "Du kannst nach Plugins suchen, die automatisch dein Konto abfragen, Informationen über Transaktionen abrufen oder Spar-Ziele für dich anlegen. Um zu prüfen, ob es ein Plugin für deine Bank oder deinen Online-Shop gibt, gebe bitte den Namen des Shops oder der Bank unten ein.",
+		"q": {
+			"label": "Name des Online-Shops oder der Bank"
+		},
+		"empty": {
+			"text": "Kein Plugin gefunden",
+			"msg": "Tut mir leid, leider wurde für deinen Begriff kein Plugin gefunden."
+		},
+		"install": "Installieren",
+		"github": "GitHub",
+		"website": "Website",
+		"documentation": "Dokumentation",
+		"supports": {
+			"account": "Unterstützt diese Konten:",
+			"shop": "Unterstützt diese Shops:",
+			"metadata": "Informationen zu Transaktionen",
+			"goal": "Ziele"
+		},
+		"notThat": {
+			"text": "Nicht das richtige Plugin dabei?",
+			"msg": "Das tut uns leid."
+		},
+		"cancel": "Abbrechen"
+	},
+	"budget": {
+		"title": "Budget",
+		"placeholder": "Budget",
+		"labels": {
+			"addCategory": {
+				"text": "Kategorie hinzufügen",
+				"name": "Neue Kategorie"
+			},
+			"editCategory": {
+				"headline": "Kategorie bearbeiten",
+				"name": {
+					"label": "Name der Kategorie"
+				},
+				"save": {
+					"text": "Speichern"
+				},
+				"cancel": {
+					"text": "Abbrechen"
+				},
+				"remove": {
+					"text": "Löschen",
+					"hasBudgets": {
+						"one": "Kann nicht gelöscht werden, da in dieser Kategorie noch ein Budget eingeordnet ist…",
+						"other": "Kann nicht gelöscht werden, da in dieser Kategorie noch %(count)s Budgets eingeordnet sind…"
+					}
+				}
+			},
+			"addBudget": {
+				"text": "Budget hinzufügen",
+				"name": "Neues Budget"
+			},
+			"editBudget": {
+				"headline": "Budget bearbeiten",
+				"name": {
+					"label": "Name des Budgets"
+				},
+				"category": {
+					"label": "Kategorie"
+				},
+				"goal": {
+					"label": "Ziel"
+				},
+				"pluginNotice": "Dieses Budget wird von einem Plugin verwaltet. Du kannst das Ziel daher nicht editieren, solange das Plugin installiert ist.",
+				"save": {
+					"text": "Speichern"
+				},
+				"cancel": {
+					"text": "Abbrechen"
+				},
+				"hide": {
+					"text": "Ausblenden"
+				}
+			}
+		},
+		"stats": {
+			"available": {
+				"default": "noch zu budgetieren",
+				"overspend": "zu viel budgetiert"
+			},
+			"income": "Einkommen",
+			"budgeted": "Budgetiert",
+			"outflow": "Ausgaben",
+			"balance": "Vermögen"
+		},
+		"tips": {
+			"actions": {
+				"useBudgetedLastMonth": "Budget von letztem Monat verwenden"
+			}
+		}
+	},
+	"plugins": {
+		"label": {
+			"username": "Username",
+			"email": "E-Mail-Adresse",
+			"password": "Passwort",
+			"apiKey": "API Key",
+			"accounts": "Accounts"
+		}
+	},
+	"reports": {
+		"title": "Reports",
+		"placeholder": "Reports"
+	},
+	"transactions": {
+		"title": "Transaktionen",
+		"placeholder": "Transaktionen",
+		"budgetSelect": {
+			"income": "Einkommen",
+			"incomeFor": "Einkommen für %(month)s",
+			"multipleBudgets": "Mehrere Budgets"
+		},
+		"payeeSelect": {
+			"create": "%(q)s anlegen"
+		},
+		"add": {
+			"text": "Transaktion hinzufügen",
+			"title": "Klicke, um eine Transaktion manuell einzutragen…"
+		},
+		"import": {
+			"onlyOne": "Ziehe bitte nur eine Datei gleichzeitig hier rein, sonst komme ich ganz durcheinander…",
+			"label": "Importiere %(file)s auf folgendes Konto:"
+		},
+		"edit": {
+			"save": "Speichern",
+			"cancel": "Abbrechen"
+		},
+		"remove": {
+			"text": "Transaktion löschen",
+			"title": "Diese Transaktion löschen"
+		}
+	},
+	"settings": {
+		"title": "Einstellungen",
+		"headline": "Einstellungen",
+		"sessions": {
+			"headline": "Meine Geräte",
+			"add": "Gerät hinzufügen"
+		},
+		"addSession": {
+			"title": "Gerät hinzufügen",
+			"headline": "Gerät zum Konto hinzufügen",
+			"info": {
+				"scan": "Scanne den folgenden QR-Code in deiner DWIMM-App, um die dort mit diesem Account einzuloggen. Du hast dann in der App Zugriff auf all deine Dokumente und Einstellungen.",
+				"accept": "Der Client \"%(name)s\" möchte Zugriff auf dein DWIMM-Konto erhalten. Damit besitzt die Applikation die nötigen Rechte, um alle Dokumente in deinem Konto einzusehen und zu bearbeiten. Der Client kann diese Berechtigung weitergeben, ohne Dich darüber zu benachrichtigen. Vertraust du diesem Client und erlaubst den Zugriff?"
+			},
+			"deviceName": "Neues Gerät",
+			"accept": "Zugriff erlauben",
+			"deny": "Gerät ignorieren und abbrechen"
+		},
+		"placeholder": "Einstellungen"
+	}
+}

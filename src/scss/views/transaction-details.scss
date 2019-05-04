@@ -1,0 +1,277 @@
+@import '../definitions/variables';
+
+.transaction-details {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 30;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: -10px;
+		left: -10px;
+		right: -10px;
+		bottom: -10px;
+
+		z-index: -1;
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		backdrop-filter: blur(10px);
+		background: rgba($background-box, 0.90);
+
+		transition: opacity 0.3s ease-out, transform 0.15s ease-out;
+	}
+	&--hidden:before {
+		opacity: 0;
+		transform: translate3d(0, -100%, 0);
+		transition: opacity 0.3s ease-out 0.2s, transform 0s ease-out 0.3s;
+	}
+
+
+	&__container {
+		padding: 1em 2em 2em;
+		max-height: 100%;
+		overflow: scroll;
+		background: $background-box;
+
+		transform: translate3d(0, 0, 0);
+		transition: max-height 0.1s ease-out, transform 0s ease-out;
+
+		@include greater($size-l) {
+			width: 90%;
+			max-width: 54em;
+			max-height: calc(100% - 8em);
+			overflow: auto;
+			border: 1px solid rgba($background-footer, 0.4);
+			padding: 1em 2em 2em;
+			margin: 4em auto;
+		}
+	}
+	&--hidden &__container {
+		max-height: 0;
+		transform: translate3d(0, -160px, 0);
+		transition: max-height 0.2s ease-in, transform 0.1s ease-in 0.2s;
+
+		@include greater($size-l) {
+			max-height: 0;
+		}
+	}
+
+	&__header {
+		overflow: hidden;
+		min-height: 1em;
+		margin: -1em -2em 0 0;
+	}
+	&__close {
+		display: block;
+		float: right;
+		width: 1.4em;
+		height: 1.4em;
+		font-size: 1.8em;
+		line-height: 1em;
+		color: lighten($text, 20);
+	}
+
+
+	&__field {
+		position: relative;
+
+		@include greater($size-m) {
+			float: left;
+			width: calc(50% - 0.5em);
+
+			&:nth-child(5) {
+				width: 100%;
+			}
+		}
+
+		& + & {
+			margin-top: 1.2em;
+
+			@include greater($size-m) {
+				margin-top: 0;
+			}
+		}
+		@include greater($size-m) {
+			&:nth-child(3),
+			&:nth-child(4),
+			&:nth-child(5) {
+				margin-top: 1.2em;
+			}
+			&:nth-child(2n) {
+				margin-left: 1em;
+			}
+		}
+
+		&-label {
+			display: block;
+			font-size: 0.8em;
+			margin-left: 0.8em;
+			color: lighten($text, 25);
+		}
+		&-input,
+		&-select-wrap {
+			width: 100%;
+			background: $background;
+			padding: 0.6em;
+			height: 2.6em;
+		}
+		&-select {
+			width: 100%;
+			background: $background;
+		}
+	}
+	&__clearfix {
+		clear: both;
+	}
+
+	&__autocomplete {
+		z-index: 2;
+		min-width: 40%;
+		max-width: 60%;
+		position: absolute;
+		background: $background;
+		margin-left: -1px;
+		border: 1px solid $background-box;
+		border-right-width: 2px;
+
+		&-suggestion {
+			padding: 0.6em;
+			border-left: 1px solid transparent;
+
+			&--selected {
+				background: lighten($background-box, 4);
+				border-left: 1px solid $primary;
+			}
+		}
+	}
+
+
+	&__units {
+		display: flex;
+
+		&-headline {
+			display: block;
+			margin-top: 2em;
+			padding: 1em 0 0.4em;
+			color: rgba($text, 0.6);
+			font-size: 0.8em;
+		}
+	}
+	&__unit {
+		height: 5.5em;
+		background: $background;
+		vertical-align: middle;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-grow: 1;
+
+		& + & {
+			margin-left: 0.1em;
+		}
+
+		&--memo {
+			height: 7.5em;
+		}
+		&--invalid {
+			background: rgba($red, 0.4);
+		}
+		&--add {
+			flex: 0 0 4em;
+			&-animate {
+				transition: flex 0.1s ease-out;
+			}
+
+			&:first-child {
+				flex: 1 1 auto;
+			}
+			&:hover:not(:first-child) {
+				flex: 0 0 5em;
+			}
+		}
+
+
+		&-budget {
+			width: 100%;
+			padding: 1em;
+		}
+		&-amount {
+			background: none;
+			outline: none;
+			width: 100%;
+			text-align: center;
+			font-size: 1.4em;
+		}
+		&-budget-select {
+			display: inline;
+			width: 90%;
+			margin-left: 5%;
+			background: transparent;
+
+			text-align: center;
+			text-align-last: center;
+			color: lighten($text, 20);
+		}
+		&-memo {
+			width: 100%;
+			background: transparent;
+			color: lighten($text, 20);
+			font-size: 0.8em;
+			text-align: center;
+			margin-top: 1.2em;
+		}
+
+		&-add {
+			width: 100%;
+			height: 100%;
+			line-height: 100%;
+			color: rgba(lighten($text, 50), 0.4);
+			font-size: 3em;
+		}
+	}
+
+	&__original {
+		margin-top: 2em;
+
+		&-toggle {
+			padding: 1em 0 0.4em;
+			color: rgba($text, 0.6);
+			font-size: 0.8em;
+		}
+		&-content {
+			position: relative;
+			background: $background;
+			padding: 1em;
+		}
+		&-datetime {
+			display: block;
+			font-size: 0.8em;
+			margin-bottom: 0.6em;
+			color: lighten($text, 20);
+		}
+		&-memo {
+			display: block;
+			font-size: 0.8em;
+			color: lighten($text, 25);
+		}
+		&-amount {
+			position: absolute;
+			display: block;
+			top: 50%;
+			margin-top: -1em;
+			right: 1em;
+			line-height: 2em;
+			color: $red;
+		}
+		&-reconcile {
+			padding: 0 0.8em;
+			font-size: 0.8em;
+			color: lighten($text, 35);
+		}
+	}
+}

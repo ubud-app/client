@@ -1,0 +1,19 @@
+<div class="first-setup__gradient"></div>
+
+<form class="first-setup__form" rv-on-submit="view.submit">
+	<button class="first-setup__form-close" type="reset" rv-on-click="view.close">⨯</button>
+
+	<div class="first-setup__form-box first-setup-form-box--1" rv-class-first-setup__form-box--error="form.error.0" rv-class-first-setup__form-box--hidden="form.hideEmail">
+		<input name="email-1" class="first-setup__form-input first-setup__form-input--email-1" type="email" rv-placeholder="'firstSetup.email-1.placeholder' | string" rv-value="form.email.0" rv-on-keyup="view.updateButton" autocomplete="username" rv-required="form.emailRequired" />
+		<input name="email-2" class="first-setup__form-input first-setup__form-input--email-2" type="email" rv-placeholder="'firstSetup.email-2.placeholder' | string" rv-value="form.email.1" rv-on-keyup="view.updateButton" autocomplete="username" rv-required="form.emailRequired" />
+	</div>
+
+	<div class="first-setup__form-box first-setup-form-box--2" rv-class-first-setup__form-box--error="form.error.1">
+		<input name="password-1" class="first-setup__form-input first-setup__form-input--password-1" type="password" rv-placeholder="'firstSetup.password-1.placeholder' | string" rv-value="form.password.0" rv-on-keyup="view.updateButton" autocomplete="new-password" required />
+		<input name="password-2" class="first-setup__form-input first-setup__form-input--password-2" type="password" rv-placeholder="'firstSetup.password-2.placeholder' | string" rv-value="form.password.1" rv-on-keyup="view.updateButton" autocomplete="new-password" required />
+	</div>
+
+	<p class="first-setup__form-error" rv-if="form.pawned" rv-html="'login.pawned' | string"></p>
+
+	<button type="submit" class="button" rv-disabled="form.disabled">{ 'firstSetup.submit.text' | string }</button>
+</form>

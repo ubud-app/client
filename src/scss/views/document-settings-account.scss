@@ -1,0 +1,32 @@
+@import '../definitions/variables';
+
+.document-settings-account {
+	&__item + &__item {
+		margin-top: 1em;
+	}
+
+	&__link {
+		display: block;
+		text-decoration: none;
+
+		width: 100%;
+		padding: 10px;
+		background: lighten($background-box, 2);
+	}
+
+	&__name {
+		display: block;
+		font-size: 1.1em;
+	}
+
+	&__balance {
+		float: right;
+		line-height: 3em;
+		color: lighten($text, 20);
+	}
+
+	&__meta {
+		font-size: 0.9em;
+		color: lighten($text, 20);
+	}
+}

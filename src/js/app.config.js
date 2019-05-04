@@ -1,0 +1,1 @@
+window.__AppConfiguration = require('app-config');

@@ -1,0 +1,44 @@
+@import '../definitions/variables';
+
+@keyframes spin { 100% { transform:rotate(360deg); } }
+
+.app {
+	width: 100%;
+	min-width: 320px;
+	height: calc(env(safe-area-inset-top) + 100%);
+	color: $text;
+
+	&--initializing:after {
+		position: fixed;
+		content: '\e809';
+		top: 50%;
+		left: 50%;
+		width: 40px;
+		height: 40px;
+		margin: -20px 0 0 -20px;
+		z-index: -1;
+
+		@extend [class^="icon-"]:before;
+		font-size: 2.5em;
+		color: rgba($background-copy, 0.6);
+		animation:spin 1s linear infinite;
+	}
+
+	&__content {
+		padding: calc(env(safe-area-inset-top, 0) + 60px) 0 calc(env(safe-area-inset-bottom) + 47px);
+		width: 100%;
+		height: 100%;
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+
+		@include greater($size-l) {
+			padding: $sidebar-width 0 0 $sidebar-width;
+		}
+	}
+
+	&_layout--page {
+		max-width: 600px;
+		margin: 40px auto;
+		padding-bottom: 120px;
+	}
+}

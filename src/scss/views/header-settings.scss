@@ -1,0 +1,232 @@
+@import '../definitions/variables';
+
+.header-settings {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	min-height: 100%;
+	z-index: 10;
+
+	@include greater($size-l) {
+		top: $sidebar-width;
+		right: 0;
+		width: calc(95% - #{$sidebar-width} - 1em);
+		max-width: 64em;
+		min-height: 0;
+		max-height: calc(100% - #{$sidebar-width} - 4em);
+		padding: 2em 0;
+		background: lighten($background-copy, 8);
+		overflow: auto;
+
+		transition: background 0.1s ease-out, max-height 0.3s ease-out;
+
+		&--hidden {
+			max-height: 0;
+			background: rgba(lighten($background-copy, 10), 0);
+			transition: background 0.3s ease-in 0.1s, max-height 0.3s ease-in 0.1s;
+		}
+
+		&--noadmin {
+			max-width: 44em;
+		}
+	}
+
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: -10px;
+		left: -10px;
+		right: -10px;
+		bottom: -10px;
+
+		z-index: -1;
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		backdrop-filter: blur(10px);
+		background: rgba($background-footer, 0.90);
+
+		transition: opacity 0.3s ease-out, transform 0.15s ease-out;
+
+		@include greater($size-l) {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: transparent;
+			backdrop-filter: none;
+			z-index: -2;
+		}
+	}
+	&--hidden:before {
+		opacity: 0;
+		transform: translate3d(0, -100%, 0);
+		transition: opacity 0.3s ease-out, transform 0s ease-out 0.3s;
+	}
+
+	&__content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 6.5em 5%;
+
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+
+		@include greater($size-l) {
+			position: static;
+			top: auto;
+			left: auto;
+			right: auto;
+			bottom: auto;
+			padding: 2em;
+		}
+	}
+
+
+	&__wrap {
+		z-index: 1;
+		width: 320px;
+		margin: 0 auto;
+
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		transition: opacity 0.3s ease-out, transform 0.15s ease-out;
+
+		& + & {
+			margin-top: 2em;
+		}
+
+		&--disabled {
+			display: none;
+
+			@include greater($size-l) {
+				display: block;
+				opacity: 0.4;
+				pointer-events: none;
+			}
+		}
+
+		&--hidden {
+			opacity: 0;
+			transform: translate3d(40px, 0, 0);
+			transition: opacity 0.1s ease-out, transform 0s ease-out 0.3s;
+
+			@include greater($size-l) {
+				transform: translate3d(0, 40px, 0);
+			}
+		}
+
+		@include greater($size-l) {
+			width: 32%;
+			float: left;
+
+			&--mobile-avatar {
+				display: none;
+			}
+
+			& + & {
+				margin-top: 0;
+				margin-left: 2%;
+			}
+
+			&--mobile-avatar + & {
+				margin-top: 0;
+				margin-left: 0;
+			}
+		}
+	}
+	&--noadmin &__wrap {
+		@include greater($size-l) {
+			width: 49%;
+		}
+	}
+	&--noadmin &__wrap--admin {
+		display: none;
+	}
+
+
+	&__mobile-avatar {
+		width: 6em;
+		height: 6em;
+		margin: 0 auto;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+
+	&__headline {
+		color: lighten($background-footer, 40);
+		font-size: 1.2em;
+
+		@include greater($size-l) {
+			padding: 0 0.83em;
+		}
+	}
+	&__subheadline {
+		margin: -0.2em 0 0.8em;
+		color: lighten($background-footer, 30);
+
+		@include greater($size-l) {
+			padding: 0 1em;
+		}
+	}
+
+	&__menu {
+		margin: 0.4em 0 0.8em;
+		background: rgba($background-box, 0.5);
+		border-radius: 0.4em;
+	}
+	&__item {
+		& + & {
+			border-top: 1px solid rgba($background-footer, 0.1);
+		}
+	}
+	&__link {
+		display: block;
+		position: relative;
+		padding: 0.8em 1em;
+		text-decoration: none;
+		color: $background-copy;
+
+		@include greater($size-l) {
+			&:hover {
+				background: rgba($background-box, 0.1);
+			}
+		}
+
+		/*&:before {
+			content: '>';
+			display: inline-block;
+			position: absolute;
+			top: 0.2em;
+			right: 0.6em;
+			bottom: 0;
+			padding: 0.8em 0.6em;
+			vertical-align: center;
+			font-weight: bold;
+			color: rgba($background-footer, 0.6);
+		}*/
+
+		&--logout {
+			color: $primary-dark;
+		}
+	}
+	&__badge {
+		display: inline-block;
+		position: relative;
+		top: -0.1em;
+		left: 0.4em;
+		width: 1.4em;
+		height: 1.4em;
+
+		background: $primary;
+		border-radius: 50%;
+		color: $background;
+		line-height: 1.4em;
+		font-size: 0.8em;
+		text-align: center;
+	}
+}

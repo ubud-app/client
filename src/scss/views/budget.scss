@@ -1,0 +1,427 @@
+@import '../definitions/variables';
+
+$stats-height-mobile: 5.8em;
+$stats-height-desktop: 8.6em;
+
+$category-height: 48px;
+$budget-height: 36px;
+
+.budget {
+	display: flex;
+	position: relative;
+	min-height: 100%;
+	font-size: 0.9em;
+	user-select: none;
+
+	@include greater($size-l) {
+		font-size: 1em;
+	}
+
+
+	&__container {
+		display: flex;
+		padding: 0 0 2em;
+		overflow-x: scroll;
+		scroll-snap-type: x mandatory;
+		align-items: stretch;
+		flex: 2;
+
+		@include greater($size-l) {
+			padding: 1em 0;
+		}
+	}
+
+
+	&__labels {
+		position: absolute;
+		top: $stats-height-mobile;
+		width: 35%;
+		padding-left: env(safe-area-inset-left);
+		z-index: 10;
+
+
+		@include greater($size-l) {
+			float: left;
+			position: static;
+			top: auto;
+			width: 15em;
+			margin-top: calc(#{$stats-height-desktop} + 1em - 40px);
+			background: lighten($background-box, 4);
+			border-right: 1em solid $background;
+		}
+	}
+	&__label {
+		&-category-header {
+			position: relative;
+			height: $category-height;
+
+			@include greater($size-l) {
+				height: 60px;
+			}
+		}
+		&-category:first-child &-category-header {
+			background: $background;
+		}
+
+		&-category-name {
+			display: block;
+			position: relative;
+			font-weight: bold;
+			padding: 1.8em 0.6em 0.6em 0.6em;
+			color: lighten($text, 15);
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: visible;
+
+			@include greater($size-m) {
+				overflow: hidden;
+			}
+		}
+		&-category-settings {
+			@extend [class^="icon-"]:before;
+			position: absolute;
+			display: none;
+			top: 1.9em;
+			right: 0.6em;
+			color: lighten($text, 25);
+		}
+		@include greater($size-l) {
+			&-category-header:hover &-category-name {
+				padding-right: 2em;
+			}
+			&-category-header:hover &-category-settings {
+				display: block;
+			}
+		}
+
+		&-budget {
+			display: block;
+			height: $budget-height;
+			position: relative;
+			background: lighten($background-box, 1);
+
+			@include greater($size-l) {
+				height: 40px;
+			}
+
+			&:nth-child(2n) {
+				background: lighten($background-box, 4);
+			}
+		}
+		&-budget-name {
+			display: block;
+			padding: 0.6em;
+
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		&-budget-settings {
+			@extend [class^="icon-"]:before;
+			position: absolute;
+			display: none;
+			top: 0.8em;
+			right: 0.6em;
+			color: lighten($text, 25);
+		}
+		@include greater($size-l) {
+			&-budget:hover &-budget-name {
+				padding-right: 2em;
+			}
+			&-budget:hover &-budget-settings {
+				display: block;
+			}
+		}
+	}
+
+
+	&__month {
+		position: relative;
+		background: $background;
+		scroll-snap-align: start;
+		flex: 0 0 100%;
+		flex-flow: column;
+		justify-content: end;
+		opacity: 0.7;
+		transition: opacity 0.3s ease-in-out;
+
+		@include greater($size-l) {
+			flex: 0 0 calc(50% - 2em);
+			background: lighten($background-box, 4);
+
+			& + & {
+				margin-left: 1em;
+			}
+		}
+		@include greater($size-m * 2) {
+			flex: 0 0 calc(33.3% - 1.5em);
+		}
+		@include greater($size-m * 3) {
+			flex: 0 0 26em;
+		}
+
+
+		&--current:before {
+			content: '';
+			position: absolute;
+			left: 3px;
+			top: 0;
+			right: 3px;
+			height: 3px;
+			background: $primary;
+			border-radius: 0 0 5px 5px;
+
+			@include greater($size-l) {
+				height: 5px;
+			}
+		}
+
+
+
+		&--activated {
+			opacity: 1;
+		}
+
+		&-header {
+			height: $stats-height-mobile;
+			text-align: center;
+
+			&-m,
+			&-y {
+				display: none;
+			}
+			&-m {
+				font-weight: bold;
+				font-size: 28px;
+				color: lighten($text, 20);
+			}
+			&-y {
+				font-size: 28px;
+				font-weight: 100;
+				margin-left: 0.1em;
+				color: lighten($text, 25);
+			}
+
+			@include greater($size-l) {
+				height: $stats-height-desktop;
+				padding: 1.2em 0;
+				background: lighten($background-box, 4);
+
+				&-m,
+				&-y {
+					display: inline;
+				}
+			}
+		}
+
+		&-category {
+			padding-top: $category-height;
+
+			@include greater($size-l) {
+				padding-top: 60px;
+			}
+
+			&:first-child {
+				background: $background;
+
+				@include greater($size-l) {
+					background: lighten($background-box, 4);
+					padding-top: 20px;
+				}
+			}
+		}
+
+		&-portions {
+			background: lighten($background-box, 4);
+		}
+
+		&-portion {
+			padding: 0.6em 1em 0.6em calc(35% + 1em);
+			overflow: hidden;
+			height: $budget-height;
+
+			@include greater($size-l) {
+				padding-left: calc(45% + 1em);
+			}
+			@include greater($size-l) {
+				padding-left: 1em;
+			}
+
+			@include greater($size-l) {
+				height: 40px;
+			}
+
+			&:nth-child(2n+1) {
+				background: lighten($background-box, 1);
+			}
+		}
+
+		&-budgeted,
+		&-outflow,
+		&-balance {
+			display: block;
+			float: left;
+			text-align: right;
+		}
+		&-budgeted {
+			width: 45%;
+			background: transparent;
+			border-bottom: 1px dotted rgba($text, 0.3);
+			user-select: text;
+			opacity: 0.1;
+			pointer-events: none;
+
+			&[disabled] {
+				border-bottom: 0;
+			}
+			&--visible {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+		&-outflow {
+			display: none;
+			opacity: 0.6;
+		}
+		&-balance {
+			float: right;
+			width: 55%;
+
+			&--negative {
+				color: $red;
+			}
+
+			&-item {
+				display: none;
+
+				&--active {
+					display: inline;
+				}
+			}
+		}
+		@include greater($size-m) {
+			&-budgeted {
+				width: 28%;
+			}
+			&-outflow {
+				display: block;
+				width: 31%;
+			}
+			&-balance {
+				width: 41%;
+			}
+		}
+		@include greater($size-m) {
+			&-outflow,
+			&-balance {
+				font-size: 0.9em;
+			}
+		}
+
+		&-progress {
+			float: right;
+			display: inline-block;
+			width: 2em;
+			height: 0.3em;
+			margin: 0.5em 0.25em 0 0.5em;
+			padding: 1px;
+			background: rgba($background-footer, 0.2);
+			border-radius: 0.15em;
+
+			&--hidden {
+				display: none;
+			}
+			&--active {
+				background: $background-footer;
+			}
+			&--negative {
+				background: $red;
+			}
+			&--complete {
+				background: rgba(darken($green, 10), 0.8);
+			}
+
+
+			&-bar {
+				display: none;
+				background: $background-box;
+				height: 100%;
+				border-radius: 4px;
+				transition: width 0.3s ease-out;
+			}
+			&--active &-bar {
+				display: block;
+			}
+			&--negative &-bar {
+				display: none;
+			}
+			&--complete &-bar {
+				background: rgba(lighten($green, 20), 0.5);
+			}
+		}
+	}
+
+	&__stats {
+		cursor: pointer;
+		user-select: none;
+
+
+		&-page {
+			display: none;
+			height: 4.6em;
+			padding-top: 1.2em;
+			overflow: hidden;
+
+			&--active {
+				display: block;
+			}
+
+			@include greater($size-l) {
+				height: 3.6em;
+				padding-top: 0.4em;
+			}
+		}
+
+		&-label,
+		&-value {
+			display: block;
+			float: left;
+			width: 50%;
+		}
+		&-label {
+			padding: 0;
+			font-size: 12px;
+			color: lighten($text, 20);
+		}
+		&-value {
+			margin-top: -1px;
+			font-size: 28px;
+			font-weight: bold;
+			color: lighten($text, 10);
+
+			&--warn {
+				color: darken($red, 10);
+			}
+		}
+		&-page--single &-label,
+		&-page--single &-value {
+			width: 100%;
+		}
+
+		&-indicator {
+			display: inline-block;
+			width: 5px;
+			height: 5px;
+			border-radius: 5px;
+			background: rgba($background-footer, 0.2);
+
+			& + & {
+				margin-left: 4px;
+			}
+
+			&--active {
+				background: rgba($background-footer, 0.6);
+			}
+		}
+	}
+}

@@ -1,0 +1,40 @@
+/*
+ :::  Reset
+-------------------------------------------------- */
+html {
+	box-sizing: border-box;
+	overflow-y: -moz-scrollbars-vertical;
+	// overflow-y: scroll;
+}
+*, *::before, *::after {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	touch-action: manipulation;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, nav, section, subhead, summary {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+input, select {
+	border-radius: 0;
+}
+button {
+	cursor: pointer;
+	background: none;
+	border: none;
+	display: inline;
+	outline: none;
+}

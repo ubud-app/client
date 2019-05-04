@@ -1,0 +1,38 @@
+<ul class="sidebar__list">
+	<li class="sidebar__item sidebar__item--budget" rv-class-sidebar__item--active="budget.active">
+		<a rv-href="budget.url" class="sidebar__item-link" rv-title="'sidebar.budget.title' | string" rv-on-click="budget.click">
+			<span class="sidebar__item-icon">&#xe818;</span>
+			<span class="sidebar__item-name">{ 'sidebar.budget.name' | string }</span>
+		</a>
+	</li>
+	<li class="sidebar__item sidebar__item--transactions" rv-class-sidebar__item--active="transactions.active">
+		<a rv-href="transactions.url" class="sidebar__item-link" rv-title="'sidebar.transactions.title' | string" rv-on-click="transactions.click">
+			<span class="sidebar__item-icon">&#xe810;</span>
+			<span class="sidebar__item-name">{ 'sidebar.transactions.name' | string }</span>
+		</a>
+	</li>
+	<li class="sidebar__item sidebar__item--add" rv-class-sidebar__item--active="add.active">
+		<button class="sidebar__item-link" rv-title="'sidebar.add.title' | string" rv-on-click="add.click">
+			<span class="sidebar__item-icon sidebar__item-icon--add">&#xe814;</span>
+		</button>
+	</li>
+	<li class="sidebar__item sidebar__item--right sidebar__item--settings-mobile" rv-class-sidebar__item--active="settings.active">
+		<a rv-href="settings.url" class="sidebar__item-link" rv-title="'sidebar.settings.title' | string" rv-on-click="settings.click">
+			<span class="sidebar__item-icon">&#xe802;</span>
+			<span class="sidebar__item-name">{ 'sidebar.settings.name' | string }</span>
+		</a>
+	</li>
+	<li class="sidebar__item sidebar__item--right sidebar__item--reports" rv-class-sidebar__item--active="reports.active">
+		<a rv-href="reports.url" class="sidebar__item-link" rv-title="'sidebar.reports.title' | string" rv-on-click="reports.click">
+			<span class="sidebar__item-icon">&#xe820;</span>
+			<span class="sidebar__item-name">{ 'sidebar.reports.name' | string }</span>
+		</a>
+	</li>
+	<li class="sidebar__item sidebar__item--right sidebar__item--settings-desktop" rv-class-sidebar__item--active="settings.active">
+		<a rv-href="settings.url" class="sidebar__item-link" rv-title="'sidebar.settings.title' | string" rv-on-click="settings.click">
+			<span class="sidebar__item-icon">&#xe802;</span>
+			<span class="sidebar__item-name">{ 'sidebar.settings.name' | string }</span>
+		</a>
+	</li>
+</ul>
+

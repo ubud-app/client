@@ -1,0 +1,12 @@
+<ul class="header-documents__list">
+	<li rv-each-document="documents" class="header-documents__item" rv-class-header-documents__item--hidden="document.hidden">
+		<a rv-href="document.link" class="header-documents__link" rv-on-click="document.click">
+			<span class="header-documents__name">{ document.model:name }</span>
+			<span class="header-documents__tasks">{ document.tasks }</span>
+		</a>
+	</li>
+
+	<li class="header-documents__item header-documents__item--add" rv-class-header-documents__item--hidden="add.hidden">
+		<button class="header-documents__link header-documents__link--add" rv-on-click="add.click"></button>
+	</li>
+</ul>

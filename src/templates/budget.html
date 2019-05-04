@@ -1,0 +1,88 @@
+<div class="budget__labels">
+	<ul class="budget__label-categories">
+		<li class="budget__label-category" rv-each-category="categories">
+			<div class="budget__label-category-header">
+				<span class="budget__label-category-name">{ category.name }</span>
+				<button class="budget__label-category-settings" rv-on-click="category.settings">&#xe802;</button>
+			</div>
+			<ul class="budget__label-budgets">
+				<li class="budget__label-budget" rv-each-budget="category.budgets">
+					<span class="budget__label-budget-name">{ budget.name }</span>
+					<button class="budget__label-budget-settings" rv-on-click="budget.settings">&#xe802;</button>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<div class="budget__container" rv-on-scroll="view._onScroll">
+	<div class="budget__month budget__month"
+		 rv-each-month="months" rv-data-id="month.id"
+		 rv-class-budget__month--activated="month.activated"
+		 rv-class-budget__month--current="month.current">
+		<div class="budget__month-header">
+			<span class="budget__month-header-m">{ month.month }</span>
+			<span class="budget__month-header-y">{ month.year }</span>
+
+			<div class="budget__stats" rv-on-click="month.statsClick">
+				<div class="budget__stats-page budget__stats-page--single"
+					 rv-class-budget__stats-page--active="month.statsPage.0">
+					<span class="budget__stats-label" rv-if="month.availableNegative">{ 'budget.stats.available.negative' | string }</span>
+					<span class="budget__stats-label" rv-unless="month.availableNegative">{ 'budget.stats.available.positive' | string }</span>
+					<span class="budget__stats-value" rv-class-budget__stats-value--warn="month.availableNegative">{ month.summary:available | currency }</span>
+				</div>
+				<div class="budget__stats-page" rv-class-budget__stats-page--active="month.statsPage.1">
+					<span class="budget__stats-label">{ 'budget.stats.income' | string }</span>
+					<span class="budget__stats-label">{ 'budget.stats.budgeted' | string }</span>
+					<span class="budget__stats-value">{ month.summary:income | currency }</span>
+					<span class="budget__stats-value">{ month.summary:budgeted | currency }</span>
+				</div>
+				<div class="budget__stats-page" rv-class-budget__stats-page--active="month.statsPage.2">
+					<span class="budget__stats-label">{ 'budget.stats.outflow' | string }</span>
+					<span class="budget__stats-label">{ 'budget.stats.balance' | string }</span>
+					<span class="budget__stats-value">{ month.summary:outflow | currency }</span>
+					<span class="budget__stats-value">{ month.summary:balance | currency }</span>
+				</div>
+				<span class="budget__stats-indicator"
+					  rv-class-budget__stats-indicator--active="month.statsPage.0"></span>
+				<span class="budget__stats-indicator"
+					  rv-class-budget__stats-indicator--active="month.statsPage.1"></span>
+				<span class="budget__stats-indicator"
+					  rv-class-budget__stats-indicator--active="month.statsPage.2"></span>
+			</div>
+		</div>
+		<ul class="budget__month-categories">
+			<li class="budget__month-category" rv-each-category="month.categories">
+				<ul class="budget__month-portions">
+					<li class="budget__month-portion" rv-each-portion="category.portions">
+						<input type="telephone"
+							   class="budget__month-budgeted"
+							   rv-class-budget__month-budgeted--visible="portion.model"
+							   rv-disabled="meta.locked"
+							   rv-currency-value="portion.model:budgeted"/>
+						<span class="budget__month-outflow">{ portion.model:outflow | currency }</span>
+						<span class="budget__month-balance"
+							  rv-class-budget__month-balance--negative="portion.negative"
+							  rv-class-budget__month-balance--goal="portion.goal"
+							  rv-on-click="portion.toggleGoal">
+
+							<span class="budget__month-balance-item" rv-class-budget__month-balance-item--active="portion.active.0">{ portion.model:balance | currency }</span>
+							<span class="budget__month-balance-item" rv-class-budget__month-balance-item--active="portion.active.1">{ portion.goal.percent | percentage }</span>
+							<span class="budget__month-balance-item" rv-class-budget__month-balance-item--active="portion.active.2">{ portion.goal.left | currency }</span>
+
+							<span class="budget__month-progress"
+								  rv-title="portion.goal.percent | percentage"
+								  rv-class-budget__month-progress--active="portion.goal"
+								  rv-class-budget__month-progress--negative="portion.goal.negative"
+								  rv-class-budget__month-progress--complete="portion.goal.complete"
+								  rv-class-budget__month-progress--hidden="portion.active.2">
+								<span class="budget__month-progress-bar"
+									  rv-if="portion.goal"
+									  rv-style-width="portion.goal.width">&nbsp;</span>
+							</span>
+						</span>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>

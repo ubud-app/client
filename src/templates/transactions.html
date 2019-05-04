@@ -1,0 +1,33 @@
+<div class="transactions__pages">
+	<ul class="transactions__page" rv-each-page="pages">
+		<li class="transactions__separator">{ page.separator }</li>
+		<li class="transactions__item" rv-each-transaction="page.transactions">
+			<button class="transactions__button"
+					rv-on-click="transaction.open"
+					rv-class-transactions__button--memo="transaction.model:memo"
+					rv-class-transactions__button--pending="transaction.pending"
+					rv-class-transactions__button--approved="transaction.model:approved">
+
+				<div class="transactions__date">
+					<span class="transactions__date-big">{ transaction.date.big }</span>
+					<span class="transactions__date-small">{ transaction.date.small }</span>
+					<span class="transactions__date-full">{ transaction.date.full }</span>
+				</div>
+				<span class="transactions__amount"
+					  rv-class-transactions__amount--negative="transaction.negative">
+					{ transaction.model:amount | currency }
+				</span>
+				<span class="transactions__payee" rv-class-transactions__payee--set="transaction.model:payeeName">
+					{ transaction.model:payeeName | fallback transaction.model:pluginsOwnPayeeId }
+				</span>
+				<span class="transactions__budget"
+					  rv-class-transactions__budget--empty="transaction.noBudget">{ transaction.budget }</span>
+				<span class="transactions__memo">{ transaction.model:memo }</span>
+			</button>
+		</li>
+	</ul>
+
+	<div class="transactions__buttons">
+		<button class="button button--inline button--right button--small" rv-on-click="view.newTransaction">+ Transaktion hinzufügen</button>
+	</div>
+</div>

@@ -1,0 +1,74 @@
+@import '../definitions/variables';
+
+.error {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 40;
+
+	background: rgba($primary, 0.85);
+	backdrop-filter: grayscale(100%) blur(10px);
+
+	&__wrap {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 80%;
+		max-width: 800px;
+		max-height: 100%;
+		padding: 5% 0 20% 0;
+		transform: translate(-50%, -50%);
+
+		color: $background-box;
+		text-align: center;
+		overflow: auto;
+	}
+
+	&__icon {
+		font-size: 2.8em;
+
+		@include greater($size-l) {
+			font-size: 4.6em;
+		}
+	}
+
+	&__headline {
+		font-size: 1.4em;
+		margin-top: 1em;
+
+		@include greater($size-l) {
+			font-size: 2.2em;
+		}
+	}
+
+	&__message {
+		font-size: 0.9em;
+		margin: 0.8em 0 2.4em;
+
+		@include greater($size-l) {
+			margin: 0.8em 0 4.8em;
+		}
+	}
+
+
+	&__info {
+		margin-top: 1em;
+		padding: 1em;
+		background: rgba($background-footer, 0.8);
+		text-align: left;
+
+		&-label {
+			display: block;
+			font-size: 0.6em;
+			color: rgba($background-box, 0.6);
+		}
+
+		&-content {
+			font-family: monospace;
+			white-space: pre;
+			overflow: auto;
+		}
+	}
+}

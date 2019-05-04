@@ -1,9 +1,35 @@
 stages:
+  - prepare
   - check
   - publish
 
-publish_github:
+prepare:
+  stage: prepare
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - npm ci
+    - tar -czf "node_modules.tar.gz" ./node_modules
+  artifacts:
+    paths:
+      - node_modules.tar.gz
+    expire_in: 1 day
+
+checks:
   stage: check
+  tags:
+    - matt.sebbo.net
+    - ssh
+  except:
+    - tags
+  script:
+    - tar -xzf "node_modules.tar.gz" -C .
+    - rm -f ./node_modules.tar.gz
+    - npm run check
+
+publish_github:
+  stage: publish
   tags:
     - matt.sebbo.net
     - ssh
@@ -13,45 +39,25 @@ publish_github:
     - git pull
     - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --all
     - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --tags
-
-check_lint:
-  stage: check
-  tags:
-    - matt.sebbo.net
-    - ssh
-  retry: 2
-  script:
-    - npm ci
-    - npm run check
-
-
-visualize:
-  stage: check
-  tags:
-    - matt.sebbo.net
-    - ssh
-  retry: 2
-  script:
-    - npm install
-    - npm run visualize
-    - rm -rf /var/docker/static/dwimm/client-web/plato/*
-    - mv ./code-visualization/* /var/docker/static/dwimm/client-web/plato/
-
+  only:
+    - master
+    - develop
 
 publish_npm_next:
   stage: publish
   tags:
     - matt.sebbo.net
     - ssh
-  retry: 2
   script:
-    - npm ci
+    - tar -xzf "node_modules.tar.gz" -C .
+    - rm -f ./node_modules.tar.gz
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-    - npm run bump:develop
-    - npm run build
-    - echo $(cat ./package.json | jq '.version' -rce)
+    - export VERSION=$(npm view @dwimm/client-web@next version)
+    - jq -M ".version=\"$VERSION\"" package.json|sponge package.json
+    - npm --no-git-tag-version version prerelease
     - npx sentry-cli releases new "$(cat ./package.json| jq -rM '.version')"
-    - npx sentry-cli releases files "$(cat ./package.json| jq -rM '.version')" upload-sourcemaps ./dist/main.js.map --rewrite
+    - npm run build
+    - yarn import
     - npm publish --tag "next"
     - npx sentry-cli releases finalize "$(cat ./package.json| jq -rM '.version')"
   only:
