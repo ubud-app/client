@@ -44,6 +44,7 @@
     "grunt-zopfli": "^0.3.3",
     "html-loader": "^0.5.5",
     "node-sass": "^4.12.0",
+    "npm-check": "^5.9.0",
     "pixrem": "^5.0.0",
     "svg-inline-loader": "^0.8.0",
     "webpack": "^4.30.0",
