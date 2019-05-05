@@ -57,7 +57,6 @@ publish_npm_next:
     - npm --no-git-tag-version version prerelease
     - npx sentry-cli releases new "$(cat ./package.json| jq -rM '.version')"
     - npm run build
-    - yarn import
     - npm publish --tag "next"
     - npx sentry-cli releases finalize "$(cat ./package.json| jq -rM '.version')"
   only:
