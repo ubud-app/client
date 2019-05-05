@@ -6,10 +6,12 @@
 		<div class="transaction-details__field">
 			<label for="transaction-details__datetime"
 				   class="transaction-details__field-label">{ 'transactionDetails.labels.time' | string }</label>
-			<input type="datetime-local"
-				   class="transaction-details__field-input transaction_details__input--datetime"
-				   id="transaction-details__datetime"
-				   rv-datetime-value="model:time">
+			<div class="transaction-details__field-input-wrap">
+				<input type="datetime-local"
+					   class="transaction-details__field-input transaction_details__input--datetime"
+					   id="transaction-details__datetime"
+					   rv-datetime-value="model:time">
+			</div>
 		</div>
 		<div class="transaction-details__field">
 			<label for="transaction-details__payee"
@@ -25,13 +27,14 @@
 			<ul class="transaction-details__autocomplete" rv-if="autoCompletion">
 				<li class="transaction-details__autocomplete-suggestion"
 					rv-each-suggestion="autoCompletion"
-				    rv-class-transaction-details__autocomplete-suggestion--selected="suggestion.selected">
+					rv-class-transaction-details__autocomplete-suggestion--selected="suggestion.selected">
 					<button class="transaction-details__autocomplete-button">{ suggestion.model:name }</button>
 				</li>
 				<li class="transaction-details__autocomplete-suggestion transaction-details__autocomplete-suggestion--create"
 					rv-if="fields.autoCompletionCreateText"
 					rv-class-transaction-details__autocomplete-suggestion--selected="fields.autoCompletionCreateSelected">
-					<button class="transaction-details__autocomplete-button">{ fields.autoCompletionCreateText }</button>
+					<button class="transaction-details__autocomplete-button">{ fields.autoCompletionCreateText }
+					</button>
 				</li>
 			</ul>
 		</div>
@@ -74,7 +77,7 @@
 				<input type="text"
 					   rv-currency-value="unit.amount"
 					   class="transaction-details__unit-amount"
-					   rv-on-keyup="view.checkUnits" />
+					   rv-on-keyup="view.checkUnits"/>
 				<select class="transaction-details__unit-budget-select"
 						rv-value="unit.type"
 						rv-on-change="view.checkUnits">
@@ -84,10 +87,14 @@
 						<option value="INCOME_NEXT">{ typeSelector.incomeNextLabel }</option>
 					</optgroup>
 					<optgroup label="Transfer">
-						<option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">{ account:name }</option>
+						<option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">{
+							account:name }
+						</option>
 					</optgroup>
 					<optgroup rv-label="category.model:name" rv-each-category="typeSelector.categories">
-						<option rv-value="budget:id | prepend 'BUDGET:'" rv-each-budget="category.budgets">{ budget:name }</option>
+						<option rv-value="budget:id | prepend 'BUDGET:'" rv-each-budget="category.budgets">{ budget:name
+							}
+						</option>
 					</optgroup>
 				</select>
 				<input type="text"
@@ -104,7 +111,8 @@
 		</li>
 	</ul>
 	<div class="transaction-details__original" rv-if="forms.isManaged">
-		<button class="transaction-details__original-toggle">▾ { 'transactionDetails.headlines.original' | string }</button>
+		<button class="transaction-details__original-toggle">▾ { 'transactionDetails.headlines.original' | string }
+		</button>
 		<div class="transaction-details__original-content">
 			<span class="transaction-details__original-datetime">{ model:time | datetime }</span>
 			<span class="transaction-details__original-payee">{ model:pluginsOwnPayeeId }</span>

@@ -32,7 +32,7 @@
 
 
 	&__container {
-		padding: 1em 2em 2em;
+		padding: calc(env(safe-area-inset-top) + 1em) 2em 2em;
 		max-height: 100%;
 		overflow: scroll;
 		background: $background-box;
@@ -122,6 +122,19 @@
 		&-select {
 			width: 100%;
 			background: $background;
+			padding: 0;
+			height: 1.4em;
+		}
+		&-input-wrap {
+			width: 100%;
+			background: $background;
+			padding: 0.6em;
+			height: 2.6em;
+		}
+		&-input-wrap &-input {
+			min-width: calc(100% - 1em);
+			padding: 0;
+			height: 1.4em;
 		}
 	}
 	&__clearfix {
