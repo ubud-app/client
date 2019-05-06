@@ -52,12 +52,14 @@ publish_npm_next:
     - tar -xzf "node_modules.tar.gz" -C .
     - rm -f ./node_modules.tar.gz
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-    - export VERSION=$(npm view @dwimm/client-web@next version)
-    - jq -M ".version=\"$VERSION\"" package.json|sponge package.json
+    - export OLDVERSION=$(npm view @dwimm/client-web@next version)
+    - jq -M ".version=\"$OLDVERSION\"" package.json|sponge package.json
     - npm --no-git-tag-version version prerelease
-    - npx sentry-cli releases new "$(cat ./package.json| jq -rM '.version')"
+    - export NEWVERSION=$(cat ./package.json| jq -rM '.version')
+    - npx sentry-cli releases new "$NEWVERSION"
+    - npx sentry-cli releases set-commits --auto $NEWVERSION
     - npm run build
     - npm publish --tag "next"
-    - npx sentry-cli releases finalize "$(cat ./package.json| jq -rM '.version')"
+    - npx sentry-cli releases finalize "$NEWVERSION"
   only:
     - develop
