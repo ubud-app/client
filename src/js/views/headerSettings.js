@@ -52,6 +52,10 @@ module.exports = View.extend({
             },
             user: {
                 hidden: true
+            },
+            version: {
+                name: ConfigurationHelper.getVersion(),
+                build: ConfigurationHelper.getBuildId()
             }
         };
 

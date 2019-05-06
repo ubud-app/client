@@ -119,6 +119,12 @@
 				transform: translate3d(0, 40px, 0);
 			}
 		}
+		&--version {
+			padding: 1em 0;
+			font-size: 0.8em;
+			color: lighten($text, 20);
+			text-align: center;
+		}
 
 		@include greater($size-l) {
 			width: 32%;
