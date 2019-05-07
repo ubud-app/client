@@ -30,8 +30,6 @@ class WorkerHelper {
         }
 
         this.registration.onupdatefound = () => {
-            window.alert('[WorkerHelper] onupdatefound');
-
             const installingWorker = this.registration.installing;
             installingWorker.onstatechange = () => {
                 if (installingWorker.state === 'installed') {
@@ -67,7 +65,6 @@ class WorkerHelper {
         }
 
         try {
-            window.alert('[WorkerHelper] checkForUpdates()');
             await this.registration.update();
         }
         catch (err) {
