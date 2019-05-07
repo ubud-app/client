@@ -56,7 +56,7 @@ class DataWorker {
 
         this.status = id;
 
-        if(id === 5) {
+        if (id === 5) {
             this.onConnected.forEach(f => f());
         }
     }
@@ -146,6 +146,9 @@ class DataWorker {
         else if (type === 'setCollection') {
             return this.setCollection(data.type, data.cache, data.response);
         }
+        else if (type === 'clear') {
+            return this.clear();
+        }
         else {
             return new Error(`Unable to answer worker request: unsupported request type ${type}`);
         }
@@ -162,7 +165,7 @@ class DataWorker {
         await new Promise(cb => {
             const done = () => {
                 const i = this.onConnected.indexOf(done);
-                if(i > -1) {
+                if (i > -1) {
                     this.onConnected.splice(i, 1);
                     cb(this.status === 5);
                 }
@@ -266,13 +269,13 @@ class DataWorker {
     _getCollectionFilterMatches (filter, data) {
         let value = data[filter[1]] !== undefined ? data[filter[1]] : data[filter[1] + 'Id'];
 
-        if(filter[1] === 'month' && !data.month && data.time) {
+        if (filter[1] === 'month' && !data.month && data.time) {
             value = data.time.substr(0, 7);
         }
 
         //console.log(filter, value, data);
 
-        if(filter[0] === '>=') {
+        if (filter[0] === '>=') {
             return !!filter[2].find(v => {
                 //console.log('Comparator:', value, '>=', v, '=', value >= v);
                 return value >= v;
@@ -302,6 +305,48 @@ class DataWorker {
         (cached || [])
             .filter(c => !response.find(r => r.id === c.id))
             .forEach(data => this.deleteModel(type, data.id));
+    }
+
+    async clear () {
+        if (await this.shouldAbort()) {
+            return;
+        }
+
+        const transaction = this.database.transaction(this.config.stores, 'readwrite')
+        return Promise.all(this.config.stores.map(
+            store => this.clearStore(transaction, store)
+        ));
+    }
+
+    async clearStore (transaction, storeName) {
+        return new Promise((resolve, reject) => {
+            try {
+                const store = transaction.objectStore(storeName);
+                const req = store.openCursor();
+
+                req.onerror = err => {
+                    reject(err);
+                };
+                req.onsuccess = e => {
+                    try {
+                        const cursor = e.target.result;
+                        if (!cursor) {
+                            resolve();
+                            return;
+                        }
+
+                        store.delete(cursor.key);
+                        cursor.continue();
+                    }
+                    catch (err) {
+                        reject(err);
+                    }
+                };
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
     }
 }
 

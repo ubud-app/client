@@ -151,11 +151,11 @@ class DataHelper {
     }
 
     static async logout () {
-        if (!DataHelper._session.id) {
-            return;
-        }
+        await Promise.all([
+            DataHelper._session.id ? DataHelper._session.destroy() : Promise.resolve(),
+            DataHelperDatabase.clearDatabase()
+        ]);
 
-        await DataHelper._session.destroy();
         DataHelper._setState(DataHelper.CONNECTED);
     }
 

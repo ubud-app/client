@@ -40,6 +40,10 @@ class DataHelperDatabase {
         });
     }
 
+    static async clearDatabase () {
+        return this.request('clear');
+    }
+
 
     static async request (type, data = {}) {
         const id = Math.round(Math.random() * 999999);

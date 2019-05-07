@@ -4,6 +4,7 @@ const Backbone = require('backbone');
 const _ = require('underscore');
 const AppView = require('../views/app');
 const StoreHelper = require('../helpers/store');
+const DataHelper = require('../helpers/data');
 
 /**
  * @module routers/app
@@ -53,7 +54,7 @@ module.exports = Backbone.Router.extend({
 
         this.on('route', () => {
             const parts = location.hash.substr(1).split('/');
-            if(parts.length >= 2 && AppHelper.getDocumentId()) {
+            if (parts.length >= 2 && AppHelper.getDocumentId()) {
                 StoreHelper.set('recent', [parts[0], parts[1]]);
             }
         });
@@ -70,18 +71,18 @@ module.exports = Backbone.Router.extend({
 
     async documentRedirect () {
         const recent = StoreHelper.get('recent');
-        if(recent) {
+        if (recent) {
             this.navigate(recent.join('/'), {trigger: true});
             return;
         }
 
         const DataHelper = require('../helpers/data');
         const documents = DataHelper.getDocuments();
-        if(!documents.length) {
+        if (!documents.length) {
             await document.wait();
         }
 
-        if(documents.length >= 1) {
+        if (documents.length >= 1) {
             this.navigate(documents.first().id + '/budget', {trigger: true});
             return;
         }
@@ -90,9 +91,10 @@ module.exports = Backbone.Router.extend({
     },
     sectionRedirect (documentId) {
         const recent = StoreHelper.get('recent');
-        if(recent) {
+        if (recent) {
             this.navigate(documentId + '/' + recent[1], {trigger: true});
-        } else {
+        }
+        else {
             this.navigate(documentId + '/budget', {trigger: true});
         }
     },
@@ -218,10 +220,14 @@ module.exports = Backbone.Router.extend({
         }));
     },
     logout () {
-        const PlaceHolderView = require('../views/placeholder');
-        this.view.renderView(new PlaceHolderView({
-            icon: 'cog',
-            text: 'Logout'
-        }));
-    },
+        DataHelper.logout()
+            .then(() => {
+                this.navigate('');
+                location.reload();
+            })
+            .catch(error => {
+                const ErrorView = require('../views/error');
+                new ErrorView({error}).appendTo(this.view);
+            });
+    }
 });
