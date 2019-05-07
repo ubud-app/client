@@ -70,16 +70,16 @@ module.exports = Backbone.Router.extend({
 
 
     async documentRedirect () {
-        const recent = StoreHelper.get('recent');
-        if (recent) {
-            this.navigate(recent.join('/'), {trigger: true});
-            return;
-        }
-
         const DataHelper = require('../helpers/data');
         const documents = DataHelper.getDocuments();
         if (!documents.length) {
             await document.wait();
+        }
+
+        const recent = StoreHelper.get('recent');
+        if (recent && documents.get(recent[0])) {
+            this.navigate(recent.join('/'), {trigger: true});
+            return;
         }
 
         if (documents.length >= 1) {
