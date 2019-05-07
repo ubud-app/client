@@ -5,7 +5,6 @@ const View = require('./_');
 const ErrorView = require('./error');
 
 const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
@@ -25,9 +24,9 @@ module.exports = View.extend({
 
     async render () {
         const AppHelper = require('../helpers/app');
-        this.model = DataHelper.getDocuments().get(AppHelper.getDocumentId());
+        this.model = AppHelper.getDocument(true);
         if(!this.model) {
-            return AppHelper.navigate('', {trigger: true});
+            return;
         }
 
         this.live(this.model);

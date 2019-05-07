@@ -7,7 +7,6 @@ const View = require('./_');
 const ErrorView = require('./error');
 
 const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
@@ -54,9 +53,9 @@ module.exports = View.extend({
 
 
         // Document
-        this.document = DataHelper.getDocuments().get(AppHelper.getDocumentId());
+        this.document = AppHelper.getDocument(true);
         if(!this.document) {
-            return AppHelper.navigate('', {trigger: true});
+            return;
         }
         this.live(this.document);
         this.listenToAndCall(this.document, 'change:name', () => {

@@ -71,10 +71,11 @@ module.exports = View.extend({
 
 
         // Document
-        this.document = DataHelper.getDocuments().get(AppHelper.getDocumentId());
+        this.document = AppHelper.getDocument(true);
         if(!this.document) {
-            return AppHelper.navigate('', {trigger: true});
+            return;
         }
+
         this.live(this.document);
         this.listenToAndCall(this.document, 'change:name', () => {
             AppHelper.title(this.document.get('name'));

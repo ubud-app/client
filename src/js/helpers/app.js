@@ -4,6 +4,7 @@ const $ = require('zepto');
 const _ = require('underscore');
 const Backbone = require('backbone');
 const AppRouter = require('../routers/app');
+const DataHelper = require('./data');
 const ConfigurationHelper = require('../helpers/configuration');
 
 /**
@@ -78,6 +79,15 @@ class AppHelper {
         }
 
         return null;
+    }
+
+    static getDocument (redirect = false) {
+        const document = DataHelper.getDocuments().get(AppHelper.getDocumentId());
+        if(redirect && !document) {
+            AppHelper.navigate('', {trigger: true});
+        }
+
+        return document;
     }
 }
 

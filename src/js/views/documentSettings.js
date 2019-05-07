@@ -2,7 +2,6 @@
 
 const View = require('./_');
 const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
@@ -21,9 +20,9 @@ module.exports = View.extend({
     className: 'document-settings',
 
     render () {
-        const document = DataHelper.getDocuments().get(AppHelper.getDocumentId());
-        if(!this.document) {
-            return AppHelper.navigate('', {trigger: true});
+        const document = AppHelper.getDocument(true);
+        if(!document) {
+            return;
         }
 
         const urls = {
