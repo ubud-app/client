@@ -159,5 +159,9 @@ module.exports = View.extend({
         });
 
         this.data.avatar.url = url;
+    },
+
+    versionClick () {
+        location.reload();
     }
 });

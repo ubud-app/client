@@ -53,9 +53,5 @@ Error.stackTraceLimit = 50;
     AppHelper.initialize();
     Backbone.history.start();
 
-    $('.header__item--title').click(() => {
-        location.reload(true);
-    });
-
     $app.removeClass('app--initializing');
 })();
