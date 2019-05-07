@@ -22,6 +22,10 @@ module.exports = View.extend({
 
     render () {
         const document = DataHelper.getDocuments().get(AppHelper.getDocumentId());
+        if(!this.document) {
+            return AppHelper.navigate('', {trigger: true});
+        }
+
         const urls = {
             general: '#' + document.id + '/settings/general',
             accounts: '#' + document.id + '/settings/accounts',

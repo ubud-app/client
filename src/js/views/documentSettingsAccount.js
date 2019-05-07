@@ -24,6 +24,10 @@ module.exports = View.extend({
     async render () {
         const AppHelper = require('../helpers/app');
         this.model = DataHelper.getDocuments().get(AppHelper.getDocumentId());
+        if(!this.model) {
+            return AppHelper.navigate('', {trigger: true});
+        }
+
         this.live(this.model);
 
         this.data = {

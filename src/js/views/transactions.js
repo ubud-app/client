@@ -55,6 +55,9 @@ module.exports = View.extend({
 
         // Document
         this.document = DataHelper.getDocuments().get(AppHelper.getDocumentId());
+        if(!this.document) {
+            return AppHelper.navigate('', {trigger: true});
+        }
         this.live(this.document);
         this.listenToAndCall(this.document, 'change:name', () => {
             AppHelper.title(this.document.get('name'));
