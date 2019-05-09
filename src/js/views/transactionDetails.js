@@ -478,7 +478,14 @@ module.exports = View.extend({
 
         return invalid;
     },
-    removeTransaction () {
-        alert('@todo'); // @todo
+    async removeTransaction () {
+        this.remove();
+        
+        try {
+            await this.model.destroy();
+        }
+        catch(error) {
+            new ErrorView({error}).appendTo(AppHelper.view());
+        }
     }
 });

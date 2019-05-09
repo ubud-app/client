@@ -10,6 +10,7 @@
 				<input type="datetime-local"
 					   class="transaction-details__field-input transaction_details__input--datetime"
 					   id="transaction-details__datetime"
+					   rv-disabled="fields.isManaged"
 					   rv-datetime-value="model:time">
 			</div>
 		</div>
@@ -33,7 +34,8 @@
 				<li class="transaction-details__autocomplete-suggestion transaction-details__autocomplete-suggestion--create"
 					rv-if="fields.autoCompletionCreateText"
 					rv-class-transaction-details__autocomplete-suggestion--selected="fields.autoCompletionCreateSelected">
-					<button class="transaction-details__autocomplete-button">{ fields.autoCompletionCreateText }
+					<button class="transaction-details__autocomplete-button">
+						{ fields.autoCompletionCreateText }
 					</button>
 				</li>
 			</ul>
@@ -124,9 +126,9 @@
 		</p>
 	</div>
 
-	<!-- <button class="button button--right button--destructive"
+	<button class="button button--right button--destructive"
 			rv-unless="forms.isManaged"
 			rv-on-click="view.removeTransaction">
 		{ 'transactionDetails.remove' | string }
-	</button> -->
+	</button>
 </form>
