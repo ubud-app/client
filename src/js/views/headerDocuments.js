@@ -2,11 +2,14 @@
 
 const $ = require('jquery');
 const View = require('./_');
+const Sentry = require('@sentry/browser');
+const {DateTime} = require('luxon');
 
 const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
+const SummaryCollection = require('../collections/summary');
 const DocumentModel = require('../models/document');
 
 const HeaderDocumentsTemplate = require('../../templates/headerDocuments.html');
@@ -81,8 +84,33 @@ module.exports = View.extend({
             }
         };
 
-        this.listenToAndCall(document, 'change:id', () => {
+        this.listenToAndCall(document, 'change:id', async () => {
             item.link = '#' + document.id + '/';
+            item.tasks = '';
+
+            try {
+                const summary = new SummaryCollection();
+                summary.filterBy('document', document.id);
+                summary.filterBy('month', DateTime.local().toISODate().substr(0, 7));
+
+                await summary.fetch();
+                if (summary.length > 0 && summary.first() && summary.first().get('available') > 0) {
+                    item.tasks = ConfigurationHelper.getString('header.documents.tasks.positive', {
+                        amount: TemplateHelper.formatCurrency(summary.first().get('available'))
+                    });
+                }
+                else if (summary.length > 0 && summary.first() && summary.first().get('available') === 0) {
+                    item.tasks = ConfigurationHelper.getString('header.documents.tasks.zero');
+                }
+                else {
+                    item.tasks = ConfigurationHelper.getString('header.documents.tasks.negative', {
+                        amount: TemplateHelper.formatCurrency(summary.first().get('available'))
+                    });
+                }
+            }
+            catch(error) {
+                Sentry.captureException(error);
+            }
         });
 
         this.data.documents.push(item);

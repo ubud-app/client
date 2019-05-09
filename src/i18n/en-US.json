@@ -143,6 +143,11 @@
 			"new": {
 				"prompt": "What name should the document have?",
 				"unnamed": "Unnamed document"
+			},
+			"tasks": {
+				"negative": "budgeted {{amount}} to much",
+				"positive": "{{amount}} to budget",
+				"zero": "looks fine"
 			}
 		},
 		"connection": {
