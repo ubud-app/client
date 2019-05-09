@@ -229,7 +229,7 @@ class TemplateHelper {
      * @returns {string}
      */
     static formatCurrency (value, config = null) {
-        return AutoNumeric.format(value, config || ConfigurationHelper.getAutoNumericCurrencyConfig());
+        return AutoNumeric.format(value / 100, config || ConfigurationHelper.getAutoNumericCurrencyConfig());
     }
 
     /**
