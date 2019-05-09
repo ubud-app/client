@@ -5,5 +5,9 @@
  */
 
 module.exports = {
-    static: __dirname + '/../dest'
+    static: __dirname + '/../dest',
+    languages: [
+        'de-DE',
+        'en-US'
+    ]
 };
