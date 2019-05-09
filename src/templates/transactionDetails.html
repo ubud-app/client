@@ -29,12 +29,16 @@
 				<li class="transaction-details__autocomplete-suggestion"
 					rv-each-suggestion="autoCompletion"
 					rv-class-transaction-details__autocomplete-suggestion--selected="suggestion.selected">
-					<button class="transaction-details__autocomplete-button">{ suggestion.model:name }</button>
+					<button type="button"
+							class="transaction-details__autocomplete-button"
+						    rv-on-click="suggestion.click">{ suggestion.model:name }</button>
 				</li>
 				<li class="transaction-details__autocomplete-suggestion transaction-details__autocomplete-suggestion--create"
 					rv-if="fields.autoCompletionCreateText"
 					rv-class-transaction-details__autocomplete-suggestion--selected="fields.autoCompletionCreateSelected">
-					<button class="transaction-details__autocomplete-button">
+					<button type="button"
+							class="transaction-details__autocomplete-button"
+							rv-on-click="view.clickAutoCompletionCreate">
 						{ fields.autoCompletionCreateText }
 					</button>
 				</li>

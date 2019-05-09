@@ -129,7 +129,15 @@ module.exports = View.extend({
 
             this.data.autoCompletion.push({
                 selected: this.data.autoCompletion.length === 0,
-                model: payee
+                model: payee,
+                click: () => {
+                    this.$el.find('.transaction-details__input--payee').blur();
+
+                    this.model.set({
+                        payeeId: payee.id,
+                        payeeName: payee.get('name')
+                    });
+                }
             });
 
             if(payee.id === this.model.get('payeeId')) {
@@ -315,39 +323,17 @@ module.exports = View.extend({
 
         const i = this.data.autoCompletion.findIndex(s => s.selected);
         if(e.keyCode === 13 && i === -1 && this.data.fields.autoCompletionCreateSelected) {
-            const payee = new PayeeModel({
-                name: this.data.fields.autoCompletionCreateText,
-                documentId: AppHelper.getDocumentId()
-            });
-
-            this.$el.find('.transaction-details__input--payee').blur();
-
-            try {
-                await payee.save();
-                await this.model.set({
-                    payeeId: payee.id,
-                    payeeName: payee.get('name')
-                });
-            }
-            catch(error) {
-                new ErrorView({error}).appendTo(AppHelper.view());
-            }
-
+            await this.clickAutoCompletionCreate();
             return;
         }
         else if(e.keyCode === 13 && i > -1) {
             const {model} = this.data.autoCompletion[i];
             this.$el.find('.transaction-details__input--payee').blur();
 
-            try {
-                await this.model.set({
-                    payeeId: model.id,
-                    payeeName: model.get('name')
-                });
-            }
-            catch(error) {
-                new ErrorView({error}).appendTo(AppHelper.view());
-            }
+            this.model.set({
+                payeeId: model.id,
+                payeeName: model.get('name')
+            });
 
             return;
         }
@@ -389,7 +375,32 @@ module.exports = View.extend({
             this.data.fields.autoCompletionCreateSelected = true;
         }
     },
-    blurPayeeSelection () {
+    async clickAutoCompletionCreate () {
+        const payee = new PayeeModel({
+            name: this.data.fields.autoCompletionCreateText,
+            documentId: AppHelper.getDocumentId()
+        });
+
+        try {
+            await payee.save();
+
+            this.model.set({
+                payeeId: payee.id,
+                payeeName: payee.get('name')
+            });
+
+            this.data.fields.payee = payee.get('name');
+        }
+        catch(error) {
+            new ErrorView({error}).appendTo(AppHelper.view());
+        }
+    },
+    blurPayeeSelection (e) {
+        if(e && e.preventDefault) {
+            setTimeout(() => this.blurPayeeSelection(), 100);
+            return;
+        }
+        
         this.data.fields.autoCompletionCreateText = '';
         this.payees.set([]);
 
@@ -480,7 +491,7 @@ module.exports = View.extend({
     },
     async removeTransaction () {
         this.remove();
-        
+
         try {
             await this.model.destroy();
         }
