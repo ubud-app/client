@@ -56,7 +56,6 @@ module.exports = View.extend({
 
         this.budgets = new BudgetCollection();
         this.budgets.filterBy('document', this.model.id);
-        this.budgets.filterBy('hidden', false);
 
         this.listenTo(this.model, 'change', debounce(() => {
             this.save();

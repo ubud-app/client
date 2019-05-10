@@ -394,11 +394,15 @@ const BudgetView = View.extend({
         const entry = {
             id: budget.id,
             name: null,
+            hidden: null,
             settings: () => this.openBudgetSettings(budget)
         };
 
         view.listenToAndCall(budget, 'change:name', () => {
             entry.name = budget.get('name');
+        });
+        view.listenToAndCall(budget, 'change:hidden', () => {
+            entry.hidden = budget.get('hidden');
         });
 
         const sort = categoryEntry.budgets.sort((a, b) => String(a.name).localeCompare(

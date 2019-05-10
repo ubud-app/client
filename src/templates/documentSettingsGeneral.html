@@ -36,7 +36,9 @@
 				<span class="document-general-settings__category-settings">&#xe802;</span>
 			</button>
 			<ul class="document-general-settings__budgets">
-				<li class="document-general-settings__budget" rv-each-budget="category.budgets">
+				<li class="document-general-settings__budget"
+					rv-each-budget="category.budgets"
+					rv-class-document-general-settings__budget--hidden="budget.hidden">
 					<button class="document-general-settings__budget-button" rv-on-click="budget.settings">
 						<span class="document-general-settings__budget-name">{ budget.name }</span>
 						<span class="document-general-settings__budget-settings">&#xe802;</span>

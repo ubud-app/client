@@ -86,6 +86,9 @@
 				padding: 0.6em;
 			}
 		}
+		&--hidden {
+			text-decoration: line-through;
+		}
 
 		&-settings {
 			@extend [class^="icon-"]:before;
