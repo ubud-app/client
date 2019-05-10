@@ -2,6 +2,8 @@
 
 const io = require('socket.io-client');
 const {Collection, Model, Events} = require('backbone');
+
+const ConfigurationHelper = require('../configuration');
 const DataHelperDatabase = require('./database');
 
 const Sentry = require('@sentry/browser');
@@ -25,6 +27,7 @@ class DataHelper {
         this._state = 0; // 0=disconnected
         this._states = ['disconnected', 'connecting', 'connected', 'authenticating', 'ready'];
         this._io = null;
+        this._log = [];
         this._methodMap = {
             create: 'create',
             update: 'update',
@@ -81,9 +84,11 @@ class DataHelper {
         });
 
         // ready to connect
+        this.log('initialize', {endpoint: this.endpoint});
         this._setState(DataHelper.CONNECTING);
         this._io = io(this.endpoint);
         this._io.on('connect', () => {
+            this.log('connected');
             this._setState(DataHelper.CONNECTED);
 
             if (this._session.id) {
@@ -96,10 +101,24 @@ class DataHelper {
             this.trigger('update', data);
         });
         this._io.on('disconnect', () => {
+            this.log('disconnect');
             this._setState(DataHelper.DISCONNECTED);
         });
         this._io.on('error', (error) => {
-            this.trigger('socket:error', error); // @todo use in UI
+            this.log('error', {error: error.toString()});
+            this.trigger('socket:error', error);
+        });
+        this._io.on('connect_error', (error) => {
+            this.log('error', {error: error.toString()});
+        });
+        this._io.on('connect_timeout', () => {
+            this.log('timeout');
+        });
+        this._io.on('reconnect_error', (error) => {
+            this.log('error', {error: error.toString()});
+        });
+        this._io.on('reconnect_timeout', () => {
+            this.log('timeout');
         });
 
         // wait for database or connection
@@ -129,6 +148,7 @@ class DataHelper {
 
 
     static async login ({email, password}) {
+        this.log('authenticating.login');
         DataHelper._setState(DataHelper.AUTHENTICATING);
 
         const UAParser = require('ua-parser-js');
@@ -142,9 +162,11 @@ class DataHelper {
             });
 
             this._session.set(session);
+            this.log('authenticating.ok');
             DataHelper._setState(DataHelper.READY);
         }
         catch (err) {
+            this.log('authenticating.err', {error: err.toString()});
             DataHelper._setState(DataHelper.CONNECTED);
             throw err;
         }
@@ -156,10 +178,12 @@ class DataHelper {
             DataHelperDatabase.clearDatabase()
         ]);
 
+        this.log('logout');
         DataHelper._setState(DataHelper.CONNECTED);
     }
 
     static async _authenticate () {
+        this.log('authenticating.token');
         this._setState(DataHelper.AUTHENTICATING);
 
         try {
@@ -167,11 +191,13 @@ class DataHelper {
 
             this._setState(this.READY);
             this._session.fetch();
+            this.log('authenticating.ok');
             this.on('update', this.logoutListener);
         }
         catch (err) {
             this._session.clear();
             this._setState(this.CONNECTED);
+            this.log('authenticating.err', {error: err.toString()});
             return err;
         }
     }
@@ -188,10 +214,12 @@ class DataHelper {
         return new Promise((resolve, reject) => {
             this._io.emit(event, data, (response) => {
                 if (response.error && response.error === 401 && !this.isLoggedIn() && event !== 'sessions/create' && event !== 'auth') {
+                    this.log('autoLogout');
                     this._setState(this.CONNECTED);
                     return this.request(event, data);
                 }
                 if (response.error && response.error === 401) {
+                    this.log('autoLogout');
                     this._session.clear();
                     this._setState(this.CONNECTED);
                 }
@@ -427,6 +455,22 @@ class DataHelper {
                 cb(object);
             });
         });
+    }
+
+
+    static log (key, replacements) {
+        const message = ConfigurationHelper.getString('header.status.' + key, replacements);
+        this._log.push([new Date().getTime(), message]);
+
+        if(this._log.length > 10) {
+            this._log.splice(10, this._log.length - 10);
+        }
+
+        DataHelper.trigger('log', message);
+    }
+
+    static getLogs () {
+        return this._log;
     }
 }
 

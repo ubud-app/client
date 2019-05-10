@@ -155,6 +155,21 @@
 			"connected": "Verbunden",
 			"authenticating": "Anmelden…",
 			"ready": "Verbunden"
+		},
+		"status": {
+			"initialize": "Beginne mit Verbindung zum Server {{endpoint}}",
+			"connected": "Verbunden mit Server",
+			"disconnect": "Verbindung mit Server verloren",
+			"error": "Verbindungs-Fehler: {{error}}",
+			"timeout": "Verbindungs-Fehler: Zeitüberschreitung",
+			"authenticating": {
+				"login": "Anmeldung mit Login-Daten…",
+				"token": "Anmeldung mit existierendem Token…",
+				"ok": "Anmeldung erfolgreich, willkommen",
+				"error": "Anmeldung fehlgeschlagen: {{error}}"
+			},
+			"logout": "Abmeldung abgeschlossen, tschüss!",
+			"autoLogout": "Abgemeldet aufgrund von Server-Antwort"
 		}
 	},
 	"sidebar": {

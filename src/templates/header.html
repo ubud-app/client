@@ -9,7 +9,10 @@
 			rv-class-header__item--connection-connected="connection.connected"
 			rv-class-header__item--connection-authenticating="connection.authenticating"
 	>
-		<button class="header__connection">{ connection.string | string }</button>
+		<button class="header__connection"
+				rv-on-click="view.toggleConnectionStatus">
+			{ connection.string | string }
+		</button>
 	</li>
 	<li class="header__item header__item--settings" rv-class-header__item--avatar="avatar.visible" rv-on-click="view.toggleSettings">
 		<div class="header__item-avatar"><img rv-src="avatar.url" rv-if="avatar.url"></div>

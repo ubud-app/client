@@ -156,6 +156,21 @@
 			"connected": "Connected",
 			"authenticating": "Authenticating",
 			"ready": "Connected"
+		},
+		"status": {
+			"initialize": "Initializing connection to server {{endpoint}}",
+			"connected": "Connected to server",
+			"disconnect": "Connection to server lost",
+			"error": "Connection Error: {{error}}",
+			"timeout": "Connection Timeout",
+			"authenticating": {
+				"login": "Authenticating with login credentials",
+				"token": "Authenticating with existing token",
+				"ok": "Authentication complete, welcome!",
+				"error": "Authentication Error: {{error}}"
+			},
+			"logout": "Logout complete, bye bye!",
+			"autoLogout": "Logout due to server response"
 		}
 	},
 	"sidebar": {

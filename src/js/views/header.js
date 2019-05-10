@@ -130,5 +130,18 @@ module.exports = View.extend({
             this.data.settings.active = false;
             delete this._settings;
         });
+    },
+
+    toggleConnectionStatus () {
+        if(this._status) {
+            this._status.hide();
+            return;
+        }
+
+        const HeaderConnectionStatusView = require('./headerConnectionStatus');
+        this._status = new HeaderConnectionStatusView().appendTo(this);
+        this.listenToOnce(this._status, 'hide', () => {
+            delete this._status;
+        });
     }
 });

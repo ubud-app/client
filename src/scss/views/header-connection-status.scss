@@ -1,0 +1,107 @@
+@import '../definitions/variables';
+
+.header-connection-status {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	min-height: 100%;
+	z-index: 10;
+
+	@include greater($size-l) {
+		top: $sidebar-width;
+		left: $sidebar-width;
+		width: calc(95% - #{$sidebar-width} - 1em);
+		max-width: 64em;
+		min-height: 0;
+		max-height: calc(100% - #{$sidebar-width} - 4em);
+		padding: 2em 0;
+		background: lighten($background-copy, 8);
+		overflow: auto;
+
+		transition: background 0.1s ease-out, max-height 0.3s ease-out;
+
+		&--hidden {
+			max-height: 0;
+			background: rgba(lighten($background-copy, 10), 0);
+			transition: background 0.3s ease-in 0.1s, max-height 0.3s ease-in 0.1s;
+		}
+	}
+
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: -10px;
+		left: -10px;
+		right: -10px;
+		bottom: -10px;
+
+		z-index: -1;
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		backdrop-filter: blur(10px);
+		background: rgba($background-footer, 0.98);
+
+		transition: opacity 0.3s ease-out, transform 0.15s ease-out;
+
+		@include greater($size-l) {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: transparent;
+			backdrop-filter: none;
+			z-index: -2;
+		}
+	}
+	&--hidden:before {
+		opacity: 0;
+		transform: translate3d(0, -100%, 0);
+		transition: opacity 0.3s ease-out, transform 0s ease-out 0.3s;
+	}
+
+	&__content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 2em;
+
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+
+		@include greater($size-l) {
+			position: static;
+			top: auto;
+			left: auto;
+			right: auto;
+			bottom: auto;
+			padding: 2em;
+		}
+	}
+
+
+	&__item {
+		display: block;
+		padding: 1em;
+
+		font-family: Monaco, monospace;
+		letter-spacing: -0.05em;
+		word-break: normal;
+		color: lighten($background-footer, 60);
+	}
+
+	&__time {
+		display: block;
+		float: left;
+		width: 7em;
+		color: lighten($background-footer, 20);
+	}
+
+	&__message {
+		display: block;
+		padding-left: 8em;
+	}
+}
