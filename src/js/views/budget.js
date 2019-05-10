@@ -26,7 +26,7 @@ const PortionCollection = require('../collections/portion');
  * @augments View
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const BudgetView = View.extend({
     className: 'budget',
 
     async render () {
@@ -84,25 +84,13 @@ module.exports = View.extend({
         // Categories
         this.categories = new CategoryCollection();
         this.categories.filterBy('document', this.document.id);
-        this.live(this.categories);
 
         // Budgets
         this.budgets = new BudgetCollection();
         this.budgets.filterBy('document', this.document.id);
         this.budgets.filterBy('hidden', false);
-        this.live(this.budgets);
 
-        await Promise.all([
-            this.categories.wait(),
-            this.budgets.wait()
-        ]);
-
-        this.categories.each(this.addCategory);
-        this.listenTo(this.categories, 'add', this.addCategory);
-        this.listenTo(this.categories, 'remove', this.removeCategory);
-        this.listenTo(this.budgets, 'add', this.addBudget);
-        this.listenTo(this.budgets, 'remove', this.removeBudget);
-
+        await BudgetView.setupBudgets(this, this.data, this.categories, this.budgets);
         return this;
     },
 
@@ -200,71 +188,6 @@ module.exports = View.extend({
         });
 
         this.onScroll.done = true;
-    },
-
-    addCategory (category) {
-        const entry = {
-            id: category.id,
-            name: null,
-            settings: () => {
-                this.openCategorySettings(category);
-            },
-            budgets: []
-        };
-
-        this.listenToAndCall(category, 'change:name', () => {
-            entry.name = category.get('name');
-        });
-
-        this.data.categories.splice(this.categories.indexOf(category), 0, entry);
-
-        this.budgets
-            .filter(b => b.get('categoryId') === category.id)
-            .forEach(b => this.addBudget(b));
-    },
-    removeCategory (category) {
-        const i = this.data.categories.findIndex(e => e.id === category.id);
-        if (i > -1) {
-            this.data.categories.splice(i, 1);
-        }
-    },
-
-    addBudget (budget) {
-        const categoryEntry = this.data.categories.find(e => e.id === budget.get('categoryId'));
-        if (!categoryEntry) {
-            return;
-        }
-
-        const entry = {
-            id: budget.id,
-            name: null,
-            settings: () => {
-                this.openBudgetSettings(budget);
-            }
-        };
-
-        this.listenToAndCall(budget, 'change:name', () => {
-            entry.name = budget.get('name');
-        });
-
-        const sort = categoryEntry.budgets.sort((a, b) => String(a.name).localeCompare(
-            b.name,
-            ConfigurationHelper.getCurrentLanguage(),
-            {sensitivity: 'base'}
-        ));
-
-        categoryEntry.budgets.splice(sort.indexOf(budget.get('name')), 0, entry);
-    },
-    removeBudget (budget) {
-        const categoryEntry = this.data.categories.find(e => e.id === budget.get('categoryId'));
-        if (!categoryEntry) {
-            return;
-        }
-
-        const i = categoryEntry.budgets.findIndex(e => e.id === budget.id);
-        if (i > -1) {
-            categoryEntry.budgets.splice(i, 1);
-        }
     },
 
     async activateMonth (month) {
@@ -421,8 +344,82 @@ module.exports = View.extend({
             delete month.deactivate;
         }
         month.activated = false;
-    },
+    }
+}, {
+    async setupBudgets (view, data, categories, budgets) {
+        await Promise.all([
+            categories.wait(),
+            budgets.wait()
+        ]);
 
+        view.live(categories);
+        view.live(budgets);
+
+        categories.each(category => this.addCategory(view, data, category));
+        view.listenTo(categories, 'add', category => this.addCategory(view, data, category));
+        view.listenTo(categories, 'remove', category => this.removeCategory(data, category));
+        view.listenTo(budgets, 'add', budget => this.addBudget (view, data, budget));
+        view.listenTo(budgets, 'remove', budget => this.removeBudget(data, budget));
+    },
+    addCategory (view, data, category) {
+        const entry = {
+            id: category.id,
+            name: null,
+            settings: () => this.openCategorySettings(category),
+            budgets: []
+        };
+
+        view.listenToAndCall(category, 'change:name', () => {
+            entry.name = category.get('name');
+        });
+
+        data.categories.splice(view.categories.indexOf(category), 0, entry);
+
+        view.budgets
+            .filter(b => b.get('categoryId') === category.id)
+            .forEach(b => this.addBudget(view, data, b));
+    },
+    removeCategory (data, category) {
+        const i = data.categories.findIndex(e => e.id === category.id);
+        if (i > -1) {
+            data.categories.splice(i, 1);
+        }
+    },
+    addBudget (view, data, budget) {
+        const categoryEntry = data.categories.find(e => e.id === budget.get('categoryId'));
+        if (!categoryEntry) {
+            return;
+        }
+
+        const entry = {
+            id: budget.id,
+            name: null,
+            settings: () => this.openBudgetSettings(budget)
+        };
+
+        view.listenToAndCall(budget, 'change:name', () => {
+            entry.name = budget.get('name');
+        });
+
+        const sort = categoryEntry.budgets.sort((a, b) => String(a.name).localeCompare(
+            b.name,
+            ConfigurationHelper.getCurrentLanguage(),
+            {sensitivity: 'base'}
+        ));
+
+        categoryEntry.budgets.splice(sort.indexOf(budget.get('name')), 0, entry);
+    },
+    removeBudget (data, budget) {
+        const categoryEntry = data.categories.find(e => e.id === budget.get('categoryId'));
+        if (!categoryEntry) {
+            return;
+        }
+
+        const i = categoryEntry.budgets.findIndex(e => e.id === budget.id);
+        if (i > -1) {
+            categoryEntry.budgets.splice(i, 1);
+        }
+    },
     openCategorySettings (category) {
         alert('Category: ' + category.get('name'));
     },
@@ -430,3 +427,5 @@ module.exports = View.extend({
         alert('Budget: ' + category.get('name'));
     }
 });
+
+module.exports = BudgetView;

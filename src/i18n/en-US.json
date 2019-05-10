@@ -217,7 +217,8 @@
 		"headline": "General Document Settings",
 		"labels": {
 			"name": "Document Name",
-			"currency": "Currency used"
+			"currency": "Currency used",
+			"budgets": "Budgets"
 		},
 		"currency": {
 			"euro": "Euro (€)",

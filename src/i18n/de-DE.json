@@ -157,7 +157,7 @@
 			"ready": "Verbunden"
 		},
 		"status": {
-			"initialize": "Beginne mit Verbindung zum Server {{endpoint}}",
+			"initialize": "Beginne mit Verbindung zum Server ""{{endpoint}}",
 			"connected": "Verbunden mit Server",
 			"disconnect": "Verbindung mit Server verloren",
 			"error": "Verbindungs-Fehler: {{error}}",
@@ -216,7 +216,8 @@
 		"headline": "Allgemeine Einstellungen",
 		"labels": {
 			"name": "Name des Dokuments",
-			"currency": "Verwendete Währung"
+			"currency": "Verwendete Währung",
+			"budgets": "Budgets"
 		},
 		"currency": {
 			"euro": "Euro (€)",

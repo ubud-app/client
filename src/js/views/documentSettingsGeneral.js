@@ -3,10 +3,14 @@
 const {debounce} = require('underscore');
 const View = require('./_');
 const ErrorView = require('./error');
+const BudgetView = require('./budget');
 
 const AppHelper = require('../helpers/app');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
+
+const CategoryCollection = require('../collections/category');
+const BudgetCollection = require('../collections/budget');
 
 const DocumentSettingsGeneralTemplate = require('../../templates/documentSettingsGeneral.html');
 
@@ -29,20 +33,30 @@ module.exports = View.extend({
             return;
         }
 
-        this.live(this.model);
+        this.data = {
+            document: this.model,
+            categories: []
+        };
 
         TemplateHelper.render({
             view: this,
             template: DocumentSettingsGeneralTemplate,
-            data: {
-                document: this.model
-            }
+            data: this.data
         });
+
+        this.live(this.model);
 
         AppHelper.view().setTitle(ConfigurationHelper.getString('documentSettingsGeneral.headline'));
         this.listenToAndCall(this.model, 'change:name', () => {
             AppHelper.title(this.model.get('name'));
         });
+
+        this.categories = new CategoryCollection();
+        this.categories.filterBy('document', this.model.id);
+
+        this.budgets = new BudgetCollection();
+        this.budgets.filterBy('document', this.model.id);
+        this.budgets.filterBy('hidden', false);
 
         this.listenTo(this.model, 'change', debounce(() => {
             this.save();
@@ -51,6 +65,7 @@ module.exports = View.extend({
             this.save();
         });
 
+        await BudgetView.setupBudgets(this, this.data, this.categories, this.budgets);
         return this;
     },
 

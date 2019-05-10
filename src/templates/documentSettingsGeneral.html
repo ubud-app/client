@@ -1,6 +1,6 @@
 <form class="document-general-settings__form b-form b-loader b-loader--light"
 	  rv-on-submit="view.submit"
-      rv-class-loading="document:isSyncing">
+	  rv-class-loading="document:isSyncing">
 	<h1 class="document-general-settings__headline b-headline-l1">{ 'documentSettingsGeneral.headline' | string }</h1>
 	<h2 class="document-general-settings__document b-headline-l2">{ document:name }</h2>
 
@@ -26,4 +26,23 @@
 			<option value="dollar">{ 'documentSettingsGeneral.currency.dollar' | string }</option>
 		</select>
 	</span>
+
+	<span class="b-form-label">{ 'documentSettingsGeneral.labels.budgets' | string }</span>
+	<ul class="document-general-settings__categories">
+		<li class="document-general-settings__category" rv-each-category="categories">
+			<button class="document-general-settings__category-header"
+					rv-on-click="category.settings">
+				<span class="document-general-settings__category-name">{ category.name }</span>
+				<span class="document-general-settings__category-settings">&#xe802;</span>
+			</button>
+			<ul class="document-general-settings__budgets">
+				<li class="document-general-settings__budget" rv-each-budget="category.budgets">
+					<button class="document-general-settings__budget-button" rv-on-click="budget.settings">
+						<span class="document-general-settings__budget-name">{ budget.name }</span>
+						<span class="document-general-settings__budget-settings">&#xe802;</span>
+					</button>
+				</li>
+			</ul>
+		</li>
+	</ul>
 </form>

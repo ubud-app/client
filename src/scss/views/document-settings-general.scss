@@ -1,0 +1,107 @@
+@import '../definitions/variables';
+
+.document-general-settings {
+	&__category {
+		padding: 1em;
+		background: lighten($background-box, 1);
+
+		&-header {
+			width: 100%;
+			text-align: inherit;
+			position: relative;
+			padding: 1em 0.6em;
+		}
+		@include greater($size-l) {
+			padding: 0.6em;
+		}
+		&:first-child &-header {
+			padding-top: 0.6em;
+		}
+
+		&-name {
+			display: block;
+			position: relative;
+			font-weight: bold;
+			color: lighten($text, 15);
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: visible;
+
+			@include greater($size-m) {
+				overflow: hidden;
+			}
+		}
+		&-settings {
+			@extend [class^="icon-"]:before;
+			position: absolute;
+			display: none;
+			top: 0.8em;
+			right: 0.6em;
+			color: lighten($text, 25);
+		}
+		@include greater($size-l) {
+			&-header:hover &-name {
+				padding-right: 2em;
+			}
+			&-header:hover &-settings {
+				display: block;
+			}
+		}
+	}
+
+	&__budget {
+		display: block;
+		position: relative;
+
+		&-button {
+			width: 100%;
+			text-align: inherit;
+			background: darken($background-box, 2);
+
+			@include greater($size-l) {
+				&:hover {
+					background: darken($background-box, 4);
+				}
+			}
+		}
+		&:nth-child(2n) &-button {
+			background: lighten($background-box, 1);
+
+			@include greater($size-l) {
+				&:hover {
+					background: lighten($background-box, 3);
+				}
+			}
+		}
+
+		&-name {
+			display: block;
+			padding: 0.8em 0.6em;
+
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+
+			@include greater($size-l) {
+				padding: 0.6em;
+			}
+		}
+
+		&-settings {
+			@extend [class^="icon-"]:before;
+			position: absolute;
+			display: none;
+			top: 0.8em;
+			right: 0.6em;
+			color: lighten($text, 25);
+		}
+		@include greater($size-l) {
+			&:hover &-name {
+				padding-right: 2em;
+			}
+			&:hover &-settings {
+				display: block;
+			}
+		}
+	}
+}
