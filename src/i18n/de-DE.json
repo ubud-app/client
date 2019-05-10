@@ -157,7 +157,7 @@
 			"ready": "Verbunden"
 		},
 		"status": {
-			"initialize": "Beginne mit Verbindung zum Server ""{{endpoint}}",
+			"initialize": "Beginne mit Verbindung zum Server {{endpoint}}",
 			"connected": "Verbunden mit Server",
 			"disconnect": "Verbindung mit Server verloren",
 			"error": "Verbindungs-Fehler: {{error}}",
