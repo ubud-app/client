@@ -187,14 +187,106 @@
 
 	/** Danger Zone **/
 	&-danger {
-		&-text {
-			color: rgba($text, 0.6);
+		margin: 4em 0 1em;
+		padding: 1em;
+		border: 0.1em solid $red;
+
+		@extend .b-loader;
+		@extend .b-loader--light;
+
+		& + & {
+			margin-top: 1em;
 		}
 
-		&-button {
+		&__headline {
+			margin: 0 0 0.2em;
+			color: lighten($text, 10);
+			font-size: 1.2em;
+		}
+		&__message {
+			color: rgba($text, 0.6);
+			font-size: 0.9em;
+		}
+
+		&__button {
 			@extend .button;
 			@extend .button--destructive;
 			margin-top: 15px;
+		}
+	}
+
+
+
+	/** Modal */
+	&-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 35;
+		background: rgba($background, 0.96);
+
+		@supports (backdrop-filter: grayscale(100%) blur(10px)) {
+			background: rgba($background, 0.90);
+			backdrop-filter: grayscale(100%) blur(10px);
+		}
+
+		&__content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 80%;
+			max-width: 800px;
+			max-height: 100%;
+			padding: 5% 0 20% 0;
+			transform: translate(-50%, -50%);
+			overflow: auto;
+
+			@include greater($size-m) {
+				width: 90%;
+				max-width: 46em;
+				margin: 0 auto;
+				padding-right: 1em;
+			}
+		}
+
+		& .b-headline {
+			&-l1,
+			&-l2 {
+				display: block;
+				margin: 3em 0 2em;
+
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+
+			&-l1 {
+				font-size: 1.4em;
+
+				@include greater($size-l) {
+					font-size: 1.8em;
+				}
+
+				& + .b-headline-l2 {
+					color: lighten($text, 20);
+					font-size: 1.1em;
+					margin-top: -2.6em;
+
+					@include greater($size-l) {
+						margin-top: -2.8em;
+					}
+				}
+			}
+
+			&-l2 {
+				font-size: 1.2em;
+
+				@include greater($size-l) {
+					font-size: 1.4em;
+				}
+			}
 		}
 	}
 }

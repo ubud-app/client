@@ -5,6 +5,10 @@
 		padding: 1em;
 		background: lighten($background-box, 1);
 
+		&:not(:first-child) {
+			margin-top: 1em;
+		}
+
 		&-header {
 			width: 100%;
 			text-align: inherit;
@@ -53,23 +57,18 @@
 		display: block;
 		position: relative;
 
+		& + & {
+			border-top: 1px solid darken($background-box, 5);
+		}
+
 		&-button {
 			width: 100%;
 			text-align: inherit;
-			background: darken($background-box, 2);
+			background: lighten($background-box, 2);
 
 			@include greater($size-l) {
 				&:hover {
-					background: darken($background-box, 4);
-				}
-			}
-		}
-		&:nth-child(2n) &-button {
-			background: lighten($background-box, 1);
-
-			@include greater($size-l) {
-				&:hover {
-					background: lighten($background-box, 3);
+					background: lighten($background-box, 4);
 				}
 			}
 		}
@@ -87,6 +86,7 @@
 			}
 		}
 		&--hidden {
+			display: none;
 			text-decoration: line-through;
 		}
 
@@ -105,6 +105,45 @@
 			&:hover &-settings {
 				display: block;
 			}
+		}
+	}
+	&__categories--with-hidden &__budget--hidden {
+		display: block;
+	}
+
+	&__add,
+	&__toggle-hidden-button {
+		display: block;
+		width: 100%;
+
+		margin-top: 1em;
+		padding: 1em;
+		background: lighten($background-box, 1);
+		text-align: center;
+
+		@include greater($size-l) {
+			&:hover {
+				background: $background-box;
+			}
+		}
+	}
+	&__toggle-hidden-button {
+		font-size: 0.8em;
+		color: rgba($text, 0.6);
+	}
+
+	&__add {
+		&-plus {
+			display: block;
+			font-size: 4em;
+			line-height: 1em;
+			color: rgba($text, 0.4);
+		}
+		&-text {
+			display: block;
+			margin: 0 0 1em;
+			font-size: 0.8em;
+			color: rgba($text, 0.8);
 		}
 	}
 }

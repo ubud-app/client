@@ -18,7 +18,6 @@ const ErrorTemplate = require('../../templates/error.html');
  * @author Sebastian Pekarek
  */
 module.exports = View.extend({
-    tagName: 'div',
     className: 'error',
     events: {
         click: 'closeHandler'

@@ -28,9 +28,11 @@
 	</span>
 
 	<span class="b-form-label">{ 'documentSettingsGeneral.labels.budgets' | string }</span>
-	<ul class="document-general-settings__categories">
+	<ul class="document-general-settings__categories"
+		rv-class-document-general-settings__categories--with-hidden="meta.showHidden">
 		<li class="document-general-settings__category" rv-each-category="categories">
 			<button class="document-general-settings__category-header"
+					type="button"
 					rv-on-click="category.settings">
 				<span class="document-general-settings__category-name">{ category.name }</span>
 				<span class="document-general-settings__category-settings">&#xe802;</span>
@@ -39,7 +41,9 @@
 				<li class="document-general-settings__budget"
 					rv-each-budget="category.budgets"
 					rv-class-document-general-settings__budget--hidden="budget.hidden">
-					<button class="document-general-settings__budget-button" rv-on-click="budget.settings">
+					<button class="document-general-settings__budget-button"
+							rv-on-click="budget.settings"
+							type="button">
 						<span class="document-general-settings__budget-name">{ budget.name }</span>
 						<span class="document-general-settings__budget-settings">&#xe802;</span>
 					</button>
@@ -47,4 +51,18 @@
 			</ul>
 		</li>
 	</ul>
+
+	<button class="document-general-settings__toggle-hidden-button"
+			type="button"
+			rv-on-click="view.toggleHidden">
+		<span rv-unless="meta.showHidden">▾ { 'documentSettingsGeneral.budgets.showHidden' | string }</span>
+		<span rv-if="meta.showHidden">▴ { 'documentSettingsGeneral.budgets.hideHidden' | string }</span>
+	</button>
+
+	<button class="document-general-settings__add"
+			type="button"
+			rv-on-click="view.addCategory">
+		<span class="document-general-settings__add-plus">+</span>
+		<span class="document-general-settings__add-text">{ 'documentSettingsGeneral.budgets.addCategory' | string }</span>
+	</button>
 </form>

@@ -223,6 +223,12 @@
 		"currency": {
 			"euro": "Euro (€)",
 			"dollar": "Dollar ($)"
+		},
+		"budgets": {
+			"showHidden": "Show hidden budgets",
+			"hideHidden": "Hide hidden budgets again",
+			"addCategory": "Add category",
+			"newCategory": "New category"
 		}
 	},
 	"documentSettingsAccount": {

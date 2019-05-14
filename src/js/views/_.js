@@ -176,5 +176,32 @@ module.exports = Backbone.View.extend({
         });
 
         return stop;
+    },
+
+    activateModal () {
+        setTimeout(() => {
+            this.$el.removeClass('b-modal--hidden');
+        }, 0);
+
+        this.hide = async () => {
+            this.$el.addClass('b-modal--hidden');
+            await new Promise(cb => setTimeout(cb, 300));
+            this.remove();
+        };
+
+        const closeHandler = e => {
+            if ($(e.target).is('.b-modal') || $(e.target).is('.b-modal__content')) {
+                this.hide().catch(error => {
+                    const ErrorView = require('./error');
+                    const AppHelper = require('../helpers/app');
+                    new ErrorView({error}).appendTo(AppHelper.view());
+                });
+            }
+        };
+
+        this.$el.on('click', closeHandler);
+        this.once('remove', () => {
+            this.$el.off('click', closeHandler);
+        });
     }
 });

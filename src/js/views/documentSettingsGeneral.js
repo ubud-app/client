@@ -1,6 +1,5 @@
 'use strict';
 
-const {debounce} = require('underscore');
 const View = require('./_');
 const ErrorView = require('./error');
 const BudgetView = require('./budget');
@@ -35,7 +34,10 @@ module.exports = View.extend({
 
         this.data = {
             document: this.model,
-            categories: []
+            categories: [],
+            meta: {
+                showHidden: false
+            }
         };
 
         TemplateHelper.render({
@@ -57,9 +59,6 @@ module.exports = View.extend({
         this.budgets = new BudgetCollection();
         this.budgets.filterBy('document', this.model.id);
 
-        this.listenTo(this.model, 'change', debounce(() => {
-            this.save();
-        }, 250));
         this.once('remove', () => {
             this.save();
         });
@@ -83,5 +82,22 @@ module.exports = View.extend({
             new ErrorView({error}).appendTo(AppHelper.view());
             throw error;
         }
+    },
+
+    toggleHidden () {
+        this.data.meta.showHidden = !this.data.meta.showHidden;
+    },
+
+    async addCategory () {
+        const CategoryModel = require('../models/category');
+        const category = new CategoryModel({
+            documentId: this.model.id,
+            name: ConfigurationHelper.getString('documentSettingsGeneral.budgets.newCategory')
+        });
+
+        this.categories.add(category);
+        await category.save();
+
+        BudgetView.openCategorySettings(category, true);
     }
 });

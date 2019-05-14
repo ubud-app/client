@@ -5,6 +5,8 @@ const {debounce} = require('underscore');
 const {DateTime} = require('luxon');
 
 const View = require('./_');
+const CategoryEditorView = require('./categoryEditor');
+
 const AppHelper = require('../helpers/app');
 const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
@@ -365,7 +367,7 @@ const BudgetView = View.extend({
         const entry = {
             id: category.id,
             name: null,
-            settings: () => this.openCategorySettings(category),
+            settings: () => this.openCategorySettings(category, !(view instanceof BudgetView)),
             budgets: []
         };
 
@@ -424,8 +426,11 @@ const BudgetView = View.extend({
             categoryEntry.budgets.splice(i, 1);
         }
     },
-    openCategorySettings (category) {
-        alert('Category: ' + category.get('name'));
+    openCategorySettings (category, allowDelete) {
+        new CategoryEditorView({
+            model: category,
+            allowDelete
+        }).appendTo(AppHelper.view());
     },
     openBudgetSettings (category) {
         alert('Budget: ' + category.get('name'));

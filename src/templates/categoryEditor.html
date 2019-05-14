@@ -1,0 +1,45 @@
+<form class="category-editor__content b-modal__content b-form" rv-on-submit="view.submit">
+	<h2 class="b-headline-l1">Kategorie bearbeiten</h2>
+	<h3 class="b-headline-l2">{ model:name }</h3>
+
+	<label class="b-form-label" for="category-editor__input--name">Name</label>
+	<input type="text"
+		   name="name"
+		   id="category-editor__input--name"
+		   rv-value="model:name"
+		   autocomplete="disabled"
+		   class="b-form-input"/>
+
+	<div class="b-danger" rv-if="delete.showDeleteAndMove" rv-class-loading="delete.deleting">
+		<h3 class="b-danger__headline">Kategorie löschen</h3>
+		<p class="b-danger__message">
+			Du kannst diese Kategorie erst löschen, wenn keine Budgets mehr darin eingeordnet sind. Du kannst
+			allerdings alle enthaltenen Budgets in eine andere Kategorie verschieben und die Kategorie dann
+			löschen.
+		</p>
+
+		<label class="b-form-label" for="category-editor__input--name">Kategorie</label>
+		<div class="b-form-select-wrap">
+			<select name="category"
+					id="category-editor__input--category"
+					class="b-form-select"
+					rv-value="delete.categoryId">
+				<option rv-value="category:id" rv-each-category="delete.categories">{ category:name }</option>
+			</select>
+		</div>
+
+		<button class="b-danger__button"
+				type="button"
+				rv-on-click="view.moveAndDelete">Verschieben & Löschen</button>
+	</div>
+	<div class="b-danger" rv-if="delete.showDelete" rv-class-loading="delete.deleting">
+		<h3 class="b-danger__headline">Kategorie löschen</h3>
+		<p class="b-danger__message">
+			Diese Kategorie enthält keine Budgets mehr, sie kann daher problemlos gelöscht werden.
+		</p>
+
+		<button class="b-danger__button"
+				type="button"
+				rv-on-click="view.delete">Kategorie löschen</button>
+	</div>
+</form>
