@@ -74,7 +74,7 @@ const BudgetView = View.extend({
 
         // Document
         this.document = AppHelper.getDocument(true);
-        if(!this.document) {
+        if (!this.document) {
             return;
         }
 
@@ -101,6 +101,7 @@ const BudgetView = View.extend({
             id: month.toISODate().substr(0, 7),
             current: month.hasSame(DateTime.local(), 'month'),
             activated: false,
+            rendered: false,
             availableNegative: false,
             month: month.toFormat('LLLL'),
             year: month.toFormat('yyyy'),
@@ -231,7 +232,10 @@ const BudgetView = View.extend({
         portions.filterBy('hidden', false);
 
         const update = debounce(() => this.updateMonthBody(month, portions), 25);
-        this.updateMonthBody(month, portions);
+        if (!month.rendered) {
+            month.rendered = true;
+            this.updateMonthBody(month, portions);
+        }
 
         await portions.wait();
         month.deactivate.push(this.live(portions));
@@ -360,7 +364,7 @@ const BudgetView = View.extend({
         categories.each(category => this.addCategory(view, data, category));
         view.listenTo(categories, 'add', category => this.addCategory(view, data, category));
         view.listenTo(categories, 'remove', category => this.removeCategory(data, category));
-        view.listenTo(budgets, 'add', budget => this.addBudget (view, data, budget));
+        view.listenTo(budgets, 'add', budget => this.addBudget(view, data, budget));
         view.listenTo(budgets, 'remove', budget => this.removeBudget(data, budget));
     },
     addCategory (view, data, category) {
