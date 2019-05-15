@@ -202,23 +202,31 @@ module.exports = View.extend({
     },
 
     async hide () {
-        const valid = this.checkUnits();
-        if(valid) {
+        if(!this.model.get('accountId')) {
+            await this._hide();
+            return;
+        }
+
+        const invalid = this.checkUnits();
+        if(invalid) {
             return;
         }
 
         if(this.model.isSyncing()) {
-            await  this.model.wait();
+            await this.model.wait();
         }else {
             try {
-                this.model.save();
+                await this.model.save();
             }
             catch (error) {
                 new ErrorView({error}).appendTo(AppHelper.view());
-                return;
+            }
+            finally {
+                await this._hide();
             }
         }
-
+    },
+    async _hide () {
         this.trigger('hide');
         this.$el.addClass('transaction-details--hidden');
 
