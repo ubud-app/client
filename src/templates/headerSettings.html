@@ -25,7 +25,7 @@
 	</div>
 	<div class="header-settings__wrap header-settings__wrap--admin" rv-class-header-settings__wrap--hidden="admin.hidden">
 		<h3 class="header-settings__headline">{ 'header.settings.instance.headline' | string }</h3>
-		<h4 class="header-settings__subheadline">dwimm.sebbo.net</h4>
+		<h4 class="header-settings__subheadline">{ admin.address }</h4>
 		<ul class="header-settings__menu">
 			<li class="header-settings__item">
 				<a href="#admin/" class="header-settings__link">{ 'header.settings.instance.general' | string }</a>
@@ -46,7 +46,7 @@
 	</div>
 	<div class="header-settings__wrap header-settings__wrap--user" rv-class-header-settings__wrap--hidden="user.hidden">
 		<h3 class="header-settings__headline">{ 'header.settings.account.headline' | string }</h3>
-		<h4 class="header-settings__subheadline">mail@sebbo.net</h4>
+		<h4 class="header-settings__subheadline">{ user.model:email }</h4>
 		<ul class="header-settings__menu">
 			<li class="header-settings__item">
 				<a href="#account/devices" class="header-settings__link">{ 'header.settings.account.devices' | string }</a>

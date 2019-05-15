@@ -48,10 +48,12 @@ module.exports = View.extend({
                 }
             },
             admin: {
-                hidden: true
+                hidden: true,
+                address: location.host
             },
             user: {
-                hidden: true
+                hidden: true,
+                model: DataHelper.getUser()
             },
             version: {
                 name: ConfigurationHelper.getVersion(),
