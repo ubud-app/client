@@ -204,7 +204,7 @@ module.exports = View.extend({
 
     async hide () {
         if(!this.model.get('accountId') || this.deleting) {
-            await this._hide();
+            this._hide();
             return;
         }
 
@@ -212,6 +212,8 @@ module.exports = View.extend({
         if(invalid) {
             return;
         }
+
+        this._hide();
 
         if(this.model.isSyncing()) {
             await this.model.wait();
@@ -221,9 +223,6 @@ module.exports = View.extend({
             }
             catch (error) {
                 new ErrorView({error}).appendTo(AppHelper.view());
-            }
-            finally {
-                await this._hide();
             }
         }
     },
