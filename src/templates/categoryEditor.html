@@ -1,8 +1,8 @@
 <form class="category-editor__content b-modal__content b-form" rv-on-submit="view.submit">
-	<h2 class="b-headline-l1">Kategorie bearbeiten</h2>
+	<h2 class="b-headline-l1">{ 'categoryEditor.title' | string }</h2>
 	<h3 class="b-headline-l2">{ model:name }</h3>
 
-	<label class="b-form-label" for="category-editor__input--name">Name</label>
+	<label class="b-form-label" for="category-editor__input--name">{ 'categoryEditor.labels.name' | string }</label>
 	<input type="text"
 		   name="name"
 		   id="category-editor__input--name"
@@ -11,14 +11,10 @@
 		   class="b-form-input"/>
 
 	<div class="b-danger" rv-if="delete.showDeleteAndMove" rv-class-loading="delete.deleting">
-		<h3 class="b-danger__headline">Kategorie löschen</h3>
-		<p class="b-danger__message">
-			Du kannst diese Kategorie erst löschen, wenn keine Budgets mehr darin eingeordnet sind. Du kannst
-			allerdings alle enthaltenen Budgets in eine andere Kategorie verschieben und die Kategorie dann
-			löschen.
-		</p>
+		<h3 class="b-danger__headline">{ 'categoryEditor.delete.title' | string }</h3>
+		<p class="b-danger__message">{ 'categoryEditor.delete.move.message' | string }</p>
 
-		<label class="b-form-label" for="category-editor__input--name">Kategorie</label>
+		<label class="b-form-label" for="category-editor__input--name">{ 'categoryEditor.labels.category' | string }</label>
 		<div class="b-form-select-wrap">
 			<select name="category"
 					id="category-editor__input--category"
@@ -30,16 +26,18 @@
 
 		<button class="b-danger__button"
 				type="button"
-				rv-on-click="view.moveAndDelete">Verschieben & Löschen</button>
+				rv-on-click="view.moveAndDelete">{ 'categoryEditor.delete.move.button' | string }</button>
 	</div>
 	<div class="b-danger" rv-if="delete.showDelete" rv-class-loading="delete.deleting">
-		<h3 class="b-danger__headline">Kategorie löschen</h3>
-		<p class="b-danger__message">
-			Diese Kategorie enthält keine Budgets mehr, sie kann daher problemlos gelöscht werden.
-		</p>
+		<h3 class="b-danger__headline">{ 'categoryEditor.delete.title' | string }</h3>
+		<p class="b-danger__message">{ 'categoryEditor.delete.message' | string </p>
 
 		<button class="b-danger__button"
 				type="button"
-				rv-on-click="view.delete">Kategorie löschen</button>
+				rv-on-click="view.delete">{ 'categoryEditor.delete.button' | string </button>
+	</div>
+
+	<div class="b-form-buttons">
+		<button class="b-form-button b-form-button--save">{ 'categoryEditor.done' | string }</button>
 	</div>
 </form>

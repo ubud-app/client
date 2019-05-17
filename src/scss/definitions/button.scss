@@ -74,16 +74,53 @@
 	&--inline {
 		width: auto;
 		display: inline-block;
+
+		@include greater($size-l) {
+			&-l {
+				width: auto;
+				display: inline-block;
+			}
+		}
 	}
 
+	&--left {
+		width: auto;
+		float: left;
+		margin-top: 15px;
+
+		@include greater($size-l) {
+			&-l {
+				width: auto;
+				float: left;
+				margin-top: 15px;
+			}
+		}
+	}
 	&--right {
+		width: auto;
 		float: right;
 		margin-top: 15px;
+
+		@include greater($size-l) {
+			&-l {
+				width: auto;
+				float: right;
+				margin-top: 15px;
+			}
+		}
 	}
 
 	&--small {
 		font-size: 0.9em;
 		border-radius: 3px;
 		padding: 5px 16px;
+
+		&-l {
+			@include greater($size-l) {
+				font-size: 0.9em;
+				border-radius: 3px;
+				padding: 5px 16px;
+			}
+		}
 	}
 }

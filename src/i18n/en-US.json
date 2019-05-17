@@ -231,6 +231,34 @@
 			"newCategory": "New category"
 		}
 	},
+	"categoryEditor": {
+		"title": "Edit category",
+		"labels": {
+			"name": "Name",
+			"category": "Category"
+		},
+		"delete": {
+			"title": "Delete category",
+			"move": {
+				"message": "You can only delete this category when there are no more budgets in it. However, you can move all contained budgets to another category and then delete the category.",
+				"button": "Move & Delete"
+			},
+			"message": "This category no longer contains budgets, so it can be easily deleted.",
+			"button": "Delete category"
+		},
+		"done": "Fertig"
+	},
+	"budgetEditor": {
+		"title": "Edit budget",
+		"labels": {
+			"name": "Name",
+			"category": "Category",
+			"goal": "Goal"
+		},
+		"hide": "Hide budget",
+		"show": "Show budget again",
+		"done": "Done"
+	},
 	"documentSettingsAccount": {
 		"headline": "Account Settings",
 		"empty": "No accounts are currently defined in this document.",

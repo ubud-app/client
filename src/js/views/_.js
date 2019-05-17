@@ -184,6 +184,7 @@ module.exports = Backbone.View.extend({
         }, 0);
 
         this.hide = async () => {
+            this.$el.removeClass('loading');
             this.$el.addClass('b-modal--hidden');
             await new Promise(cb => setTimeout(cb, 300));
             this.remove();

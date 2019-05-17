@@ -1,29 +1,48 @@
-<form class="category-editor__content b-modal__content b-form">
-	<h2 class="b-headline-l1">Kategorie bearbeiten</h2>
+<form class="budget-editor__content b-modal__content b-form" rv-on-submit="view.submit">
+	<h2 class="b-headline-l1">{ 'budgetEditor.title' | string }</h2>
 	<h3 class="b-headline-l2">{ model:name }</h3>
 
-	<label class="b-form-label" for="category-editor__input--name">Name</label>
+	<label class="b-form-label" for="budget-editor__input--name">{ 'budgetEditor.labels.name' | string }</label>
 	<input type="text"
 		   name="name"
-		   id="category-editor__input--name"
+		   id="budget-editor__input--name"
 		   rv-value="model:name"
 		   autocomplete="disabled"
 		   class="b-form-input"/>
 
-	<label class="b-form-label" for="category-editor__input--category">Kategorie</label>
+	<label class="b-form-label" for="budget-editor__input--category">{ 'budgetEditor.labels.category' | string }</label>
 	<span class="b-form-select-wrap">
 			<select name="category"
-					id="category-editor__input--category"
+					id="budget-editor__input--category"
 					class="b-form-select"
 					rv-value="model:categoryId">
 				<option rv-value="category:id" rv-each-category="categories:models">{ category:name }</option>
 			</select>
 		</span>
 
-	<label class="b-form-label" for="category-editor__input--goal">Sparziel</label>
-	<input type="text"
-		   name="goal"
-		   id="category-editor__input--goal"
-		   class="b-form-input"
-		   rv-currency-value="model:goal" />
+	<label class="b-form-label" for="budget-editor__input--goal">{ 'budgetEditor.labels.goal' | string }</label>
+	<div class="budget-editor__goal">
+		<input type="checkbox"
+			   class="budget-editor__goal-checkbox"
+			   rv-checked="goal.checkbox.checked"
+		       rv-on-click="view.clickGoalCheckbox">
+
+		<input type="text"
+			   name="goal"
+			   id="budget-editor__input--goal"
+			   class="budget-editor__goal-input"
+			   rv-class-budget-editor__goal-input--empty="goal.input.disabled"
+			   rv-currency-value="model:goal" />
+	</div>
+	<div class="b-form-buttons">
+		<button class="b-form-button b-form-button--hide"
+				type="button"
+				rv-on-click="view.toggleHidden"
+				rv-unless="model:hidden">{ 'budgetEditor.hide' | string }</button>
+		<button class="b-form-button b-form-button--unhide"
+				type="button"
+				rv-on-click="view.toggleHidden"
+				rv-if="model:hidden">{ 'budgetEditor.show' | string }</button>
+		<button class="b-form-button b-form-button--save">{ 'budgetEditor.done' | string }</button>
+	</div>
 </form>

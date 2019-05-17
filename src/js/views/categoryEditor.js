@@ -98,7 +98,7 @@ module.exports = View.extend({
     async submit (e) {
         e.preventDefault();
         await this.save();
-        this.remove();
+        this.hide();
     },
 
     async save () {
@@ -111,7 +111,7 @@ module.exports = View.extend({
         }
         catch (error) {
             if (error === 404) {
-                this.remove();
+                this.hide();
                 return;
             }
 

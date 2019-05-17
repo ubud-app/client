@@ -115,6 +115,10 @@ $budget-height: 36px;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			overflow: hidden;
+
+			&--hidden {
+				text-decoration: line-through;
+			}
 		}
 		&-budget-settings {
 			@extend [class^="icon-"]:before;

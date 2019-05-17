@@ -1,0 +1,32 @@
+@import '../definitions/variables';
+
+.budget-editor {
+	&__goal {
+		position: relative;
+		@extend .b-form-input;
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 32px;
+			width: 1px;
+			background: rgba($text, 0.1);
+		}
+
+		&-input {
+			float: right;
+			appearance: none;
+			display: block;
+			width: calc(100% - 35px);
+			border: 1px solid lighten($background-box, 2);
+			outline: none;
+			background: lighten($background-box, 2);
+
+			&--empty {
+				opacity: 0.4;
+			}
+		}
+	}
+}

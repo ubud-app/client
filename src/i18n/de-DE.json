@@ -230,6 +230,34 @@
 			"newCategory": "Neue Kategorie"
 		}
 	},
+	"categoryEditor": {
+		"title": "Kategorie bearbeiten",
+		"labels": {
+			"name": "Name",
+			"category": "Kategorie"
+		},
+		"delete": {
+			"title": "Kategorie löschen",
+			"move": {
+				"message": "Du kannst diese Kategorie erst löschen, wenn keine Budgets mehr darin eingeordnet sind. Du kannst allerdings alle enthaltenen Budgets in eine andere Kategorie verschieben und die Kategorie dann löschen.",
+				"button": "Verschieben & Löschen"
+			},
+			"message": "Diese Kategorie enthält keine Budgets mehr, sie kann daher problemlos gelöscht werden.",
+			"button": "Kategorie löschen"
+		},
+		"done": "Fertig"
+	},
+	"budgetEditor": {
+		"title": "Budget bearbeiten",
+		"labels": {
+			"name": "Name",
+			"category": "Kategorie",
+			"goal": "Sparziel"
+		},
+		"hide": "Budget ausblenden",
+		"show": "Budget wieder einblenden",
+		"done": "Fertig"
+	},
 	"documentSettingsAccount": {
 		"headline": "Konten",
 		"empty": "Aktuell sind keine Konten hinterlegt.",

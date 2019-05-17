@@ -2,12 +2,15 @@
 	<ul class="budget__label-categories">
 		<li class="budget__label-category" rv-each-category="categories">
 			<div class="budget__label-category-header">
-				<span class="budget__label-category-name">{ category.name }</span>
+				<span class="budget__label-category-name"
+					  rv-on-click="category.mobileSettings">{ category.name }</span>
 				<button class="budget__label-category-settings" rv-on-click="category.settings">&#xe802;</button>
 			</div>
 			<ul class="budget__label-budgets">
 				<li class="budget__label-budget" rv-each-budget="category.budgets">
-					<span class="budget__label-budget-name">{ budget.name }</span>
+					<span class="budget__label-budget-name"
+						  rv-on-click="budget.mobileSettings"
+						  rv-class-budget__label-budget-name--hidden="budget.hidden">{ budget.name }</span>
 					<button class="budget__label-budget-settings" rv-on-click="budget.settings">&#xe802;</button>
 				</li>
 			</ul>

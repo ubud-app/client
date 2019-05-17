@@ -6,6 +6,7 @@ const {DateTime} = require('luxon');
 
 const View = require('./_');
 const CategoryEditorView = require('./categoryEditor');
+const BudgetEditorView = require('./budgetEditor');
 
 const AppHelper = require('../helpers/app');
 const DataHelper = require('../helpers/data');
@@ -240,6 +241,7 @@ const BudgetView = View.extend({
         await portions.wait();
         month.deactivate.push(this.live(portions));
 
+        this.on('budgetsUpdated', () => update());
         this.listenTo(this.categories, 'add remove', () => update());
         this.listenTo(this.budgets, 'add remove', () => update());
         this.listenTo(portions, 'add remove', () => update());
@@ -372,6 +374,11 @@ const BudgetView = View.extend({
             id: category.id,
             name: null,
             settings: () => this.openCategorySettings(category, !(view instanceof BudgetView)),
+            mobileSettings: () => {
+                if(window.innerWidth <= 920) {
+                    entry.settings();
+                }
+            },
             budgets: []
         };
 
@@ -392,16 +399,16 @@ const BudgetView = View.extend({
         }
     },
     addBudget (view, data, budget) {
-        const categoryEntry = data.categories.find(e => e.id === budget.get('categoryId'));
-        if (!categoryEntry) {
-            return;
-        }
-
         const entry = {
             id: budget.id,
             name: null,
             hidden: null,
-            settings: () => this.openBudgetSettings(budget)
+            settings: () => this.openBudgetSettings(budget),
+            mobileSettings: () => {
+                if(window.innerWidth <= 920) {
+                    entry.settings();
+                }
+            }
         };
 
         view.listenToAndCall(budget, 'change:name', () => {
@@ -411,13 +418,33 @@ const BudgetView = View.extend({
             entry.hidden = budget.get('hidden');
         });
 
-        const sort = categoryEntry.budgets.sort((a, b) => String(a.name).localeCompare(
-            b.name,
-            ConfigurationHelper.getCurrentLanguage(),
-            {sensitivity: 'base'}
-        ));
+        view.listenToAndCall(budget, 'change:categoryId', () => {
+            if (budget.previous('categoryId') === budget.get('categoryId')) {
+                return;
+            }
 
-        categoryEntry.budgets.splice(sort.indexOf(budget.get('name')), 0, entry);
+            const oldCategoryEntry = data.categories.find(e => e.id === budget.previous('categoryId'));
+            if (oldCategoryEntry) {
+                const i = oldCategoryEntry.budgets.findIndex(e => e.id === budget.id);
+                if (i > -1) {
+                    oldCategoryEntry.budgets.splice(i, 1);
+                }
+            }
+
+            const newCategoryEntry = data.categories.find(e => e.id === budget.get('categoryId'));
+            const sort = newCategoryEntry.budgets
+                .map(b => b.name)
+                .concat([budget.get('name')])
+                .sort((a, b) =>
+                    String(a).localeCompare(b, ConfigurationHelper.getCurrentLanguage(), {sensitivity: 'base'})
+                );
+
+            newCategoryEntry.budgets.splice(sort.indexOf(budget.get('name')), 0, entry);
+
+            if (budget.previous('categoryId')) {
+                view.trigger('budgetsUpdated');
+            }
+        });
     },
     removeBudget (data, budget) {
         const categoryEntry = data.categories.find(e => e.id === budget.get('categoryId'));
@@ -436,8 +463,10 @@ const BudgetView = View.extend({
             allowDelete
         }).appendTo(AppHelper.view());
     },
-    openBudgetSettings (category) {
-        alert('Budget: ' + category.get('name'));
+    openBudgetSettings (budget) {
+        new BudgetEditorView({
+            model: budget
+        }).appendTo(AppHelper.view());
     }
 });
 

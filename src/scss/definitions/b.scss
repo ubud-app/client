@@ -84,47 +84,55 @@
 			background: transparent;
 		}
 
-		&-save,
-		&-cancel,
-		&-remove,
-		&-hide {
+		&-buttons {
 			margin-top: 40px;
+			overflow: hidden;
 		}
-		&-save {
-			@extend .button;
-			@extend .button--inline;
-			@extend .button--small;
+		&-button {
+			& + & {
+				margin-top: 1em;
 
-			margin-left: 10px;
-			float: right;
-		}
-		&-cancel {
-			@extend .button;
-			@extend .button--inline;
-			@extend .button--small;
-			@extend .button--text;
+				@include greater($size-l) {
+					margin-top: 0;
+				}
+			}
 
-			opacity: 0.6;
-			float: right;
-		}
-		&-remove,
-		&-hide {
-			@extend .button;
-			@extend .button--inline;
-			@extend .button--small;
+			&--save {
+				@extend .button;
 
-			opacity: 0.4;
-			float: left;
-
-			&--text {
+				@extend .button--right-l;
+				@extend .button--small-l;
+				@include greater($size-l) {
+					margin-left: 10px;
+				}
+			}
+			&--cancel {
+				@extend .button;
 				@extend .button--text;
+
+				opacity: 0.6;
+
+				@extend .button--right-l;
+				@extend .button--small-l;
 			}
-			&--hidden {
-				display: none;
+			&--remove,
+			&--hide,
+			&--unhide {
+				@extend .button;
+				@extend .button--secondary;
+
+				opacity: 0.4;
+
+				@extend .button--left-l;
+				@extend .button--small-l;
+				margin-top: 0;
 			}
-		}
-		&-remove {
-			@extend .button--destructive;
+			&--unhide {
+				opacity: 0.8;
+			}
+			&--remove {
+				@extend .button--destructive;
+			}
 		}
 	}
 
@@ -226,22 +234,34 @@
 		bottom: 0;
 		z-index: 35;
 		background: rgba($background, 0.96);
+		transition: background 0.1s ease-out, max-height 0.3s ease-out;
+
+		@extend .b-loader;
+		@extend .b-loader--light;
 
 		@supports (backdrop-filter: grayscale(100%) blur(10px)) {
 			background: rgba($background, 0.90);
 			backdrop-filter: grayscale(100%) blur(10px);
+		}
+		&--hidden {
+			background: rgba(rgba($background, 0.96), 0);
+			transition: background 0.3s ease-in 0.1s;
 		}
 
 		&__content {
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			width: 80%;
+			width: 90%;
 			max-width: 800px;
 			max-height: 100%;
-			padding: 5% 0 20% 0;
-			transform: translate(-50%, -50%);
+			margin: 0;
+			padding: 5% 0 2em 0;
 			overflow: auto;
+
+			opacity: 1;
+			transform: translate3d(-50%, -50%, 0);
+			transition: opacity 0.3s ease-out, transform 0.15s ease-out;
 
 			@include greater($size-m) {
 				width: 90%;
@@ -249,6 +269,16 @@
 				margin: 0 auto;
 				padding-right: 1em;
 			}
+		}
+		&--hidden &__content {
+			opacity: 0;
+			transform: translate3d(-50%, -45%, 0);
+			transition: opacity 0.1s ease-out, transform 0s ease-out 0.3s;
+		}
+
+		&.loading &__content {
+			opacity: 0.6;
+			pointer-events: none;
 		}
 
 		& .b-headline {
