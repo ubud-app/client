@@ -102,6 +102,8 @@
 
 				@extend .button--right-l;
 				@extend .button--small-l;
+				margin-top: 0;
+
 				@include greater($size-l) {
 					margin-left: 10px;
 				}
@@ -114,6 +116,7 @@
 
 				@extend .button--right-l;
 				@extend .button--small-l;
+				margin-top: 0;
 			}
 			&--remove,
 			&--hide,
@@ -132,6 +135,7 @@
 			}
 			&--remove {
 				@extend .button--destructive;
+				margin-top: 0;
 			}
 		}
 	}
@@ -302,7 +306,7 @@
 				& + .b-headline-l2 {
 					color: lighten($text, 20);
 					font-size: 1.1em;
-					margin-top: -2.6em;
+					margin-top: -3em;
 
 					@include greater($size-l) {
 						margin-top: -2.8em;

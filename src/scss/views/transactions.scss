@@ -232,4 +232,51 @@
 			height: auto;
 		}
 	}
+
+
+	&__dropzone {
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: 30;
+		display: none;
+
+		background: rgba($primary, 0.95);
+		@supports (backdrop-filter: grayscale(100%) blur(10px)) {
+			background: rgba($primary, 0.85);
+			backdrop-filter: grayscale(100%) blur(10px);
+		}
+
+		&--visible {
+			display: block;
+		}
+		&:before {
+			content: '';
+			position: absolute;
+			top: 2em;
+			left: 2em;
+			right: 2em;
+			bottom: 2em;
+
+			border: 0.4em dashed rgba($background, 0.6);
+			border-radius: 1em;
+		}
+
+		&-wrap {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -80px 0 0 -10em;
+			width: 20em;
+			text-align: center;
+		}
+		&-headline {
+			color: $background;
+		}
+		&-headline + &-message {
+			color: rgba($background, 0.8);
+		}
+	}
 }

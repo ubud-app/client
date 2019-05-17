@@ -282,6 +282,11 @@
 		"budget": {
 			"income": "Income for {{month}}",
 			"noBudget": "no budget selected"
+		},
+		"add": "+ Add Transaction",
+		"import": {
+			"headline": "Drop file",
+			"message": "Pull your export files from your online banking here to import them into DWIMM"
 		}
 	},
 	"transactionDetails": {
@@ -305,5 +310,15 @@
 		"reconciling": "This transaction was inserted automatically, since the account balance in DWIMM and the account balance in the bank's history was different. Now everything should fit again. Do you often find such transactions, this could be an indication that something is wrong with the synchronization.",
 		"remove": "Remove transaction",
 		"done": "Done"
+	},
+	"transactionImport": {
+		"headline": "Import transactions",
+		"multipleFiles": "You can currently only import one file at a time. Sorry...",
+		"labels": {
+			"file": "File",
+			"account": "Account"
+		},
+		"import": "Import",
+		"cancel": "Cancel"
 	}
 }

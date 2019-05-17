@@ -1,5 +1,6 @@
 'use strict';
 
+
 const {DateTime} = require('luxon');
 const {throttle} = require('underscore');
 
@@ -30,7 +31,11 @@ const TransactionCollection = require('../collections/transaction');
 module.exports = View.extend({
     className: 'transactions',
     events: {
-        'scroll': '__onScroll'
+        'scroll': '__onScroll',
+        'dragenter': 'dragEnter',
+        'dragleave': 'dragLeave',
+        'dragover': 'dragOver',
+        'drop': 'drop'
     },
 
     async render () {
@@ -39,9 +44,13 @@ module.exports = View.extend({
                 visible: false,
                 content: ''
             },
+            dropzone: {
+                visible: false
+            },
             pages: []
         };
 
+        this.dragCounter = 0;
         this._onScroll = throttle(this.onScroll, 100);
         AppHelper.view().setTitle(ConfigurationHelper.getString('budget.title'));
 
@@ -258,5 +267,38 @@ module.exports = View.extend({
 
         const view = new TransactionDetailsView({model: transaction});
         view.appendTo(AppHelper.view());
+    },
+
+    dragEnter (e) {
+        e.preventDefault();
+        this.dragCounter++;
+        if (this.dragCounter === 1) {
+            this.data.dropzone.visible = true;
+        }
+    },
+    dragLeave (e) {
+        e.preventDefault();
+        this.dragCounter--;
+        if (this.dragCounter === 0) {
+            this.data.dropzone.visible = false;
+        }
+    },
+    dragOver (e) {
+        e.preventDefault()
+    },
+    drop (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        this.dragCounter = 0;
+        this.data.dropzone.visible = false;
+
+        const files = e.dataTransfer.files;
+        const TransactionImportView = require('./transactionImport');
+        new TransactionImportView({
+            document: this.document,
+            accounts: this.accounts,
+            files
+        }).appendTo(this);
     }
 });

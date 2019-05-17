@@ -28,6 +28,13 @@
 	</ul>
 
 	<div class="transactions__buttons">
-		<button class="button button--inline button--right button--small" rv-on-click="view.newTransaction">+ Transaktion hinzufügen</button>
+		<button class="button button--inline button--right button--small" rv-on-click="view.newTransaction">{ 'transactions.add' | string }</button>
+	</div>
+
+	<div class="transactions__dropzone" rv-class-transactions__dropzone--visible="dropzone.visible">
+		<div class="transactions__dropzone-wrap">
+			<h4 class="transactions__dropzone-headline b-headline-l1">{ 'transactions.import.headline' | string }</h4>
+			<p class="transactions__dropzone-message b-headline-l2">{ 'transactions.import.message' | string }</p>
+		</div>
 	</div>
 </div>

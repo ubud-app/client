@@ -1,0 +1,25 @@
+<form class="transaction-import__content b-modal__content b-form" rv-on-submit="view.submit">
+	<h2 class="b-headline-l1">{ 'transactionImport.headline' | string }</h2>
+	<h3 class="b-headline-l2">{ document:name }</h3>
+
+	<label class="b-form-label" for="transaction-import__input--file">{ 'transactionImport.labels.file' | string }</label>
+	<input type="file"
+		   name="name"
+		   id="transaction-import__input--file"
+		  class="b-form-input"/>
+
+	<label class="b-form-label" for="transaction-import__input--account">{ 'transactionImport.labels.account' | string }</label>
+	<span class="b-form-select-wrap">
+			<select name="category"
+					id="transaction-import__input--account"
+					class="b-form-select"
+					rv-value="form.accountId">
+				<option rv-value="account:id" rv-each-account="accounts" unless="account:pluginInstanceId">{ account:name }</option>
+			</select>
+		</span>
+
+	<div class="b-form-buttons">
+		<button class="b-form-button b-form-button--save">{ 'transactionImport.import' | string }</button>
+		<button type="button" class="b-form-button b-form-button--cancel" rv-on-click="hide">{ 'transactionImport.cancel' | string }</button>
+	</div>
+</form>

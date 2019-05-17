@@ -25,24 +25,26 @@
 		<input type="checkbox"
 			   class="budget-editor__goal-checkbox"
 			   rv-checked="goal.checkbox.checked"
-		       rv-on-click="view.clickGoalCheckbox">
+			   rv-on-click="view.clickGoalCheckbox">
 
 		<input type="text"
 			   name="goal"
 			   id="budget-editor__input--goal"
 			   class="budget-editor__goal-input"
 			   rv-class-budget-editor__goal-input--empty="goal.input.disabled"
-			   rv-currency-value="model:goal" />
+			   rv-currency-value="model:goal"/>
 	</div>
 	<div class="b-form-buttons">
 		<button class="b-form-button b-form-button--hide"
 				type="button"
 				rv-on-click="view.toggleHidden"
-				rv-unless="model:hidden">{ 'budgetEditor.hide' | string }</button>
+				rv-unless="model:hidden">{ 'budgetEditor.hide' | string }
+		</button>
 		<button class="b-form-button b-form-button--unhide"
 				type="button"
 				rv-on-click="view.toggleHidden"
-				rv-if="model:hidden">{ 'budgetEditor.show' | string }</button>
+				rv-if="model:hidden">{ 'budgetEditor.show' | string }
+		</button>
 		<button class="b-form-button b-form-button--save">{ 'budgetEditor.done' | string }</button>
 	</div>
 </form>

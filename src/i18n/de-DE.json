@@ -281,6 +281,11 @@
 		"budget": {
 			"income": "Einkommen für {{month}}",
 			"noBudget": "Kein Budget ausgewählt"
+		},
+		"add": "+ Transaktion hinzufügen",
+		"import": {
+			"headline": "Loslassen",
+			"message": "Ziehe deine Export-Dateien aus deinem Online-Banking hier her, um sie in DWIMM zu importieren"
 		}
 	},
 	"transactionDetails": {
@@ -304,5 +309,15 @@
 		"reconciling": "Diese Transaktion wurde automatisch eingefügt, da sich der Kontostand aus DWIMM und der gemeldete Kontostand der Bank unterschieden haben. Nun sollte alles wieder passen. Falls du öfters diese Ausgleichs-Zahlungen siehst, könnte das ein Indiz dafür sein, dass mit der Synchronisierung etwas nicht stimmt.",
 		"remove": "Transaktion löschen",
 		"done": "Fertig"
+	},
+	"transactionImport": {
+		"headline": "Transaktionen importieren",
+		"multipleFiles": "Du kannst aktuell nur eine Datei gleichzeitig importieren. Sorry…",
+		"labels": {
+			"file": "Datei",
+			"account": "Konto"
+		},
+		"import": "Importieren",
+		"cancel": "Abbrechen"
 	}
 }
