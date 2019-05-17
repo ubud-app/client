@@ -33,13 +33,12 @@ class WorkerHelper {
             const installingWorker = this.registration.installing;
             installingWorker.onstatechange = () => {
                 if (installingWorker.state === 'installed') {
-                    window.alert('[WorkerHelper] installed');
                     if (!navigator.serviceWorker.controller) {
                         return;
                     }
 
                     WorkerHelper.trigger('updateFound');
-                    window.alert('[WorkerHelper] updateFound');
+                    location.reload();
                 }
             };
         };
@@ -50,7 +49,7 @@ class WorkerHelper {
 
         setTimeout(() => {
             this.checkForUpdates();
-        }, 1000 * 10);
+        }, 1000 * 5);
     }
 
     static checkForUpdates () {
