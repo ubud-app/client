@@ -99,5 +99,21 @@ module.exports = View.extend({
         await category.save();
 
         BudgetView.openCategorySettings(category, true);
+    },
+    async addBudget () {
+        if(this.categories.length === 0) {
+            return;
+        }
+
+        const BudgetModel = require('../models/budget');
+        const budget = new BudgetModel({
+            categoryId: this.categories.first().id,
+            name: ConfigurationHelper.getString('documentSettingsGeneral.budgets.newBudget')
+        });
+
+        this.budgets.add(budget);
+        await budget.save();
+
+        BudgetView.openBudgetSettings(budget, true);
     }
 });

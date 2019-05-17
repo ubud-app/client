@@ -228,7 +228,9 @@
 			"showHidden": "Show hidden budgets",
 			"hideHidden": "Hide hidden budgets again",
 			"addCategory": "Add category",
-			"newCategory": "New category"
+			"newCategory": "New category",
+			"addBudget": "Add budget",
+			"newBudget": "New budget"
 		}
 	},
 	"categoryEditor": {

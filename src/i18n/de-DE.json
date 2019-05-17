@@ -227,7 +227,9 @@
 			"showHidden": "Versteckte Budgets anzeigen",
 			"hideHidden": "Versteckte Budgets wieder ausblenden",
 			"addCategory": "Kategorie hinzufügen",
-			"newCategory": "Neue Kategorie"
+			"newCategory": "Neue Kategorie",
+			"addBudget": "Budget hinzufügen",
+			"newBudget": "Neues Budget"
 		}
 	},
 	"categoryEditor": {

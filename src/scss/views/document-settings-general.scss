@@ -135,7 +135,13 @@
 		color: rgba($text, 0.6);
 	}
 
+	&__add-buttons {
+		overflow: hidden;
+	}
 	&__add {
+		float: left;
+		width: 50%;
+
 		&-plus {
 			display: block;
 			font-size: 4em;

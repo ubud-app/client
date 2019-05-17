@@ -423,13 +423,14 @@ const BudgetView = View.extend({
                 return;
             }
 
-            const oldCategoryEntry = data.categories.find(e => e.id === budget.previous('categoryId'));
-            if (oldCategoryEntry) {
-                const i = oldCategoryEntry.budgets.findIndex(e => e.id === budget.id);
-                if (i > -1) {
-                    oldCategoryEntry.budgets.splice(i, 1);
+            Object.values(data.categories).forEach(categoryEntry => {
+                if(categoryEntry.budgets) {
+                    const i = categoryEntry.budgets.findIndex(e => e.id === budget.id);
+                    if (i > -1) {
+                        categoryEntry.budgets.splice(i, 1);
+                    }
                 }
-            }
+            });
 
             const newCategoryEntry = data.categories.find(e => e.id === budget.get('categoryId'));
             const sort = newCategoryEntry.budgets

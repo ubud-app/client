@@ -59,10 +59,18 @@
 		<span rv-if="meta.showHidden">▴ { 'documentSettingsGeneral.budgets.hideHidden' | string }</span>
 	</button>
 
-	<button class="document-general-settings__add"
-			type="button"
-			rv-on-click="view.addCategory">
-		<span class="document-general-settings__add-plus">+</span>
-		<span class="document-general-settings__add-text">{ 'documentSettingsGeneral.budgets.addCategory' | string }</span>
-	</button>
+	<div class="document-general-settings__add-buttons">
+		<button class="document-general-settings__add"
+				type="button"
+				rv-on-click="view.addCategory">
+			<span class="document-general-settings__add-plus">+</span>
+			<span class="document-general-settings__add-text">{ 'documentSettingsGeneral.budgets.addCategory' | string }</span>
+		</button>
+		<button class="document-general-settings__add"
+				type="button"
+				rv-on-click="view.addBudget">
+			<span class="document-general-settings__add-plus">+</span>
+			<span class="document-general-settings__add-text">{ 'documentSettingsGeneral.budgets.addBudget' | string }</span>
+		</button>
+	</div>
 </form>
