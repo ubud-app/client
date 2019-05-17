@@ -39,9 +39,12 @@
 			@extend [class^="icon-"]:before;
 			position: absolute;
 			display: none;
-			top: 0.8em;
+			top: 1.2em;
 			right: 0.6em;
 			color: lighten($text, 25);
+		}
+		&:first-child &-settings {
+			top: 0.8em;
 		}
 		@include greater($size-l) {
 			&-header:hover &-name {
