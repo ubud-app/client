@@ -302,6 +302,7 @@
 			"income": "Einkommen für {{month}}"
 		},
 		"reconciling": "Diese Transaktion wurde automatisch eingefügt, da sich der Kontostand aus DWIMM und der gemeldete Kontostand der Bank unterschieden haben. Nun sollte alles wieder passen. Falls du öfters diese Ausgleichs-Zahlungen siehst, könnte das ein Indiz dafür sein, dass mit der Synchronisierung etwas nicht stimmt.",
-		"remove": "Transaktion löschen"
+		"remove": "Transaktion löschen",
+		"done": "Fertig"
 	}
 }

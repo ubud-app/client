@@ -32,6 +32,7 @@ module.exports = View.extend({
     className: 'transaction-details transaction-details--hidden',
 
     async render () {
+        this.deleting = false;
         this.data = {
             model: this.model,
             fields: {
@@ -202,7 +203,7 @@ module.exports = View.extend({
     },
 
     async hide () {
-        if(!this.model.get('accountId')) {
+        if(!this.model.get('accountId') || this.deleting) {
             await this._hide();
             return;
         }
@@ -498,12 +499,14 @@ module.exports = View.extend({
         return invalid;
     },
     async removeTransaction () {
-        this.remove();
+        this.deleting = true;
 
         try {
             await this.model.destroy();
+            await this.hide();
         }
         catch(error) {
+            this.deleting = false;
             new ErrorView({error}).appendTo(AppHelper.view());
         }
     }

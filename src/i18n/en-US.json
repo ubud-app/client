@@ -303,6 +303,7 @@
 			"income": "Income for {{month}}"
 		},
 		"reconciling": "This transaction was inserted automatically, since the account balance in DWIMM and the account balance in the bank's history was different. Now everything should fit again. Do you often find such transactions, this could be an indication that something is wrong with the synchronization.",
-		"remove": "Remove transaction"
+		"remove": "Remove transaction",
+		"done": "Done"
 	}
 }

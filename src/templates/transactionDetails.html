@@ -130,9 +130,13 @@
 		</p>
 	</div>
 
-	<button class="button button--right button--destructive"
-			rv-unless="fields.isManaged"
-			rv-on-click="view.removeTransaction">
-		{ 'transactionDetails.remove' | string }
-	</button>
+	<div class="b-form-buttons">
+		<button class="b-form-button b-form-button--remove"
+				rv-unless="fields.isManaged"
+				rv-on-click="view.removeTransaction">
+			{ 'transactionDetails.remove' | string }
+		</button>
+
+		<button class="b-form-button b-form-button--save">{ 'transactionDetails.done' | string }</button>
+	</div>
 </form>
