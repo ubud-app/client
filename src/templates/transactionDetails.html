@@ -61,6 +61,7 @@
 			<input type="text"
 				   class="transaction-details__field-input transaction_details__input--amount"
 				   id="transaction-details__amount"
+				   inputmode="decimal"
 				   rv-currency-value="model:amount">
 		</div>
 		<div class="transaction-details__field">
@@ -83,6 +84,7 @@
 				<input type="text"
 					   rv-currency-value="unit.amount"
 					   class="transaction-details__unit-amount"
+					   inputmode="decimal"
 					   rv-on-keyup="view.checkUnits"/>
 				<select class="transaction-details__unit-budget-select"
 						rv-value="unit.type"
