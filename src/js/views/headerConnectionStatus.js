@@ -65,7 +65,7 @@ module.exports = View.extend({
     },
 
     closeHandler (e) {
-        if ($(e.target).is('.header-connection-status')) {
+        if ($(e.target).is('.header-connection-status') || $(e.target).is('.header-connection-status__content')) {
             this.hide();
         }
     }

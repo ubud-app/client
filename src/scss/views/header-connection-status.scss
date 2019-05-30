@@ -72,6 +72,9 @@
 		overflow: scroll;
 		-webkit-overflow-scrolling: touch;
 
+		opacity: 1;
+		transition: opacity 0.3s ease-out, transform 0.15s ease-out;
+
 		@include greater($size-l) {
 			position: static;
 			top: auto;
@@ -80,6 +83,10 @@
 			bottom: auto;
 			padding: 2em;
 		}
+	}
+	&--hidden &__content {
+		opacity: 0;
+		transition: opacity 0.1s ease-out, transform 0s ease-out 0.3s;
 	}
 
 
