@@ -48,8 +48,8 @@ module.exports = View.extend({
             units: [],
             accounts: [],
             typeSelector: {
-                incomeLabel: 'Einkommen für Mai',
-                incomeNextLabel: 'Einkommen für Juni',
+                incomeLabel: '',
+                incomeNextLabel: '',
                 accounts: [],
                 categories: []
             }
@@ -71,10 +71,10 @@ module.exports = View.extend({
         this.listenToAndCall(this.model, 'change:time', () => {
             const date = DateTime.fromISO(this.model.get('time'));
             this.data.typeSelector.incomeLabel = ConfigurationHelper.getString('transactionDetails.budget.income', {
-                month: date.plus({months: 1}).toLocaleString({month: 'long'})
+                month: date.toLocaleString({month: 'long'})
             });
             this.data.typeSelector.incomeNextLabel = ConfigurationHelper.getString('transactionDetails.budget.income', {
-                month: date.toLocaleString({month: 'long'})
+                month: date.plus({months: 1}).toLocaleString({month: 'long'})
             });
         });
 
