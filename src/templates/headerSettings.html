@@ -7,19 +7,19 @@
 		<h4 class="header-settings__subheadline">{ budget.name }</h4>
 		<ul class="header-settings__menu">
 			<li class="header-settings__item">
-				<a rv-href="budget.url.general" class="header-settings__link">{ 'header.settings.document.general' | string }</a>
+				<a rv-href="budget.url.general" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.document.general' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a rv-href="budget.url.accounts" class="header-settings__link">{ 'header.settings.document.accounts' | string }</a>
+				<a rv-href="budget.url.accounts" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.document.accounts' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a rv-href="budget.url.plugins" class="header-settings__link">{ 'header.settings.document.plugins' | string }</a>
+				<a rv-href="budget.url.plugins" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.document.plugins' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a rv-href="budget.url.permissions" class="header-settings__link">{ 'header.settings.document.permissions' | string }</a>
+				<a rv-href="budget.url.permissions" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.document.permissions' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a rv-href="budget.url.notifications" class="header-settings__link">{ 'header.settings.document.notifications' | string }</a>
+				<a rv-href="budget.url.notifications" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.document.notifications' | string }</a>
 			</li>
 		</ul>
 	</div>
@@ -28,19 +28,19 @@
 		<h4 class="header-settings__subheadline">{ admin.address }</h4>
 		<ul class="header-settings__menu">
 			<li class="header-settings__item">
-				<a href="#admin/" class="header-settings__link">{ 'header.settings.instance.general' | string }</a>
+				<a href="#admin/" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.instance.general' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a href="#admin/updates" class="header-settings__link">{ 'header.settings.instance.updates' | string }</a>
+				<a href="#admin/updates" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.instance.updates' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a href="#admin/users" class="header-settings__link">{ 'header.settings.instance.users' | string }</a>
+				<a href="#admin/users" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.instance.users' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a href="#admin/plugins" class="header-settings__link">{ 'header.settings.instance.plugins' | string }</a>
+				<a href="#admin/plugins" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.instance.plugins' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a href="#admin/backups" class="header-settings__link">{ 'header.settings.instance.backups' | string }</a>
+				<a href="#admin/backups" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.instance.backups' | string }</a>
 			</li>
 		</ul>
 	</div>
@@ -49,13 +49,13 @@
 		<h4 class="header-settings__subheadline">{ user.model:email }</h4>
 		<ul class="header-settings__menu">
 			<li class="header-settings__item">
-				<a href="#account/devices" class="header-settings__link">{ 'header.settings.account.devices' | string }</a>
+				<a href="#account/devices" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.account.devices' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a href="#account/authentication" class="header-settings__link">{ 'header.settings.account.authentication' | string }</a>
+				<a href="#account/authentication" rv-on-click="view.hide" class="header-settings__link">{ 'header.settings.account.authentication' | string }</a>
 			</li>
 			<li class="header-settings__item">
-				<a href="#logout" class="header-settings__link header-settings__link--logout">{ 'header.settings.account.logout' | string }</a>
+				<a href="#logout" rv-on-click="view.hide" class="header-settings__link header-settings__link--logout">{ 'header.settings.account.logout' | string }</a>
 			</li>
 		</ul>
 	</div>

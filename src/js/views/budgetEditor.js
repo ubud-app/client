@@ -65,9 +65,6 @@ module.exports = View.extend({
         this.activateModal();
 
         this.once('remove', this.save);
-        this.listenTo(this.model, 'change', () => {
-            this.save();
-        });
         return this;
     },
     clickGoalCheckbox (e) {

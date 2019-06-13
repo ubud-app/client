@@ -112,9 +112,32 @@ tinybind.binders.required = function (el, value) {
     el.required = !!value;
 };
 
+tinybind.binders['value'] = {
+    routine: function (el, value) {
+        if (value !== el.value && el !== document.activeElement) {
+            el.value = value;
+        }
+    },
+    getValue: function (el) {
+        return el.value;
+    },
+    bind: function (el) {
+        if (!this.callback) {
+            this.callback = () => {
+                this.publish();
+            }
+        }
+
+        el.addEventListener('input', this.callback);
+    },
+    unbind: function (el) {
+        el.removeEventListener(this.event, this.callback);
+    }
+};
+
 tinybind.binders['currency-value'] = {
     routine: function (el, value) {
-        if (this.autonumeric && value !== this.autonumeric.getNumber() * 100) {
+        if (this.autonumeric && value !== this.autonumeric.getNumber() * 100 && el !== document.activeElement) {
             this.autonumeric.set((value || 0) / 100);
         }
     },
@@ -150,7 +173,7 @@ tinybind.binders['datetime-value'] = {
     routine: function (el, value) {
         const iso = DateTime.fromISO(value);
         const datetime = value ? iso.minus({seconds: iso.second}).toISO().split('.')[0] : null;
-        if(datetime !== el.value) {
+        if(datetime !== el.value && el !== document.activeElement) {
             el.value = datetime;
         }
     },
