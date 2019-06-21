@@ -299,7 +299,9 @@ const BudgetView = View.extend({
                                 ) + '%',
                                 percent: portionModel.get('balance') / budgetModel.get('goal'),
                                 complete: portionModel.get('balance') >= budgetModel.get('goal'),
-                                left: Math.max(0, budgetModel.get('goal') - portionModel.get('balance'))
+                                left: TemplateHelper.formatCurrency(
+                                    Math.max(0, budgetModel.get('goal') - portionModel.get('balance'))
+                                )
                             };
                         }
                         else {

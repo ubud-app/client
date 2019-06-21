@@ -276,6 +276,9 @@
 			"budgeted": "Budgetiert",
 			"outflow": "Ausgaben",
 			"balance": "Vermögen"
+		},
+		"goal": {
+			"left": "noch {{left}}"
 		}
 	},
 	"transactions": {

@@ -71,7 +71,7 @@
 
 							<span class="budget__month-balance-item" rv-class-budget__month-balance-item--active="portion.active.0">{ portion.model:balance | currency }</span>
 							<span class="budget__month-balance-item" rv-class-budget__month-balance-item--active="portion.active.1">{ portion.goal.percent | percentage }</span>
-							<span class="budget__month-balance-item" rv-class-budget__month-balance-item--active="portion.active.2">{ portion.goal.left | currency }</span>
+							<span class="budget__month-balance-item" rv-class-budget__month-balance-item--active="portion.active.2">{ 'budget.goal.left' | string portion.goal }</span>
 
 							<span class="budget__month-progress"
 								  rv-title="portion.goal.percent | percentage"

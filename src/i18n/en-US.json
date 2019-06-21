@@ -277,6 +277,9 @@
 			"budgeted": "Budgeted",
 			"outflow": "Outflow",
 			"balance": "Balance"
+		},
+		"goal": {
+			"left": "{{left}} left"
 		}
 	},
 	"transactions": {
