@@ -15,7 +15,7 @@
 			"savings": "Savings",
 			"creditCard": "Credit Card",
 			"cash": "Cash",
-			"mortage": "Mortage",
+			"mortgage": "Mortgage",
 			"asset": "Asset",
 			"loan": "Loan"
 		}
@@ -331,5 +331,18 @@
 		},
 		"import": "Import",
 		"cancel": "Cancel"
+	},
+	"documentSettingsAccountDetails": {
+		"headline": "Edit account",
+		"labels": {
+			"name": "Name",
+			"type": "Typ"
+		},
+		"delete": {
+			"title": "Konto löschen",
+			"message": "Du kannst dieses Konto löschen, da es keine Transaktionen enthält.",
+			"button": "Konto löschen"
+		},
+		"done": "Done"
 	}
 }

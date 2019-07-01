@@ -15,7 +15,7 @@
 			"savings": "Sparen",
 			"creditCard": "Kreditkarte",
 			"cash": "Bargeld",
-			"mortage": "Hypothek",
+			"mortgage": "Hypothek",
 			"asset": "Kapitalanlage",
 			"loan": "Darlehen"
 		}
@@ -330,5 +330,18 @@
 		},
 		"import": "Importieren",
 		"cancel": "Abbrechen"
+	},
+	"documentSettingsAccountDetails": {
+		"headline": "Konto bearbeiten",
+		"labels": {
+			"name": "Name",
+			"type": "Typ"
+		},
+		"delete": {
+			"title": "Konto löschen",
+			"message": "Du kannst dieses Konto löschen, da es keine Transaktionen enthält.",
+			"button": "Konto löschen"
+		},
+		"done": "Fertig"
 	}
 }

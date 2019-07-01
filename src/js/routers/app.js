@@ -138,10 +138,10 @@ module.exports = Backbone.Router.extend({
         }));
     },
     documentAccountDetailSettings (documentId, accountId) {
-        const PlaceHolderView = require('../views/placeholder');
-        this.view.renderView(new PlaceHolderView({
-            icon: 'cog',
-            text: `Document ${documentId.substr(0, 8)}: Account Settings of ${accountId.substr(0, 8)}`
+        const DocumentSettingsAccountDetailsView = require('../views/documentSettingsAccountDetails');
+        this.view.renderView(new DocumentSettingsAccountDetailsView({
+            documentId,
+            accountId
         }));
     },
     documentPluginSettings (documentId) {

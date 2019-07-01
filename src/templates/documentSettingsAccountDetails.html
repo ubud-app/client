@@ -1,0 +1,48 @@
+<form class="document-settings-account-details__form b-form b-loader b-loader--light"
+	  rv-on-submit="view.submit"
+	  rv-class-loading="account:isSyncing">
+	<h1 class="document-settings-account-details__headline b-headline-l1">{ 'documentSettingsAccountDetails.headline' | string }</h1>
+	<h2 class="document-settings-account-details__document b-headline-l2">{ account:name }</h2>
+
+	<label class="b-form-label" for="document-settings-account-details__input--name">
+		{ 'documentSettingsAccountDetails.labels.name' | string }
+	</label>
+	<input type="text"
+		   name="name"
+		   id="document-settings-account-details__input--name"
+		   class="b-form-input"
+		   rv-value="account:name"
+		   rv-on-change="view.save"/>
+
+	<label class="b-form-label" for="document-settings-account-details__input--type">
+		{ 'documentSettingsAccountDetails.labels.type' | string }
+	</label>
+	<span class="b-form-select-wrap">
+		<select name="type" id="document-settings-account-details__input--type"
+				class="b-form-select"
+				rv-value="account:type | fallback 'checking'"
+				rv-on-change="view.save">
+			<option value="checking">{ 'account.type.checking' | string }</option>
+			<option value="savings">{ 'account.type.savings' | string }</option>
+			<option value="creditCard">{ 'account.type.creditCard' | string }</option>
+			<option value="cash">{ 'account.type.cash' | string }</option>
+			<option value="mortgage">{ 'account.type.mortgage' | string }</option>
+			<option value="asset">{ 'account.type.asset' | string }</option>
+			<option value="loan">{ 'account.type.loan' | string }</option>
+		</select>
+	</span>
+
+	<div class="b-form-buttons">
+		<button type="submit"
+				class="b-form-button b-form-button--save">{ 'documentSettingsAccountDetails.done' | string }</button>
+	</div>
+
+	<div class="b-danger" rv-if="delete.allowed" rv-class-loading="delete.loading">
+		<h3 class="b-danger__headline">{ 'documentSettingsAccountDetails.delete.title' | string }</h3>
+		<p class="b-danger__message">{ 'documentSettingsAccountDetails.delete.message' | string }</p>
+
+		<button class="b-danger__button"
+				type="button"
+				rv-on-click="view.delete">{ 'documentSettingsAccountDetails.delete.button' | string }</button>
+	</div>
+</form>
