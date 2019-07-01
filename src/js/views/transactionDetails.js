@@ -308,7 +308,7 @@ module.exports = View.extend({
         });
     },
     updatePayeeSelect () {
-        if(this.data.fields.payee.length <= 2) {
+        if(this.data.fields.payee && this.data.fields.payee.length <= 2) {
             this.data.fields.autoCompletionCreateText = '';
             this.payees.set([]);
             return;
@@ -331,6 +331,8 @@ module.exports = View.extend({
 
         const i = this.data.autoCompletion.findIndex(s => s.selected);
         if(e.keyCode === 13 && i === -1 && this.data.fields.autoCompletionCreateSelected) {
+            e.stopPropagation();
+            e.preventDefault();
             await this.clickAutoCompletionCreate();
             return;
         }
