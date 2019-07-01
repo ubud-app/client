@@ -128,6 +128,7 @@ module.exports = View.extend({
             return;
         }
 
+        this.data.meta.deleting = true;
         this._delete()
             .then(() => {
                 const documentIdsLeft = DataHelper.getDocuments()
