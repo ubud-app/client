@@ -83,6 +83,7 @@ module.exports = View.extend({
         this.budgets.filterBy('hidden', false);
         this.live(this.budgets);
 
+        this._emptyMonths = 0;
         await Promise.all([
             this.budgets.wait(),
             this.accounts.wait(),
@@ -139,6 +140,7 @@ module.exports = View.extend({
 
         await transactions.wait();
         this.live(transactions);
+        this._emptyMonths = transactions.length > 0 ? 0 : this._emptyMonths + 1;
 
         await this.budgets.wait();
 
@@ -238,7 +240,7 @@ module.exports = View.extend({
     },
 
     onScroll () {
-        if(this.onScroll.lock || this.$el.scrollTop() - (2 * window.innerHeight) > 0) {
+        if(this.onScroll.lock || this.$el.scrollTop() - (2 * window.innerHeight) > 0 || this._emptyMonths > 24) {
             return;
         }
 
