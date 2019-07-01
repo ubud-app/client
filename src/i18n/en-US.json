@@ -231,6 +231,12 @@
 			"newCategory": "New category",
 			"addBudget": "Add budget",
 			"newBudget": "New budget"
+		},
+		"delete": {
+			"title": "Delete document",
+			"message": "If you delete this document, all plugins in it will be removed and all data related to the document (e.g. transactions and budgets) will be deleted.",
+			"button": "Delete document now",
+			"confirm": "If you delete this document, all plugins in it will be removed and all data related to the document (e.g. transactions and budgets) will be deleted.\n\nAre you sure you want to delete this document? This action cannot be undone!"
 		}
 	},
 	"categoryEditor": {

@@ -73,4 +73,13 @@
 			<span class="document-general-settings__add-text">{ 'documentSettingsGeneral.budgets.addBudget' | string }</span>
 		</button>
 	</div>
+
+	<div class="b-danger" rv-class-loading="meta.deleting">
+		<h3 class="b-danger__headline">{ 'documentSettingsGeneral.delete.title' | string }</h3>
+		<p class="b-danger__message">{ 'documentSettingsGeneral.delete.message' | string }</p>
+
+		<button class="b-danger__button"
+				type="button"
+				rv-on-click="view.delete">{ 'documentSettingsGeneral.delete.button' | string }</button>
+	</div>
 </form>

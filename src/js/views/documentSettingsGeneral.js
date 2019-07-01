@@ -5,6 +5,7 @@ const ErrorView = require('./error');
 const BudgetView = require('./budget');
 
 const AppHelper = require('../helpers/app');
+const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
@@ -28,7 +29,7 @@ module.exports = View.extend({
     async render () {
         const AppHelper = require('../helpers/app');
         this.model = AppHelper.getDocument(true);
-        if(!this.model) {
+        if (!this.model) {
             return;
         }
 
@@ -36,7 +37,8 @@ module.exports = View.extend({
             document: this.model,
             categories: [],
             meta: {
-                showHidden: false
+                showHidden: false,
+                deleting: false
             }
         };
 
@@ -75,10 +77,14 @@ module.exports = View.extend({
     },
 
     async save () {
+        if(this._deleted) {
+            return;
+        }
+
         try {
             await this.model.save();
         }
-        catch(error) {
+        catch (error) {
             new ErrorView({error}).appendTo(AppHelper.view());
             throw error;
         }
@@ -101,7 +107,7 @@ module.exports = View.extend({
         BudgetView.openCategorySettings(category, true);
     },
     async addBudget () {
-        if(this.categories.length === 0) {
+        if (this.categories.length === 0) {
             return;
         }
 
@@ -115,5 +121,34 @@ module.exports = View.extend({
         await budget.save();
 
         BudgetView.openBudgetSettings(budget, true);
+    },
+
+    delete () {
+        if(!window.confirm(ConfigurationHelper.getString('documentSettingsGeneral.delete.confirm'))) {
+            return;
+        }
+
+        this._delete()
+            .then(() => {
+                const documentIdsLeft = DataHelper.getDocuments()
+                    .map(document => document.id)
+                    .filter(id => id !== this.model.id);
+
+                if (documentIdsLeft.length > 0) {
+                    AppHelper.navigate(documentIdsLeft[0] + '/budget', {trigger: true});
+                }
+                else {
+                    AppHelper.navigate('');
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                this.data.meta.deleting = false;
+                new ErrorView({error}).appendTo(AppHelper.view());
+            });
+    },
+    async _delete () {
+        this._deleted = 1;
+        return this.model.destroy();
     }
 });

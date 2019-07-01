@@ -230,6 +230,12 @@
 			"newCategory": "Neue Kategorie",
 			"addBudget": "Budget hinzufügen",
 			"newBudget": "Neues Budget"
+		},
+		"delete": {
+			"title": "Dokument löschen",
+			"message": "Wenn du dieses Dokument löschst, werden alle Plugins darin entfernt und alle Daten die das Dokument betreffen (z.B. Transaktionen und Budgets) gelöscht.",
+			"button": "Dokument jetzt löschen",
+			"confirm": "Wenn du dieses Dokument löschst, werden alle Plugins darin entfernt und alle Daten die das Dokument betreffen (z.B. Transaktionen und Budgets) gelöscht.\n\nBist du dir sicher, dass du dieses Dokument löschen willst? Diese Aktion kann nicht rückgängig gemacht werden!"
 		}
 	},
 	"categoryEditor": {
