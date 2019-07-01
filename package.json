@@ -48,7 +48,7 @@
     "npm-check": "^5.9.0",
     "pixrem": "^5.0.0",
     "svg-inline-loader": "^0.8.0",
-    "webpack": "^4.35.0",
+    "webpack": "^4.35.2",
     "webpack-build-notifier": "^1.0.3",
     "webpack-bundle-analyzer": "^3.3.2"
   },
