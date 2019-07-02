@@ -211,8 +211,14 @@ class DataHelper {
             });
         }
 
+        this.identifier = this.identifier || Math.random().toString(36).substr(2);
+        Sentry.configureScope(scope => {
+            scope.setTag('transaction_id',  this.identifier);
+        });
+
+        const body = Object.assign({__ident: this.identifier}, data);
         return new Promise((resolve, reject) => {
-            this._io.emit(event, data, (response) => {
+            this._io.emit(event, body, (response) => {
                 if (response.error && response.error === 401 && !this.isLoggedIn() && event !== 'sessions/create' && event !== 'auth') {
                     this.log('autoLogout');
                     this._setState(this.CONNECTED);
