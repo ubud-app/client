@@ -153,7 +153,7 @@ module.exports = View.extend({
         this.$el.scrollTop(this.$el.find('.transactions__page').first().height() + this.$el.scrollTop());
         this.$el.css('-webkit-overflow-scrolling', 'touch');
 
-        if(month !== 'future' && this.$el.children('.transactions__pages').height() < window.innerHeight * 1.5) {
+        if(month !== 'future' && this.$el.children('.transactions__pages').height() < window.innerHeight * 1.5 && this._emptyMonths <= 24) {
             await this.addNextMonth();
         }
     },
