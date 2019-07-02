@@ -115,7 +115,7 @@ tinybind.binders.required = function (el, value) {
 tinybind.binders['value'] = {
     routine: function (el, value) {
         if (value !== el.value && el !== document.activeElement) {
-            el.value = value;
+            el.value = value || '';
         }
     },
     getValue: function (el) {
