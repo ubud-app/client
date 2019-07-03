@@ -239,6 +239,7 @@ class DataHelper {
     }
 
     static async sync (method, model, options) {
+        /* eslint-disable require-atomic-updates */
         const resource = (_.result(model, 'url') || _.result(model, 'urlRoot')).split('/')[0];
 
         let body = {};
@@ -363,6 +364,7 @@ class DataHelper {
             .catch(err => {
                 Sentry.captureException(err);
             });
+        /* eslint-enable require-atomic-updates */
     }
 
     static live (model) {

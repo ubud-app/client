@@ -12,11 +12,9 @@ module.exports = Collection.extend({
     _filter: [],
 
     initialize () {
-        const m = this;
-
-        for (let i in m) {
-            if (m.hasOwnProperty(i) && _.isFunction(m[i]) && !Collection.prototype[i]) {
-                _.bindAll(m, i);
+        for (let i in this) {
+            if (Object.prototype.hasOwnProperty.call(this, i) && _.isFunction(this[i]) && !Collection.prototype[i]) {
+                _.bindAll(this, i);
             }
         }
 
