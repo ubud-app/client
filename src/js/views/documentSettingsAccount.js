@@ -28,7 +28,6 @@ module.exports = View.extend({
         }
 
         this.live(this.model);
-
         this.data = {
             document: this.model,
             accounts: [],
@@ -37,6 +36,7 @@ module.exports = View.extend({
                 empty: true
             }
         };
+
         TemplateHelper.render({
             view: this,
             template: DocumentSettingsAccountTemplate,

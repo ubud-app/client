@@ -28,8 +28,6 @@ module.exports = View.extend({
             return;
         }
 
-        this.live(this.model);
-
         this.data = {
             document: this.model,
             plugins: [],
@@ -38,6 +36,8 @@ module.exports = View.extend({
                 empty: true
             }
         };
+
+        this.live(this.model);
         TemplateHelper.render({
             view: this,
             template: DocumentSettingsPluginTemplate,
