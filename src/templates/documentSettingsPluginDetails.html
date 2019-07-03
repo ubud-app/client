@@ -1,0 +1,63 @@
+<form class="document-settings-plugin-details__form b-form b-loader b-loader--light"
+	  rv-on-submit="view.submit"
+	  rv-class-loading="account:isSyncing">
+	<h1 class="document-settings-plugin-details__headline b-headline-l1">{ 'documentSettingsPluginDetails.headline' | string }</h1>
+	<h2 class="document-settings-plugin-details__document b-headline-l2">
+		{ meta.plugin:name }
+		<span class="document-settings-plugin-details__status" rv-data-status="status.class">{ status.text }</span>
+	</h2>
+
+	<div class="document-settings-plugin-details__config" rv-each-config="pluginInstance:config">
+		<label class="b-form-label" rv-for="config.id | append 'document-settings-plugin-details__input--'">
+			{ config.label | string }
+		</label>
+
+		<input rv-type="config.type"
+			   class="b-form-input"
+			   rv-name="config.id"
+			   rv-id="config.id | append 'document-settings-plugin-details__input--'"
+			   rv-class-b-form-input--error="config.lastError"
+			   rv-value="config.value | fallback config.defaultValue"
+			   rv-placeholder="config.placeholder"
+			   rv-on-change="view.save"/>
+	</div>
+
+	<div class="document-settings-plugin-details__error" rv-if="pluginInstance:errors.getConfig">
+		<span class="document-settings-plugin-details__error-method">{ 'documentSettingsPluginDetails.error.getConfig' }</span>
+		<pre class="document-settings-plugin-details__error-message">{ pluginInstance:errors.getConfig }</pre>
+	</div>
+	<div class="document-settings-plugin-details__error" rv-if="pluginInstance:errors.getSupported">
+		<span class="document-settings-plugin-details__error-method">{ 'documentSettingsPluginDetails.error.getSupported' }</span>
+		<pre class="document-settings-plugin-details__error-message">{ pluginInstance:errors.getSupported }</pre>
+	</div>
+	<div class="document-settings-plugin-details__error" rv-if="pluginInstance:errors.validateConfig">
+		<span class="document-settings-plugin-details__error-method">{ 'documentSettingsPluginDetails.error.validateConfig' }</span>
+		<pre class="document-settings-plugin-details__error-message">{ pluginInstance:errors.validateConfig }</pre>
+	</div>
+	<div class="document-settings-plugin-details__error" rv-if="pluginInstance:errors.getTransactions">
+		<span class="document-settings-plugin-details__error-method">{ 'documentSettingsPluginDetails.error.getTransactions' }</span>
+		<pre class="document-settings-plugin-details__error-message">{ pluginInstance:errors.getTransactions }</pre>
+	</div>
+	<div class="document-settings-plugin-details__error" rv-if="pluginInstance:errors.getMetadata">
+		<span class="document-settings-plugin-details__error-method">{ 'documentSettingsPluginDetails.error.getMetadata' }</span>
+		<pre class="document-settings-plugin-details__error-message">{ pluginInstance:errors.getMetadata }</pre>
+	</div>
+	<div class="document-settings-plugin-details__error" rv-if="pluginInstance:errors.getGoals">
+		<span class="document-settings-plugin-details__error-method">{ 'documentSettingsPluginDetails.error.getGoals' }</span>
+		<pre class="document-settings-plugin-details__error-message">{ pluginInstance:errors.getGoals }</pre>
+	</div>
+
+	<div class="b-form-buttons">
+		<button type="submit"
+				class="b-form-button b-form-button--save">{ 'documentSettingsAccountDetails.done' | string }</button>
+	</div>
+
+	<div class="b-danger" rv-class-loading="meta.uninstalling">
+		<h3 class="b-danger__headline">{ 'documentSettingsPluginDetails.uninstall.title' | string }</h3>
+		<p class="b-danger__message">{ 'documentSettingsPluginDetails.uninstall.message' | string }</p>
+
+		<button class="b-danger__button"
+				type="button"
+				rv-on-click="view.uninstall">{ 'documentSettingsPluginDetails.uninstall.button' | string }</button>
+	</div>
+</form>

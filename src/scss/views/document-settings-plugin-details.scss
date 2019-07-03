@@ -1,0 +1,36 @@
+@import '../definitions/variables';
+
+.document-settings-plugin-details {
+	&__status {
+		@extend .document-settings-plugin__status;
+
+		float: none;
+		margin-left: 1.4em;
+		padding: 0 0.6em;
+	}
+
+	&__error {
+		position: relative;
+		margin-top: 1em;
+		padding: 1em;
+		background: $background-footer;
+
+		&-method {
+			float: right;
+			color: rgba($background, 0.2);
+			font-weight: bold;
+			font-size: 0.8em;
+		}
+		&-message {
+			display: block;
+			padding: 1em;
+			border-left: 0.3em solid $red;
+			color: $background;
+			overflow: auto;
+		}
+
+		&:empty {
+			display: none;
+		}
+	}
+}

@@ -210,7 +210,7 @@
 		},
 		"permissions": {
 			"headline": "Permissions",
-			"description": "Release of the document to third parties"
+			"description": "Share the document with third parties"
 		}
 	},
 	"documentSettingsGeneral": {
@@ -356,5 +356,22 @@
 			"shutdown": "Stopping",
 			"error":  "Error"
 		}
+	},
+	"documentSettingsPluginDetails": {
+		"headline": "Configure plugin",
+		"uninstall": {
+			"title": "Uninstall plugin",
+			"message": "You can uninstall this plugin at any time. Data created by this plugin will be retained.",
+			"button": "Uninstall"
+		},
+		"error": {
+			"getConfig": "Unable go get plugin configuration:",
+			"getSupported": "Unable to check plugin's features:",
+			"getAccounts": "Unable to sync bank accounts:",
+			"getTransactions": "Unable to sync bank transactions:",
+			"getMetadata": "Unable to get a transaction's metadata:",
+			"getGoals": "Unable to sync goals:"
+		},
+		"done": "Done"
 	}
 }

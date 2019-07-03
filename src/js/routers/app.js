@@ -152,10 +152,10 @@ module.exports = Backbone.Router.extend({
         }));
     },
     documentPluginDetailSettings (documentId, pluginId) {
-        const PlaceHolderView = require('../views/placeholder');
-        this.view.renderView(new PlaceHolderView({
-            icon: 'cog',
-            text: `Document ${documentId.substr(0, 8)}: Plugin Details ${pluginId.substr(0, 8)}`
+        const DocumentSettingsPluginDetailsView = require('../views/documentSettingsPluginDetails');
+        this.view.renderView(new DocumentSettingsPluginDetailsView({
+            documentId,
+            pluginId
         }));
     },
     documentPermissionSettings (documentId) {

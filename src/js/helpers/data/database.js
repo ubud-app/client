@@ -25,7 +25,7 @@ class DataHelperDatabase {
         });
     }
 
-    static async getCollection (type, filters) {
+    static async getCollection (type, filters = []) {
         return this.request('getCollection', {
             type,
             filters: filters.map(f => f[1])

@@ -103,6 +103,9 @@ tinybind.formatters.prepend = (a, b) => {
 tinybind.formatters.fallback = (a, b) => {
     return String(a || '') || String(b || '');
 };
+tinybind.formatters.is = (a, b) => {
+    return a === b;
+};
 
 tinybind.binders['style-*'] = function (el, value) {
     el.style.setProperty(this.args[0], value);

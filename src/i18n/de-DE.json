@@ -355,5 +355,22 @@
 			"shutdown": "Wird gestoppt",
 			"error":  "Fehler"
 		}
+	},
+	"documentSettingsPluginDetails": {
+		"headline": "Plugin konfigurieren",
+		"uninstall": {
+			"title": "Plugin deinstallieren",
+			"message": "Du kannst dieses Plugin jederzeit entfernen. Daten die dieses Plugin bearbeitet hat bleiben dabei erhalten.",
+			"button": "Deinstallieren"
+		},
+		"error": {
+			"getConfig": "Konnte Plugin-Konfiguration nicht lesen:",
+			"getSupported": "Konnte Features des Plugins nicht erkennen:",
+			"getAccounts": "Konnte Bank-Konten nicht auslesen:",
+			"getTransactions": "Konnte Transaktionen nicht synchronisieren:",
+			"getMetadata": "Konnte Metadaten einer Transaktion nicht checken:",
+			"getGoals": "Konnte keine Ziele abrufen:"
+		},
+		"done": "Done"
 	}
 }
