@@ -1,0 +1,22 @@
+<div class="document-settings-plugin__wrap b-form b-loader b-loader--light" rv-class-loading="meta.loading">
+	<h1 class="document-settings-plugin__headline b-headline-l1">{ 'documentSettingsPlugin.headline' | string }</h1>
+	<h2 class="document-settings-plugin__document b-headline-l2">{ document:name }</h2>
+
+	<ul class="document-settings-plugin__list">
+		<li class="document-settings-plugin__empty b-empty-message" rv-if="meta.empty">
+			{ 'documentSettingsPlugin.empty' | string}
+		</li>
+
+		<li class="document-settings-plugin__item" rv-each-plugin="plugins">
+			<a rv-href="plugin.url" class="document-settings-plugin__link">
+				<span class="document-settings-plugin__status" rv-data-status="plugin.status.class">{ plugin.status.text }</span>
+				<span class="document-settings-plugin__name">{ plugin.name }</span>
+				<span class="document-settings-plugin__meta">{ plugin.meta }</span>
+			</a>
+		</li>
+	</ul>
+
+	<button type="button" class="document-settings-plugin__add button button--right button--secondary button--inline button--small">
+		{ 'documentSettingsPlugin.add' | string}
+	</button>
+</div>

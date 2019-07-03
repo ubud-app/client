@@ -37,6 +37,7 @@ module.exports = Backbone.Router.extend({
         ':document/settings/accounts': 'documentAccountSettings',
         ':document/settings/accounts/:account': 'documentAccountDetailSettings',
         ':document/settings/plugins': 'documentPluginSettings',
+        ':document/settings/plugins/:account': 'documentPluginDetailSettings',
         ':document/settings/permissions': 'documentPermissionSettings',
         ':document/settings/notifications': 'documentNotificationSettings',
 
@@ -145,10 +146,16 @@ module.exports = Backbone.Router.extend({
         }));
     },
     documentPluginSettings (documentId) {
+        const DocumentSettingsPluginView = require('../views/documentSettingsPlugin');
+        this.view.renderView(new DocumentSettingsPluginView({
+            documentId
+        }));
+    },
+    documentPluginDetailSettings (documentId, pluginId) {
         const PlaceHolderView = require('../views/placeholder');
         this.view.renderView(new PlaceHolderView({
             icon: 'cog',
-            text: `Document ${documentId.substr(0, 8)}: PluginSettings`
+            text: `Document ${documentId.substr(0, 8)}: Plugin Details ${pluginId.substr(0, 8)}`
         }));
     },
     documentPermissionSettings (documentId) {

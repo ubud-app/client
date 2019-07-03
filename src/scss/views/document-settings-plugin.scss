@@ -1,0 +1,53 @@
+@import '../definitions/variables';
+
+.document-settings-plugin {
+	&__item + &__item {
+		margin-top: 1em;
+	}
+
+	&__link {
+		display: block;
+		text-decoration: none;
+
+		width: 100%;
+		padding: 10px;
+		background: lighten($background-box, 2);
+	}
+
+	&__name {
+		display: block;
+		font-size: 1.1em;
+	}
+
+	&__status {
+		float: right;
+		margin-top: 1em;
+		padding: 0 1em;
+		line-height: 1.6em;
+		font-size: 0.8em;
+		font-weight: bold;
+		color: lighten($text, 30);
+		border: 1px solid lighten($text, 50);
+		border-radius: 4px;
+
+		&[data-status="configuration"] {
+			color: rgba($orange, 0.8);
+			border-color: rgba($orange, 0.6);
+		}
+		&[data-status="ready"] {
+			color: rgba($green, 0.8);
+			border-color: rgba($green, 0.6);
+		}
+		&[data-status="error"] {
+			color: rgba($red, 0.8);
+			border-color: rgba($red, 0.6);
+		}
+
+
+	}
+
+	&__meta {
+		font-size: 0.9em;
+		color: lighten($text, 20);
+	}
+}

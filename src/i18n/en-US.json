@@ -344,5 +344,17 @@
 			"button": "Konto löschen"
 		},
 		"done": "Done"
+	},
+	"documentSettingsPlugin": {
+		"headline": "Plugins",
+		"empty": "Currently there are no plugins installed.",
+		"add": "Install plugin",
+		"status": {
+			"initializing": "Starting",
+			"configuration": "Waiting for configuration",
+			"ready":  "Ready",
+			"shutdown": "Stopping",
+			"error":  "Error"
+		}
 	}
 }
