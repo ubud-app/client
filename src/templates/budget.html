@@ -52,6 +52,10 @@
 				<span class="budget__stats-indicator"
 					  rv-class-budget__stats-indicator--active="month.statsPage.2"></span>
 			</div>
+
+			<button class="budget__autofill" rv-class-budget__autofill--highlight="month.highlightTip" rv-on-click="month.openAutoFill">
+				<span class="budget__autofill-circle icon-lightbulb">&nbsp;</span>
+			</button>
 		</div>
 		<ul class="budget__month-categories">
 			<li class="budget__month-category" rv-each-category="month.categories">

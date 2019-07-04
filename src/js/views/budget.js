@@ -50,6 +50,7 @@ const BudgetView = View.extend({
                 /*{
                     id: '2019-04',
                     current: true,
+                    highlightTip: false,
                     month: 'April',
                     year: '2019'
                 }*/
@@ -104,6 +105,7 @@ const BudgetView = View.extend({
             activated: false,
             rendered: false,
             availableNegative: false,
+            highlightTip: false,
             month: month.toFormat('LLLL'),
             year: month.toFormat('yyyy'),
             statsPage: [true, false, false],
@@ -232,6 +234,10 @@ const BudgetView = View.extend({
         portions.filterBy('month', month.id);
         portions.filterBy('hidden', false);
 
+        month.openAutoFill = () => {
+            this.openAutoFill(month, portions);
+        };
+
         const update = debounce(() => this.updateMonthBody(month, portions), 25);
         if (!month.rendered) {
             month.rendered = true;
@@ -354,6 +360,18 @@ const BudgetView = View.extend({
             delete month.deactivate;
         }
         month.activated = false;
+    },
+    openAutoFill (month, portions) {
+        const BudgetTipsView = require('./budgetTips');
+        const budgetTipsView = new BudgetTipsView({
+            month: month,
+            categories: this.categories,
+            budgets: this.budgets,
+            portions,
+            document: this.document
+        });
+
+        budgetTipsView.appendTo(this, AppHelper.view());
     }
 }, {
     async setupBudgets (view, data, categories, budgets) {
@@ -375,9 +393,9 @@ const BudgetView = View.extend({
         const entry = {
             id: category.id,
             name: null,
-            settings: () => this.openCategorySettings(category, !(view instanceof BudgetView)),
+            settings: () => this.openCategorySettings(view, category, !(view instanceof BudgetView)),
             mobileSettings: () => {
-                if(window.innerWidth <= 920) {
+                if (window.innerWidth <= 920) {
                     entry.settings();
                 }
             },
@@ -405,9 +423,9 @@ const BudgetView = View.extend({
             id: budget.id,
             name: null,
             hidden: null,
-            settings: () => this.openBudgetSettings(budget),
+            settings: () => this.openBudgetSettings(view, budget),
             mobileSettings: () => {
-                if(window.innerWidth <= 920) {
+                if (window.innerWidth <= 920) {
                     entry.settings();
                 }
             }
@@ -420,13 +438,16 @@ const BudgetView = View.extend({
             entry.hidden = budget.get('hidden');
         });
 
-        view.listenToAndCall(budget, 'change:categoryId', () => {
-            if (budget.previous('categoryId') === budget.get('categoryId')) {
+        this.appendBudgetToCategory(view, budget, data.categories, entry);
+    },
+    appendBudgetToCategory (view, budget, data, entry) {
+        const append = force => {
+            if (!force && budget.previous('categoryId') === budget.get('categoryId')) {
                 return;
             }
 
-            Object.values(data.categories).forEach(categoryEntry => {
-                if(categoryEntry.budgets) {
+            Object.values(data).forEach(categoryEntry => {
+                if (categoryEntry.budgets) {
                     const i = categoryEntry.budgets.findIndex(e => e.id === budget.id);
                     if (i > -1) {
                         categoryEntry.budgets.splice(i, 1);
@@ -434,7 +455,7 @@ const BudgetView = View.extend({
                 }
             });
 
-            const newCategoryEntry = data.categories.find(e => e.id === budget.get('categoryId'));
+            const newCategoryEntry = data.find(e => e.id === budget.get('categoryId'));
             const sort = newCategoryEntry.budgets
                 .map(b => b.name)
                 .concat([budget.get('name')])
@@ -447,7 +468,13 @@ const BudgetView = View.extend({
             if (budget.previous('categoryId')) {
                 view.trigger('budgetsUpdated');
             }
+        };
+
+        view.listenTo(budget, 'change:categoryId', () => {
+            append();
         });
+
+        append(true);
     },
     removeBudget (data, budget) {
         const categoryEntry = data.categories.find(e => e.id === budget.get('categoryId'));
@@ -460,16 +487,16 @@ const BudgetView = View.extend({
             categoryEntry.budgets.splice(i, 1);
         }
     },
-    openCategorySettings (category, allowDelete) {
+    openCategorySettings (view, category, allowDelete) {
         new CategoryEditorView({
             model: category,
             allowDelete
-        }).appendTo(AppHelper.view());
+        }).appendTo(view, AppHelper.view());
     },
-    openBudgetSettings (budget) {
+    openBudgetSettings (view, budget) {
         new BudgetEditorView({
             model: budget
-        }).appendTo(AppHelper.view());
+        }).appendTo(view, AppHelper.view());
     }
 });
 

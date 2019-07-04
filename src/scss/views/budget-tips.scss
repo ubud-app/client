@@ -1,0 +1,213 @@
+@import '../definitions/variables';
+
+.budget-tips {
+	&__content {
+		display: flex;
+		padding: 0;
+		width: 100%;
+		height: calc(100% - env(safe-area-inset-top, 0));
+		overflow: hidden;
+
+		margin-top: env(safe-area-inset-top, 0);
+		flex-direction: column;
+
+		@include greater($size-m) {
+			max-height: 60%;
+		}
+	}
+
+	&__categories {
+		height: 100%;
+
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+	}
+	&__category {
+		&-name {
+			@extend .budget__label-category-name;
+		}
+	}
+
+	&__budget {
+		display: block;
+		height: $budget-height;
+		position: relative;
+
+		@include greater($size-l) {
+			height: 40px;
+		}
+
+
+		&-budget,
+		&-before,
+		&-selector,
+		&-after,
+		&-balance {
+			display: block;
+			float: left;
+			height: 100%;
+			padding: 0.6em;
+
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+
+			background: lighten($background-box, 1);
+		}
+		&:nth-child(2n) &-budget,
+		&:nth-child(2n) &-before,
+		&:nth-child(2n) &-selector,
+		&:nth-child(2n) &-after,
+		&:nth-child(2n) &-balance {
+			background: lighten($background-box, 4);
+		}
+
+		&-before,
+		&-selector,
+		&-after,
+		&-balance {
+			margin-left: 2px;
+		}
+		&-budget {
+			width: calc(34% - 2px);
+
+			@include greater($size-m) {
+				width: calc(28% - 2px);
+			}
+		}
+		&-before,
+		&-after {
+			width: calc(28% - 2px);
+			text-align: right;
+
+			@include greater($size-m) {
+				width: calc(17% - 2px);
+			}
+		}
+		&-after {
+			color: rgba($text, 0.4);
+
+			&--changed {
+				color: $text;
+			}
+		}
+		&-selector {
+			width: 10%;
+			text-align: center;
+			overflow: hidden;
+
+			&-arrow {
+				display: block;
+				margin-top: -0.1em;
+				font-size: 1.2em;
+				opacity: 0.4;
+
+				&--selected {
+					opacity: 1;
+				}
+			}
+		}
+		&-balance {
+			display: none;
+			width: calc(28% - 2px);
+			text-align: right;
+
+			@include greater($size-m) {
+				display: block;
+			}
+			&--negative {
+				color: $red;
+			}
+		}
+		&-progress {
+			@extend .budget__month-progress;
+
+			&--active {
+				@extend .budget__month-progress--active;
+			}
+			&--negative {
+				@extend .budget__month-progress--negative;
+			}
+			&--complete {
+				@extend .budget__month-progress--complete;
+			}
+			&-bar {
+				@extend .budget__month-progress-bar;
+			}
+		}
+	}
+
+	&__footer {
+		background: rgba($background, 0.95);
+		z-index: 50;
+	}
+	&__buttons {
+		padding: 1em 1em calc(env(safe-area-inset-bottom) + 1em) 1em;
+	}
+
+	&__rules {
+		display: flex;
+		padding: 1em 0 1em 1em;
+		overflow-x: scroll;
+		scroll-snap-type: x mandatory;
+		align-items: stretch;
+		flex: 2;
+		scrollbar-width: auto;
+
+		@include greater($size-m) {
+			scroll-snap-type: x mandatory;
+			padding-left: 0;
+		}
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	&__rule {
+		position: relative;
+		scroll-snap-align: center;
+		flex: 0 0 90%;
+		flex-flow: column;
+		justify-content: end;
+		border-right: 1em solid transparent;
+
+		@include greater($size-m) {
+			justify-content: end;
+			flex: 1 0 calc(65% - 2em);
+			background: lighten($background-box, 4);
+
+			&:last-child {
+				border-right: 0;
+			}
+		}
+
+		opacity: 0.3;
+		transition: opacity 0.3s ease-out;
+
+		&--active {
+			opacity: 1;
+		}
+
+		&-button {
+			display: block;
+			width: 100%;
+			height: 100%;
+			padding: 0.6em;
+			transition: opacity 0.3s ease-in-out;
+			background: $background;
+			border: 1px solid rgba($background-footer, 0.4);
+			text-align: left;
+		}
+
+		&-title {
+			display: block;
+			font-weight: bold;
+			font-size: 0.9em;
+		}
+
+		&-description {
+			display: block;
+			font-size: 0.9em;
+		}
+	}
+}

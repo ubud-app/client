@@ -1,0 +1,54 @@
+<form class="budget-tips__content b-modal__content b-form">
+	<ul class="budget-tips__categories">
+		<li class="budget-tips__category" rv-each-category="preview">
+			<span class="budget-tips__category-name">{ category.name }</span>
+			<ul class="budget-tips__budgets">
+				<li class="budget-tips__budget" rv-each-budget="category.budgets">
+					<span class="budget-tips__budget-budget">{ budget.name }</span>
+					<span class="budget-tips__budget-before">{ budget.before | currency }</span>
+					<button class="budget-tips__budget-selector"
+							type="button"
+							rv-on-click="budget.toggle">
+						<span class="budget-tips__budget-selector-arrow"
+							  rv-class-budget-tips__budget-selector-arrow--selected="budget.selected"
+							  rv-if="budget.possible">→</span>
+					</button>
+					<span class="budget-tips__budget-after"
+						  rv-class-budget-tips__budget-after--changed="budget.change">{ budget.after | currency }</span>
+					<span class="budget-tips__budget-balance"
+						  rv-class-budget-tips__budget-balance--negative="budget.balance.negative">
+						<span class="budget-tips__budget-balance-value">{ budget.balance.value | currency }</span>
+						<span class="">
+							<span class="" style="width: 0%;">&nbsp;</span>
+						</span>
+
+						<span class="budget-tips__budget-progress"
+							  rv-title="budget.balance.percent | percentage"
+							  rv-class-budget-tips__budget-progress--active="budget.balance.goal"
+							  rv-class-budget-tips__budget-progress--negative="budget.balance.negative"
+							  rv-class-budget-tips__budget-progress--complete="budget.balance.complete">
+								<span class="budget-tips__budget-progress-bar"
+									  rv-if="budget.balance.goal"
+									  rv-style-width="budget.balance.width">&nbsp;</span>
+					</span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+
+	<div class="budget-tips__footer">
+		<ul class="budget-tips__rules" rv-on-scroll="scroll">
+			<li class="budget-tips__rule" rv-each-rule="rules" rv-class-budget-tips__rule--active="rule.active">
+				<button class="budget-tips__rule-button" rv-on-click="rule.click">
+					<span class="budget-tips__rule-title">{ rule.title }</span>
+					<span class="budget-tips__rule-description">{ rule.description }</span>
+				</button>
+			</li>
+		</ul>
+
+		<div class="budget-tips__buttons">
+			<button class="b-form-button b-form-button--save" type="button" rv-on-click="view.submit">Anwenden</button>
+			<button class="b-form-button b-form-button--cancel" type="button" rv-on-click="hide">Abbrechen</button>
+		</div>
+	</div>
+</form>

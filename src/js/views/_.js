@@ -64,6 +64,9 @@ module.exports = Backbone.View.extend({
         if (child instanceof $) {
             $appendTo = child;
         }
+        else if (child instanceof Backbone.View) {
+            $appendTo = child.$el;
+        }
         else if (_.isString(child)) {
             $appendTo = $appendTo.find(child);
         }

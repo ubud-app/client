@@ -268,7 +268,8 @@
 			max-height: 100%;
 			margin: 0;
 			padding: 5% 0 2em 0;
-			overflow: auto;
+			overflow: scroll;
+			-webkit-overflow-scrolling: touch;
 
 			opacity: 1;
 			transform: translate3d(-50%, -50%, 0);
@@ -313,7 +314,7 @@
 				& + .b-headline-l2 {
 					color: lighten($text, 20);
 					font-size: 1.1em;
-					margin-top: -3em;
+					margin-top: -2.4em;
 
 					@include greater($size-l) {
 						margin-top: -2.8em;

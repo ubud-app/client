@@ -20,6 +20,24 @@
 			"loan": "Loan"
 		}
 	},
+	"tips": {
+		"budgetedLastMonth": {
+			"title": "Budget from last month",
+			"description": "Takes over the amount you already budgeted for {{month}}."
+		},
+		"spentLastMonth": {
+			"title": "Last month's expenses",
+			"description": "Budgets the amount you spent {{month}}."
+		},
+		"budgetedAverage": {
+			"title": "Budgeted on average",
+			"description": "Budgets the amount you have budgeted on average."
+		},
+		"spentAverage": {
+			"title": "Average Spent",
+			"description": "Budgets the amount spent last year on average."
+		}
+	},
 	"error": {
 		"labels": {
 			"stacktrace": "Stacktrace",

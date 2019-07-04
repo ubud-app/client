@@ -20,6 +20,24 @@
 			"loan": "Darlehen"
 		}
 	},
+	"tips": {
+		"budgetedLastMonth": {
+			"title": "Budget von letztem Monat",
+			"description": "Übernimmt den Betrag, den du bereits {{month}} budgetiert hast."
+		},
+		"spentLastMonth": {
+			"title": "Ausgaben von letztem Monat",
+			"description": "Budgetriert den Betrag, den du {{month}} ausgegeben hast."
+		},
+		"budgetedAverage": {
+			"title": "Durchschnittlich budgetiert",
+			"description": "Budgetriert den Betrag, den du im Schnitt budgetiert hast."
+		},
+		"spentAverage": {
+			"title": "Durchschnittlich Ausgegeben",
+			"description": "Budgetriert den Betrag, das letzte Jahr im Schnitt ausgegeben hast."
+		}
+	},
 	"error": {
 		"labels": {
 			"stacktrace": "Stacktrace",

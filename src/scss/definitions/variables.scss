@@ -1,7 +1,7 @@
 $font_default: 'OpenSans';
 
 $primary: #e15c34;
-$primary-dark: darken(#e15c34, 20);
+$primary-dark: darken(#e15c34, 30);
 $text: #B6B6B6;
 
 $green: #03B781;
@@ -16,6 +16,9 @@ $background-copy: #22262C;
 
 $header-icon-mobile-size: 40px;
 $sidebar-width: 80px;
+
+$category-height: 48px;
+$budget-height: 36px;
 
 $size-s: 320;
 $size-m: 640;
