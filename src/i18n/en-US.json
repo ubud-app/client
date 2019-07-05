@@ -38,6 +38,17 @@
 			"description": "Budgets the amount spent last year on average."
 		}
 	},
+	"plugins": {
+		"label": {
+			"apiKey": "API Key",
+			"accounts": "Accounts",
+			"email": "Email Address",
+			"username": "Username",
+			"password": "Password",
+			"iban": "IBAN",
+			"bic": "BIC"
+		}
+	},
 	"error": {
 		"labels": {
 			"stacktrace": "Stacktrace",

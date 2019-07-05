@@ -38,6 +38,17 @@
 			"description": "Budgetriert den Betrag, das letzte Jahr im Schnitt ausgegeben hast."
 		}
 	},
+	"plugins": {
+		"label": {
+			"apiKey": "API-Key",
+			"accounts": "Konten",
+			"email": "E-Mail-Adresse",
+			"username": "Username",
+			"password": "Passwort",
+			"iban": "IBAN",
+			"bic": "BIC"
+		}
+	},
 	"error": {
 		"labels": {
 			"stacktrace": "Stacktrace",
