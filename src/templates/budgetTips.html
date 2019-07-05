@@ -39,7 +39,7 @@
 	<div class="budget-tips__footer">
 		<ul class="budget-tips__rules" rv-on-scroll="scroll">
 			<li class="budget-tips__rule" rv-each-rule="rules" rv-class-budget-tips__rule--active="rule.active">
-				<button class="budget-tips__rule-button" rv-on-click="rule.click">
+				<button class="budget-tips__rule-button" type="button" rv-on-click="rule.click">
 					<span class="budget-tips__rule-title">{ rule.title }</span>
 					<span class="budget-tips__rule-description">{ rule.description }</span>
 				</button>
