@@ -144,18 +144,7 @@ module.exports = View.extend({
 
         this.data.meta.leaving = true;
         this._leave()
-            .then(() => {
-                const documents = DataHelper.getDocuments();
-                documents.remove(this.model);
-
-                if (documents.length > 0) {
-                    AppHelper.navigate(documents.first().id + '/budget', {trigger: true});
-                }
-                else {
-                    AppHelper.navigate('');
-                    location.reload();
-                }
-            })
+            .then(() => AppHelper.removeDocumentLocallyAndRedirect(this.model))
             .catch(error => {
                 this.data.meta.leaving = false;
 

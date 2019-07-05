@@ -48,8 +48,8 @@ module.exports = View.extend({
         Sentry.captureException(this.error);
         this.data.error.reference = Sentry.lastEventId();
 
-        console.log('Got Error via ErrorView:');
-        console.log(this.data.error);
+        console.log('Got Error via ErrorView:');    // eslint-disable-line no-console
+        console.log(this.data.error);               // eslint-disable-line no-console
 
         return this;
     },

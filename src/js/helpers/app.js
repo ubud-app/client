@@ -89,6 +89,19 @@ class AppHelper {
 
         return document;
     }
+
+    static removeDocumentLocallyAndRedirect (document) {
+        const documents = DataHelper.getDocuments();
+        documents.remove(document);
+
+        if (documents.length > 0) {
+            AppHelper.navigate(documents.first().id + '/budget', {trigger: true});
+        }
+        else {
+            AppHelper.navigate('');
+            location.reload();
+        }
+    }
 }
 
 _.extend(AppHelper, Backbone.Events);

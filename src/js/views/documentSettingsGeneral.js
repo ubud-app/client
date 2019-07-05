@@ -5,7 +5,6 @@ const ErrorView = require('./error');
 const BudgetView = require('./budget');
 
 const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
@@ -130,18 +129,7 @@ module.exports = View.extend({
 
         this.data.meta.deleting = true;
         this._delete()
-            .then(() => {
-                const documents = DataHelper.getDocuments();
-                documents.remove(this.model);
-
-                if (documents.length > 0) {
-                    AppHelper.navigate(documents.first().id + '/budget', {trigger: true});
-                }
-                else {
-                    AppHelper.navigate('');
-                    location.reload();
-                }
-            })
+            .then(() => AppHelper.removeDocumentLocallyAndRedirect(this.model))
             .catch(error => {
                 this.data.meta.deleting = false;
                 new ErrorView({error}).appendTo(AppHelper.view());

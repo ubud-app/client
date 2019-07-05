@@ -195,7 +195,6 @@ module.exports = View.extend({
                 const ErrorView = require('./error');
 
                 new ErrorView({error}).appendTo(AppHelper.view());
-                console.log(error);
             })
             .finally(() => this.$el.removeClass('loading'));
     },
@@ -255,8 +254,6 @@ module.exports = View.extend({
                 const ErrorView = require('./error');
 
                 new ErrorView({error}).appendTo(AppHelper.view());
-                console.log(error);
-
                 this.$el.removeClass('loading')
             });
     },
