@@ -226,8 +226,14 @@
 			"description": "Listet alle installierten Plugins in diesem Dokument auf"
 		},
 		"permissions": {
-			"headline": "Berechtigungen",
-			"description": "Verwaltet Berechtigungen für dieses Dokument"
+			"admin": {
+				"headline": "Berechtigungen",
+				"description": "Verwaltet Berechtigungen für dieses Dokument, sodass andere mit dir daran arbeiten können"
+			},
+			"user": {
+				"headline": "Zugriff",
+				"description": "Sehe deine Berechtigungen für dieses Dokument ein oder verlasse das Dokument"
+			}
 		}
 	},
 	"documentSettingsGeneral": {
@@ -390,5 +396,15 @@
 			"getGoals": "Konnte keine Ziele abrufen:"
 		},
 		"done": "Done"
+	},
+	"documentSettingsPermissions": {
+		"headline": "Berechtigungen",
+		"admin": "Administrator",
+		"infoText": "Du hast vollen Zugriff auf das Dokument „{{document}}“. Wenn du weitere Personen zu diesem Dokument einladen willst, melde dich bitte bei deinem Administrator.",
+		"leave": {
+			"headline": "Dokument verlassen",
+			"message": "Wenn du keinen Zugriff mehr auf dieses Dokument haben möchtest kannst du hier das Dokument verlassem. Wenn du anschließend wieder darauf zugreifen willst, musst du zuerst erneut eingeladen werden.",
+			"button": "Dokument verlassen"
+		}
 	}
 }

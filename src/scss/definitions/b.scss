@@ -55,7 +55,8 @@
 		}
 
 		&-input,
-		&-select-wrap {
+		&-select-wrap,
+		&-checkbox-wrap {
 			appearance: none;
 			display: block;
 			width: 100%;
@@ -171,6 +172,7 @@
 			right: 0;
 			bottom: 0;
 			background: rgba($background-copy, 0.2);
+			z-index: 50;
 		}
 		&--light:before {
 			background: rgba($background, 0.4);
@@ -186,6 +188,7 @@
 			margin: -25px 0 0 -20px;
 			width: 40px;
 			height: 40px;
+			z-index: 51;
 
 			@extend [class^="icon-"]:before;
 			font-size: 2.5em;

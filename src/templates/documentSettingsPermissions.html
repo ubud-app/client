@@ -1,0 +1,33 @@
+<div class="document-settings-permissions__wrap b-form b-loader b-loader--light" rv-class-loading="meta.loading">
+	<h1 class="document-settings-permissions__headline b-headline-l1">{ 'documentSettingsPermissions.headline' | string }</h1>
+	<h2 class="document-settings-permissions__document b-headline-l2">{ document:name }</h2>
+
+	<ul class="document-settings-permissions__users" rv-if="meta.isAdmin">
+		<li class="document-settings-permissions__user" rv-each-user="users">
+			<label rv-for="user.elId" class="document-settings-permissions__user-wrap b-form-checkbox-wrap">
+				<input type="checkbox"
+					   rv-id="user.elId"
+					   rv-checked="user.checked"
+					   rv-disabled="user.readOnly"
+					   rv-on-click="user.toggle" />
+				<span class="document-settings-permissions__email">{ user.model:email }</span>
+				<span class="document-settings-permissions__admin" rv-if="user.model:isAdmin">{ 'documentSettingsPermissions.admin' | string }</span>
+			</label>
+		</li>
+	</ul>
+
+	<div class="document-settings-permissions__info" rv-if="meta.isUser">
+		<span class="document-settings-permissions__info-icon icon-key">&nbsp;</span>
+		<span class="document-settings-permissions__info-text">{ meta.infoText }</span>
+	</div>
+
+	<div class="b-danger" rv-class-loading="meta.leaving" rv-if="meta.allowLeave">
+		<h3 class="b-danger__headline">{ 'documentSettingsPermissions.leave.headline' | string }</h3>
+		<p class="b-danger__message">{ 'documentSettingsPermissions.leave.message' | string }</p>
+
+		<button class="b-danger__button"
+				type="button"
+				rv-on-click="view.leave"
+				rv-on-click="view.delete">{ 'documentSettingsPermissions.leave.button' | string }</button>
+	</div>
+</div>

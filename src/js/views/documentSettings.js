@@ -2,6 +2,7 @@
 
 const View = require('./_');
 const AppHelper = require('../helpers/app');
+const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
@@ -32,12 +33,23 @@ module.exports = View.extend({
             permissions: '#' + document.id + '/settings/permissions'
         };
 
+        const user = DataHelper.getUser();
+        const permissions = {};
+        this.live(user);
+        this.listenToAndCall(user, 'change:isAdmin', () => {
+            permissions.headline = 'documentSettings.permissions.' +
+                (user.get('isAdmin') ? 'admin' : 'user') + '.headline';
+            permissions.description = 'documentSettings.permissions.' +
+                (user.get('isAdmin') ? 'admin' : 'user') + '.description';
+        });
+
         TemplateHelper.render({
             view: this,
             template: DocumentSettingsTemplate,
             data: {
                 urls,
-                document
+                document,
+                permissions
             }
         });
 

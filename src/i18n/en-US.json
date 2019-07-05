@@ -227,8 +227,14 @@
 			"description": "List of plugins activated in this document"
 		},
 		"permissions": {
-			"headline": "Permissions",
-			"description": "Share the document with third parties"
+			"admin": {
+				"headline": "Permissions",
+				"description": "Manages permissions for this document so others can work with you on it"
+			},
+			"user": {
+				"headline": "Access",
+				"description": "See your permissions for this document or leave the document"
+			}
 		}
 	},
 	"documentSettingsGeneral": {
@@ -391,5 +397,15 @@
 			"getGoals": "Unable to sync goals:"
 		},
 		"done": "Done"
+	},
+	"documentSettingsPermissions": {
+		"headline": "Permissions",
+		"admin": "Admin",
+		"infoText": "You have full access to the document \"{{document}}\". If you want to invite other people to this document, please contact your administrator.",
+		"leave": {
+			"headline": "Leave document",
+			"message": "If you don't want to have access to this document anymore you can leave it here. If you want to access the document again, you have to be invited again first.",
+			"button": "Leave document"
+		}
 	}
 }

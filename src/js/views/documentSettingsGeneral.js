@@ -131,12 +131,11 @@ module.exports = View.extend({
         this.data.meta.deleting = true;
         this._delete()
             .then(() => {
-                const documentIdsLeft = DataHelper.getDocuments()
-                    .map(document => document.id)
-                    .filter(id => id !== this.model.id);
+                const documents = DataHelper.getDocuments();
+                documents.remove(this.model);
 
-                if (documentIdsLeft.length > 0) {
-                    AppHelper.navigate(documentIdsLeft[0] + '/budget', {trigger: true});
+                if (documents.length > 0) {
+                    AppHelper.navigate(documents.first().id + '/budget', {trigger: true});
                 }
                 else {
                     AppHelper.navigate('');

@@ -106,7 +106,7 @@ module.exports = View.extend({
             return this;
         }
 
-        this.plugins.splice(i, 1);
+        this.data.plugins.splice(i, 1);
         this.data.meta.empty = !this.plugins.length;
     }
 });

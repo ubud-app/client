@@ -111,7 +111,7 @@ module.exports = View.extend({
                 AppHelper.navigate(this.model.get('documentId') + '/settings/plugins', {trigger: true});
             })
             .catch(error => {
-                this.data.uninstall.loading = false;
+                this.data.meta.uninstalling = false;
                 new ErrorView({error}).appendTo(AppHelper.view());
             });
     },

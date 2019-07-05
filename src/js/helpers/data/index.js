@@ -308,16 +308,11 @@ class DataHelper {
             try {
                 await promises[1];
 
-                model._syncing = false;
-                model._synced = true;
-                model.trigger('sync', model, response, options);
+                DataHelper._syncEvents(false, true, {model, response, options});
             }
-            catch(err) {
-                model._syncing = false;
-                model._synced = false;
-
-                model.trigger('error', model, err, options);
-                throw err;
+            catch(error) {
+                DataHelper._syncEvents(false, false, {model, error, options});
+                throw error;
             }
 
             DataHelperDatabase.setModel(model.dbStore, response).catch(err => {
@@ -338,16 +333,11 @@ class DataHelper {
                 await Promise.all(promises);
             }
 
-            model._syncing = false;
-            model._synced = true;
-            model.trigger('sync', model, response, options);
+            DataHelper._syncEvents(false, true, {model, response, options});
         }
-        catch (err) {
-            model._syncing = false;
-            model._synced = false;
-
-            model.trigger('error', model, err, options);
-            throw err;
+        catch (error) {
+            DataHelper._syncEvents(false, false, {model, error, options});
+            throw error;
         }
 
 
@@ -367,12 +357,37 @@ class DataHelper {
         /* eslint-enable require-atomic-updates */
     }
 
+    static _syncEvents (syncing, synced, {model, response, error, options}) {
+        if(model instanceof Collection) {
+            model.each(model => model._syncing = syncing);
+        }
+        model._syncing = syncing;
+
+        if(model instanceof Collection) {
+            model.each(model => model._synced = synced);
+        }
+        model._synced = synced;
+
+        if(model instanceof Collection) {
+            model.each(model => model.trigger(response ? 'sync' : 'error', model, response || error, options));
+        }
+
+        model.trigger(error ? 'error' : 'sync', model, error || response, options);
+    }
+
     static live (model) {
         model._liveListeners = model._liveListeners || 0;
         model._liveListeners += 1;
 
-        if (!model.isSynced() && !model.isSyncing()) {
+        if (!model.isSynced() && !model.isSyncing() && Object.keys(model.toJSON()).length <= 1) {
             model.fetch();
+        }
+        else if(!model.isSynced() && !model.isSyncing()) {
+            setTimeout(() => {
+                if(!model.isSynced() && !model.isSyncing()) {
+                    model.fetch();
+                }
+            }, 100);
         }
 
         let stopped = 0;

@@ -159,10 +159,9 @@ module.exports = Backbone.Router.extend({
         }));
     },
     documentPermissionSettings (documentId) {
-        const PlaceHolderView = require('../views/placeholder');
-        this.view.renderView(new PlaceHolderView({
-            icon: 'cog',
-            text: `Document ${documentId.substr(0, 8)}: PermissionSettings`
+        const DocumentSettingsPermissionsView = require('../views/documentSettingsPermissions');
+        this.view.renderView(new DocumentSettingsPermissionsView({
+            documentId
         }));
     },
     documentNotificationSettings (documentId) {
