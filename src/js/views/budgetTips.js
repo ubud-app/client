@@ -247,31 +247,31 @@ module.exports = View.extend({
     },
     submit () {
         this.$el.addClass('loading');
-        this._submit()
-            .then(() => this.hide())
-            .catch(error => {
-                const AppHelper = require('../helpers/app');
-                const ErrorView = require('./error');
 
-                new ErrorView({error}).appendTo(AppHelper.view());
-                this.$el.removeClass('loading')
+        try {
+            this.data.preview.forEach(category => {
+                category.budgets.forEach(entry => {
+                    if (!entry.change) {
+                        return;
+                    }
+
+                    const portion = this.portions.find(p => p.get('budgetId') === entry.id);
+                    portion.set({
+                        budgeted: entry.after
+                    });
+
+                    // saving is performed in BudgetView
+                });
             });
-    },
-    async _submit () {
-        const promises = [];
-        this.data.preview.forEach(category => {
-            category.budgets.forEach(entry => {
-                if (!entry.change) {
-                    return;
-                }
 
-                const portion = this.portions.find(p => p.get('budgetId') === entry.id);
-                promises.push(portion.save({
-                    budgeted: entry.after
-                }));
-            });
-        });
+            this.hide();
+        }
+        catch (error) {
+            const AppHelper = require('../helpers/app');
+            const ErrorView = require('./error');
 
-        await Promise.all(promises);
+            new ErrorView({error}).appendTo(AppHelper.view());
+            this.$el.removeClass('loading')
+        }
     }
 });
