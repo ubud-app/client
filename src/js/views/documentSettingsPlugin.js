@@ -1,6 +1,7 @@
 'use strict';
 
 const View = require('./_');
+const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
