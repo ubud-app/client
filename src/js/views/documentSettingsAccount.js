@@ -22,8 +22,8 @@ module.exports = View.extend({
 
     async render () {
         const AppHelper = require('../helpers/app');
-        this.model = AppHelper.getDocument(true);
-        if(!this.model) {
+        this.model = this.model || AppHelper.getDocument(true);
+        if (!this.model) {
             return;
         }
 
@@ -33,7 +33,8 @@ module.exports = View.extend({
             accounts: [],
             meta: {
                 loading: true,
-                empty: true
+                empty: true,
+                addUrl: '#' + this.model.id + '/settings/accounts/add'
             }
         };
 
@@ -66,7 +67,7 @@ module.exports = View.extend({
         this.data.meta.loading = !this.model.isSynced() || !this.accounts.isSynced();
     },
 
-    addAccount(account) {
+    addAccount (account) {
         const json = {
             id: account.id,
             url: '#' + this.model.id + '/settings/accounts/' + account.id
@@ -77,7 +78,7 @@ module.exports = View.extend({
             json.name = account.get('name');
 
             json.meta = ConfigurationHelper.getString('account.type.' + account.get('type'));
-            if(account.get('pluginId')) {
+            if (account.get('pluginId')) {
                 json.meta += ConfigurationHelper.getString('documentSettingsAccount.synced');
             }
         });
@@ -85,10 +86,9 @@ module.exports = View.extend({
         this.data.accounts.push(json);
         this.data.meta.empty = false;
     },
-
     removeAccount (account) {
         const i = this.accounts.findIndex(a => a.id === account.id);
-        if(i === -1) {
+        if (i === -1) {
             return this;
         }
 

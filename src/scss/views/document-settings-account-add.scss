@@ -1,0 +1,35 @@
+@import '../definitions/variables';
+
+.document-settings-account-add {
+	overflow: visible;
+
+	&__types {
+		@extend .document-settings__list;
+	}
+
+	&__type {
+		@extend .document-settings__item;
+
+		@include greater($size-m) {
+			&:last-child {
+				flex-grow: 2;
+			}
+		}
+
+		@include greater(1200) {
+			width: calc(33.33% - 1em);
+		}
+
+		&-button {
+			@extend .document-settings__link;
+		}
+
+		&-title {
+			@extend .document-settings__title;
+		}
+
+		&-description {
+			@extend .document-settings__description;
+		}
+	}
+}

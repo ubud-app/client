@@ -418,5 +418,32 @@
 			"message": "If you don't want to have access to this document anymore you can leave it here. If you want to access the document again, you have to be invited again first.",
 			"button": "Leave document"
 		}
+	},
+	"documentSettingsAccountAdd": {
+		"headline": "Add Account",
+		"cancel": "Cancel",
+		"checking": {
+			"title": "Current Account",
+			"description": "e.g. current account or credit card"
+		},
+		"cash": {
+			"title": "Cash",
+			"description": "e.g. your wallet or the secret money supply behind the pillow"
+		},
+		"other": {
+			"title": "Other",
+			"description": "e.g. a mortgage or other assets"
+		}
+	},
+	"documentSettingsAccountAddManual": {
+		"headline": "Add Account",
+		"name": "Account name",
+		"defaultName": "My great new account",
+		"type": "Account Type",
+		"balance": "Current amount",
+		"balanceInfo": "The amount is inserted as a transaction and can be changed later in the list of all transactions. Negative amounts are of course possible (e.g. for mortgages).",
+		"save": "Create Account",
+		"cancel": "Cancel",
+		"memo": "Created account"
 	}
 }

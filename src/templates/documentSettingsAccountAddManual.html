@@ -1,0 +1,43 @@
+<h1 class="document-settings-account-add-manual__headline b-headline-l1">{ 'documentSettingsAccountAddManual.headline' | string }</h1>
+<h2 class="document-settings-account-add-manual__document b-headline-l2">{ document:name }</h2>
+
+<form class="document-settings-account-add-manual__page document-settings-account-add-manual__page--manual" rv-on-submit="view.submit">
+
+	<label class="b-form-label" for="document-settings-account-add-manual__input--name">{ 'documentSettingsAccountAddManual.name' | string }</label>
+	<input type="text"
+		   name="name"
+		   id="document-settings-account-add-manual__input--name"
+		   class="b-form-input"
+		   autocomplete="off"
+		   rv-placeholder="'documentSettingsAccountAddManual.defaultName' | string"
+		   rv-value="account:name"/>
+
+	<label class="b-form-label" for="document-settings-account-add-manual__input--type" rv-unless="manual.hideType">{ 'documentSettingsAccountAddManual.type' | string }</label>
+	<span class="b-form-select-wrap" rv-unless="manual.hideType">
+		<select name="type" id="document-settings-account-add-manual__input--type"
+				class="b-form-select"
+				rv-value="account:type | fallback 'checking'">
+			<option value="checking">{ 'account.type.checking' | string }</option>
+			<option value="savings">{ 'account.type.savings' | string }</option>
+			<option value="creditCard">{ 'account.type.creditCard' | string }</option>
+			<option value="cash">{ 'account.type.cash' | string }</option>
+			<option value="mortgage">{ 'account.type.mortgage' | string }</option>
+			<option value="asset">{ 'account.type.asset' | string }</option>
+			<option value="loan">{ 'account.type.loan' | string }</option>
+		</select>
+	</span>
+
+	<label class="b-form-label" for="document-settings-account-add-manual__input--name">{ 'documentSettingsAccountAddManual.balance' | string }</label>
+	<input type="text"
+		   name="name"
+		   id="document-settings-account-add-manual__input--balance"
+		   class="b-form-input"
+		   rv-currency-value="meta.balance"
+		   rv-placeholder="0 | currency" />
+	<span class="b-form-info">{ 'documentSettingsAccountAddManual.balanceInfo' | string }</span>
+
+	<div class="b-form-buttons">
+		<button type="submit" class="b-form-button b-form-button--save">{ 'documentSettingsAccountAddManual.save' | string }</button>
+		<button type="button" class="b-form-button b-form-button--cancel" rv-on-click="view.goBack">{ 'documentSettingsAccountAddManual.cancel' | string }</button>
+	</div>
+</form>

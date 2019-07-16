@@ -50,7 +50,7 @@
 			display: block;
 			color: lighten($text, 10);
 			font-size: 14px;
-			margin: 11px 0 0;
+			margin: 1em 0 0;
 			padding: 4px 0;
 		}
 
@@ -69,10 +69,13 @@
 				border-color: $red;
 				background: lighten($red, 35);
 			}
+
+			& + .b-form-label {
+				margin-top: 1.4em;
+			}
 		}
 
 		&-select-wrap {
-			padding: 8.5px 10px 8.5px 2px;
 			border: none;
 		}
 
@@ -83,6 +86,7 @@
 			border: none;
 			outline: none;
 			background: transparent;
+			-webkit-appearance:none;
 		}
 
 		&-error {
@@ -90,6 +94,14 @@
 			margin: 0.4em 9px 1.2em;
 			color: $red;
 			font-size: 0.8em;
+			max-width: 40em;
+		}
+		&-info {
+			display: block;
+			margin: 0.4em 9px 1.2em;
+			color: lighten($text, 20);
+			font-size: 0.8em;
+			max-width: 40em;
 		}
 
 		&-buttons {

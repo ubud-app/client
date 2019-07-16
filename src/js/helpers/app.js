@@ -64,6 +64,15 @@ class AppHelper {
         return this;
     }
 
+    static back (fallback) {
+        if(window.history.length > 1) {
+            window.history.back();
+        } else {
+            const AppHelper = require('../helpers/app');
+            AppHelper.navigate(fallback, {trigger: true});
+        }
+    }
+
     static offline () {
         return window.navigator && window.navigator.onLine === false;
     }

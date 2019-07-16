@@ -417,5 +417,32 @@
 			"message": "Wenn du keinen Zugriff mehr auf dieses Dokument haben möchtest kannst du hier das Dokument verlassem. Wenn du anschließend wieder darauf zugreifen willst, musst du zuerst erneut eingeladen werden.",
 			"button": "Dokument verlassen"
 		}
+	},
+	"documentSettingsAccountAdd": {
+		"headline": "Konto hinzufügen",
+		"cancel": "Abbrechen",
+		"checking": {
+			"title": "Konto",
+			"description": "z.B. Girokonto oder eine Kreditkarte"
+		},
+		"cash": {
+			"title": "Bargeld",
+			"description": "z.B. dein Geldbeutel oder die geheimen Geldvorräte hinter'm Kopfkissen"
+		},
+		"other": {
+			"title": "Sonstiges",
+			"description": "z.B. eine Hypothek oder andere Vermögenswerte"
+		}
+	},
+	"documentSettingsAccountAddManual": {
+		"headline": "Konto hnzufügen",
+		"name": "Name des Kontos",
+		"defaultName": "Mein tolles neues Konto",
+		"type": "Konto-Typ",
+		"balance": "Aktueller Betrag",
+		"balanceInfo": "Der Betrag wird als Transaktion eingefügt und kann später in der Liste aller Transaktionen geändert werden. Negative Beträge sind selbstverständlich möglich (z.B. für Hypotheken).",
+		"save": "Konto anlegen",
+		"cancel": "Abbrechen",
+		"memo": "Konto angelegt"
 	}
 }

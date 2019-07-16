@@ -35,6 +35,10 @@ module.exports = Backbone.Router.extend({
         ':document/settings': 'documentSettings',
         ':document/settings/general': 'documentGeneralSettings',
         ':document/settings/accounts': 'documentAccountSettings',
+        ':document/settings/accounts/add': 'documentAccountSettingsSearch',
+        ':document/settings/accounts/add/current(?q=:q)': 'documentAccountSettings',
+        ':document/settings/accounts/add/cash': 'documentAccountSettingsAddCash',
+        ':document/settings/accounts/add/other': 'documentAccountSettingsAddOther',
         ':document/settings/accounts/:account': 'documentAccountDetailSettings',
         ':document/settings/plugins': 'documentPluginSettings',
         ':document/settings/plugins/:account': 'documentPluginDetailSettings',
@@ -136,6 +140,18 @@ module.exports = Backbone.Router.extend({
         const DocumentSettingsAccountView = require('../views/documentSettingsAccount');
         this.view.renderView(new DocumentSettingsAccountView({
             documentId
+        }));
+    },
+    documentAccountSettingsAddCash () {
+        const DocumentSettingsAccountAddView = require('../views/documentSettingsAccountAddManual');
+        this.view.renderView(new DocumentSettingsAccountAddView({
+            type: 'cash'
+        }));
+    },
+    documentAccountSettingsAddOther () {
+        const DocumentSettingsAccountAddView = require('../views/documentSettingsAccountAddManual');
+        this.view.renderView(new DocumentSettingsAccountAddView({
+            type: 'other'
         }));
     },
     documentAccountDetailSettings (documentId, accountId) {

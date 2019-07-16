@@ -1,0 +1,29 @@
+<h1 class="document-settings-account-add__headline b-headline-l1">{ 'documentSettingsAccountAdd.headline' | string }</h1>
+<h2 class="document-settings-account-add__document b-headline-l2">{ document:name }</h2>
+
+<div class="document-settings-account-add__page">
+	<ul class="document-settings-account-add__types">
+		<li class="document-settings-account-add__type">
+			<a rv-href="urls.current" class="document-settings-account-add__type-button icon-shop" rv-on-click="view.openUrl">
+				<span class="document-settings-account-add__type-title">{ 'documentSettingsAccountAdd.checking.title' | string }</span>
+				<span class="document-settings-account-add__type-description">{ 'documentSettingsAccountAdd.checking.description' | string }</span>
+			</a>
+		</li>
+		<li class="document-settings-account-add__type">
+			<a rv-href="urls.cash" class="document-settings-account-add__type-button icon-wallet" rv-on-click="view.openUrl">
+				<span class="document-settings-account-add__type-title">{ 'documentSettingsAccountAdd.cash.title' | string }</span>
+				<span class="document-settings-account-add__type-description">{ 'documentSettingsAccountAdd.cash.description' | string }</span>
+			</a>
+		</li>
+		<li class="document-settings-account-add__type">
+			<a rv-href="urls.other" class="document-settings-account-add__type-button icon-diamond" rv-on-click="view.openUrl">
+				<span class="document-settings-account-add__type-title">{ 'documentSettingsAccountAdd.other.title' | string }</span>
+				<span class="document-settings-account-add__type-description">{ 'documentSettingsAccountAdd.other.description' | string }</span>
+			</a>
+		</li>
+	</ul>
+
+	<div class="b-form-buttons">
+		<button class="b-form-button--cancel" rv-on-click="view.goBack">{ 'documentSettingsAccountAdd.cancel' | string }</button>
+	</div>
+</div>
