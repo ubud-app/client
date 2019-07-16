@@ -5,6 +5,7 @@ const tinybind = require('tinybind');
 const Backbone = require('backbone');
 const AutoNumeric = require('autonumeric');
 const {DateTime} = require('luxon');
+const filesize = require('filesize');
 
 const View = require('../views/_');
 const ConfigurationHelper = require('../helpers/configuration');
@@ -93,6 +94,9 @@ tinybind.formatters.currency = v => {
 };
 tinybind.formatters.percentage = v => {
     return !isNaN(v) && isFinite(v) ? AutoNumeric.format(v, ConfigurationHelper.getAutoNumericPercentageConfig()) : '';
+};
+tinybind.formatters.filesize = v => {
+    return !isNaN(v) && isFinite(v) ? filesize(v, ConfigurationHelper.getCurrentLanguage()) : '';
 };
 tinybind.formatters.append = (a, b) => {
     return String(a || '') + String(b || '');
