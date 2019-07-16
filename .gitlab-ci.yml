@@ -2,6 +2,7 @@ stages:
   - prepare
   - check
   - publish
+  - notify
 
 prepare:
   stage: prepare
@@ -63,3 +64,14 @@ publish_npm_next:
     - npx sentry-cli releases finalize "$NEWVERSION"
   only:
     - develop
+
+notify:
+  stage: notify
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - curl -X "POST" "https://api.repository.dwimm.org/webhooks/update-components/${NOTIFY_WEBHOOK_SECRET}"
+  only:
+    - develop
+    - master
