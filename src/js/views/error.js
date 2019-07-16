@@ -34,7 +34,7 @@ module.exports = View.extend({
             error: {
                 headline: this.headline,
                 message: this.message,
-                stacktrace: this.error && this.error.stack ? this.error.stack : null,
+                stacktrace: this.error && this.error.stack ? this.error.stack.substr(0) : null,
                 reference: ''
             }
         };
@@ -48,8 +48,11 @@ module.exports = View.extend({
         Sentry.captureException(this.error);
         this.data.error.reference = Sentry.lastEventId();
 
-        console.log('Got Error via ErrorView:');    // eslint-disable-line no-console
-        console.log(this.data.error);               // eslint-disable-line no-console
+        console.log('---------');                                               // eslint-disable-line no-console
+        console.log('Got Error via ErrorView:');                                // eslint-disable-line no-console
+        console.log(this.error);                                                // eslint-disable-line no-console
+        console.log('Sentry Reference:', this.data.error.reference.toString()); // eslint-disable-line no-console
+        console.log('---------');                                               // eslint-disable-line no-console
 
         return this;
     },
