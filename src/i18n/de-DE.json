@@ -51,6 +51,7 @@
 	},
 	"error": {
 		"labels": {
+			"error": "Error",
 			"stacktrace": "Stacktrace",
 			"reference": "Referenz"
 		},
@@ -442,7 +443,82 @@
 		"balance": "Aktueller Betrag",
 		"balanceInfo": "Der Betrag wird als Transaktion eingefügt und kann später in der Liste aller Transaktionen geändert werden. Negative Beträge sind selbstverständlich möglich (z.B. für Hypotheken).",
 		"save": "Konto anlegen",
-		"cancel": "Abbrechen",
+		"back": "Back",
 		"memo": "Konto angelegt"
+	},
+	"documentSettingsPluginAdd": {
+		"account": {
+			"headline": "Konto-Plugin suchen",
+			"label": "Name der Bank",
+			"info": "Falls der Name der Bank nicht funktionieren sollte, kannst du alternativ auch deine BIC oder die ersten paar Zeichen deiner IBAN ausprobieren.",
+			"box": {
+				"empty": "Kein Plugin für deine Bank gefunden",
+				"filled": "Kein Plugin für deine Bank dabei?",
+				"message": "Das tut uns sehr leid. Du kannst das Konto manuell hinzufügen und anschließend über CSV-Exporte deiner Bank aktuell halten.",
+				"button": "Konto manuell hinzufügen"
+			}
+		},
+		"default": {
+			"headline": "Suche Plugin",
+			"label": "Suche",
+			"info": "Sie können nach dem Namen des Plugins, einem unterstützten Online-Shop, einer URL oder einer Bank suchen.",
+			"box": {
+				"empty": "Kein Plugin gefunden",
+				"filled": "Kein Plugin vorhanden?",
+				"message": "Das tut uns sehr leid. Wenn Sie versucht haben, ein Bank-Plugin zu finden, können Sie das Konto manuell hinzufügen und es dann durch den Export von Dateien aus Ihrer Bank auf dem neuesten Stand halten.",
+				"button": "Konto manuell hinzufügen"
+			}
+		},
+		"back": "Back",
+		"install": "Installieren"
+	},
+	"documentSettingsPluginAddDetails": {
+		"headline": "Plugin installieren",
+		"meta": {
+			"installations": "Installationen",
+			"issues": "offene Issues",
+			"satisfaction": "Zufriedenheit",
+			"version": "Version"
+		},
+		"info": {
+			"header": "Informationen",
+			"author": "Entwickler",
+			"size": "Größe",
+			"version": "Version",
+			"license": "Lizenz",
+			"website": "Website",
+			"issues": "Issues",
+			"npm": "npmjs.org"
+		},
+		"compatibility": {
+			"header": "Kompatibilität",
+			"server": "DWIMM Server",
+			"node": "node.js",
+			"npm": "npm",
+			"os": "OS",
+			"cpu": "CPU"
+		},
+		"responsibilities": {
+			"header": "Unterstützt",
+			"account": "Konten synchronisieren",
+			"goal": "Sparziele synchronisieren",
+			"metadata": "Transaktionen anreichern",
+			"webhook": "Echtzeit-Synchronisierung"
+		},
+		"warning": {
+			"default": "Plugins sind fremder Code, der auf deiner DWIMM Instanz ausgeführt wird und können daher u.U. Schaden anrichten. Installiere daher nur vertrauenwürdige Plugins und achte darauf, dass die Plugins keine Möglichkeit haben, Änderungen an deinem Konto durchzuführen."
+		},
+		"install": "Plugin installieren",
+		"back": "Zurück"
+	},
+	"documentSettingsPluginAddSetup": {
+		"headline": "Plugin einrichten",
+		"save": "Anwenden",
+		"loader": {
+			"initialize": "Plugin initialisieren",
+			"configure": "Plugin konfigurieren",
+			"accounts": "Konten synchronisieren",
+			"goals": "Ziele synchronisieren"
+		}
 	}
 }

@@ -366,5 +366,10 @@
 	}
 	&-dd {
 		padding: 0.5em 0 0.5em 10.5em;
+
+		a:link,
+		a:visited {
+			color: inherit;
+		}
 	}
 }

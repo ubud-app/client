@@ -35,13 +35,18 @@ module.exports = Backbone.Router.extend({
         ':document/settings': 'documentSettings',
         ':document/settings/general': 'documentGeneralSettings',
         ':document/settings/accounts': 'documentAccountSettings',
-        ':document/settings/accounts/add': 'documentAccountSettingsSearch',
-        ':document/settings/accounts/add/current(?q=:q)': 'documentAccountSettings',
+
+        ':document/settings/accounts/add': 'documentAccountSettingsAdd',
+        ':document/settings/accounts/add/current(?q=:q)': 'documentAccountSettingsAddCurrent',
         ':document/settings/accounts/add/cash': 'documentAccountSettingsAddCash',
         ':document/settings/accounts/add/other': 'documentAccountSettingsAddOther',
+
         ':document/settings/accounts/:account': 'documentAccountDetailSettings',
         ':document/settings/plugins': 'documentPluginSettings',
-        ':document/settings/plugins/:account': 'documentPluginDetailSettings',
+        ':document/settings/plugins/add(?q=:q)': 'documentPluginSettingsAdd',
+        ':document/settings/plugins/add/*id': 'documentPluginSettingsAddDetails',
+        ':document/settings/plugins/:id': 'documentPluginDetailSettings',
+        ':document/settings/plugins/:id/setup': 'documentPluginSettingsAddConfig',
         ':document/settings/permissions': 'documentPermissionSettings',
         ':document/settings/notifications': 'documentNotificationSettings',
 
@@ -130,21 +135,28 @@ module.exports = Backbone.Router.extend({
             documentId
         }));
     },
-    documentGeneralSettings (documentId) {
+    documentGeneralSettings () {
         const DocumentSettingsGeneralView = require('../views/documentSettingsGeneral');
-        this.view.renderView(new DocumentSettingsGeneralView({
-            documentId
+        this.view.renderView(new DocumentSettingsGeneralView());
+    },
+    documentAccountSettings () {
+        const DocumentSettingsAccountView = require('../views/documentSettingsAccount');
+        this.view.renderView(new DocumentSettingsAccountView());
+    },
+    documentAccountDetailSettings (documentId, accountId) {
+        const DocumentSettingsAccountDetailsView = require('../views/documentSettingsAccountDetails');
+        this.view.renderView(new DocumentSettingsAccountDetailsView({
+            documentId,
+            accountId
         }));
     },
-    documentAccountSettings (documentId) {
-        const DocumentSettingsAccountView = require('../views/documentSettingsAccount');
-        this.view.renderView(new DocumentSettingsAccountView({
-            documentId
-        }));
+    documentAccountSettingsAdd () {
+        const DocumentSettingsAccountAddView = require('../views/documentSettingsAccountAdd');
+        this.view.renderView(new DocumentSettingsAccountAddView());
     },
     documentAccountSettingsAddCash () {
-        const DocumentSettingsAccountAddView = require('../views/documentSettingsAccountAddManual');
-        this.view.renderView(new DocumentSettingsAccountAddView({
+        const DocumentSettingsAccountAddManualView = require('../views/documentSettingsAccountAddManual');
+        this.view.renderView(new DocumentSettingsAccountAddManualView({
             type: 'cash'
         }));
     },
@@ -154,13 +166,11 @@ module.exports = Backbone.Router.extend({
             type: 'other'
         }));
     },
-    documentAccountDetailSettings (documentId, accountId) {
-        const DocumentSettingsAccountDetailsView = require('../views/documentSettingsAccountDetails');
-        this.view.renderView(new DocumentSettingsAccountDetailsView({
-            documentId,
-            accountId
-        }));
+    documentAccountSettingsAddCurrent (documentId, q) {
+        const DocumentSettingsPluginAddView = require('../views/documentSettingsPluginAdd');
+        this.view.renderView(new DocumentSettingsPluginAddView({type: 'account', q}));
     },
+
     documentPluginSettings (documentId) {
         const DocumentSettingsPluginView = require('../views/documentSettingsPlugin');
         this.view.renderView(new DocumentSettingsPluginView({
@@ -174,6 +184,25 @@ module.exports = Backbone.Router.extend({
             pluginId
         }));
     },
+    documentPluginSettingsAdd (documentId, q) {
+        const DocumentSettingsPluginAddView = require('../views/documentSettingsPluginAdd');
+        this.view.renderView(new DocumentSettingsPluginAddView({q}));
+    },
+    documentPluginSettingsAddDetails (documentId, pluginId) {
+        const PluginModel = require('../models/plugin');
+        const DocumentSettingsPluginAddDetailsView = require('../views/documentSettingsPluginAddDetails');
+        this.view.renderView(new DocumentSettingsPluginAddDetailsView({
+            model: new PluginModel({id: pluginId})
+        }));
+    },
+    documentPluginSettingsAddConfig (documentId, pluginId) {
+        const PluginInstanceModel = require('../models/pluginInstance');
+        const DocumentSettingsPluginAddSetupView = require('../views/documentSettingsPluginAddSetup');
+        this.view.renderView(new DocumentSettingsPluginAddSetupView({
+            model: new PluginInstanceModel({id: pluginId})
+        }));
+    },
+
     documentPermissionSettings (documentId) {
         const DocumentSettingsPermissionsView = require('../views/documentSettingsPermissions');
         this.view.renderView(new DocumentSettingsPermissionsView({

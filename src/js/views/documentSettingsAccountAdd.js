@@ -57,13 +57,16 @@ module.exports = View.extend({
     openUrl (e) {
         const AppHelper = require('../helpers/app');
         const DocumentSettingsAccountAddManualView = require('./documentSettingsAccountAddManual');
+        const DocumentSettingsPluginAddView = require('../views/documentSettingsPluginAdd');
         const href = $(e.target).closest('a').attr('href');
 
+        e.preventDefault();
+
         if (href.includes('current')) {
-            alert('@todo: open form directly');
+            AppHelper.navigate(href.substr(1));
+            AppHelper.view().renderView(new DocumentSettingsPluginAddView({type: 'account'}));
         }
         else {
-            e.preventDefault();
             AppHelper.navigate(href.substr(1));
             AppHelper.view().renderView(new DocumentSettingsAccountAddManualView({
                 type: href.split('/').pop()

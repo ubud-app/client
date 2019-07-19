@@ -24,14 +24,11 @@ module.exports = View.extend({
     className: 'document-settings-plugin-details',
 
     _initialize (options) {
-        this.model = new PluginInstanceModel({id: options.pluginId});
+        this.model = this.model || new PluginInstanceModel({id: options.pluginId});
     },
 
     async render () {
         const AppHelper = require('../helpers/app');
-        if (!this.model) {
-            return;
-        }
 
         this.data = {
             pluginInstance: this.model,

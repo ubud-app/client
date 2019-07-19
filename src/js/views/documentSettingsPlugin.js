@@ -33,7 +33,8 @@ module.exports = View.extend({
             plugins: [],
             meta: {
                 loading: true,
-                empty: true
+                empty: true,
+                addUrl: '#' + this.model.id + '/settings/plugins/add'
             }
         };
 
@@ -108,5 +109,15 @@ module.exports = View.extend({
 
         this.data.plugins.splice(i, 1);
         this.data.meta.empty = !this.plugins.length;
+    },
+
+    openAddPlugin (e) {
+        e.preventDefault();
+
+        const AppHelper = require('../helpers/app');
+        const DocumentSettingsPluginAddView = require('../views/documentSettingsPluginAdd');
+
+        AppHelper.navigate(this.model.id + '/settings/plugins/add');
+        AppHelper.view().renderView(new DocumentSettingsPluginAddView());
     }
 });

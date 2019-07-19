@@ -1,0 +1,32 @@
+@import '../definitions/variables';
+
+.document-settings-plugin-add-setup {
+	&__loader {
+		display: block;
+		padding: 4em 0;
+
+		&-icon {
+			display: block;
+			width: 40px;
+			margin: 0 auto 1em;
+
+			&:before {
+				margin: 0;
+				width: 40px;
+				height: 40px;
+				z-index: 51;
+
+				font-size: 2.5em;
+				color: rgba($background-copy, 0.6);
+				animation:spin 1s linear infinite;
+			}
+		}
+
+		&-text {
+			display: block;
+			text-align: center;
+			font-size: 0.9em;
+			color: rgba($background-copy, 0.6);
+		}
+	}
+}

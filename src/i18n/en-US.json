@@ -51,6 +51,7 @@
 	},
 	"error": {
 		"labels": {
+			"error": "Error",
 			"stacktrace": "Stacktrace",
 			"reference": "Reference"
 		},
@@ -445,5 +446,80 @@
 		"save": "Create Account",
 		"cancel": "Cancel",
 		"memo": "Created account"
+	},
+	"documentSettingsPluginAdd": {
+		"account": {
+			"headline": "Search account plugin",
+			"label": "Bank name",
+			"info": "If the name of the bank does not work, you can alternatively try your BIC or the first few characters of your IBAN.",
+			"box": {
+				"empty": "No plugin found for your bank",
+				"filled": "No plugin in?",
+				"message": "We're very sorry about that. You can add the account manually and then keep it up to date by exporting files from your bank.",
+				"button": "Add account manually"
+			}
+		},
+		"default": {
+			"headline": "Search plugin",
+			"label": "Search",
+			"info": "You can search for the name of the plugin, a supported online store, a URL or a bank.",
+			"box": {
+				"empty": "No plugin found",
+				"filled": "No plugin in?",
+				"message": "We're very sorry about that. If you have tried to find a bank plugin, you can add the account manually and then keep it up to date by exporting files from your bank.",
+				"button": "Add account manually"
+			}
+		},
+		"back": "Zurück",
+		"install": "Install"
+	},
+	"documentSettingsPluginAddDetails": {
+		"headline": "Install plugin",
+		"meta": {
+			"installations": "Installations",
+			"issues": "open Issues",
+			"satisfaction": "Satisfaction",
+			"version": "Version"
+		},
+		"info": {
+			"header": "Information",
+			"author": "Developer",
+			"size": "Size",
+			"version": "Version",
+			"license": "License",
+			"website": "Website",
+			"issues": "Issues",
+			"npm": "npmjs.org"
+		},
+		"compatibility": {
+			"header": "Compatibility",
+			"server": "DWIMM Server",
+			"node": "node.js",
+			"npm": "npm",
+			"os": "OS",
+			"cpu": "CPU"
+		},
+		"responsibilities": {
+			"header": "Support",
+			"account": "Sync Accounts",
+			"goal": "Sync Goals",
+			"metadata": "Enrich Transactions",
+			"webhook": "Realtime Sync"
+		},
+		"warning": {
+			"default": "Plugins are foreign code that is executed on your DWIMM instance and may cause damage. Therefore, install only trusted plugins and make sure that the plugins do not have the ability to make changes to your account."
+		},
+		"install": "Install Plugin",
+		"back": "Back"
+	},
+	"documentSettingsPluginAddSetup": {
+		"headline": "Setup plugin",
+		"save": "Apply",
+		"loader": {
+			"initialize": "Initialize Plugin",
+			"configure": "Configure Plugin",
+			"accounts": "Sync accounts",
+			"goals": "Sync saving goals"
+		}
 	}
 }

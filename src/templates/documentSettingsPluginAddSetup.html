@@ -1,0 +1,30 @@
+<h1 class="document-settings-plugin-add-setup__headline b-headline-l1">
+	{ 'documentSettingsPluginAddSetup.headline' | string }
+</h1>
+<h2 class="document-settings-plugin-add-setup__document b-headline-l2">{ models.plugin:name }</h2>
+
+<div class="document-settings-plugin-add-setup__loader" rv-if="loader.text">
+	<span class="document-settings-plugin-add-setup__loader-icon icon-cd"></span>
+	<span class="document-settings-plugin-add-setup__loader-text" rv-if="loader.text">{ 'documentSettingsPluginAddSetup.loader.' | append loader.text | string }</span>
+</div>
+
+<form class="document-settings-plugin-add-setup__configs" rv-on-submit="view.submit" rv-if="config.visible">
+	<div class="document-settings-plugin-add-setup__config" rv-each-config="models.instance:config">
+		<label class="b-form-label" rv-for="config.id | append 'document-settings-plugin-add-setup__input--'">
+			{ config.label | string }
+		</label>
+
+		<input rv-type="config.type"
+			   class="b-form-input"
+			   rv-name="config.id"
+			   rv-id="config.id | append 'document-settings-plugin-add-setup__input--'"
+			   rv-class-b-form-input--error="config.lastError"
+			   rv-value="config.value | fallback config.defaultValue"
+			   rv-placeholder="config.placeholder" />
+	</div>
+
+	<div class="b-form-buttons">
+		<button type="submit"
+				class="b-form-button b-form-button--save">{ 'documentSettingsPluginAddSetup.save' | string }</button>
+	</div>
+</form>

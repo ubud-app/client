@@ -28,18 +28,18 @@ module.exports = View.extend({
 
     async render () {
         const AppHelper = require('../helpers/app');
-        this.model = this.model || AppHelper.getDocument(true);
-        if (!this.model) {
+        this.document = AppHelper.getDocument(true);
+        if (!this.document) {
             return;
         }
 
-        this.live(this.model);
-        this.account = new AccountModel();
-        this.account.set({documentId: this.model.id});
+        this.live(this.document);
+        this.model = this.model || new AccountModel();
+        this.model.set({documentId: this.model.id});
 
         this.data = {
-            document: this.model,
-            account: this.account,
+            document: this.document,
+            account: this.model,
             meta: {
                 hideType: false,
                 balance: 0
@@ -53,16 +53,19 @@ module.exports = View.extend({
         });
 
         AppHelper.view().setTitle(ConfigurationHelper.getString('documentSettingsAccountAddManual.headline'));
-        this.listenToAndCall(this.model, 'change:name', () => {
-            AppHelper.title(this.model.get('name'));
+        this.listenToAndCall(this.document, 'change:name', () => {
+            AppHelper.title(this.document.get('name'));
         });
 
         if(this.type === 'cash') {
             this.data.meta.hideType = true;
-            this.account.set({type: 'cash'});
+            this.model.set({type: 'cash'});
         }
 
-        this.$el.find('#document-settings-account-add-manual__input--name').focus();
+        this.$el
+            .find('#document-settings-account-add-manual__input--' + (this.model.get('name') ? 'balance' : 'name'))
+            .focus();
+
         return this;
     },
     submit (e) {
@@ -72,7 +75,7 @@ module.exports = View.extend({
         this.createManualAccount()
             .then(() => {
                 const AppHelper = require('../helpers/app');
-                AppHelper.navigate(this.model.id + '/settings/accounts', {trigger: true});
+                AppHelper.navigate(this.document.id + '/settings/accounts', {trigger: true});
             })
             .catch(error => {
                 this.$el.removeClass('loading');
@@ -81,16 +84,16 @@ module.exports = View.extend({
     },
     goBack () {
         const AppHelper = require('../helpers/app');
-        AppHelper.back(this.model.id + '/settings/accounts/add');
+        AppHelper.back(this.document.id + '/settings/accounts/add');
     },
     async createManualAccount () {
-        if (!this.account.get('name')) {
-            this.account.set({
+        if (!this.model.get('name')) {
+            this.model.set({
                 name: ConfigurationHelper.getString('documentSettingsAccountAddManual.defaultName')
             });
         }
 
-        await this.account.save();
+        await this.model.save();
         if (!this.data.meta.balance) {
             return;
         }
@@ -100,7 +103,7 @@ module.exports = View.extend({
 
         const transaction = new TransactionModel({
             time: DateTime.local().toJSON(),
-            accountId: this.account.id,
+            accountId: this.model.id,
             memo: ConfigurationHelper.getString('documentSettingsAccountAddManual.memo'),
             amount: this.data.meta.balance
         });

@@ -177,6 +177,14 @@ module.exports = Backbone.View.extend({
         this.once('remove', () => {
             stop();
         });
+        this.listenTo(object, 'error', (object, error) => {
+            if(String(error).includes('Not Found')) {
+                this.remove();
+
+                const AppHelper = require('../helpers/app');
+                AppHelper.navigate('', {trigger: true});
+            }
+        });
 
         return stop;
     },

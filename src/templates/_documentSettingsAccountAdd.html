@@ -1,0 +1,161 @@
+<h1 class="document-settings-account-add__headline b-headline-l1">{ 'documentSettingsAccountAdd.headline' | string
+	}</h1>
+<h2 class="document-settings-account-add__document b-headline-l2">{ document:name }</h2>
+
+<div class="document-settings-account-add__page document-settings-account-add__page--find" rv-if="pages.find">
+	<label class="b-form-label" for="document-settings-account-add__input--q">Name der Bank</label>
+	<input type="text"
+		   name="q"
+		   id="document-settings-account-add__input--q"
+		   class="b-form-input"
+		   autocomplete="off"
+		   rv-value="find.q"
+	       rv-on-keyup="view.keyup" />
+
+	<span class="b-form-info">Falls der Name der Bank nicht funktionieren sollte, kannst du alternativ auch deine BIC oder die ersten paar Zeichen deiner IBAN ausprobieren.</span>
+
+	<div class="document-settings-account-add__find-results"
+		 rv-class-document-settings-account-add__find-results--empty="find.empty">
+		<span class="document-settings-account-add__find-animation icon-search"
+		      rv-class-document-settings-account-add__find-animation--hidden="find.hideAnimation"
+			  rv-class-document-settings-account-add__find-animation--active="find.runAnimation">&nbsp;</span>
+
+		<div class="document-settings-account-add__find-empty" rv-if="find.empty">
+			<span class="document-settings-account-add__find-empty-title">Kein Plugin für deine Bank gefunden</span>
+			<span class="document-settings-account-add__find-empty-message">Das tut uns sehr leid. Du kannst das Konto manuell hinzufügen und anschließend über CSV-Exporte deiner Bank aktuell halten.</span>
+			<button type="button"
+					class="button button--secondary button--inline button--small"
+					rv-on-click="view.goFromFindToManual">Konto manuell hinzufügen</button>
+		</div>
+
+		<ul class="document-settings-account-add__find-list" rv-if="find.list">
+			<li class="document-settings-account-add__find-item" rv-each-result="find.results">
+				<button class="document-settings-account-add__find-button" type="button" rv-on-click="result.select">
+					<span class="document-settings-account-add__find-name">{ result.model:name }</span>
+					<span class="document-settings-account-add__find-meta">{ result.model:description }</span>
+				</button>
+			</li>
+		</ul>
+
+		<div class="document-settings-account-add__find-empty" rv-if="find.list">
+			<span class="document-settings-account-add__find-empty-title">Kein Plugin dabei?</span>
+			<span class="document-settings-account-add__find-empty-message">Das tut uns sehr leid. Du kannst das Konto manuell hinzufügen und anschließend über CSV-Exporte deiner Bank aktuell halten.</span>
+			<button type="button"
+					class="button button--secondary button--inline button--small"
+					rv-on-click="view.goFromFindToManual">Konto manuell hinzufügen</button>
+		</div>
+	</div>
+
+	<div class="b-form-buttons">
+		<button class="b-form-button--cancel" rv-on-click="view.goBack">{ 'documentSettingsAccountAdd.cancel' | string }</button>
+	</div>
+</div>
+
+<div class="document-settings-account-add__page document-settings-account-add__page--details" rv-if="pages.details">
+	<div class="document-settings-account-add__details-header">
+		<h2 class="document-settings-account-add__details-title">{ details.model:name }</h2>
+		<h3 class="document-settings-account-add__details-package">{ details.model:id }</h3>
+		<div class="document-settings-account-add__details-meta">
+			<span class="document-settings-account-add__details-meta-value">{ details.model:installationCount }</span>
+			<span class="document-settings-account-add__details-meta-key">Installationen</span>
+		</div>
+		<div class="document-settings-account-add__details-meta" rv-if="details.model:issues.openCount">
+			<span class="document-settings-account-add__details-meta-value">{ details.model:issues.openCount }</span>
+			<span class="document-settings-account-add__details-meta-key">offene Issues</span>
+		</div>
+		<div class="document-settings-account-add__details-meta" rv-if="details.model:satisfaction">
+			<span class="document-settings-account-add__details-meta-value">{ details.model:satisfaction }</span>
+			<span class="document-settings-account-add__details-meta-key">Zufriedenheit</span>
+		</div>
+		<div class="document-settings-account-add__details-meta">
+			<span class="document-settings-account-add__details-meta-value">{ details.model:channels.latest }</span>
+			<span class="document-settings-account-add__details-meta-key">Version</span>
+		</div>
+	</div>
+	<div class="document-settings-account-add__details-info-wrap">
+		<div class="document-settings-account-add__details-info">
+			<h4 class="document-settings-account-add__details-info-header">Informationen</h4>
+			<dl class="b-dl">
+				<dt rv-if="details.author.name">Entwickler</dt>
+				<dd rv-if="details.author.url"><a rv-href="details.author.url" target="_blank">{ details.author.name }</a></dd>
+				<dd rv-unless="details.author.url">{ details.author.name }</dd>
+				<dt>Größe</dt>
+				<dd>{ details.model:size.latest | filesize }</dd>
+				<dt>Version</dt>
+				<dd>{ details.model:channels.latest }</dd>
+				<dt rv-if="details.model:license">Lizenz</dt>
+				<dd rv-if="details.model:license">{ details.model:license }</dd>
+				<dt rv-if="details.model:website">Website</dt>
+				<dd rv-if="details.model:website"><a rv-href="details.model:website" class="icon-globe" target="_blank">&nbsp;</a></dd>
+				<dt rv-if="details.model:issues.url">Bugs</dt>
+				<dd rv-if="details.model:issues.url"><a rv-href="details.model:issues.url" class="icon-globe" target="_blank">&nbsp;</a></dd>
+			</dl>
+		</div>
+		<div class="document-settings-account-add__details-info">
+			<h4 class="document-settings-account-add__details-info-header">Kompatibilität</h4>
+			<dl class="b-dl">
+				<dt>DWIMM</dt>
+				<dd class="document-settings-account-add__details-info-bullet document-settings-account-add__details-info-bullet--ok">~0.0</dd>
+				<dt>node.js</dt>
+				<dd class="document-settings-account-add__details-info-bullet document-settings-account-add__details-info-bullet--ok">&gt;=0.10.3 &lt;0.12</dd>
+				<dt>npm</dt>
+				<dd class="document-settings-account-add__details-info-bullet document-settings-account-add__details-info-bullet--warn">~1.0.20</dd>
+				<dt>OS</dt>
+				<dd class="document-settings-account-add__details-info-bullet document-settings-account-add__details-info-bullet--ok">Darwin, Linux, not Windows</dd>
+				<dt>CPU</dt>
+				<dd class="document-settings-account-add__details-info-bullet document-settings-account-add__details-info-bullet--err">not ARM</dd>
+			</dl>
+		</div>
+		<div class="document-settings-account-add__details-info">
+			<h4 class="document-settings-account-add__details-info-header">Unterstützt</h4>
+			<div class="b-dl">
+				<div rv-each-provider="details.model:responsibilities">
+					<div class="b-dt">{ provider.name }</div>
+					<div class="b-dd">
+						<ul class="document-settings-account-add__details-features">
+							<li class="document-settings-account-add__details-feature" rv-if="provider.account">Konten synchronisieren</li>
+							<li class="document-settings-account-add__details-feature" rv-if="provider.goal">Sparziele synchronisieren</li>
+							<li class="document-settings-account-add__details-feature" rv-if="provider.metadata">Transaktionen anreichern</li>
+							<li class="document-settings-account-add__details-feature" rv-if="provider.webhook">Echtzeit</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="document-settings-account-add__details-info" rv-if="details.thanks">
+			<h4 class="document-settings-account-add__details-info-header">Danksagungen</h4>
+			<div class="b-dl">
+				<div rv-each-thank="details.thanks">
+					<div class="b-dt">{ thank.0 }</div>
+					<div class="b-dd">
+						<ul class="document-settings-account-add__details-features">
+							<li class="document-settings-account-add__details-feature" rv-each-person="thank.1">
+								<a rv-href="person.url" rv-if="person.url">{ person.name }</a>
+								<span rv-unless="person.url">{ person.name }</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="document-settings-account-add__details-warning">
+		<span class="document-settings-account-add__details-warning-icon icon-fire">&nbsp;</span>
+		<span class="document-settings-account-add__details-warning-text">
+			Plugins sind fremder Code, der auf deiner DWIMM Instanz ausgeführt wird und können daher
+			u.U. Schaden anrichten. Installiere daher nur vertrauenwürdige Plugins und achte darauf,
+			dass die Plugins keine Möglichkeit haben, Änderungen an deinem Konto durchzuführen.
+		</span>
+	</div>
+	<div class="document-settings-account-add__details-warning">
+		<span class="document-settings-account-add__details-warning-icon icon-fire">&nbsp;</span>
+		<span class="document-settings-account-add__details-warning-text">
+			Dieses Plugin ist vermutlich nicht kompatibel mit deiner DWIMM-Installation. Details dazu
+			findest du in der Sektion "Kompatibilität". Du kannst es aber natürlich trotzdem ausprobieren,
+			ob es nicht trotzdem klappt.
+		</span>
+	</div>
+	<div class="document-settings-account-add__details-install">
+		<button class="document-settings-account-add__details-install-button" type="button">Plugin installieren</button>
+	</div>
+</div>

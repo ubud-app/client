@@ -1,6 +1,6 @@
 'use strict';
 
-const SCHEMA_VERSION = 3;
+const SCHEMA_VERSION = 4;
 
 //const statusStrings = ['init', 'error', 'blocked', 'upgrade', 'upgrading', 'ready', 'closed'];
 
@@ -312,7 +312,7 @@ class DataWorker {
             return;
         }
 
-        const transaction = this.database.transaction(this.config.stores, 'readwrite')
+        const transaction = this.database.transaction(this.config.stores, 'readwrite');
         return Promise.all(this.config.stores.map(
             store => this.clearStore(transaction, store)
         ));

@@ -1,0 +1,50 @@
+<h1 class="document-settings-plugin-add__headline b-headline-l1">{ prefix | append '.headline' | string }</h1>
+<h2 class="document-settings-plugin-add__document b-headline-l2">{ document:name }</h2>
+
+<label class="b-form-label" for="document-settings-plugin-add__input--q">{ prefix | append '.label' | string }</label>
+<input type="text"
+	   name="q"
+	   id="document-settings-plugin-add__input--q"
+	   class="b-form-input"
+	   autocomplete="off"
+	   rv-value="meta.q"
+	   rv-on-keyup="view.keyup" />
+
+<span class="b-form-info">{ prefix | append '.info' | string }</span>
+
+<div class="document-settings-plugin-add__results"
+	 rv-class-document-settings-plugin-add__results--empty="meta.empty">
+		<span class="document-settings-plugin-add__animation icon-search"
+			  rv-class-document-settings-plugin-add__animation--hidden="meta.hideAnimation"
+			  rv-class-document-settings-plugin-add__animation--active="meta.runAnimation">&nbsp;</span>
+
+	<div class="document-settings-plugin-add__empty" rv-if="meta.empty">
+		<span class="document-settings-plugin-add__empty-title">{ prefix | append '.box.empty' | string }</span>
+		<span class="document-settings-plugin-add__empty-message">{ prefix | append '.box.message' | string }</span>
+		<button type="button"
+				class="button button--secondary button--inline button--small"
+				rv-on-click="view.createManual">{ prefix | append '.box.button' | string }</button>
+	</div>
+
+	<ul class="document-settings-plugin-add__list" rv-if="meta.list">
+		<li class="document-settings-plugin-add__item" rv-each-result="meta.results">
+			<button class="document-settings-plugin-add__button" type="button" rv-on-click="result.select">
+				<span class="document-settings-plugin-add__install">{ 'documentSettingsPluginAdd.install' | string }</span>
+				<span class="document-settings-plugin-add__name">{ result.model:name }</span>
+				<span class="document-settings-plugin-add__meta">{ result.model:description }</span>
+			</button>
+		</li>
+	</ul>
+
+	<div class="document-settings-plugin-add__empty" rv-if="meta.list">
+		<span class="document-settings-plugin-add__empty-title">{ prefix | append '.box.filled' | string }</span>
+		<span class="document-settings-plugin-add__empty-message">{ prefix | append '.box.message' | string }</span>
+		<button type="button"
+				class="button button--secondary button--inline button--small"
+				rv-on-click="view.createManual">{ prefix | append '.box.button' | string }</button>
+	</div>
+</div>
+
+<div class="b-form-buttons">
+	<button class="b-form-button--cancel" rv-on-click="view.goBack">{ 'documentSettingsPluginAdd.back' | string }</button>
+</div>

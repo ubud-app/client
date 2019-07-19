@@ -27,6 +27,8 @@
 			border-left: 0.3em solid $red;
 			color: $background;
 			overflow: auto;
+			white-space: pre-wrap;
+			width: 100%;
 		}
 
 		&:empty {

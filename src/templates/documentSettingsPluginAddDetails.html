@@ -1,0 +1,112 @@
+<h1 class="document-settings-plugin-add-details__headline b-headline-l1">
+	{ 'documentSettingsPluginAddDetails.headline' | string }
+</h1>
+<h2 class="document-settings-plugin-add-details__document b-headline-l2">{ model:name }</h2>
+
+<div class="document-settings-plugin-add-details__header">
+	<div class="document-settings-plugin-add-details__meta" rv-if="model:installationCount">
+		<span class="document-settings-plugin-add-details__meta-value">{ model:installationCount }</span>
+		<span class="document-settings-plugin-add-details__meta-key">
+			{ 'documentSettingsPluginAddDetails.meta.installations' | string }
+		</span>
+	</div>
+	<div class="document-settings-plugin-add-details__meta" rv-if="model:issues.openCount">
+		<span class="document-settings-plugin-add-details__meta-value">{ model:issues.openCount }</span>
+		<span class="document-settings-plugin-add-details__meta-key">
+			{ 'documentSettingsPluginAddDetails.meta.issues' | string }
+		</span>
+	</div>
+	<div class="document-settings-plugin-add-details__meta" rv-if="model:satisfaction">
+		<span class="document-settings-plugin-add-details__meta-value">{ model:satisfaction }</span>
+		<span class="document-settings-plugin-add-details__meta-key">
+			{ 'documentSettingsPluginAddDetails.meta.satisfaction' | string }
+		</span>
+	</div>
+	<div class="document-settings-plugin-add-details__meta">
+		<span class="document-settings-plugin-add-details__meta-value">{ model:channels.latest }</span>
+		<span class="document-settings-plugin-add-details__meta-key">
+			{ 'documentSettingsPluginAddDetails.meta.version' | string }
+		</span>
+	</div>
+</div>
+<div class="document-settings-plugin-add-details__info-wrap">
+	<div class="document-settings-plugin-add-details__info">
+		<h4 class="document-settings-plugin-add-details__info-header">
+			{ 'documentSettingsPluginAddDetails.info.header' | string }
+		</h4>
+		<dl class="b-dl">
+			<dt rv-if="model:author.name">{ 'documentSettingsPluginAddDetails.info.author' | string }</dt>
+			<dd rv-if="model:author.url"><a rv-href="model:author.url" target="_blank">{ model:author.name }</a></dd>
+			<dd rv-unless="details.author.url">{ model:author.name }</dd>
+			<dt>{ 'documentSettingsPluginAddDetails.info.size' | string }</dt>
+			<dd>{ model:size.latest | filesize }</dd>
+			<dt>{ 'documentSettingsPluginAddDetails.info.version' | string }</dt>
+			<dd>{ model:channels.latest }</dd>
+			<dt rv-if="model:license">{ 'documentSettingsPluginAddDetails.info.license' | string }</dt>
+			<dd rv-if="model:license">{ model:license }</dd>
+			<dt rv-if="model:website">{ 'documentSettingsPluginAddDetails.info.website' | string }</dt>
+			<dd rv-if="model:website"><a rv-href="model:website" class="icon-globe" target="_blank">&nbsp;</a></dd>
+			<dt rv-if="model:issues.url">{ 'documentSettingsPluginAddDetails.info.issues' | string }</dt>
+			<dd rv-if="model:issues.url"><a rv-href="model:issues.url" class="icon-globe" target="_blank">&nbsp;</a></dd>
+			<dt>{ 'documentSettingsPluginAddDetails.info.npm' | string }</dt>
+			<dd><a rv-href="'https://www.npmjs.com/package/' | append model:id" target="_blank">{ model:id }</a></dd>
+		</dl>
+	</div>
+	<div class="document-settings-plugin-add-details__info">
+		<h4 class="document-settings-plugin-add-details__info-header">
+			{ 'documentSettingsPluginAddDetails.compatibility.header' | string }
+		</h4>
+		<div class="b-dl">
+			<div rv-each-c="compatibility">
+				<div class="b-dt">{ 'documentSettingsPluginAddDetails.compatibility.' | append c.type | string }</div>
+				<div class="b-dd document-settings-plugin-add-details__info-bullet"
+					 rv-class-document-settings-plugin-add-details__info-bullet--ok="c.ok"
+					 rv-class-document-settings-plugin-add-details__info-bullet--warn="c.warn"
+					 rv-class-document-settings-plugin-add-details__info-bullet--err="c.error">
+					{ c.requirement }
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="document-settings-plugin-add-details__info">
+		<h4 class="document-settings-plugin-add-details__info-header">
+			{ 'documentSettingsPluginAddDetails.responsibilities.header' | string }
+		</h4>
+		<div class="b-dl">
+			<div rv-each-provider="model:responsibilities">
+				<div class="b-dt">{ provider.name }</div>
+				<div class="b-dd">
+					<ul class="document-settings-plugin-add-details__features">
+						<li class="document-settings-plugin-add-details__feature" rv-if="provider.account">
+							{ 'documentSettingsPluginAddDetails.responsibilities.account' | string }
+						</li>
+						<li class="document-settings-plugin-add-details__feature" rv-if="provider.goal">
+							{ 'documentSettingsPluginAddDetails.responsibilities.goal' | string }
+						</li>
+						<li class="document-settings-plugin-add-details__feature" rv-if="provider.metadata">
+							{ 'documentSettingsPluginAddDetails.responsibilities.metadata' | string }
+						</li>
+						<li class="document-settings-plugin-add-details__feature" rv-if="provider.webhook">
+							{ 'documentSettingsPluginAddDetails.responsibilities.webhook' | string }
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="document-settings-plugin-add-details__warning b-loader b-loader--light" rv-class-loading="meta.loading">
+	<span class="document-settings-plugin-add-details__warning-icon icon-fire">&nbsp;</span>
+	<span class="document-settings-plugin-add-details__warning-text">
+		{ 'documentSettingsPluginAddDetails.warning.default' | string }
+	</span>
+
+	<button class="document-settings-plugin-add-details__install-button"
+			type="button"
+			rv-on-click="view.install">
+		{ 'documentSettingsPluginAddDetails.install' | string }
+	</button>
+</div>
+<div class="b-form-buttons">
+	<button class="b-form-button--cancel" rv-on-click="view.goBack">{ 'documentSettingsPluginAddDetails.back' | string }</button>
+</div>

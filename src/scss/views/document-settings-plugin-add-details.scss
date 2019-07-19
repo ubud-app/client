@@ -1,0 +1,144 @@
+@import '../definitions/variables';
+
+.document-settings-plugin-add-details {
+	overflow: visible;
+
+	&__header {
+		overflow: hidden;
+		margin-bottom: 2em;
+	}
+
+	&__meta {
+		width: 33%;
+		float: left;
+		color: lighten($text, 20);
+		font-size: 0.8em;
+
+		&:nth-child(6) {
+			display: none;
+		}
+		&:first-child:last-child {
+			display: none;
+		}
+
+		@include greater($size-s) {
+			width: 25%;
+			font-size: 1em;
+
+			&:nth-child(6) {
+				display: block;
+			}
+		}
+	}
+	&__meta-value {
+		display: block;
+		margin-top: 1.4em;
+		width: calc(100% - 1em);
+		font-size: 1.4em;
+		font-weight: bold;
+
+		& + & {
+			float: left;
+		}
+	}
+	&__meta-key {
+		display: block;
+		width: calc(100% - 1em);
+		font-size: 0.8em;
+	}
+
+
+	&__info-wrap {
+		overflow: hidden;
+
+		@include greater($size-m) {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+	}
+	&__info {
+		color: lighten($text, 20);
+
+		@include greater($size-m) {
+			flex: 0 0 auto;
+			flex-basis: 50%;
+		}
+
+		a,
+		a:link,
+		a:visited {
+			text-decoration: none;
+		}
+	}
+	&__info-header {
+		font-size: 1em;
+		font-weight: bold;
+		margin: 2em 0 0;
+	}
+	&__feature {
+		& + & {
+			padding: 0.6em 0 0;
+		}
+		&:last-child {
+			padding-bottom: 0.5em;
+		}
+	}
+	&__info-bullet {
+		&:before {
+			content: '';
+			display: inline-block;
+			position: relative;
+			top: -2px;
+			width: 0.4em;
+			height: 0.4em;
+			margin: 0 0.4em 0 0;
+			background: $background-footer;
+			border-radius: 50%;
+		}
+
+		&--ok:before {
+			background: $green;
+		}
+		&--warn:before {
+			background: $orange;
+		}
+		&--err:before {
+			background: $red;
+		}
+	}
+
+
+	&__warning {
+		background: $red;
+		margin: 3em -1em 0;
+		padding: 1em;
+		color: rgba($background, 0.8);
+
+		&-icon {
+			display: block;
+			text-align: center;
+			font-size: 2em;
+		}
+		&-text {
+			display: block;
+			margin: 1em auto;
+			padding: 0 2em;
+			text-align: center;
+			font-size: 0.9em;
+		}
+	}
+
+
+	&__install-button {
+		display: block;
+		width: 100%;
+		max-width: 18em;
+		margin: 2em auto 1em;
+		padding: 15px;
+		background: transparent;
+		border: 1px solid $background;
+		color: $background;
+		text-decoration: none;
+	}
+}
