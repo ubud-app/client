@@ -200,6 +200,11 @@
 			},
 			"logout": "Abmeldung abgeschlossen, tschüss!",
 			"autoLogout": "Abgemeldet aufgrund von Server-Antwort"
+		},
+		"version": {
+			"info": "DWIMM {{server}} mit WebApp {{client}}",
+			"server": "Update auf DWIMM {{server}} verfügbar. Bitte Docker Image aktualisieren und neu starten",
+			"client": "WebApp Update installiert. Klicke, um das Update anzuwenden"
 		}
 	},
 	"sidebar": {

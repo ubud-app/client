@@ -185,6 +185,9 @@ module.exports = Backbone.View.extend({
                 AppHelper.navigate('', {trigger: true});
             }
         });
+        this.listenTo(DataHelper, 'socket:ready', () => {
+            object.fetch();
+        });
 
         return stop;
     },

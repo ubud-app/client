@@ -4,6 +4,8 @@ const Backbone = require('backbone');
 const Sentry = require('@sentry/browser');
 const _ = require('underscore');
 
+let updateAvailable = false;
+
 /**
  * @module helpers/worker
  * @class WorkerHelper
@@ -37,8 +39,8 @@ class WorkerHelper {
                         return;
                     }
 
-                    WorkerHelper.trigger('updateFound');
-                    location.reload();
+                    updateAvailable = true;
+                    WorkerHelper.trigger('updateAvailable');
                 }
             };
         };
@@ -104,6 +106,10 @@ class WorkerHelper {
                 }, timeout);
             })
         ]);
+    }
+
+    static isUpdateAvailable () {
+        return updateAvailable;
     }
 }
 

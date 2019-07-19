@@ -11,7 +11,7 @@ require('@babel/polyfill');
 
 
 const Backbone = require('backbone');
-const $ = require('jquery');
+const $ = require('zepto');
 const Sentry = require('@sentry/browser');
 const ConfigurationHelper = require('./helpers/configuration');
 const AppHelper = require('./helpers/app');
@@ -41,6 +41,7 @@ Error.stackTraceLimit = 50;
         endpoint: ConfigurationHelper.getEndpoint(),
         SessionModel: require('./models/session'),
         UserModel: require('./models/user'),
+        ComponentCollection: require('./collections/component'),
         DocumentCollection: require('./collections/document')
     });
 

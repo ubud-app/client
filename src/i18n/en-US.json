@@ -201,6 +201,11 @@
 			},
 			"logout": "Logout complete, bye bye!",
 			"autoLogout": "Logout due to server response"
+		},
+		"version": {
+			"info": "DWIMM {{server}} with WebApp {{client}}",
+			"server": "Update to DWIMM {{available}} available. Please pull new Docker container and recreate container",
+			"client": "WebApp Update installed, click here to apply update"
 		}
 	},
 	"sidebar": {

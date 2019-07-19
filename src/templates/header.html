@@ -14,9 +14,14 @@
 			{ connection.string | string }
 		</button>
 	</li>
-	<li class="header__item header__item--settings" rv-class-header__item--avatar="avatar.visible" rv-on-click="view.toggleSettings">
+	<li class="header__item header__item--settings"
+		rv-class-header__item--avatar="avatar.visible"
+		rv-class-header__item--indicator="settings.indicator"
+		rv-on-click="view.toggleSettings">
 		<div class="header__item-avatar"><img rv-src="avatar.url" rv-if="avatar.url"></div>
-		<button class="header__item-icon header__item-icon--settings" rv-class-header__item-icon--active="settings.active" rv-title="'header.documents.settings' | string">&#xe802;</button>
+		<button class="header__item-icon header__item-icon--settings"
+				rv-class-header__item-icon--active="settings.active"
+				rv-title="'header.documents.settings' | string">&#xe802;</button>
 	</li>
 	<li class="header__item header__item--title">{ title.content }</li>
 </ul>

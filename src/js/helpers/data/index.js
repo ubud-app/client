@@ -19,7 +19,7 @@ class ResponseError extends Error {
 }
 
 class DataHelper {
-    static async initialize ({endpoint, SessionModel, UserModel, DocumentCollection}) {
+    static async initialize ({endpoint, SessionModel, UserModel, ComponentCollection, DocumentCollection}) {
         this.endpoint = endpoint;
 
         this._user = null;
@@ -63,6 +63,10 @@ class DataHelper {
                 this._user.fetch();
             }
         });
+
+        // setup component collection
+        this._components = new ComponentCollection();
+        this._components.fetch();
 
         // setup document collection
         this._documents = new DocumentCollection();
@@ -402,7 +406,7 @@ class DataHelper {
                 return;
             }
 
-            this.off('updade', model._liveListener);
+            this.off('update', model._liveListener);
             delete model._liveListener;
         };
 
@@ -450,6 +454,10 @@ class DataHelper {
 
     static getUser () {
         return this._user;
+    }
+
+    static getComponents () {
+        return this._components;
     }
 
     static getDocuments () {

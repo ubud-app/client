@@ -34,12 +34,17 @@ const DocumentSettingsPluginAddView = View.extend({
             model: this.model,
             compatibility: [],
             meta: {
-                loading: false
+                loading: false,
+                showIssues: false
             }
         };
 
         this.live(this.document);
         this.live(this.model);
+
+        this.listenToAndCall(this.model, 'change:issues', () => {
+            this.data.meta.showIssues = this.model.get('issues') && this.model.get('issues').openCount !== null;
+        });
         this.listenToAndCall(this.model, 'change:compatibility', () => {
             DocumentSettingsPluginAddView.updateCompatibility(this.model, this.data.compatibility);
         });

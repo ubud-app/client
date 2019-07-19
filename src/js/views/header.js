@@ -4,6 +4,7 @@ const gravatar = require('gravatar-url');
 const View = require('./_');
 
 const DataHelper = require('../helpers/data');
+const WorkerHelper = require('../helpers/worker');
 const TemplateHelper = require('../helpers/template');
 
 const HeaderTemplate = require('../../templates/header.html');
@@ -38,7 +39,8 @@ module.exports = View.extend({
                 visible: false
             },
             settings: {
-                active: false
+                active: false,
+                indicator: false
             },
             title: {
                 content: null
@@ -58,10 +60,14 @@ module.exports = View.extend({
 
         const user = DataHelper.getUser();
         this.live(user);
-
         this.listenToAndCall(user, 'change:email', () => {
             this.updateAvatar(user);
         });
+
+        const components = DataHelper.getComponents();
+        this.listenTo(WorkerHelper, 'updateAvailable', () => this.updateSettingsBadge(components));
+        this.listenToAndCall(components, 'add remove sync', () => this.updateSettingsBadge(components));
+        this.live(components);
 
         return this;
     },
@@ -94,6 +100,16 @@ module.exports = View.extend({
 
         this.data.avatar.url = url;
         this.data.avatar.visible = true;
+    },
+
+    updateSettingsBadge (components) {
+        const server = components.find(c => c.id === 'server');
+        this.data.settings.indicator = WorkerHelper.isUpdateAvailable() || (
+            server &&
+            server.get('installed') &&
+            server.get('available') &&
+            server.get('installed') !== server.get('available')
+        );
     },
 
     setTitle (title) {

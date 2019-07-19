@@ -5,6 +5,7 @@ const View = require('./_');
 const gravatar = require('gravatar-url');
 
 const DataHelper = require('../helpers/data');
+const WorkerHelper = require('../helpers/worker');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
@@ -56,8 +57,8 @@ module.exports = View.extend({
                 model: DataHelper.getUser()
             },
             version: {
-                name: ConfigurationHelper.getVersion(),
-                build: ConfigurationHelper.getBuildId()
+                info: null,
+                update: null
             }
         };
 
@@ -92,6 +93,11 @@ module.exports = View.extend({
                 });
             }
         });
+
+        const components = DataHelper.getComponents();
+        this.listenTo(WorkerHelper, 'updateAvailable', () => this.updateVersionStrings(components));
+        this.listenToAndCall(components, 'add remove sync', () => this.updateVersionStrings(components));
+        this.live(components);
 
         TemplateHelper.render({
             view: this,
@@ -165,5 +171,30 @@ module.exports = View.extend({
 
     versionClick () {
         location.reload();
+    },
+
+    updateVersionStrings (components) {
+        const server = components.find(c => c.id === 'server');
+        this.data.version.info = ConfigurationHelper.getString('header.version.info', {
+            server: server && server.get('installed') ? server.get('installed') : '',
+            client: ConfigurationHelper.getVersion()
+        });
+
+        if(
+            server &&
+            server.get('installed') &&
+            server.get('available') &&
+            server.get('installed') !== server.get('available')
+        ) {
+            this.data.version.update = ConfigurationHelper.getString('header.version.server', {
+                available: server.get('available')
+            });
+        }
+        else if(WorkerHelper.isUpdateAvailable()) {
+            this.data.version.update = ConfigurationHelper.getString('header.version.client');
+        }
+        else {
+            this.data.version.update = null;
+        }
     }
 });

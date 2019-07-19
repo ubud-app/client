@@ -10,7 +10,7 @@
 			{ 'documentSettingsPluginAddDetails.meta.installations' | string }
 		</span>
 	</div>
-	<div class="document-settings-plugin-add-details__meta" rv-if="model:issues.openCount">
+	<div class="document-settings-plugin-add-details__meta" rv-if="meta.showIssues">
 		<span class="document-settings-plugin-add-details__meta-value">{ model:issues.openCount }</span>
 		<span class="document-settings-plugin-add-details__meta-key">
 			{ 'documentSettingsPluginAddDetails.meta.issues' | string }
