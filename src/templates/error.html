@@ -5,6 +5,11 @@
 	<p class="error__message">{ error.message }</p>
 
 
+	<div class="error__info" rv-if="error.error">
+		<span class="error__info-label">{ 'error.labels.error' | string }</span>
+		<pre class="error__info-content">{ error.error }</pre>
+	</div>
+
 	<div class="error__info" rv-if="error.reference">
 		<span class="error__info-label">{ 'error.labels.reference' | string }</span>
 		<pre class="error__info-content">{ error.reference }</pre>

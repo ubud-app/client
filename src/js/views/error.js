@@ -34,6 +34,7 @@ module.exports = View.extend({
             error: {
                 headline: this.headline,
                 message: this.message,
+                error: String(this.error),
                 stacktrace: this.error && this.error.stack ? this.error.stack.substr(0) : null,
                 reference: ''
             }
