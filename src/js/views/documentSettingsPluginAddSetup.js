@@ -73,11 +73,18 @@ module.exports = View.extend({
         });
     },
     updateStatus () {
+        const success = (
+            this.model.get('status') === 'ready' &&
+            !this.model.get('forks') &&
+            this.model.get('errors') &&
+            !Object.values(this.model.get('supported')).find(s => this.model.get('errors')[s] !== null)
+        );
+
         if(!this.model.isSynced() || this.model.get('status') === 'initializing') {
             this.data.loader.text = 'initialize';
             this.data.config.visible = false;
         }
-        if(this.model.get('status') === 'configuration' && !this.model.get('forks')) {
+        else if(this.model.get('status') === 'configuration' && !this.model.get('forks')) {
             this.data.loader.text = null;
             this.data.config.visible = true;
         }
@@ -85,30 +92,13 @@ module.exports = View.extend({
             this.data.loader.text = 'configure';
             this.data.config.visible = false;
         }
-        else if(
-            this.model.get('status') === 'ready' &&
-            !this.model.get('forks') &&
-            this.model.get('errors') &&
-            !Object.values(this.model.get('supported')).find(s => this.model.get('errors')[s] !== null) &&
-            this.model.get('supported').includes('getAccounts')
-        ) {
+        else if(success && this.model.get('supported').includes('getAccounts')) {
             AppHelper.navigate(this.document.id + '/transactions', {trigger: true});
         }
-        else if(
-            this.model.get('status') === 'ready' &&
-            !this.model.get('forks') &&
-            this.model.get('errors') &&
-            !Object.values(this.model.get('supported')).find(s => this.model.get('errors')[s] !== null) &&
-            this.model.get('supported').includes('getGoals')
-        ) {
+        else if(success && this.model.get('supported').includes('getGoals')) {
             AppHelper.navigate(this.document.id + '/budget', {trigger: true});
         }
-        else if(
-            this.model.get('status') === 'ready' &&
-            !this.model.get('forks') &&
-            this.model.get('errors') &&
-            !Object.values(this.model.get('supported')).find(s => this.model.get('errors')[s] !== null)
-        ) {
+        else if(success) {
             AppHelper.navigate(this.document.id + '/settings/plugins', {trigger: true});
         }
         else if(
