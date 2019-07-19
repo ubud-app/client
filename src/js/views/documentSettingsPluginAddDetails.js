@@ -41,7 +41,7 @@ const DocumentSettingsPluginAddView = View.extend({
         this.live(this.document);
         this.live(this.model);
         this.listenToAndCall(this.model, 'change:compatibility', () => {
-            DocumentSettingPluginAddView.updateCompatibility(this.model, this.data.compatibility);
+            DocumentSettingsPluginAddView.updateCompatibility(this.model, this.data.compatibility);
         });
 
         TemplateHelper.render({
