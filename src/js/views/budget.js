@@ -299,9 +299,12 @@ const BudgetView = View.extend({
 
                         if (budgetModel.get('goal')) {
                             portion.goal = {
-                                width: Math.min(
-                                    100,
-                                    Math.round(portionModel.get('balance') / budgetModel.get('goal') * 100)
+                                width: Math.max(
+                                    0,
+                                        Math.min(
+                                        100,
+                                        Math.round(portionModel.get('balance') / budgetModel.get('goal') * 100)
+                                    )
                                 ) + '%',
                                 percent: portionModel.get('balance') / budgetModel.get('goal'),
                                 complete: portionModel.get('balance') >= budgetModel.get('goal'),
