@@ -19,7 +19,7 @@ const DocumentSettingsPluginAddDetailsTemplate = require('../../templates/docume
  * @augments View
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsPluginAddView = View.extend({
     className: 'document-settings-plugin-add-details b-form b-loader b-loader--light',
 
     async render () {
@@ -40,7 +40,9 @@ module.exports = View.extend({
 
         this.live(this.document);
         this.live(this.model);
-        this.listenToAndCall(this.model, 'change:compatibility', this.updateCompatibility);
+        this.listenToAndCall(this.model, 'change:compatibility', () => {
+            DocumentSettingPluginAddView.updateCompatibility(this.model, this.data.compatibility);
+        });
 
         TemplateHelper.render({
             view: this,
@@ -54,25 +56,6 @@ module.exports = View.extend({
         });
 
         return this;
-    },
-    updateCompatibility () {
-        this.data.compatibility.length = 0;
-        if (!this.model.get('compatibility')) {
-            return;
-        }
-
-        Object.entries(this.model.get('compatibility')).forEach(([type, c]) => {
-            const j = {
-                type,
-                requirement: c.requirement
-            };
-
-            j.error = type !== 'npm' && !c.fulfills;
-            j.warn = type === 'npm' && !c.fulfills;
-            j.ok = c.fulfills;
-
-            this.data.compatibility.push(j);
-        });
     },
 
     goBack () {
@@ -100,4 +83,26 @@ module.exports = View.extend({
         AppHelper.view().renderView(new DocumentSettingsPluginAddSetupView({model: pluginInstance}));
         AppHelper.navigate(this.document.id + '/settings/plugins/' + pluginInstance.id + '/setup');
     }
+}, {
+    updateCompatibility (model, compatibility) {
+        compatibility.length = 0;
+        if (!model.get('compatibility')) {
+            return;
+        }
+
+        Object.entries(model.get('compatibility')).forEach(([type, c]) => {
+            const j = {
+                type,
+                requirement: c.requirement
+            };
+
+            j.error = type !== 'npm' && !c.fulfills;
+            j.warn = type === 'npm' && !c.fulfills;
+            j.ok = c.fulfills;
+
+            compatibility.push(j);
+        });
+    }
 });
+
+module.exports = DocumentSettingsPluginAddView;

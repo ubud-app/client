@@ -2,6 +2,7 @@
 
 const View = require('./_');
 const ErrorView = require('./error');
+const DocumentSettingsPluginAddView = require('./documentSettingsPluginAddDetails');
 
 const AppHelper = require('../helpers/app');
 const TemplateHelper = require('../helpers/template');
@@ -34,7 +35,8 @@ module.exports = View.extend({
             pluginInstance: this.model,
             meta: {
                 plugin: null,
-                uninstalling: false
+                uninstalling: false,
+                compatibility: []
             },
             status: {
                 text: '',
@@ -65,9 +67,11 @@ module.exports = View.extend({
 
             const plugin = new PluginModel({id: this.model.get('type')});
             await plugin.fetch();
-            this.data.meta.plugin = plugin;
-            AppHelper.view().setTitle(plugin.get('title'));
 
+            this.data.meta.plugin = plugin;
+            DocumentSettingsPluginAddView.updateCompatibility(plugin, this.data.meta.compatibility);
+
+            AppHelper.view().setTitle(plugin.get('title'));
             this.live(plugin);
         });
 

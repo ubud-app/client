@@ -35,4 +35,35 @@
 			display: none;
 		}
 	}
+
+	&__info {
+		@extend .document-settings-plugin-add-details__info;
+
+		&-wrap {
+			margin: 2em 0;
+			@extend .document-settings-plugin-add-details__info-wrap;
+		}
+
+		&-header {
+			@extend .document-settings-plugin-add-details__info-header;
+		}
+
+		&-bullet {
+			@extend .document-settings-plugin-add-details__info-bullet;
+
+			&--ok {
+				@extend .document-settings-plugin-add-details__info-bullet--ok;
+			}
+			&--warn {
+				@extend .document-settings-plugin-add-details__info-bullet--warn;
+			}
+			&--err {
+				@extend .document-settings-plugin-add-details__info-bullet--err;
+			}
+		}
+	}
+
+	&__feature {
+		@extend .document-settings-plugin-add-details__feature;
+	}
 }

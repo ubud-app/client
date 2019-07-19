@@ -47,6 +47,73 @@
 		<pre class="document-settings-plugin-details__error-message">{ pluginInstance:errors.getGoals }</pre>
 	</div>
 
+	<div class="document-settings-plugin-details__info-wrap" rv-if="meta.plugin">
+		<div class="document-settings-plugin-details__info">
+			<h4 class="document-settings-plugin-details__info-header">
+				{ 'documentSettingsPluginAddDetails.info.header' | string }
+			</h4>
+			<dl class="b-dl">
+				<dt rv-if="meta.plugin:author.name">{ 'documentSettingsPluginAddDetails.info.author' | string }</dt>
+				<dd rv-if="meta.plugin:author.url"><a rv-href="meta.plugin:author.url" target="_blank">{ meta.plugin:author.name }</a></dd>
+				<dd rv-unless="details.author.url">{ meta.plugin:author.name }</dd>
+				<dt>{ 'documentSettingsPluginAddDetails.info.size' | string }</dt>
+				<dd>{ meta.plugin:size.latest | filesize }</dd>
+				<dt>{ 'documentSettingsPluginAddDetails.info.version' | string }</dt>
+				<dd>{ meta.plugin:channels.latest }</dd>
+				<dt rv-if="meta.plugin:license">{ 'documentSettingsPluginAddDetails.info.license' | string }</dt>
+				<dd rv-if="meta.plugin:license">{ meta.plugin:license }</dd>
+				<dt rv-if="meta.plugin:website">{ 'documentSettingsPluginAddDetails.info.website' | string }</dt>
+				<dd rv-if="meta.plugin:website"><a rv-href="meta.plugin:website" class="icon-globe" target="_blank">&nbsp;</a></dd>
+				<dt rv-if="meta.plugin:issues.url">{ 'documentSettingsPluginAddDetails.info.issues' | string }</dt>
+				<dd rv-if="meta.plugin:issues.url"><a rv-href="meta.plugin:issues.url" class="icon-globe" target="_blank">&nbsp;</a></dd>
+				<dt>{ 'documentSettingsPluginAddDetails.info.npm' | string }</dt>
+				<dd><a rv-href="'https://www.npmjs.com/package/' | append meta.plugin:id" target="_blank">{ meta.plugin:id }</a></dd>
+			</dl>
+		</div>
+		<div class="document-settings-plugin-details__info">
+			<h4 class="document-settings-plugin-details__info-header">
+				{ 'documentSettingsPluginAddDetails.compatibility.header' | string }
+			</h4>
+			<div class="b-dl">
+				<div rv-each-c="meta.compatibility">
+					<div class="b-dt">{ 'documentSettingsPluginAddDetails.compatibility.' | append c.type | string }</div>
+					<div class="b-dd document-settings-plugin-details__info-bullet"
+						 rv-class-document-settings-plugin-details__info-bullet--ok="c.ok"
+						 rv-class-document-settings-plugin-details__info-bullet--warn="c.warn"
+						 rv-class-document-settings-plugin-details__info-bullet--err="c.error">
+						{ c.requirement }
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="document-settings-plugin-details__info">
+			<h4 class="document-settings-plugin-details__info-header">
+				{ 'documentSettingsPluginAddDetails.responsibilities.header' | string }
+			</h4>
+			<div class="b-dl">
+				<div rv-each-provider="meta.plugin:responsibilities">
+					<div class="b-dt">{ provider.name }</div>
+					<div class="b-dd">
+						<ul class="document-settings-plugin-details__features">
+							<li class="document-settings-plugin-details__feature" rv-if="provider.account">
+								{ 'documentSettingsPluginAddDetails.responsibilities.account' | string }
+							</li>
+							<li class="document-settings-plugin-details__feature" rv-if="provider.goal">
+								{ 'documentSettingsPluginAddDetails.responsibilities.goal' | string }
+							</li>
+							<li class="document-settings-plugin-details__feature" rv-if="provider.metadata">
+								{ 'documentSettingsPluginAddDetails.responsibilities.metadata' | string }
+							</li>
+							<li class="document-settings-plugin-details__feature" rv-if="provider.webhook">
+								{ 'documentSettingsPluginAddDetails.responsibilities.webhook' | string }
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="b-form-buttons">
 		<button type="submit"
 				class="b-form-button b-form-button--save">{ 'documentSettingsAccountDetails.done' | string }</button>
