@@ -102,10 +102,10 @@
 
 			&--settings {
 				float: left;
-				width: $sidebar-width;
 
 				@include greater($size-l) {
 					display: block;
+					width: $sidebar-width;
 				}
 			}
 		}

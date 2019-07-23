@@ -203,7 +203,7 @@
 		},
 		"version": {
 			"info": "DWIMM {{server}} mit WebApp {{client}}",
-			"server": "Update auf DWIMM {{server}} verfügbar. Bitte Docker Image aktualisieren und neu starten",
+			"server": "Update auf DWIMM {{available}} verfügbar. Bitte Docker Image aktualisieren und neu starten",
 			"client": "WebApp Update installiert. Klicke, um das Update anzuwenden"
 		}
 	},
