@@ -178,7 +178,7 @@ module.exports = Backbone.View.extend({
             stop();
         });
         this.listenTo(object, 'error', (object, error) => {
-            if(String(error).includes('Not Found')) {
+            if (String(error).includes('Not Found')) {
                 this.remove();
 
                 const AppHelper = require('../helpers/app');
@@ -186,7 +186,9 @@ module.exports = Backbone.View.extend({
             }
         });
         this.listenTo(DataHelper, 'socket:ready', () => {
-            object.fetch();
+            if (!object.isSyncing()) {
+                object.fetch();
+            }
         });
 
         return stop;
