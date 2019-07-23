@@ -35,7 +35,7 @@ module.exports = View.extend({
         this.data = {
             account: this.model,
             delete: {
-                allowed: true,
+                allowed: false,
                 loading: false
             }
         };

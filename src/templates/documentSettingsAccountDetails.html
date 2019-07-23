@@ -37,7 +37,7 @@
 				class="b-form-button b-form-button--save">{ 'documentSettingsAccountDetails.done' | string }</button>
 	</div>
 
-	<div class="b-danger" rv-if="delete.allowed" rv-class-loading="delete.loading">
+	<div class="b-danger" rv-unless="account:pluginInstanceId" rv-class-loading="delete.loading">
 		<h3 class="b-danger__headline">{ 'documentSettingsAccountDetails.delete.title' | string }</h3>
 		<p class="b-danger__message">{ 'documentSettingsAccountDetails.delete.message' | string }</p>
 

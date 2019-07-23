@@ -381,7 +381,7 @@
 		},
 		"delete": {
 			"title": "Konto löschen",
-			"message": "Du kannst dieses Konto löschen, da es keine Transaktionen enthält.",
+			"message": "You can delete this account. All transactions contained in this account will be deleted. This will change your budget. This action cannot be undone.",
 			"button": "Konto löschen"
 		},
 		"done": "Done"

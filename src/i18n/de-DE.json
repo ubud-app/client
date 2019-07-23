@@ -380,7 +380,7 @@
 		},
 		"delete": {
 			"title": "Konto löschen",
-			"message": "Du kannst dieses Konto löschen, da es keine Transaktionen enthält.",
+			"message": "Du kannst dieses Konto löschen. Alle Transaktionen, die in diesem Konto enthalten sind, werden gelöscht. Dein Budget ändert sich dadurch. Diese Aktion kann nicht rückgängig gemacht werden.",
 			"button": "Konto löschen"
 		},
 		"done": "Fertig"
