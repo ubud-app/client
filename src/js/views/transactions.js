@@ -47,6 +47,9 @@ module.exports = View.extend({
             dropzone: {
                 visible: false
             },
+            meta: {
+                empty: false
+            },
             pages: []
         };
 
@@ -153,6 +156,9 @@ module.exports = View.extend({
         this.$el.scrollTop(this.$el.find('.transactions__page').first().height() + this.$el.scrollTop());
         this.$el.css('-webkit-overflow-scrolling', 'touch');
 
+        if(this._emptyMonths > 24) {
+            this.updateEmptyMessage();
+        }
         if(month !== 'future' && this.$el.children('.transactions__pages').height() < window.innerHeight * 1.5 && this._emptyMonths <= 24) {
             await this.addNextMonth();
         }
@@ -192,11 +198,13 @@ module.exports = View.extend({
         });
 
         page.transactions.push(item);
+        this.updateEmptyMessage();
     },
     removeTransaction (page, transaction) {
         const i = page.transactions.findIndex(e => e.id === transaction.id);
         if (i > -1) {
             page.transactions.splice(i, 1);
+            this.updateEmptyMessage();
         }
     },
     updateBudgetString (item, transaction) {
@@ -237,6 +245,9 @@ module.exports = View.extend({
             item.budget = strings.join(', ') || ConfigurationHelper.getString('transactions.budget.noBudget');
             item.noBudget = !strings.length;
         });
+    },
+    updateEmptyMessage () {
+        this.data.meta.empty = !!(this._emptyMonths > 24 && !this.data.pages.find(p => p.transactions.length > 0));
     },
 
     onScroll () {

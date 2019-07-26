@@ -339,7 +339,8 @@
 		"import": {
 			"headline": "Drop file",
 			"message": "Pull your export files from your online banking here to import them into DWIMM"
-		}
+		},
+		"empty": "No transactions found. Install a plugin for your bank or enter transactions manually."
 	},
 	"transactionDetails": {
 		"labels": {

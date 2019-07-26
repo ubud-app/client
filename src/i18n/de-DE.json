@@ -338,7 +338,8 @@
 		"import": {
 			"headline": "Loslassen",
 			"message": "Ziehe deine Export-Dateien aus deinem Online-Banking hier her, um sie in DWIMM zu importieren"
-		}
+		},
+		"empty": "Keine Transaktionen gefunden. Installiere ein Plugin für deine Bank oder trage manuell Transaktionen ein."
 	},
 	"transactionDetails": {
 		"labels": {

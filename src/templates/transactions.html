@@ -1,4 +1,6 @@
 <div class="transactions__pages">
+	<div class="transactions__empty b-empty-message" rv-if="meta.empty">{ 'transactions.empty' | string }</div>
+
 	<ul class="transactions__page" rv-each-page="pages">
 		<li class="transactions__separator">{ page.separator }</li>
 		<li class="transactions__item" rv-each-transaction="page.transactions">

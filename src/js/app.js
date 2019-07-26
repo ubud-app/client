@@ -48,11 +48,11 @@ Error.stackTraceLimit = 50;
     const LoginView = require('./views/login');
     await new LoginView().check();
 
+    $app.removeClass('app--initializing');
+
     const FirstSetupView = require('./views/firstSetup');
     await new FirstSetupView().check();
 
     AppHelper.initialize();
     Backbone.history.start();
-
-    $app.removeClass('app--initializing');
 })();
