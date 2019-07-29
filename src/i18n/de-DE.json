@@ -1,9 +1,9 @@
 {
-	"app.name": "DWIMM",
-	"app.shortName": "DWIMM",
-	"app.description": "DWIMM is a simple and self-hosted budgeting software.",
+	"app.name": "ubud",
+	"app.shortName": "ubud",
+	"app.description": "ubud is a simple and self-hosted budgeting software.",
 	"app.developerName": "Sebastian Pekarek",
-	"app.developerUrl": "https://dwimm.org",
+	"app.developerUrl": "https://ubud.club",
 	"notFound.headline": "Seite nicht gefunden",
 	"notFound.message": "Entschuldigung, aber die Seite, die du suchst, wurde nicht gefunden.",
 	"autoNumeric": {
@@ -71,17 +71,24 @@
 		"submit": {
 			"text": "Login"
 		},
+		"continue": {
+			"text": "Weiter"
+		},
 		"forgotPassword": {
-			"url": "https://dwimm.org/de/help/forgot-password",
+			"url": "https://ubud.club.org/de/help/forgot-password",
 			"text": "Passwort vergessen?"
 		},
 		"website": {
-			"url": "https://dwimm.org/de/",
-			"text": "DWIMM"
+			"url": "https://ubud.club.org/de/",
+			"text": "ubud"
 		},
 		"help": {
-			"url": "https://dwimm.org/de/help/",
+			"url": "https://ubud.club.org/de/help/",
 			"text": "Hilf mir!"
+		},,
+		"pawned": "Das eingegebene Passwort scheint nicht sicher zu sein, wir haben es in <a href=\"https://haveibeenpwned.com/Passwords\">diversen Daten-Leaks</a> gefunden. <br />Bitte verwende ein sicheres Passwort oder verwende einen Passwort-Manager.",
+		"terms": {
+			"content": "Ich habe die <a href=\"{{tos}}\" target=\"_blank\",>AGB</a> und die <a href=\"{{privacy}}\" target=\"_blank\">Datenschutzerklärung</a> gelesen und bin damit einverstanden."
 		}
 	},
 	"firstSetup": {
@@ -202,9 +209,9 @@
 			"autoLogout": "Abgemeldet aufgrund von Server-Antwort"
 		},
 		"version": {
-			"info": "DWIMM {{server}} mit WebApp {{client}}",
-			"server": "Update auf DWIMM {{available}} verfügbar. Bitte Docker Image aktualisieren und neu starten",
-			"client": "WebApp Update installiert. Klicke, um das Update anzuwenden"
+			"info": "ubud {{server}} mit Client {{client}}",
+			"server": "Update auf ubud {{available}} verfügbar. Bitte Docker Image aktualisieren und neu starten",
+			"client": "Client Update installiert. Klicke, um das Update anzuwenden"
 		}
 	},
 	"sidebar": {
@@ -337,7 +344,7 @@
 		"add": "+ Transaktion hinzufügen",
 		"import": {
 			"headline": "Loslassen",
-			"message": "Ziehe deine Export-Dateien aus deinem Online-Banking hier her, um sie in DWIMM zu importieren"
+			"message": "Ziehe deine Export-Dateien aus deinem Online-Banking hier her, um sie in ubud zu importieren"
 		},
 		"empty": "Keine Transaktionen gefunden. Installiere ein Plugin für deine Bank oder trage manuell Transaktionen ein."
 	},
@@ -359,7 +366,7 @@
 		"budget": {
 			"income": "Einkommen für {{month}}"
 		},
-		"reconciling": "Diese Transaktion wurde automatisch eingefügt, da sich der Kontostand aus DWIMM und der gemeldete Kontostand der Bank unterschieden haben. Nun sollte alles wieder passen. Falls du öfters diese Ausgleichs-Zahlungen siehst, könnte das ein Indiz dafür sein, dass mit der Synchronisierung etwas nicht stimmt.",
+		"reconciling": "Diese Transaktion wurde automatisch eingefügt, da sich der Kontostand aus ubud und der gemeldete Kontostand der Bank unterschieden haben. Nun sollte alles wieder passen. Falls du öfters diese Ausgleichs-Zahlungen siehst, könnte das ein Indiz dafür sein, dass mit der Synchronisierung etwas nicht stimmt.",
 		"remove": "Transaktion löschen",
 		"done": "Fertig"
 	},
@@ -498,7 +505,7 @@
 		},
 		"compatibility": {
 			"header": "Kompatibilität",
-			"server": "DWIMM Server",
+			"server": "ubud Server",
 			"node": "node.js",
 			"npm": "npm",
 			"os": "OS",
@@ -512,7 +519,7 @@
 			"webhook": "Echtzeit-Synchronisierung"
 		},
 		"warning": {
-			"default": "Plugins sind fremder Code, der auf deiner DWIMM Instanz ausgeführt wird und können daher u.U. Schaden anrichten. Installiere daher nur vertrauenwürdige Plugins und achte darauf, dass die Plugins keine Möglichkeit haben, Änderungen an deinem Konto durchzuführen."
+			"default": "Plugins sind fremder Code, der auf deiner ubud-Instanz ausgeführt wird und können daher u.U. Schaden anrichten. Installiere daher nur vertrauenwürdige Plugins und achte darauf, dass die Plugins keine Möglichkeit haben, Änderungen an deinem Konto durchzuführen."
 		},
 		"install": "Plugin installieren",
 		"back": "Zurück"

@@ -80,7 +80,7 @@
 			}
 
 			&--active {
-				border-left-color: $primary;
+				border-left-color: $primary-2;
 			}
 
 			&--settings-mobile {
@@ -121,7 +121,7 @@
 		&-icon {
 			display: block;
 
-			font-family: 'dwimm';
+			font-family: 'ubud';
 			font-style: normal;
 			font-weight: normal;
 			speak: none;
@@ -149,7 +149,7 @@
 			}
 		}
 		&--active &-icon:not(.sidebar__item-icon--add) {
-			color: rgba($primary, 0.8);
+			color: rgba($primary-2, 0.8);
 		}
 
 		&-name {

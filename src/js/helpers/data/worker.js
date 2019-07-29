@@ -1,6 +1,6 @@
 'use strict';
 
-const SCHEMA_VERSION = 4;
+const SCHEMA_VERSION = 1;
 
 //const statusStrings = ['init', 'error', 'blocked', 'upgrade', 'upgrading', 'ready', 'closed'];
 
@@ -70,7 +70,7 @@ class DataWorker {
             let req;
 
             try {
-                req = this.db.indexedDB.open('org.dwimm.client.db', SCHEMA_VERSION);
+                req = this.db.indexedDB.open('club.ubud.client.db', SCHEMA_VERSION);
             }
             catch (err) {
 

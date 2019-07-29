@@ -33,7 +33,7 @@ module.exports = BaseView.extend({
                 emailRequired: this.changeMail(),
                 email: ['', ''],
                 password: ['', ''],
-                error: [true, false],
+                error: [false, false],
                 disabled: false,
                 pawned: false
             }
@@ -63,7 +63,7 @@ module.exports = BaseView.extend({
     },
 
     changeMail () {
-        return this.model.get('email') === 'setup@dwimm.org';
+        return this.model.get('email') === 'setup@ubud.club';
     },
 
     async check () {

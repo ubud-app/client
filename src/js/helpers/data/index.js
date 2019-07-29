@@ -12,9 +12,11 @@ const _ = require('underscore');
 class ResponseError extends Error {
     constructor (response = {}) {
         super(response.message || 'Unknown Response Error');
+        console.log(response);
         this.error = response.error;
         this.attributes = response.attributes;
         this.reference = response.reference;
+        this.extra = response.extra;
     }
 }
 
@@ -151,7 +153,7 @@ class DataHelper {
     }
 
 
-    static async login ({email, password}) {
+    static async login ({email, password, acceptedTerms = false}) {
         this.log('authenticating.login');
         DataHelper._setState(DataHelper.AUTHENTICATING);
 
@@ -162,7 +164,8 @@ class DataHelper {
             const session = await DataHelper.request('sessions/create', {
                 email,
                 password,
-                name: user.getBrowser().name + ' (' + user.getOS().name + ' ' + user.getOS().version + ')'
+                name: user.getBrowser().name + ' (' + user.getOS().name + ' ' + user.getOS().version + ')',
+                acceptedTerms: !!acceptedTerms
             });
 
             this._session.set(session);

@@ -19,7 +19,7 @@ module.exports = View.extend({
 
     _initialize (options) {
         this.icon = options.icon || 'paper-plane';
-        this.text = options.text || 'DWIMM';
+        this.text = options.text || 'ubud';
     },
 
     render () {

@@ -1,11 +1,11 @@
 @font-face {
-	font-family: 'dwimm';
-	src: url('../fonts/dwimm.eot?77451498');
-	src: url('../fonts/dwimm.eot?77451498#iefix') format('embedded-opentype'),
-	url('../fonts/dwimm.woff2?77451498') format('woff2'),
-	url('../fonts/dwimm.woff?77451498') format('woff'),
-	url('../fonts/dwimm.ttf?77451498') format('truetype'),
-	url('../fonts/dwimm.svg?77451498#dwimm') format('svg');
+	font-family: 'ubud';
+	src: url('../fonts/ubud.eot?77451498');
+	src: url('../fonts/ubud.eot?77451498#iefix') format('embedded-opentype'),
+	url('../fonts/ubud.woff2?77451498') format('woff2'),
+	url('../fonts/ubud.woff?77451498') format('woff'),
+	url('../fonts/ubud.ttf?77451498') format('truetype'),
+	url('../fonts/ubud.svg?77451498#ubud') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -14,14 +14,14 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'dwimm';
-    src: url('../font/dwimm.svg?77451498#dwimm') format('svg');
+    font-family: 'ubud';
+    src: url('../font/ubud.svg?77451498#ubud') format('svg');
   }
 }
 */
 
 [class^="icon-"]:before, [class*=" icon-"]:before {
-	font-family: "dwimm";
+	font-family: "ubud";
 	font-style: normal;
 	font-weight: normal;
 	speak: none;

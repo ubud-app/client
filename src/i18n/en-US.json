@@ -1,9 +1,9 @@
 {
-	"app.name": "DWIMM",
-	"app.shortName": "DWIMM",
-	"app.description": "DWIMM is a simple and self-hosted budgeting software.",
+	"app.name": "ubud",
+	"app.shortName": "ubud",
+	"app.description": "ubud is a simple and self-hosted budgeting software.",
 	"app.developerName": "Sebastian Pekarek",
-	"app.developerUrl": "https://dwimm.org",
+	"app.developerUrl": "https://ubud.club",
 	"notFound.headline": "Page not found",
 	"notFound.message": "Sorry, but the page you were looking for wasn't found.",
 	"autoNumeric": {
@@ -71,19 +71,25 @@
 		"submit": {
 			"text": "Sign in"
 		},
+		"continue": {
+			"text": "Continue"
+		},
 		"forgotPassword": {
 			"url": "https://dude-where-is-my.money/en/help/forgot-password",
 			"text": "Forgot Password?"
 		},
 		"website": {
 			"url": "https://dude-where-is-my.money/en/",
-			"text": "DWIMM"
+			"text": "ubud"
 		},
 		"help": {
 			"url": "https://dude-where-is-my.money/en/help/",
 			"text": "Help me!"
 		},
-		"pawned": "Das eingegebene Passwort scheint nicht sicher zu sein, wir haben es in <a href=\"https://haveibeenpwned.com/Passwords\">diversen Daten-Leaks</a> gefunden. <br />Bitte verwende ein sicheres Passwort oder verwende einen Passwort-Manager."
+		"pawned": "The entered password does not seem to be secure, we found it in <a href=\"https://haveibeenpwned.com/Passwords\">diversen Daten-Leaks</a>. <br />Please use a secure password or use a password manager.",
+		"terms": {
+			"content": "I have read and agree to the <a href=\"{{tos}}\" target=\"_blank\",>General Terms and Conditions</a> and the <a href=\"{{privacy}}\" target=\"_blank\">Privacy Policy</a>."
+		}
 	},
 	"firstSetup": {
 		"title": "Setup login credentials",
@@ -203,9 +209,9 @@
 			"autoLogout": "Logout due to server response"
 		},
 		"version": {
-			"info": "DWIMM {{server}} with WebApp {{client}}",
-			"server": "Update to DWIMM {{available}} available. Please pull new Docker container and recreate container",
-			"client": "WebApp Update installed, click here to apply update"
+			"info": "ubud {{server}} with client {{client}}",
+			"server": "Update to ubud {{available}} available. Please pull new Docker container and recreate container",
+			"client": "Client Update installed, click here to apply update"
 		}
 	},
 	"sidebar": {
@@ -338,7 +344,7 @@
 		"add": "+ Add Transaction",
 		"import": {
 			"headline": "Drop file",
-			"message": "Pull your export files from your online banking here to import them into DWIMM"
+			"message": "Pull your export files from your online banking here to import them into ubud"
 		},
 		"empty": "No transactions found. Install a plugin for your bank or enter transactions manually."
 	},
@@ -360,7 +366,7 @@
 		"budget": {
 			"income": "Income for {{month}}"
 		},
-		"reconciling": "This transaction was inserted automatically, since the account balance in DWIMM and the account balance in the bank's history was different. Now everything should fit again. Do you often find such transactions, this could be an indication that something is wrong with the synchronization.",
+		"reconciling": "This transaction was inserted automatically, since the account balance in ubud and the account balance in the bank's history was different. Now everything should fit again. Do you often find such transactions, this could be an indication that something is wrong with the synchronization.",
 		"remove": "Remove transaction",
 		"done": "Done"
 	},
@@ -499,7 +505,7 @@
 		},
 		"compatibility": {
 			"header": "Compatibility",
-			"server": "DWIMM Server",
+			"server": "ubud Server",
 			"node": "node.js",
 			"npm": "npm",
 			"os": "OS",
@@ -513,7 +519,7 @@
 			"webhook": "Realtime Sync"
 		},
 		"warning": {
-			"default": "Plugins are foreign code that is executed on your DWIMM instance and may cause damage. Therefore, install only trusted plugins and make sure that the plugins do not have the ability to make changes to your account."
+			"default": "Plugins are foreign code that is executed on your ubud instance and may cause damage. Therefore, install only trusted plugins and make sure that the plugins do not have the ability to make changes to your account."
 		},
 		"install": "Install Plugin",
 		"back": "Back"

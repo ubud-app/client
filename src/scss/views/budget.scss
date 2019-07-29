@@ -177,7 +177,7 @@ $stats-height-desktop: 8.6em;
 			right: 3px;
 			height: 3px;
 			z-index: 2;
-			background: $primary;
+			background: $primary-3;
 			border-radius: 0 0 5px 5px;
 
 			@include greater($size-l) {
@@ -494,21 +494,6 @@ $stats-height-desktop: 8.6em;
 			&:hover &-circle:before {
 				transform: scale3d(1.2, 1.2, 1.2) translate3d(0, 0.2em, 0);
 				color: darken($background-box, 30);
-			}
-
-			&--highlight &-circle:after {
-				background: $primary;
-			}
-			&--highlight &-circle:before {
-				color: $primary-dark;
-			}
-			&--highlight:hover &-circle:after {
-				transform: translate3d(-0.5em, 0.5em, 0);
-				background: darken($primary, 5);
-			}
-			&--highlight:hover &-circle:before {
-				transform: scale3d(1.2, 1.2, 1.2) translate3d(0, 0.2em, 0);
-				color: darken($primary-dark, 30);
 			}
 		}
 	}

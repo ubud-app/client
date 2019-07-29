@@ -38,8 +38,8 @@ publish_github:
   script:
     - git checkout $CI_COMMIT_REF_NAME
     - git pull
-    - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --all
-    - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/dwimm-client.git" --tags
+    - git push "https://${GITHUB_AUTH}@github.com/ubud-app/client.git" --all
+    - git push "https://${GITHUB_AUTH}@github.com/ubud-app/client.git" --tags
   only:
     - master
     - develop
@@ -53,7 +53,7 @@ publish_npm_next:
     - tar -xzf "node_modules.tar.gz" -C .
     - rm -f ./node_modules.tar.gz
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-    - export OLDVERSION=$(npm view @dwimm/client-web@next version)
+    - export OLDVERSION=$(npm view @ubud-app/client@next version)
     - jq -M ".version=\"$OLDVERSION\"" package.json|sponge package.json
     - npm --no-git-tag-version version prerelease
     - export NEWVERSION=$(cat ./package.json| jq -rM '.version')
@@ -71,7 +71,7 @@ notify:
     - matt.sebbo.net
     - ssh
   script:
-    - curl -X "POST" "https://api.repository.dwimm.org/webhooks/update-components/${NOTIFY_WEBHOOK_SECRET}"
+    - curl -X "POST" "https://beacon.ubud.club/webhooks/update-components/${NOTIFY_WEBHOOK_SECRET}"
   only:
     - develop
     - master

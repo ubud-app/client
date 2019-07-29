@@ -3,14 +3,20 @@
 	<div class="login__logo"></div>
 
 	<form class="login__form" rv-on-submit="view.submit">
-		<div class="login__form-box" rv-class-login__form-box--error="meta.error">
+		<div class="login__form-box" rv-class-login__form-box--error="meta.error" rv-unless="terms.visible">
 			<input class="login__form-input login__form-input--email" type="email" autocomplete="username" rv-placeholder="'login.email.placeholder' | string" rv-value="form.username" required />
 			<input class="login__form-input login__form-input--password" type="password" autocomplete="current-password" rv-placeholder="'login.password.placeholder' | string" rv-value="form.password" required />
 		</div>
 
-		<button type="submit" class="button login__submit" rv-disabled="meta.disabled">{ 'login.submit.text' | string }</button>
+		<div class="login__terms" rv-if="terms.visible">
+			<input type="checkbox" class="login__terms-checkbox" rv-checked="terms.checked" rv-on-change="view.updateDisabledState" />
+			<span class="login__terms-message" rv-html="terms.content"></span>
+		</div>
 
-		<div class="login__minilinks">
+		<button type="submit" class="button login__submit" rv-disabled="meta.disabled" rv-unless="terms.visible">{ 'login.submit.text' | string }</button>
+		<button type="submit" class="button login__submit" rv-disabled="meta.disabled" rv-if="terms.visible">{ 'login.continue.text' | string }</button>
+
+		<div class="login__minilinks" rv-unless="terms.visible">
 			<a rv-href="'login.forgotPassword.url' | string">{ 'login.forgotPassword.text' | string }</a>
 		</div>
 	</form>

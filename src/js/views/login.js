@@ -1,10 +1,12 @@
 'use strict';
 
 const View = require('./_');
+
 const AppHelper = require('../helpers/app');
 const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const LoginTemplate = require('../../templates/login.html');
+const ConfigurationHelper = require('../helpers/configuration');
 
 /**
  * @module views/login
@@ -25,12 +27,16 @@ const LoginView = View.extend({
             form: {
                 username: '',
                 password: ''
+            },
+            terms: {
+                rendered: false,
+                visible: false,
+                checked: false,
+                content: ''
             }
         };
 
-        this.listenToAndCall(DataHelper, 'socket:state', () => {
-            this.data.meta.disabled = DataHelper.state() !== 'connected';
-        });
+        this.listenToAndCall(DataHelper, 'socket:state', this.updateDisabledState);
 
         TemplateHelper.render({
             view: this,
@@ -125,10 +131,26 @@ const LoginView = View.extend({
 
         DataHelper.login({
             email: this.data.form.username,
-            password: this.data.form.password
-        }).catch(() => {
+            password: this.data.form.password,
+            acceptedTerms: this.data.terms.checked
+        }).catch((error) => {
+            if(error && error.attributes && error.attributes.acceptedTerms) {
+                this.data.terms.visible = true;
+                this.data.terms.content = ConfigurationHelper.getString('login.terms.content', {
+                    tos: error.extra.tos,
+                    privacy: error.extra.privacy
+                });
+
+                this.updateDisabledState();
+                return;
+            }
+
             this.error();
         });
+    },
+
+    updateDisabledState () {
+        this.data.meta.disabled = DataHelper.state() !== 'connected' || (this.data.terms.visible && !this.data.terms.checked);
     },
 
     error () {

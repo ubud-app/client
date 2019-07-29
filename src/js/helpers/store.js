@@ -3,7 +3,7 @@
 
 const Backbone = require('backbone');
 const _ = require('underscore');
-const prefix = 'org.dwimm.client.';
+const prefix = 'club.ubud.client.';
 
 
 /**

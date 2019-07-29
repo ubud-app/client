@@ -63,7 +63,7 @@ $wrap-margin: 2em;
 	}
 
 	&__icons {
-		font-family: 'dwimm';
+		font-family: 'ubud';
 		font-style: normal;
 		font-weight: normal;
 		speak: none;
@@ -323,10 +323,10 @@ $wrap-margin: 2em;
 		position: absolute;
 		top: 1em;
 		left: 1em;
-		width: 4em;
-		height: 4em;
+		width: 5em;
+		height: 5em;
 
-		background: darken($background-box, 5) url('/favicons/android-chrome-144x144.png');
+		background: transparent url('/icon.svg');
 		background-size: cover;
 		border-radius: 4px;
 
@@ -381,6 +381,22 @@ $wrap-margin: 2em;
 			&:first-child {
 				border-bottom: 1px solid darken($background-box, 10);
 			}
+		}
+	}
+
+	&__terms {
+		margin: 1em;
+		font-size: 0.8em;
+		overflow: hidden;
+		color: rgba($text, 0.8);
+
+		@include greater($size-l) {
+			margin: 3em 2em 3em;
+		}
+
+		&-message {
+			float: right;
+			width: calc(100% - 1.6em);
 		}
 	}
 

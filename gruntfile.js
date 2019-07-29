@@ -726,11 +726,27 @@ module.exports = function (grunt) {
 
 
     /*
-     * 📜 All about fonts
+     * 🌆 All about the icon
      */
     grunt.config.merge({
         copy: {
             fonts: {
+                files: [
+                    {
+                        src: './src/img/icon.svg',
+                        dest: './dest/icon.svg'
+                    }
+                ]
+            }
+        }
+    });
+
+    /*
+     * 📜 All about fonts
+     */
+    grunt.config.merge({
+        copy: {
+            icon: {
                 files: [
                     {
                         expand: true,
@@ -892,7 +908,8 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build:assets', [
-        'copy:fonts'
+        'copy:fonts',
+        'copy:icon'
     ]);
 
 

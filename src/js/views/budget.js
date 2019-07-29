@@ -50,7 +50,6 @@ const BudgetView = View.extend({
                 /*{
                     id: '2019-04',
                     current: true,
-                    highlightTip: false,
                     month: 'April',
                     year: '2019'
                 }*/
@@ -105,7 +104,6 @@ const BudgetView = View.extend({
             activated: false,
             rendered: false,
             availableNegative: false,
-            highlightTip: false,
             month: month.toFormat('LLLL'),
             year: month.toFormat('yyyy'),
             statsPage: [true, false, false],

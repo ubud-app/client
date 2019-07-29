@@ -1,6 +1,6 @@
 /**
  *
- * DWIMM Web-Client
+ * ubud Client
  *
  */
 
