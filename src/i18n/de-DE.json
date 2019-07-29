@@ -85,7 +85,7 @@
 		"help": {
 			"url": "https://ubud.club.org/de/help/",
 			"text": "Hilf mir!"
-		},,
+		},
 		"pawned": "Das eingegebene Passwort scheint nicht sicher zu sein, wir haben es in <a href=\"https://haveibeenpwned.com/Passwords\">diversen Daten-Leaks</a> gefunden. <br />Bitte verwende ein sicheres Passwort oder verwende einen Passwort-Manager.",
 		"terms": {
 			"content": "Ich habe die <a href=\"{{tos}}\" target=\"_blank\",>AGB</a> und die <a href=\"{{privacy}}\" target=\"_blank\">Datenschutzerklärung</a> gelesen und bin damit einverstanden."
