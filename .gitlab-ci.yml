@@ -65,6 +65,25 @@ publish_npm_next:
   only:
     - develop
 
+publish_npm:
+  stage: publish
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - tar -xzf "node_modules.tar.gz" -C .
+    - rm -f ./node_modules.tar.gz
+    - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+    - npm --no-git-tag-version version from-git
+    - export NEWVERSION=$(cat ./package.json| jq -rM '.version')
+    - npx sentry-cli releases new "$NEWVERSION"
+    - npx sentry-cli releases set-commits --auto $NEWVERSION
+    - npm run build
+    - npm publish
+    - npx sentry-cli releases finalize "$NEWVERSION"
+  only:
+    - tags
+
 notify:
   stage: notify
   tags:
