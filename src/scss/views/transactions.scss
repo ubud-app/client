@@ -47,6 +47,7 @@
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
 		&:before {
+			display: none;
 			content: '';
 			position: absolute;
 			top: 3px;
