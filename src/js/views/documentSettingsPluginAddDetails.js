@@ -4,6 +4,7 @@ const View = require('./_');
 const ErrorView = require('./error');
 
 const AppHelper = require('../helpers/app');
+const DataHelper = require('../helpers/data');
 const TemplateHelper = require('../helpers/template');
 const ConfigurationHelper = require('../helpers/configuration');
 
@@ -32,6 +33,7 @@ const DocumentSettingsPluginAddView = View.extend({
         this.data = {
             document: this.document,
             model: this.model,
+            user: DataHelper.getUser(),
             compatibility: [],
             meta: {
                 loading: false,
@@ -41,6 +43,7 @@ const DocumentSettingsPluginAddView = View.extend({
 
         this.live(this.document);
         this.live(this.model);
+        this.live(this.data.user);
 
         this.listenToAndCall(this.model, 'change:issues', () => {
             this.data.meta.showIssues = this.model.get('issues') && this.model.get('issues').openCount !== null;

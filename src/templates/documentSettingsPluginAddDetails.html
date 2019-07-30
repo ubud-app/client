@@ -106,6 +106,12 @@
 			rv-on-click="view.install">
 		{ 'documentSettingsPluginAddDetails.install' | string }
 	</button>
+
+	<a rv-href="user:terms.current.tos.defaultUrl"
+	   target="_blank"
+	   class="document-settings-plugin-add-details__terms">
+		{ 'documentSettingsPluginAddDetails.terms' | string }
+	</a>
 </div>
 <div class="b-form-buttons">
 	<button class="b-form-button--cancel" rv-on-click="view.goBack">{ 'documentSettingsPluginAddDetails.back' | string }</button>

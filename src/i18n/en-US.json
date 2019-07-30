@@ -86,7 +86,7 @@
 			"url": "https://dude-where-is-my.money/en/help/",
 			"text": "Help me!"
 		},
-		"pawned": "The entered password does not seem to be secure, we found it in <a href=\"https://haveibeenpwned.com/Passwords\">diversen Daten-Leaks</a>. <br />Please use a secure password or use a password manager.",
+		"pawned": "The entered password does not seem to be secure, we found it in <a href=\"https://haveibeenpwned.com/Passwords\">some password leaks</a>. <br />Please use a secure password or use a password manager.",
 		"terms": {
 			"content": "I have read and agree to the <a href=\"{{tos}}\" target=\"_blank\",>General Terms and Conditions</a> and the <a href=\"{{privacy}}\" target=\"_blank\">Privacy Policy</a>."
 		}
@@ -463,7 +463,7 @@
 		"account": {
 			"headline": "Search account plugin",
 			"label": "Bank name",
-			"info": "If the name of the bank does not work, you can alternatively try your BIC or the first few characters of your IBAN.",
+			"info": "If the name of the bank does not work, you can alternatively try your BIC.",
 			"box": {
 				"empty": "No plugin found for your bank",
 				"filled": "No plugin in?",
@@ -522,7 +522,8 @@
 			"default": "Plugins are foreign code that is executed on your ubud instance and may cause damage. Therefore, install only trusted plugins and make sure that the plugins do not have the ability to make changes to your account."
 		},
 		"install": "Install Plugin",
-		"back": "Back"
+		"back": "Back",
+		"terms": "The general terms and conditions apply."
 	},
 	"documentSettingsPluginAddSetup": {
 		"headline": "Setup plugin",

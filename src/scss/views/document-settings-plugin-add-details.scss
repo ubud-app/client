@@ -50,6 +50,7 @@
 
 	&__info-wrap {
 		overflow: hidden;
+		margin: 0 0 4em;
 
 		@include greater($size-m) {
 			display: flex;
@@ -111,20 +112,19 @@
 
 	&__warning {
 		background: $red;
-		margin: 3em -1em 0;
+		margin: 4em -1em0;
 		padding: 1em;
 		color: rgba($background, 0.8);
+		text-align: center;
 
 		&-icon {
 			display: block;
-			text-align: center;
 			font-size: 2em;
 		}
 		&-text {
 			display: block;
 			margin: 1em auto;
 			padding: 0 2em;
-			text-align: center;
 			font-size: 0.9em;
 		}
 	}
@@ -134,11 +134,20 @@
 		display: block;
 		width: 100%;
 		max-width: 18em;
-		margin: 2em auto 1em;
+		margin: 2em auto 0;
 		padding: 15px;
 		background: transparent;
 		border: 1px solid $background;
 		color: $background;
+		text-decoration: none;
+	}
+
+
+	&__terms {
+		display: inline-block;
+		margin: 0.8em 0 1em;
+		font-size: 0.8em;
+		color: rgba($background, 0.8);
 		text-decoration: none;
 	}
 }
