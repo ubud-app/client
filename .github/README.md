@@ -1,4 +1,8 @@
-<div style="text-align:center;color:#666;margin-bottom:6em"><img src="https://d.sebbo.net/logo-Y9mgixZOSPhuRV2q1zXPU1gBuYboyGuPf12VWN3zo4ixz5v51vxyyYGVt0MFnqkXjak0igKbyqkpxGf8IGKj9wKKtrpVwZg4cRXV.svg" style="width:80%;max-width:10em" /><br />@ubud-app/client</div>
+<div align="center">
+    <img src="https://d.sebbo.net/logo-Y9mgixZOSPhuRV2q1zXPU1gBuYboyGuPf12VWN3zo4ixz5v51vxyyYGVt0MFnqkXjak0igKbyqkpxGf8IGKj9wKKtrpVwZg4cRXV.svg" width="180" /><br />
+    <font color="#666666">@ubud-app/client</font>
+    <br /><br /><br />
+</div>
 
 [![Status](https://git-badges.sebbo.net/68/master/build)](https://github.com/ubud-app/client)
 ![npm version](https://img.shields.io/npm/v/@ubud-app/client?color=blue&label=version&style=flat-square)
