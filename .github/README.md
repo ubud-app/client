@@ -1,13 +1,14 @@
 <div align="center">
     <img src="https://d.sebbo.net/logo-Y9mgixZOSPhuRV2q1zXPU1gBuYboyGuPf12VWN3zo4ixz5v51vxyyYGVt0MFnqkXjak0igKbyqkpxGf8IGKj9wKKtrpVwZg4cRXV.svg" width="180" /><br />
-    <font color="#666666">@ubud-app/client</font>
     <br /><br /><br />
 </div>
 
 [![Status](https://git-badges.sebbo.net/68/master/build)](https://github.com/ubud-app/client)
 ![npm version](https://img.shields.io/npm/v/@ubud-app/client?color=blue&label=version&style=flat-square)
 
-<div style="background:#E64C65;padding: 1em;color:white;margin:0 0 4em">This software is still in a very early stage (early preview). Errors can occur at any time. Therefore ubud should currently not be used productively, but only for testing purposes.</div>
+## 🚨 Warning
+
+This software is still in a very early stage (early preview). Errors can occur at any time. Therefore ubud should currently not be used productively, but only for testing purposes.
 
 ## 🧐 What's this?
 
