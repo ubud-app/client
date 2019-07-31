@@ -15,7 +15,6 @@
   },
   "author": "Sebastian Pekarek <theisaireeneomatahsa@e.sebbo.net>",
   "main": "./src/index.js",
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/polyfill": "^7.4.4",
