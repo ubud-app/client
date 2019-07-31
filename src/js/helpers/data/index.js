@@ -82,13 +82,6 @@ class DataHelper {
             }
         });
 
-        // setup logout app reload
-        this.once('socket:ready', () => {
-            this.once('auth:loggedOut', () => {
-                // @todo clear database
-            });
-        });
-
         // ready to connect
         this.log('initialize', {endpoint: this.endpoint});
         this._setState(DataHelper.CONNECTING);
