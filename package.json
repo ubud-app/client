@@ -13,7 +13,7 @@
 		"check:jsinspect": "npx jsinspect --threshold 45 ./src"
 	},
 	"author": "Sebastian Pekarek <theisaireeneomatahsa@e.sebbo.net>",
-	"homepage": "https.//ubud.club",
+	"homepage": "https://ubud.club",
 	"bugs": {
 		"url": "https://github.com/ubud-app/client/issues"
 	},
