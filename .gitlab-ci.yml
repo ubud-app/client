@@ -41,6 +41,7 @@ publish_github:
     - git push "https://${GITHUB_AUTH}@github.com/ubud-app/client.git" --all
     - git push "https://${GITHUB_AUTH}@github.com/ubud-app/client.git" --tags
   only:
+    - tags
     - master
     - develop
 
@@ -92,4 +93,4 @@ notify:
     - curl -X "POST" "https://beacon.ubud.club/webhooks/update-components/${NOTIFY_WEBHOOK_SECRET}"
   only:
     - develop
-    - master
+    - tags
