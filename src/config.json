@@ -13,23 +13,23 @@
 		"loadManifestWithCredentials": false,
 		"icons": {
 			"android": {
-				"offset": 5,
+				"offset": -10,
 				"background": "#ffffff"
 			},
 			"appleIcon": {
-				"offset": 5,
+				"offset": -5,
 				"background": "#ffffff"
 			},
 			"appleStartup": {
-				"offset": 21,
+				"offset": 26,
 				"background": "#ffffff"
 			},
 			"coast": {
-				"offset": 0,
+				"offset": -5,
 				"background": "#ffffff"
 			},
 			"favicons": {
-				"offset": 0
+				"offset": -17
 			},
 			"firefox": {
 				"offset": 0,

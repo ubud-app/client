@@ -47,13 +47,14 @@
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
 		&:before {
+			display: none;
 			content: '';
 			position: absolute;
 			top: 3px;
 			left: 0;
 			bottom: 3px;
 			width: 3px;
-			background: $primary;
+			background: $primary-1;
 			border-radius: 0 5px 5px 0;
 		}
 
@@ -243,9 +244,9 @@
 		z-index: 30;
 		display: none;
 
-		background: rgba($primary, 0.95);
+		background: rgba($primary-5, 0.95);
 		@supports (backdrop-filter: grayscale(100%) blur(10px)) {
-			background: rgba($primary, 0.85);
+			background: rgba($primary-5, 0.85);
 			backdrop-filter: grayscale(100%) blur(10px);
 		}
 

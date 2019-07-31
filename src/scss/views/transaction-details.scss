@@ -157,7 +157,7 @@
 
 			&--selected {
 				background: lighten($background-box, 4);
-				border-left: 1px solid $primary;
+				border-left: 2px solid $primary-2;
 			}
 		}
 	}

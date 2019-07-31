@@ -16,7 +16,7 @@
 	}
 	&:not(:disabled):active {
 		background: $primary-2;
-		border-color: $primary-dark;
+		border-color: $primary-5;
 	}
 	&:disabled {
 		cursor: not-allowed;

@@ -75,17 +75,17 @@
 			"text": "Weiter"
 		},
 		"forgotPassword": {
-			"url": "https://ubud.club.org/de/help/forgot-password",
+			"url": "https://ubud.club/de/help/forgot-password",
 			"text": "Passwort vergessen?"
 		},
 		"website": {
-			"url": "https://ubud.club.org/de/",
+			"url": "https://ubud.club/de/",
 			"text": "ubud"
 		},
 		"help": {
-			"url": "https://ubud.club.org/de/help/",
+			"url": "https://ubud.club/de/help/",
 			"text": "Hilf mir!"
-		},,
+		},
 		"pawned": "Das eingegebene Passwort scheint nicht sicher zu sein, wir haben es in <a href=\"https://haveibeenpwned.com/Passwords\">diversen Daten-Leaks</a> gefunden. <br />Bitte verwende ein sicheres Passwort oder verwende einen Passwort-Manager.",
 		"terms": {
 			"content": "Ich habe die <a href=\"{{tos}}\" target=\"_blank\",>AGB</a> und die <a href=\"{{privacy}}\" target=\"_blank\">Datenschutzerklärung</a> gelesen und bin damit einverstanden."
@@ -463,7 +463,7 @@
 		"account": {
 			"headline": "Konto-Plugin suchen",
 			"label": "Name der Bank",
-			"info": "Falls der Name der Bank nicht funktionieren sollte, kannst du alternativ auch deine BIC oder die ersten paar Zeichen deiner IBAN ausprobieren.",
+			"info": "Falls der Name der Bank nicht funktionieren sollte, kannst du alternativ auch deine BIC ausprobieren.",
 			"box": {
 				"empty": "Kein Plugin für deine Bank gefunden",
 				"filled": "Kein Plugin für deine Bank dabei?",
@@ -522,7 +522,8 @@
 			"default": "Plugins sind fremder Code, der auf deiner ubud-Instanz ausgeführt wird und können daher u.U. Schaden anrichten. Installiere daher nur vertrauenwürdige Plugins und achte darauf, dass die Plugins keine Möglichkeit haben, Änderungen an deinem Konto durchzuführen."
 		},
 		"install": "Plugin installieren",
-		"back": "Zurück"
+		"back": "Zurück",
+		"terms": "Es gelten die AGB."
 	},
 	"documentSettingsPluginAddSetup": {
 		"headline": "Plugin einrichten",
