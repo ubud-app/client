@@ -29,7 +29,7 @@ checks:
     - rm -f ./node_modules.tar.gz
     - npm run check
 
-publish_github:
+publish_github_branch:
   stage: publish
   tags:
     - matt.sebbo.net
@@ -39,11 +39,20 @@ publish_github:
     - git checkout $CI_COMMIT_REF_NAME
     - git pull
     - git push "https://${GITHUB_AUTH}@github.com/ubud-app/client.git" --all
+  only:
+    - master
+    - develop
+
+publish_github_tag:
+  stage: publish
+  tags:
+    - matt.sebbo.net
+    - ssh
+  retry: 2
+  script:
     - git push "https://${GITHUB_AUTH}@github.com/ubud-app/client.git" --tags
   only:
     - tags
-    - master
-    - develop
 
 publish_npm_next:
   stage: publish
