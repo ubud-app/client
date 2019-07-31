@@ -77,6 +77,15 @@ $stats-height-desktop: 8.6em;
 			}
 		}
 
+		&-category-add {
+			position: absolute;
+			display: none;
+			top: 1.35em;
+			right: 1.8em;
+			font-size: 1.2em;
+			font-weight: bold;
+			color: lighten($text, 25);
+		}
 		&-category-settings {
 			@extend [class^="icon-"]:before;
 			position: absolute;
@@ -88,8 +97,9 @@ $stats-height-desktop: 8.6em;
 
 		@include greater($size-l) {
 			&-category-header:hover &-category-name {
-				padding-right: 2em;
+				padding-right: 3em;
 			}
+			&-category-header:hover &-category-add,
 			&-category-header:hover &-category-settings {
 				display: block;
 			}

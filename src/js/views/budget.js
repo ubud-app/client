@@ -400,6 +400,13 @@ const BudgetView = View.extend({
                     entry.settings();
                 }
             },
+            addNewBudget: () => {
+                this.addNewBudget(view, category)
+                    .catch(error => {
+                        const ErrorView = require('./error');
+                        new ErrorView({error}).appendTo(AppHelper.view());
+                    });
+            },
             budgets: []
         };
 
@@ -498,6 +505,18 @@ const BudgetView = View.extend({
         new BudgetEditorView({
             model: budget
         }).appendTo(view, AppHelper.view());
+    },
+    async addNewBudget (view, category) {
+        const BudgetModel = require('../models/budget');
+        const budget = new BudgetModel({
+            categoryId: category.id,
+            name: ConfigurationHelper.getString('documentSettingsGeneral.budgets.newBudget')
+        });
+
+        view.budgets.add(budget);
+        await budget.save();
+
+        BudgetView.openBudgetSettings(view, budget);
     }
 });
 
