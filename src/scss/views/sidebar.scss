@@ -80,7 +80,7 @@
 			}
 
 			&--active {
-				border-left-color: $primary-1;
+				border-left-color: $primary-5;
 			}
 
 			&--settings-mobile {
@@ -149,7 +149,7 @@
 			}
 		}
 		&--active &-icon:not(.sidebar__item-icon--add) {
-			color: rgba($primary-1, 0.8);
+			color: rgba($primary-5, 0.8);
 		}
 
 		&-name {
@@ -179,7 +179,7 @@
 			height: 3.6em;
 			margin-left: -1.6em;
 
-			background: $primary-1;
+			background: $primary-5;
 			border-radius: 50%;
 
 			@include greater($size-l) {

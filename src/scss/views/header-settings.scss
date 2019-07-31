@@ -253,7 +253,7 @@
 		}*/
 
 		&--logout {
-			color: $primary-dark;
+			color: darken($red, 15);
 		}
 	}
 	&__badge {
