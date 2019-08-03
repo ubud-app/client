@@ -49,12 +49,7 @@ class BudgetedLastMonthTip extends Tip {
         }
 
         const portion = preparations.portions.find(portion => portion.get('budgetId') === params.budgetId);
-        let value = portion ? (portion.get('budgeted') || 0) : 0;
-        if(params.goal) {
-            value = Math.max(0, Math.min(value, params.goal - params.balance + params.budgeted));
-        }
-
-        return value;
+        return portion ? (portion.get('budgeted') || 0) : 0;
     }
 }
 
