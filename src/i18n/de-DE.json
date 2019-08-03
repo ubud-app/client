@@ -523,7 +523,7 @@
 		},
 		"install": "Plugin installieren",
 		"back": "Zurück",
-		"terms": "Es gelten die AGB."
+		"terms": "Es gelten die AGB sowie die Datenschutzbestimmungen."
 	},
 	"documentSettingsPluginAddSetup": {
 		"headline": "Plugin einrichten",

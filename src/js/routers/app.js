@@ -274,6 +274,7 @@ module.exports = Backbone.Router.extend({
         DataHelper.logout()
             .then(() => {
                 this.navigate('');
+                StoreHelper.reset();
                 location.reload();
             })
             .catch(error => {
