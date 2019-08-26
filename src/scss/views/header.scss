@@ -51,6 +51,7 @@
 			z-index: 4;
 
 			@include greater($size-l) {
+				width: $sidebar-width;
 				margin-right: 0;
 			}
 		}
