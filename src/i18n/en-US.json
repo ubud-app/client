@@ -534,5 +534,13 @@
 			"accounts": "Sync accounts",
 			"goals": "Sync saving goals"
 		}
+	},
+	"termsNotification": {
+		"headline": "The rules have changed...",
+		"message": "There are updated {{tos}} and {{privacy}}. Do you agree with these?",
+		"tos": "terms",
+		"privacy": "data protection provisions",
+		"accept": "Accept",
+		"reject": "Remind later"
 	}
 }

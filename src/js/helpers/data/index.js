@@ -158,7 +158,7 @@ class DataHelper {
                 email,
                 password,
                 name: user.getBrowser().name + ' (' + user.getOS().name + ' ' + user.getOS().version + ')',
-                acceptedTerms: !!acceptedTerms
+                acceptedTerms: acceptedTerms || null
             });
 
             this._session.set(session);

@@ -32,7 +32,8 @@ const LoginView = View.extend({
                 rendered: false,
                 visible: false,
                 checked: false,
-                content: ''
+                content: '',
+                version: null
             }
         };
 
@@ -132,16 +133,17 @@ const LoginView = View.extend({
         DataHelper.login({
             email: this.data.form.username,
             password: this.data.form.password,
-            acceptedTerms: this.data.terms.checked
+            acceptedTerms: this.data.terms.checked ? this.data.terms.version : null
         }).catch((error) => {
             if(error && error.attributes && error.attributes.acceptedTerms) {
                 this.data.terms.visible = true;
                 this.data.terms.content = ConfigurationHelper.getString('login.terms.content', {
-                    tos: error.extra.tos,
-                    privacy: error.extra.privacy
+                    tos: error.extra.tos.defaultUrl,
+                    privacy: error.extra.privacy.defaultUrl
                 });
 
                 this.updateDisabledState();
+                this.data.terms.version = error.extra.version;
                 return;
             }
 
