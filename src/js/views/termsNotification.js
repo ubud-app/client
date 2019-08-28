@@ -40,7 +40,7 @@ module.exports = View.extend({
                 message
             }
         });
-        
+
         return this;
     },
 
