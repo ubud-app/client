@@ -1,24 +1,27 @@
 'use strict';
 
-const $ = require('zepto');
-const {debounce} = require('underscore');
-const {DateTime} = require('luxon');
+import $ from 'zepto';
+import {debounce} from 'underscore';
+import {DateTime} from 'luxon';
 
-const View = require('./_');
-const CategoryEditorView = require('./categoryEditor');
-const BudgetEditorView = require('./budgetEditor');
+import BaseView from './_';
+import ErrorView from './error';
+import BudgetTipsView from './budgetTips';
+import CategoryEditorView from './categoryEditor';
+import BudgetEditorView from './budgetEditor';
 
-const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const BudgetTemplate = require('../../templates/budget.html');
+import BudgetTemplate from '../../templates/budget.html';
+import BudgetModel from '../models/budget';
 
-const CategoryCollection = require('../collections/category');
-const BudgetCollection = require('../collections/budget');
-const SummaryCollection = require('../collections/summary');
-const PortionCollection = require('../collections/portion');
+import CategoryCollection from '../collections/category';
+import BudgetCollection from '../collections/budget';
+import SummaryCollection from '../collections/summary';
+import PortionCollection from '../collections/portion';
 
 
 /**
@@ -26,10 +29,10 @@ const PortionCollection = require('../collections/portion');
  *
  * @module views/budget
  * @class BudgetView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-const BudgetView = View.extend({
+const BudgetView = BaseView.extend({
     className: 'budget',
 
     async render () {
@@ -318,7 +321,6 @@ const BudgetView = View.extend({
                     };
                     const updateBudgetedRemote = debounce(() => {
                         portionModel.save().catch(error => {
-                            const ErrorView = require('./error');
                             new ErrorView({error}).appendTo(AppHelper.view());
                         });
                     }, 1000);
@@ -363,7 +365,6 @@ const BudgetView = View.extend({
         month.activated = false;
     },
     openAutoFill (month, portions) {
-        const BudgetTipsView = require('./budgetTips');
         const budgetTipsView = new BudgetTipsView({
             month: month,
             categories: this.categories,
@@ -403,7 +404,6 @@ const BudgetView = View.extend({
             addNewBudget: () => {
                 this.addNewBudget(view, category)
                     .catch(error => {
-                        const ErrorView = require('./error');
                         new ErrorView({error}).appendTo(AppHelper.view());
                     });
             },
@@ -507,7 +507,6 @@ const BudgetView = View.extend({
         }).appendTo(view, AppHelper.view());
     },
     async addNewBudget (view, category) {
-        const BudgetModel = require('../models/budget');
         const budget = new BudgetModel({
             categoryId: category.id,
             name: ConfigurationHelper.getString('documentSettingsGeneral.budgets.newBudget')
@@ -520,4 +519,4 @@ const BudgetView = View.extend({
     }
 });
 
-module.exports = BudgetView;
+export default BudgetView;

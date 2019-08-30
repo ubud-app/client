@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const ComponentModel = require('../models/component');
+import BaseCollection from './_';
+import ComponentModel from '../models/component';
 
 const ComponentCollection = BaseCollection.extend({
     model: ComponentModel,
@@ -9,4 +9,4 @@ const ComponentCollection = BaseCollection.extend({
     dbStore: 'component'
 });
 
-module.exports = ComponentCollection;
+export default ComponentCollection;

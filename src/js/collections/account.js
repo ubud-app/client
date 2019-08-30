@@ -1,12 +1,13 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const AccountModel = require('../models/account');
 
-const DocumentCollection = BaseCollection.extend({
+import BaseCollection from './_';
+import AccountModel from '../models/account';
+
+const AccountCollection = BaseCollection.extend({
     model: AccountModel,
     url: 'accounts',
     dbStore: 'account'
 });
 
-module.exports = DocumentCollection;
+export default AccountCollection;

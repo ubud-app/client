@@ -1,13 +1,16 @@
 'use strict';
 
-const BaseModel = require('./_');
+import BaseModel from './_';
+
 
 /**
  * @module models/portion
  * @class PortionModel
  * @augments BaseModel
  */
-module.exports = BaseModel.extend({
+const PortionModel = BaseModel.extend({
     urlRoot: 'portions',
     dbStore: 'portion'
 });
+
+export default PortionModel;

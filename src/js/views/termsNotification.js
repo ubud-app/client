@@ -1,24 +1,26 @@
 'use strict';
 
-const View = require('./_');
-const $ = require('zepto');
+import BaseView from './_';
+import $ from 'zepto';
 
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const TermsNotificationTemplate = require('../../templates/termsNotification.html');
+import ErrorView from './error';
+import TermsNotificationTemplate from '../../templates/termsNotification.html';
 
 
 /**
  * TermsNotificationView
  *
  * @module views/termsNotification
- * @class TermsNotification
- * @augments View
+ * @class TermsNotificationView
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const TermsNotificationView = BaseView.extend({
     className: 'terms-notification',
 
     render () {
@@ -47,9 +49,6 @@ module.exports = View.extend({
     accept () {
         this.$el.hide();
         this._accept().catch(error => {
-            const AppHelper = require('../helpers/app');
-            const ErrorView = require('./error');
-
             this.$el.show();
             new ErrorView({error}).appendTo(AppHelper.view());
         });
@@ -71,3 +70,5 @@ module.exports = View.extend({
         }, 3600000);
     }
 });
+
+export default TermsNotificationView;

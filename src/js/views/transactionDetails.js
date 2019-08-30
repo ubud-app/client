@@ -1,23 +1,23 @@
 'use strict';
 
-const {debounce} = require('underscore');
-const $ = require('zepto');
-const {DateTime} = require('luxon');
-const View = require('./_');
-const ErrorView = require('./error');
+import {debounce} from 'underscore';
+import $ from 'zepto';
+import {DateTime} from 'luxon';
+import BaseView from './_';
+import ErrorView from './error';
 
-const AppHelper = require('../helpers/app');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const TransactionDetailsTemplate = require('../../templates/transactionDetails.html');
+import TransactionDetailsTemplate from '../../templates/transactionDetails.html';
 
-const PayeeModel = require('../models/payee');
+import PayeeModel from '../models/payee';
 
-const AccountCollection = require('../collections/account');
-const BudgetCollection = require('../collections/budget');
-const CategoryCollection = require('../collections/category');
-const PayeeCollection = require('../collections/payee');
+import AccountCollection from '../collections/account';
+import BudgetCollection from '../collections/budget';
+import CategoryCollection from '../collections/category';
+import PayeeCollection from '../collections/payee';
 
 
 /**
@@ -25,10 +25,10 @@ const PayeeCollection = require('../collections/payee');
  *
  * @module views/transactionDetails
  * @class TransactionDetailsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const TransactionDetailsView = BaseView.extend({
     className: 'transaction-details transaction-details--hidden',
 
     async render () {
@@ -512,3 +512,5 @@ module.exports = View.extend({
         }
     }
 });
+
+export default TransactionDetailsView;

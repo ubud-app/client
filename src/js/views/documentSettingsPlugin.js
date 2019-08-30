@@ -1,13 +1,15 @@
 'use strict';
 
-const View = require('./_');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import BaseView from './_';
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const DocumentSettingsPluginTemplate = require('../../templates/documentSettingsPlugin.html');
+import DocumentSettingsPluginTemplate from '../../templates/documentSettingsPlugin.html';
+import DocumentSettingsPluginAddView from '../views/documentSettingsPluginAdd';
 
-const PluginModel = require('../models/plugin');
-const PluginInstanceCollection = require('../collections/pluginInstance');
+import PluginModel from '../models/plugin';
+import PluginInstanceCollection from '../collections/pluginInstance';
 
 
 /**
@@ -15,14 +17,13 @@ const PluginInstanceCollection = require('../collections/pluginInstance');
  *
  * @module views/documentSettingsPlugin
  * @class DocumentSettingsPluginView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsPluginView = BaseView.extend({
     className: 'document-settings-plugin',
 
     async render () {
-        const AppHelper = require('../helpers/app');
         this.model = AppHelper.getDocument(true);
         if(!this.model) {
             return;
@@ -114,10 +115,9 @@ module.exports = View.extend({
     openAddPlugin (e) {
         e.preventDefault();
 
-        const AppHelper = require('../helpers/app');
-        const DocumentSettingsPluginAddView = require('../views/documentSettingsPluginAdd');
-
         AppHelper.navigate(this.model.id + '/settings/plugins/add');
         AppHelper.view().renderView(new DocumentSettingsPluginAddView());
     }
 });
+
+export default DocumentSettingsPluginView;

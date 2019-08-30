@@ -1,19 +1,19 @@
 'use strict';
 
-const View = require('./_');
+import BaseView from './_';
 
-const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const LoginTemplate = require('../../templates/login.html');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import LoginTemplate from '../../templates/login.html';
+import ConfigurationHelper from '../helpers/configuration';
 
 /**
  * @module views/login
  * @class LoginView
- * @augments View
+ * @augments BaseView
  */
-const LoginView = View.extend({
+const LoginView = BaseView.extend({
     className: 'login',
 
     render () {
@@ -165,4 +165,4 @@ const LoginView = View.extend({
     }
 });
 
-module.exports = LoginView;
+export default LoginView;

@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const TransactionModel = require('../models/transaction');
+import BaseCollection from './_';
+import TransactionModel from '../models/transaction';
 
 const TransactionCollection = BaseCollection.extend({
     model: TransactionModel,
@@ -10,4 +10,4 @@ const TransactionCollection = BaseCollection.extend({
     comparator: 'time'
 });
 
-module.exports = TransactionCollection;
+export default TransactionCollection;

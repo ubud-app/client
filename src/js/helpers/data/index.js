@@ -1,24 +1,27 @@
 'use strict';
 
-const io = require('socket.io-client');
-const {Collection, Model, Events} = require('backbone');
+import io from 'socket.io-client';
+import {Collection, Model, Events} from 'backbone';
+import {extend} from 'underscore';
 
-const ConfigurationHelper = require('../configuration');
-const DataHelperDatabase = require('./database');
+import ConfigurationHelper from '../configuration';
+import DataHelperDatabase from './database';
 
-const Sentry = require('@sentry/browser');
-const _ = require('underscore');
+import * as Sentry from '@sentry/browser';
+import {result} from 'underscore';
+import UAParser from 'ua-parser-js';
+
 
 class ResponseError extends Error {
     constructor (response = {}) {
         super(response.message || 'Unknown Response Error');
-        console.log(response);
         this.error = response.error;
         this.attributes = response.attributes;
         this.reference = response.reference;
         this.extra = response.extra;
     }
 }
+
 
 class DataHelper {
     static async initialize ({endpoint, SessionModel, UserModel, ComponentCollection, DocumentCollection}) {
@@ -150,7 +153,6 @@ class DataHelper {
         this.log('authenticating.login');
         DataHelper._setState(DataHelper.AUTHENTICATING);
 
-        const UAParser = require('ua-parser-js');
         const user = new UAParser();
 
         try {
@@ -240,7 +242,7 @@ class DataHelper {
 
     static async sync (method, model, options) {
         /* eslint-disable require-atomic-updates */
-        const resource = (_.result(model, 'url') || _.result(model, 'urlRoot')).split('/')[0];
+        const resource = (result(model, 'url') || result(model, 'urlRoot')).split('/')[0];
 
         let body = {};
         options = options || {};
@@ -415,7 +417,7 @@ class DataHelper {
                 d.action === 'created' &&
                 model instanceof Collection &&
                 !model.id &&
-                d.name === _.result(model, 'url')
+                d.name === result(model, 'url')
             ) {
                 model.add(d.data);
             }
@@ -423,8 +425,8 @@ class DataHelper {
                 d.action === 'created' &&
                 model instanceof Collection &&
                 model.id &&
-                d.name === _.result(model, 'url') &&
-                _.isFunction(model.addFilter) &&
+                d.name === result(model, 'url') &&
+                typeof model.addFilter === 'function' &&
                 model.addFilter(new model.model(d.data))
             ) {
                 model.add(d.data);
@@ -501,5 +503,5 @@ class DataHelper {
     }
 }
 
-_.extend(DataHelper, Events);
-module.exports = DataHelper;
+extend(DataHelper, Events);
+export default DataHelper;

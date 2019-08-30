@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const CategoryModel = require('../models/category');
+import BaseCollection from './_';
+import CategoryModel from '../models/category';
 
 const CategoryCollection = BaseCollection.extend({
     model: CategoryModel,
@@ -10,4 +10,4 @@ const CategoryCollection = BaseCollection.extend({
     comparator: 'name'
 });
 
-module.exports = CategoryCollection;
+export default CategoryCollection;

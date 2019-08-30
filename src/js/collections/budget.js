@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const BudgetModel = require('../models/budget');
+import BaseCollection from './_';
+import BudgetModel from '../models/budget';
 
 const BudgetCollection = BaseCollection.extend({
     model: BudgetModel,
@@ -10,4 +10,4 @@ const BudgetCollection = BaseCollection.extend({
     comparator: 'name'
 });
 
-module.exports = BudgetCollection;
+export default BudgetCollection;

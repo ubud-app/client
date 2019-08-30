@@ -6,12 +6,11 @@
  */
 
 
-require('@babel/register');
-require('@babel/polyfill');
+import '@babel/register';
+import '@babel/polyfill';
 
-
-const DataWorker = require('./helpers/data/worker');
-const config = require('worker-config');
+import DataWorker from './helpers/data/worker';
+import config from 'worker-config';
 
 new DataWorker(self, config);
 
@@ -71,7 +70,6 @@ class Serviceworker {
         );
     }
 }
-
 
 self.addEventListener('install', event => {
     event.waitUntil(Serviceworker.installCache().then(() => self.skipWaiting()));

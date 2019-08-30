@@ -1,9 +1,9 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const PortionModel = require('../models/portion');
+import BaseCollection from './_';
+import PortionModel from '../models/account';
 
-const PortionsCollection = BaseCollection.extend({
+const PortionCollection = BaseCollection.extend({
     model: PortionModel,
     url: 'portions',
     dbStore: 'portion',
@@ -13,4 +13,4 @@ const PortionsCollection = BaseCollection.extend({
     }
 });
 
-module.exports = PortionsCollection;
+export default PortionCollection;

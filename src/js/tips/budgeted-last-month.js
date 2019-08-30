@@ -1,15 +1,16 @@
 'use strict';
 
-const Tip = require('./tip');
-const {DateTime} = require('luxon');
-const PortionCollection = require('../collections/portion');
+import BaseTip from './_';
+import {DateTime} from 'luxon';
+import PortionCollection from '../collections/portion';
+
 
 /**
  * BudgetedLastMonthTip
  *
  * @author Sebastian Pekarek
  */
-class BudgetedLastMonthTip extends Tip {
+export default class BudgetedLastMonthTip extends BaseTip {
 
     static id () {
         return 'budgetedLastMonth';
@@ -52,6 +53,3 @@ class BudgetedLastMonthTip extends Tip {
         return portion ? (portion.get('budgeted') || 0) : 0;
     }
 }
-
-
-module.exports = BudgetedLastMonthTip;

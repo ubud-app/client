@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const UserModel = require('../models/user');
+import BaseCollection from './_';
+import UserModel from '../models/user';
 
 const UserCollection = BaseCollection.extend({
     model: UserModel,
@@ -10,4 +10,4 @@ const UserCollection = BaseCollection.extend({
     comparator: 'email'
 });
 
-module.exports = UserCollection;
+export default UserCollection;

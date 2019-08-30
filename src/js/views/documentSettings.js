@@ -1,12 +1,12 @@
 'use strict';
 
-const View = require('./_');
-const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import BaseView from './_';
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const DocumentSettingsTemplate = require('../../templates/documentSettings.html');
+import DocumentSettingsTemplate from '../../templates/documentSettings.html';
 
 
 /**
@@ -14,10 +14,10 @@ const DocumentSettingsTemplate = require('../../templates/documentSettings.html'
  *
  * @module views/documentSettings
  * @class DocumentSettingsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsView = BaseView.extend({
     className: 'document-settings',
 
     render () {
@@ -62,3 +62,5 @@ module.exports = View.extend({
         return this;
     }
 });
+
+export default DocumentSettingsView;

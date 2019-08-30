@@ -1,8 +1,10 @@
 'use strict';
 
-const View = require('./_');
-const TemplateHelper = require('../helpers/template');
-const SidebarTemplate = require('../../templates/sidebar.html');
+import BaseView from './_';
+
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import SidebarTemplate from '../../templates/sidebar.html';
 
 
 /**
@@ -10,10 +12,10 @@ const SidebarTemplate = require('../../templates/sidebar.html');
  *
  * @module views/sidebar
  * @class SidebarView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const SidebarView = BaseView.extend({
     tagName: 'div',
     className: 'sidebar',
 
@@ -56,7 +58,6 @@ module.exports = View.extend({
         };
 
         setTimeout(() => {
-            const AppHelper = require('../helpers/app');
             this.listenToAndCall(AppHelper.router(), 'route', () => {
                 const parts = location.hash.substr(1).split('/');
                 const documentId = parts[0] && parts[0] !== 'account' && parts[0] !== 'admin' ? parts[0] : null;
@@ -91,3 +92,5 @@ module.exports = View.extend({
         this.data[item].active = true;
     }
 });
+
+export default SidebarView;

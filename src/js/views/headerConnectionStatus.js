@@ -1,13 +1,13 @@
 'use strict';
 
-const $ = require('jquery');
-const View = require('./_');
-const {DateTime} = require('luxon')
+import $ from 'zepto';
+import BaseView from './_';
+import {DateTime} from 'luxon';
 
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
 
-const HeaderConnectionStatusTemplate = require('../../templates/headerConnectionStatus.html');
+import HeaderConnectionStatusTemplate from '../../templates/headerConnectionStatus.html';
 
 
 /**
@@ -15,10 +15,10 @@ const HeaderConnectionStatusTemplate = require('../../templates/headerConnection
  *
  * @module views/headerConnectionStatus
  * @class HeaderConnectionStatusView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const HeaderConnectionStatusView = BaseView.extend({
     className: 'header-connection-status header-connection-status--hidden',
     events: {
         'click': 'closeHandler'
@@ -70,3 +70,5 @@ module.exports = View.extend({
         }
     }
 });
+
+export default HeaderConnectionStatusView;

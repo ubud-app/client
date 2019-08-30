@@ -6,7 +6,7 @@ if (!config) {
     throw new Error('Unable to start: no configuration given!');
 }
 
-const {Settings} = require('luxon');
+import {Settings} from 'luxon';
 Settings.defaultLocale = config.language;
 
 
@@ -15,7 +15,7 @@ Settings.defaultLocale = config.language;
  * @class ConfigurationHelper
  * @author Sebastian Pekarek
  */
-module.exports = class ConfigurationHelper {
+export default class ConfigurationHelper {
     static getRootPath () {
         return '/' + config.language + '/';
     }
@@ -91,19 +91,7 @@ module.exports = class ConfigurationHelper {
         return config.endpoint;
     }
 
-    static getAutoNumericCurrencyConfig () {
-        const DataHelper = require('./data');
-        const AppHelper = require('./app');
-        const document = DataHelper.getDocuments().get(AppHelper.getDocumentId()) || null;
-
-        if(document && document.get('settings') && document.get('settings').currency) {
-            return document.get('settings').currency;
-        }
-
-        return 'euro';
-    }
-
     static getAutoNumericPercentageConfig () {
         return this.getString('autoNumeric.percentage');
     }
-};
+}

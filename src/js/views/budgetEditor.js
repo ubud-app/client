@@ -1,23 +1,24 @@
 'use strict';
 
-const View = require('./_');
-const ErrorView = require('./error');
+import BaseView from './_';
+import ErrorView from './error';
 
-const AppHelper = require('../helpers/app');
-const TemplateHelper = require('../helpers/template');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
 
-const BudgetEditorTemplate = require('../../templates/budgetEditor.html');
-const CategoryCollection = require('../collections/category');
+import BudgetEditorTemplate from '../../templates/budgetEditor.html';
+import CategoryCollection from '../collections/category';
+
 
 /**
  * BudgetEditorView
  *
  * @module views/budgetEditor
  * @class BudgetEditorView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const BudgetEditorView = BaseView.extend({
     className: 'budget-editor b-modal b-modal--hidden',
 
     render () {
@@ -104,3 +105,5 @@ module.exports = View.extend({
         }
     }
 });
+
+export default BudgetEditorView;

@@ -1,15 +1,20 @@
 'use strict';
 
-const {debounce} = require('underscore');
-const View = require('./_');
-const ErrorView = require('./error');
+import {debounce} from 'underscore';
+import BaseView from './_';
+import ErrorView from './error';
 
-const AppHelper = require('../helpers/app');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const PluginCollection = require('../collections/plugin');
-const DocumentSettingsAccountAddSearchTemplate = require('../../templates/documentSettingsPluginAdd.html');
+import AccountModel from '../models/account';
+import PluginCollection from '../collections/plugin';
+
+import DocumentSettingsAccountAddManualView from './documentSettingsAccountAddManual';
+import DocumentSettingsPluginAddDetailsView from '../views/documentSettingsPluginAddDetails';
+
+import DocumentSettingsAccountAddSearchTemplate from '../../templates/documentSettingsPluginAdd.html';
 
 
 /**
@@ -17,10 +22,10 @@ const DocumentSettingsAccountAddSearchTemplate = require('../../templates/docume
  *
  * @module views/documentSettingsPluginAdd
  * @class DocumentSettingPluginAddView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingPluginAddView = BaseView.extend({
     className: 'document-settings-plugin-add b-form',
 
     _initialize (options) {
@@ -79,8 +84,6 @@ module.exports = View.extend({
     },
 
     createManual () {
-        const AccountModel = require('../models/account');
-        const DocumentSettingsAccountAddManualView = require('./documentSettingsAccountAddManual');
         const model = new AccountModel({
             documentId: this.model.id,
             name: this.data.meta.q,
@@ -165,10 +168,9 @@ module.exports = View.extend({
     },
 
     openDetails (model) {
-        const AppHelper = require('../helpers/app');
-        const DocumentSettingsPluginAddDetailsView = require('../views/documentSettingsPluginAddDetails');
-
         AppHelper.navigate(this.model.id + '/settings/plugins/add/' + model.id);
         AppHelper.view().renderView(new DocumentSettingsPluginAddDetailsView({model}));
     }
 });
+
+export default DocumentSettingPluginAddView;

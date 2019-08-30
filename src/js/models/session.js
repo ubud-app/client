@@ -1,15 +1,16 @@
 'use strict';
 
-const BaseModel = require('./_');
-const StoreHelper = require('../helpers/store');
-const UserModel = require('./user');
+import BaseModel from './_';
+import StoreHelper from '../helpers/store';
+import UserModel from '../models/user';
+
 
 /**
  * @module models/session
  * @class SessionModel
  * @augments BaseModel
  */
-module.exports = BaseModel.extend({
+const SessionModel = BaseModel.extend({
     urlRoot: 'sessions',
     dbStore: 'session',
 
@@ -30,3 +31,5 @@ module.exports = BaseModel.extend({
         return new UserModel(this.get('user'));
     }
 });
+
+export default SessionModel;

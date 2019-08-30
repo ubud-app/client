@@ -1,25 +1,28 @@
 'use strict';
 
-const {debounce} = require('underscore');
+import {debounce} from 'underscore';
 
-const View = require('./_');
-const BudgetView = require('./budget');
+import BaseView from './_';
+import BudgetView from './budget';
+import ErrorView from './error';
 
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
-const BudgetTipsTemplate = require('../../templates/budgetTips.html');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const tips = require('../tips');
+import tips from '../tips';
+import BudgetTipsTemplate from '../../templates/budgetTips.html';
+
 
 /**
  * BudgetTipsView
  *
  * @module views/budgetTips
  * @class BudgetTipsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const BudgetTipsView = BaseView.extend({
     className: 'budget-tips b-modal b-modal--hidden b-loader b-loader--light',
 
     _initialize (options) {
@@ -191,9 +194,6 @@ module.exports = View.extend({
         this.$el.addClass('loading');
         this._applyFilter(Tip)
             .catch(error => {
-                const AppHelper = require('../helpers/app');
-                const ErrorView = require('./error');
-
                 new ErrorView({error}).appendTo(AppHelper.view());
             })
             .finally(() => this.$el.removeClass('loading'));
@@ -267,11 +267,10 @@ module.exports = View.extend({
             this.hide();
         }
         catch (error) {
-            const AppHelper = require('../helpers/app');
-            const ErrorView = require('./error');
-
             new ErrorView({error}).appendTo(AppHelper.view());
             this.$el.removeClass('loading')
         }
     }
 });
+
+export default BudgetTipsView;

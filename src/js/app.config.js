@@ -1,1 +1,2 @@
-window.__AppConfiguration = require('app-config');
+import config from 'app-config';
+window.__AppConfiguration = config;

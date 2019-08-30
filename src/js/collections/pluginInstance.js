@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const PluginInstanceModel = require('../models/pluginInstance');
+import BaseCollection from './_';
+import PluginInstanceModel from '../models/account';
 
 const PluginInstanceCollection = BaseCollection.extend({
     model: PluginInstanceModel,
@@ -9,4 +9,4 @@ const PluginInstanceCollection = BaseCollection.extend({
     dbStore: 'pluginInstance'
 });
 
-module.exports = PluginInstanceCollection;
+export default PluginInstanceCollection;

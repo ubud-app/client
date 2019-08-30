@@ -1,12 +1,16 @@
 'use strict';
 
-const $ = require('zepto');
-const View = require('./_');
+import $ from 'zepto';
 
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const DocumentSettingsAccountAddTemplate = require('../../templates/documentSettingsAccountAdd.html');
+import BaseView from './_';
+import DocumentSettingsAccountAddManualView from './documentSettingsAccountAddManual';
+import DocumentSettingsPluginAddView from '../views/documentSettingsPluginAdd';
+
+import DocumentSettingsAccountAddTemplate from '../../templates/documentSettingsAccountAdd.html';
 
 
 /**
@@ -14,14 +18,13 @@ const DocumentSettingsAccountAddTemplate = require('../../templates/documentSett
  *
  * @module views/documentSettingsAccountAdd
  * @class DocumentSettingsAccountAddView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsAccountAddView = BaseView.extend({
     className: 'document-settings-account-add b-form',
 
     async render () {
-        const AppHelper = require('../helpers/app');
         this.model = this.model || AppHelper.getDocument(true);
         if (!this.model) {
             return;
@@ -51,13 +54,9 @@ module.exports = View.extend({
     },
 
     goBack () {
-        const AppHelper = require('../helpers/app');
         AppHelper.back(this.model.id + '/settings/accounts');
     },
     openUrl (e) {
-        const AppHelper = require('../helpers/app');
-        const DocumentSettingsAccountAddManualView = require('./documentSettingsAccountAddManual');
-        const DocumentSettingsPluginAddView = require('../views/documentSettingsPluginAdd');
         const href = $(e.target).closest('a').attr('href');
 
         e.preventDefault();
@@ -74,3 +73,5 @@ module.exports = View.extend({
         }
     }
 });
+
+export default DocumentSettingsAccountAddView;

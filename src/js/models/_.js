@@ -1,15 +1,15 @@
 'use strict';
 
-const {Model} = require('backbone');
-const _ = require('underscore');
-const DataHelper = require('../helpers/data');
+import {Model} from 'backbone';
+import {bindAll} from 'underscore';
+import DataHelper from '../helpers/data';
 
 /**
  * @module models/_
  * @class BaseModel
  * @augments Backbone.Model
  */
-module.exports = Model.extend({
+const BaseModel = Model.extend({
     idAttribute: 'id',
     sync: DataHelper.sync,
 
@@ -18,11 +18,11 @@ module.exports = Model.extend({
 
         for (let i in m) {
             if (typeof m[i] === 'function' && !Model.prototype[i]) {
-                _.bindAll(m, i);
+                bindAll(m, i);
             }
         }
 
-        if (_.isFunction(m._initialize)) {
+        if (typeof m._initialize === 'function') {
             m._initialize(attributes, options);
         }
     },
@@ -39,3 +39,5 @@ module.exports = Model.extend({
         return DataHelper.wait(this);
     }
 });
+
+export default BaseModel;

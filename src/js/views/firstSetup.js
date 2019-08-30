@@ -1,27 +1,27 @@
 'use strict';
 
-const $ = require('jquery');
-const {defer} = require('underscore');
-const BaseView = require('./_');
+import $ from 'zepto';
+import {defer} from 'underscore';
+import BaseView from './_';
 
-const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const BudgetModel = require('../models/budget');
-const CategoryModel = require('../models/category');
-const DocumentModel = require('../models/document');
-const AccountModel = require('../models/account');
+import BudgetModel from '../models/budget';
+import CategoryModel from '../models/category';
+import DocumentModel from '../models/document';
+import AccountModel from '../models/account';
 
-const FirstSetupTemplate = require('../../templates/firstSetup.html');
+import FirstSetupTemplate from '../../templates/firstSetup.html';
 
 /**
  * @module views/firstSetup
  * @class FirstSetupView
  * @augments BaseView
  */
-module.exports = BaseView.extend({
+const FirstSetupView = BaseView.extend({
     className: 'firstSetup',
 
     render () {
@@ -281,3 +281,5 @@ module.exports = BaseView.extend({
         location.reload();
     }
 });
+
+export default FirstSetupView;

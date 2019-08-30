@@ -1,13 +1,16 @@
 'use strict';
 
-const BaseModel = require('./_');
+import BaseModel from './_';
+
 
 /**
  * @module models/pluginInstance
  * @class PluginInstanceModel
  * @augments BaseModel
  */
-module.exports = BaseModel.extend({
+const PluginInstanceModel = BaseModel.extend({
     urlRoot: 'plugin-instances',
     dbStore: 'plugin-instance'
 });
+
+export default PluginInstanceModel;

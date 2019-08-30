@@ -1,23 +1,23 @@
 'use strict';
 
-const $ = require('zepto');
-const View = require('./_');
-const DataHelper = require('../helpers/data');
-const ConfigurationHelper = require('../helpers/configuration');
+import $ from 'zepto';
+import DataHelper from '../helpers/data';
+import ConfigurationHelper from '../helpers/configuration';
 
-const HeaderView = require('./header');
-const SidebarView = require('./sidebar');
-
+import BaseView from './_';
+import HeaderView from './header';
+import SidebarView from './sidebar';
+import TermsNotificationView from './termsNotification';
 
 /**
  * AppView
  *
  * @module views/app
  * @class AppView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const AppView = BaseView.extend({
     el: '#app',
 
     render () {
@@ -64,7 +64,6 @@ module.exports = View.extend({
                 user.get('terms').current.version !== user.get('terms').accepted &&
                 !view
             ) {
-                const TermsNotificationView = require('./termsNotification');
                 view = new TermsNotificationView({model: user}).prependTo(this, '.app__content');
             }
             else if(
@@ -79,3 +78,5 @@ module.exports = View.extend({
         });
     }
 });
+
+export default AppView;

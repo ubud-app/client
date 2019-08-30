@@ -1,13 +1,16 @@
 'use strict';
 
-const BaseModel = require('./_');
+import BaseModel from './_';
+
 
 /**
  * @module models/component
  * @class ComponentModel
  * @augments BaseModel
  */
-module.exports = BaseModel.extend({
+const ComponentModel = BaseModel.extend({
     urlRoot: 'components',
     dbStore: 'component'
 });
+
+export default ComponentModel;

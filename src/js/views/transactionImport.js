@@ -1,25 +1,26 @@
 'use strict';
 
-const View = require('./_');
-const ErrorView = require('./error');
+import BaseView from './_';
+import ErrorView from './error';
 
-const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const TransactionImportTemplate = require('../../templates/transactionTemplate.html');
-const AccountCollection = require('../collections/account');
+import TransactionImportTemplate from '../../templates/transactionTemplate.html';
+import AccountCollection from '../collections/account';
+
 
 /**
  * CategoryEditorView
  *
  * @module views/categoryEditor
  * @class CategoryEditorView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const CategoryEditorView = BaseView.extend({
     className: 'category-editor b-modal b-modal--hidden',
 
     _initialize (options = {}) {
@@ -153,3 +154,5 @@ module.exports = View.extend({
         }
     }
 });
+
+export default CategoryEditorView;

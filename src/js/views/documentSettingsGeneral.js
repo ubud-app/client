@@ -1,17 +1,20 @@
 'use strict';
 
-const View = require('./_');
-const ErrorView = require('./error');
-const BudgetView = require('./budget');
+import BaseView from './_';
+import ErrorView from './error';
+import BudgetView from './budget';
 
-const AppHelper = require('../helpers/app');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const CategoryCollection = require('../collections/category');
-const BudgetCollection = require('../collections/budget');
+import CategoryCollection from '../collections/category';
+import BudgetCollection from '../collections/budget';
 
-const DocumentSettingsGeneralTemplate = require('../../templates/documentSettingsGeneral.html');
+import CategoryModel from '../models/category';
+import BudgetModel from '../models/budget';
+
+import DocumentSettingsGeneralTemplate from '../../templates/documentSettingsGeneral.html';
 
 
 /**
@@ -19,14 +22,13 @@ const DocumentSettingsGeneralTemplate = require('../../templates/documentSetting
  *
  * @module views/documentSettingsGeneral
  * @class DocumentSettingsGeneralView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsGeneralView = BaseView.extend({
     className: 'document-settings-general',
 
     async render () {
-        const AppHelper = require('../helpers/app');
         this.model = AppHelper.getDocument(true);
         if (!this.model) {
             return;
@@ -94,7 +96,6 @@ module.exports = View.extend({
     },
 
     async addCategory () {
-        const CategoryModel = require('../models/category');
         const category = new CategoryModel({
             documentId: this.model.id,
             name: ConfigurationHelper.getString('documentSettingsGeneral.budgets.newCategory')
@@ -110,7 +111,6 @@ module.exports = View.extend({
             return;
         }
 
-        const BudgetModel = require('../models/budget');
         const budget = new BudgetModel({
             categoryId: this.categories.first().id,
             name: ConfigurationHelper.getString('documentSettingsGeneral.budgets.newBudget')
@@ -140,3 +140,5 @@ module.exports = View.extend({
         return this.model.destroy();
     }
 });
+
+export default DocumentSettingsGeneralView;

@@ -1,10 +1,12 @@
 'use strict';
 
-const DataHelper = require('../helpers/data');
+import _ from 'underscore';
+import $ from 'zepto';
 
-const Backbone = require('backbone');
-const _ = require('underscore');
-const $ = require('zepto');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+
+import {View} from 'backbone';
 
 /**
  * @module views/_view
@@ -12,7 +14,7 @@ const $ = require('zepto');
  * @augments Backbone.View
  * @author Sebastian Pekarek
  */
-module.exports = Backbone.View.extend({
+const BaseView = View.extend({
 
     /**
      * Automatically bind functions of inherited
@@ -53,7 +55,7 @@ module.exports = Backbone.View.extend({
         if (parent instanceof $) {
             $appendTo = parent;
         }
-        else if (parent instanceof Backbone.View) {
+        else if (parent instanceof View) {
             $appendTo = parent.$el;
         }
         else {
@@ -64,7 +66,7 @@ module.exports = Backbone.View.extend({
         if (child instanceof $) {
             $appendTo = child;
         }
-        else if (child instanceof Backbone.View) {
+        else if (child instanceof View) {
             $appendTo = child.$el;
         }
         else if (_.isString(child)) {
@@ -82,7 +84,7 @@ module.exports = Backbone.View.extend({
             this.render();
 
             // remove child on parent.remove
-            if (parent instanceof Backbone.View) {
+            if (parent instanceof View) {
                 parent.once('remove', () => {
                     this.remove();
                 });
@@ -181,7 +183,6 @@ module.exports = Backbone.View.extend({
             if (String(error).includes('Not Found')) {
                 this.remove();
 
-                const AppHelper = require('../helpers/app');
                 AppHelper.navigate('', {trigger: true});
             }
         });
@@ -208,9 +209,8 @@ module.exports = Backbone.View.extend({
 
         const closeHandler = e => {
             if ($(e.target).is('.b-modal') || $(e.target).is('.b-modal__content')) {
-                this.hide().catch(error => {
-                    const ErrorView = require('./error');
-                    const AppHelper = require('../helpers/app');
+                this.hide().catch(async error => {
+                    const ErrorView = await import('./error');
                     new ErrorView({error}).appendTo(AppHelper.view());
                 });
             }
@@ -222,3 +222,5 @@ module.exports = Backbone.View.extend({
         });
     }
 });
+
+export default BaseView;
