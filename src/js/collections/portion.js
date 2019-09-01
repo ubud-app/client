@@ -1,7 +1,7 @@
 'use strict';
 
 import BaseCollection from './_';
-import PortionModel from '../models/account';
+import PortionModel from '../models/portion';
 
 const PortionCollection = BaseCollection.extend({
     model: PortionModel,
