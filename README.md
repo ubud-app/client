@@ -3,7 +3,7 @@
     <br /><br /><br />
 </div>
 
-[![Status](https://git-badges.sebbo.net/68/master/build)](https://github.com/ubud-app/client)
+[![Status](https://git-badges.sebbo.net/68/develop/build)](https://github.com/ubud-app/client)
 ![npm version](https://img.shields.io/npm/v/@ubud-app/client?color=blue&label=version&style=flat-square)
 
 ## 🚨 Warning
