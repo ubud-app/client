@@ -410,6 +410,9 @@ const BudgetView = BaseView.extend({
             budgets: []
         };
 
+        view.listenToAndCall(category, 'change:id', () => {
+            entry.id = category.id;
+        });
         view.listenToAndCall(category, 'change:name', () => {
             entry.name = category.get('name');
         });

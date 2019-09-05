@@ -104,7 +104,7 @@ const DocumentSettingsGeneralView = BaseView.extend({
         this.categories.add(category);
         await category.save();
 
-        BudgetView.openCategorySettings(category, true);
+        BudgetView.openCategorySettings(this, category, true);
     },
     async addBudget () {
         if (this.categories.length === 0) {
@@ -119,7 +119,7 @@ const DocumentSettingsGeneralView = BaseView.extend({
         this.budgets.add(budget);
         await budget.save();
 
-        BudgetView.openBudgetSettings(budget, true);
+        BudgetView.openBudgetSettings(this, budget, true);
     },
 
     delete () {
