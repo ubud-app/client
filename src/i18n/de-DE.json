@@ -449,14 +449,14 @@
 		}
 	},
 	"documentSettingsAccountAddManual": {
-		"headline": "Konto hnzufügen",
+		"headline": "Konto hinzufügen",
 		"name": "Name des Kontos",
 		"defaultName": "Mein tolles neues Konto",
 		"type": "Konto-Typ",
 		"balance": "Aktueller Betrag",
 		"balanceInfo": "Der Betrag wird als Transaktion eingefügt und kann später in der Liste aller Transaktionen geändert werden. Negative Beträge sind selbstverständlich möglich (z.B. für Hypotheken).",
 		"save": "Konto anlegen",
-		"back": "Back",
+		"back": "Zurück",
 		"memo": "Konto angelegt"
 	},
 	"documentSettingsPluginAdd": {

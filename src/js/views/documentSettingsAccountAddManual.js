@@ -38,7 +38,10 @@ const DocumentSettingsAccountAddManualView = BaseView.extend({
 
         this.live(this.document);
         this.model = this.model || new AccountModel();
-        this.model.set({documentId: this.model.id});
+        this.model.set({
+            documentId: this.document.id,
+            type: this.model.get('type') || 'checking'
+        });
 
         this.data = {
             document: this.document,
