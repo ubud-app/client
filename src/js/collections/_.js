@@ -1,7 +1,9 @@
 'use strict';
 
+import {DateTime} from 'luxon';
+import {captureException} from '@sentry/browser';
 import {Collection} from 'backbone';
-import {isFunction, bindAll} from 'underscore';
+import {bindAll, isFunction} from 'underscore';
 import DataHelper from '../helpers/data';
 
 const BaseCollection = Collection.extend({
@@ -54,6 +56,39 @@ const BaseCollection = Collection.extend({
         ]);
 
         return this;
+    },
+
+    filterTest (data) {
+        return !this._filter.find(([, _filter]) => {
+
+            // return true if computer says no!
+            const [comparator, attribute, values] = _filter;
+            let dataValue = data[attribute] || data[attribute + 'Id'];
+            if(attribute === 'month' && dataValue === undefined && data.time) {
+                dataValue = DateTime.fromISO(data.time).toFormat('yyyy-LL');
+            }
+
+            if (comparator === '=') {
+                return !values.includes(dataValue);
+            }
+            else if(comparator === '>=') {
+                return !values.find(value => dataValue >= value);
+            }
+            else if(comparator === '<=') {
+                return !values.find(value => dataValue <= value);
+            }
+            else if(comparator === '>') {
+                return !values.find(value => dataValue > value);
+            }
+            else if(comparator === '<') {
+                return !values.find(value => dataValue < value);
+            }
+            else {
+                const error = new Error(`Unsupported comparator "${comparator}".`);
+                captureException(error);
+                return true;
+            }
+        });
     },
 
     async wait () {
