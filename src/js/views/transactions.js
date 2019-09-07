@@ -168,8 +168,8 @@ const TransactionsView = BaseView.extend({
         const item = {
             id: transaction.id,
             model: transaction,
-            open: () => {
-                this.openTransaction(transaction);
+            open: e => {
+                this.openTransaction(e, transaction);
             },
             pending: false,
             negative: false,
@@ -267,9 +267,18 @@ const TransactionsView = BaseView.extend({
         this._onScroll();
     },
 
-    openTransaction (transaction) {
-        const view = new TransactionDetailsView({model: transaction});
-        view.appendTo(AppHelper.view());
+    openTransaction (e, transaction) {
+        if(e.offsetX >= 10) {
+            const view = new TransactionDetailsView({model: transaction});
+            view.appendTo(AppHelper.view());
+            return;
+        }
+
+        transaction.save({
+            approved: !transaction.get('approved')
+        }).catch(error => {
+            new ErrorView({error}).appendTo(AppHelper.view());
+        });
     },
     newTransaction () {
         const transaction = new TransactionModel({
