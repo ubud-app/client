@@ -91,20 +91,24 @@ const TransactionDetailsView = BaseView.extend({
         this.accounts.filterBy('document', AppHelper.getDocumentId());
         this.listenToAndCall(this.accounts, 'add remove', addUnits);
         this.listenTo(this.accounts, 'add', account => {
-            if(!account.get('pluginInstanceId')) {
+            if (!account.get('pluginInstanceId')) {
                 this.data.accounts.push(account);
+
+                if (!this.model.get('accountId')) {
+                    this.model.set('accountId', account.id);
+                }
             }
         });
         this.listenTo(this.accounts, 'remove', account => {
             const i = this.data.accounts.findIndex(a => a.id === account.id);
-            if(i > -1) {
+            if (i > -1) {
                 this.data.accounts.splice(i, 1);
             }
         });
         this.live(this.accounts);
         this.accounts.wait().then(() => {
             const account = this.accounts.get(this.model.get('accountId'));
-            if(account && account.get('pluginInstanceId')) {
+            if (account && account.get('pluginInstanceId')) {
                 this.data.fields.isManaged = true;
             }
         });
@@ -141,13 +145,13 @@ const TransactionDetailsView = BaseView.extend({
                 }
             });
 
-            if(payee.id === this.model.get('payeeId')) {
+            if (payee.id === this.model.get('payeeId')) {
                 this.data.autoCompletion.forEach(s =>
                     s.selected = s.model.id === this.model.get('payeeId')
                 );
             }
 
-            if(payee.get('name') === this.data.fields.payee) {
+            if (payee.get('name') === this.data.fields.payee) {
                 this.data.fields.autoCompletionCreateText = '';
             }
         });
@@ -156,7 +160,7 @@ const TransactionDetailsView = BaseView.extend({
             const j = this.data.autoCompletion[i];
 
             this.data.autoCompletion.splice(i, 1);
-            if(j.selected && this.data.autoCompletion.length > 0) {
+            if (j.selected && this.data.autoCompletion.length > 0) {
                 this.data.autoCompletion[0].selected = true;
             }
         });
@@ -181,7 +185,7 @@ const TransactionDetailsView = BaseView.extend({
 
         // ESC
         const escCb = e => {
-            if(
+            if (
                 e.keyCode === 27 &&
                 !this.data.fields.autoCompletionCreateText &&
                 this.data.autoCompletion.length === 0
@@ -203,21 +207,22 @@ const TransactionDetailsView = BaseView.extend({
     },
 
     async hide () {
-        if(!this.model.get('accountId') || this.deleting) {
+        if (!this.model.get('accountId') || this.deleting) {
             this._hide();
             return;
         }
 
         const invalid = this.checkUnits();
-        if(invalid) {
+        if (invalid) {
             return;
         }
 
         this._hide();
 
-        if(this.model.isSyncing()) {
+        if (this.model.isSyncing()) {
             await this.model.wait();
-        }else {
+        }
+        else {
             try {
                 await this.model.save();
             }
@@ -253,18 +258,18 @@ const TransactionDetailsView = BaseView.extend({
                 json.memo = unit.memo;
             }
 
-            if(unit.type === 'INCOME' || unit.type === 'INCOME_NEXT') {
+            if (unit.type === 'INCOME' || unit.type === 'INCOME_NEXT') {
                 json.type = unit.type;
             }
-            else if(unit.type === 'TRANSFER') {
+            else if (unit.type === 'TRANSFER') {
                 json.type = 'TRANSFER:' + unit.transferAccountId;
             }
-            else if(unit.type === 'BUDGET') {
+            else if (unit.type === 'BUDGET') {
                 json.type = 'BUDGET:' + unit.budgetId;
             }
         });
         this.data.units.forEach((unit, i) => {
-            if(!this.model.get('units').find(u => u.id === unit.id)) {
+            if (!this.model.get('units').find(u => u.id === unit.id)) {
                 this.data.units.splice(i, 1);
             }
         });
@@ -301,14 +306,14 @@ const TransactionDetailsView = BaseView.extend({
             }
 
             this.budgets.each(budget => {
-                if(budget.get('categoryId') === json.id && json.budgets.indexOf(budget) === -1) {
+                if (budget.get('categoryId') === json.id && json.budgets.indexOf(budget) === -1) {
                     json.budgets.push(budget);
                 }
             });
         });
     },
     updatePayeeSelect () {
-        if(this.data.fields.payee && this.data.fields.payee.length <= 2) {
+        if (this.data.fields.payee && this.data.fields.payee.length <= 2) {
             this.data.fields.autoCompletionCreateText = '';
             this.payees.set([]);
             return;
@@ -324,19 +329,19 @@ const TransactionDetailsView = BaseView.extend({
         ) ? '' : this.data.fields.payee;
     },
     async updatePayeeSelection (e) {
-        if(e.keyCode === 27 && (this.data.autoCompletion.length || this.data.fields.autoCompletionCreateText)) {
+        if (e.keyCode === 27 && (this.data.autoCompletion.length || this.data.fields.autoCompletionCreateText)) {
             e.stopPropagation();
             return this.blurPayeeSelection();
         }
 
         const i = this.data.autoCompletion.findIndex(s => s.selected);
-        if(e.keyCode === 13 && i === -1 && this.data.fields.autoCompletionCreateSelected) {
+        if (e.keyCode === 13 && i === -1 && this.data.fields.autoCompletionCreateSelected) {
             e.stopPropagation();
             e.preventDefault();
             await this.clickAutoCompletionCreate();
             return;
         }
-        else if(e.keyCode === 13 && i > -1) {
+        else if (e.keyCode === 13 && i > -1) {
             const {model} = this.data.autoCompletion[i];
             this.$el.find('.transaction-details__input--payee').blur();
 
@@ -348,36 +353,36 @@ const TransactionDetailsView = BaseView.extend({
             return;
         }
 
-        if(!this.data.fields.autoCompletionCreateText || (e.keyCode !== 38 && e.keyCode !== 40)) {
+        if (!this.data.fields.autoCompletionCreateText || (e.keyCode !== 38 && e.keyCode !== 40)) {
             return;
         }
 
         e.preventDefault();
 
-        if(e.keyCode === 38 && this.data.fields.autoCompletionCreateSelected && this.data.autoCompletion.length) {
+        if (e.keyCode === 38 && this.data.fields.autoCompletionCreateSelected && this.data.autoCompletion.length) {
             this.data.fields.autoCompletionCreateSelected = false;
             this.data.autoCompletion[this.data.autoCompletion.length - 1].selected = true;
         }
-        else if(e.keyCode === 38 && i > 0) {
+        else if (e.keyCode === 38 && i > 0) {
             this.data.autoCompletion[i].selected = false;
             this.data.autoCompletion[i - 1].selected = true;
         }
-        else if(e.keyCode === 38 && i === 0) {
+        else if (e.keyCode === 38 && i === 0) {
             this.data.autoCompletion[i].selected = false;
             this.data.fields.autoCompletionCreateSelected = true;
         }
-        else if(e.keyCode === 13 && this.data.autoCompletion.length) {
+        else if (e.keyCode === 13 && this.data.autoCompletion.length) {
             this.data.autoCompletion[0].selected = true;
         }
-        else if(e.keyCode === 40 && this.data.fields.autoCompletionCreateSelected && this.data.autoCompletion.length) {
+        else if (e.keyCode === 40 && this.data.fields.autoCompletionCreateSelected && this.data.autoCompletion.length) {
             this.data.autoCompletion[0].selected = true;
             this.data.fields.autoCompletionCreateSelected = false;
         }
-        else if(e.keyCode === 40 && i > -1 && i < this.data.autoCompletion.length - 1) {
+        else if (e.keyCode === 40 && i > -1 && i < this.data.autoCompletion.length - 1) {
             this.data.autoCompletion[i].selected = false;
             this.data.autoCompletion[i + 1].selected = true;
         }
-        else if(e.keyCode === 40 && i > -1 && i === this.data.autoCompletion.length - 1) {
+        else if (e.keyCode === 40 && i > -1 && i === this.data.autoCompletion.length - 1) {
             this.data.autoCompletion[i].selected = false;
             this.data.fields.autoCompletionCreateSelected = true;
         }
@@ -401,16 +406,16 @@ const TransactionDetailsView = BaseView.extend({
 
             this.data.fields.payee = payee.get('name');
         }
-        catch(error) {
+        catch (error) {
             new ErrorView({error}).appendTo(AppHelper.view());
         }
     },
     blurPayeeSelection (e) {
-        if(e && e.preventDefault) {
+        if (e && e.preventDefault) {
             setTimeout(() => this.blurPayeeSelection(), 100);
             return;
         }
-        
+
         this.data.fields.autoCompletionCreateText = '';
         this.payees.set([]);
 
@@ -436,7 +441,7 @@ const TransactionDetailsView = BaseView.extend({
 
         // remove unit
         const remove = this.data.units.findIndex(u => u.type === 'REMOVE');
-        if(remove > -1) {
+        if (remove > -1) {
             this.data.units.splice(remove, 1);
         }
 
@@ -447,17 +452,17 @@ const TransactionDetailsView = BaseView.extend({
             let invalid = false;
 
             // empty or invalid
-            if(unit.amount === 0 || typeof unit.amount !== 'number' || isNaN(unit.amount)) {
+            if (unit.amount === 0 || typeof unit.amount !== 'number' || isNaN(unit.amount)) {
                 invalid = true;
             }
 
             // amount does not match
-            if(sum !== budgeted) {
+            if (sum !== budgeted) {
                 invalid = true;
             }
 
             // type empty
-            if(!unit.type) {
+            if (!unit.type) {
                 invalid = true;
             }
 
@@ -465,7 +470,7 @@ const TransactionDetailsView = BaseView.extend({
             return invalid;
         }).find(Boolean);
 
-        if(!invalid) {
+        if (!invalid) {
             this.model.set({
                 units: this.data.units.map(unit => {
                     const p = unit.type.split(':');
@@ -475,14 +480,14 @@ const TransactionDetailsView = BaseView.extend({
                         memo: unit.memo
                     };
 
-                    if(p[0] === 'INCOME' || p[0] === 'INCOME_NEXT') {
+                    if (p[0] === 'INCOME' || p[0] === 'INCOME_NEXT') {
                         json.type = unit.type;
                     }
-                    else if(p[0] === 'TRANSFER') {
+                    else if (p[0] === 'TRANSFER') {
                         json.type = 'TRANSFER';
                         json.transferAccountId = p[1];
                     }
-                    else if(p[0] === 'BUDGET') {
+                    else if (p[0] === 'BUDGET') {
                         json.type = 'BUDGET';
                         json.budgetId = p[1];
                     }
@@ -506,7 +511,7 @@ const TransactionDetailsView = BaseView.extend({
             await this.model.destroy();
             await this.hide();
         }
-        catch(error) {
+        catch (error) {
             this.deleting = false;
             new ErrorView({error}).appendTo(AppHelper.view());
         }
