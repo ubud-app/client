@@ -271,53 +271,28 @@ class DataHelper {
             body.id = model._filter.map(f => f[0].map(p => p.join(':')).join('/')).join('/');
         }
 
-        let cache = null,
-            response = null;
+        let responses = {
+            cache: null,
+            response: null
+        };
 
         const promises = [
-            (async () => {
-                if(method === 'list' && DataHelper._state !== 4) {
-                    await new Promise(cb => setTimeout(cb, 1000));
-
-                    if(response) {
-                        return;
-                    }
-                }
-                if(method === 'get' || method === 'list') {
-                    cache = await (
-                        model instanceof Model && model.id ?
-                            DataHelperDatabase.getModel(model.dbStore, model.id) :
-                            DataHelperDatabase.getCollection(model.dbStore, model._filter)
-                    );
-
-                    if (!response && cache) {
-                        model.set(cache);
-                        model.trigger('cache', model, cache, options);
-                    }
-                }
-            })(),
-            (async () => {
-                if(method !== 'get' && method !== 'list' && DataHelper._state !== 4) {
-                    throw new Error(`Unable to ${method} ${resource}: Connection state is ${DataHelper.state()}!`);
-                }
-
-                response = await DataHelper.request(resource + '/' + method, body);
-                model.set(response);
-            })()
+            DataHelper._syncWithCache(responses, model, method, options),
+            DataHelper._syncWithBackend(responses, model, method, resource, body)
         ];
 
         if(method !== 'get' && method !== 'list') {
             try {
                 await promises[1];
 
-                DataHelper._syncEvents(false, true, {model, response, options});
+                DataHelper._syncEvents(false, true, {model, response: responses.response, options});
             }
             catch(error) {
                 DataHelper._syncEvents(false, false, {model, error, options});
                 throw error;
             }
 
-            DataHelperDatabase.setModel(model.dbStore, response).catch(err => {
+            DataHelperDatabase.setModel(model.dbStore, responses.response).catch(err => {
                 Sentry.captureException(err);
             });
             return;
@@ -327,15 +302,15 @@ class DataHelper {
         try {
             await Promise.race(promises);
 
-            /*if((!cache || cache.length === 0) && !response && DataHelper.state() <= 1) {
+            /*if((!responses.cache || responses.cache.length === 0) && !responses.response && DataHelper.state() <= 1) {
                 // do nothing, we're offline…
                 return;
             }*/
-            if((!cache || cache.length === 0) && !response) {
+            if((!responses.cache || responses.cache.length === 0) && !responses.response) {
                 await Promise.all(promises);
             }
 
-            DataHelper._syncEvents(false, true, {model, response, options});
+            DataHelper._syncEvents(false, true, {model, response: responses.response, options});
         }
         catch (error) {
             DataHelper._syncEvents(false, false, {model, error, options});
@@ -347,16 +322,48 @@ class DataHelper {
             .all(promises)
             .then(() => {
                 if (model instanceof Model && model.id) {
-                    return DataHelperDatabase.setModel(model.dbStore, response);
+                    return DataHelperDatabase.setModel(model.dbStore, responses.response);
                 }
                 else if (model instanceof Collection) {
-                    return DataHelperDatabase.setCollection(model.dbStore, cache || [], response);
+                    return DataHelperDatabase.setCollection(model.dbStore, responses.cache || [], responses.response);
                 }
             })
             .catch(err => {
                 Sentry.captureException(err);
             });
         /* eslint-enable require-atomic-updates */
+    }
+
+    static async _syncWithCache (responses, model, method, options) {
+        if(method === 'list' && DataHelper._state !== 4) {
+            await new Promise(cb => setTimeout(cb, 1000));
+
+            if(responses.response) {
+                return;
+            }
+        }
+
+        if(method === 'get' || method === 'list') {
+            responses.cache = await ( // eslint-disable-line require-atomic-updates
+                model instanceof Model && model.id ?
+                    DataHelperDatabase.getModel(model.dbStore, model.id) :
+                    DataHelperDatabase.getCollection(model.dbStore, model._filter)
+            );
+
+            if (!responses.response && responses.cache) {
+                model.set(responses.cache);
+                model.trigger('cache', model, responses.cache, options);
+            }
+        }
+    }
+
+    static async _syncWithBackend (responses, model, method, resource, body) {
+        if(method !== 'get' && method !== 'list' && DataHelper._state !== 4) {
+            throw new Error(`Unable to ${method} ${resource}: Connection state is ${DataHelper.state()}!`);
+        }
+
+        responses.response = await DataHelper.request(resource + '/' + method, body);
+        model.set(responses.response);
     }
 
     static _syncEvents (syncing, synced, {model, response, error, options}) {
