@@ -1,12 +1,15 @@
 'use strict';
 
-const View = require('./_');
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import BaseView from './_';
+import ErrorView from './error';
 
-const UserCollection = require('../collections/user');
-const DocumentSettingsPermissionsTemplate = require('../../templates/documentSettingsPermissions.html');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
+
+import UserCollection from '../collections/user';
+import DocumentSettingsPermissionsTemplate from '../../templates/documentSettingsPermissions.html';
 
 
 /**
@@ -14,14 +17,13 @@ const DocumentSettingsPermissionsTemplate = require('../../templates/documentSet
  *
  * @module views/documentSettingsPermissions
  * @class DocumentSettingsPermissionsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsPermissionsView = BaseView.extend({
     className: 'document-settings-permissions',
 
     async render () {
-        const AppHelper = require('../helpers/app');
         this.model = AppHelper.getDocument(true);
         if(!this.model) {
             return;
@@ -107,9 +109,6 @@ module.exports = View.extend({
                 }
 
                 this.model.save().catch(error => {
-                    const ErrorView = require('./error');
-                    const AppHelper = require('../helpers/app');
-
                     new ErrorView({error}).appendTo(AppHelper.view());
                 });
             }
@@ -140,15 +139,11 @@ module.exports = View.extend({
     },
 
     leave () {
-        const AppHelper = require('../helpers/app');
-
         this.data.meta.leaving = true;
         this._leave()
             .then(() => AppHelper.removeDocumentLocallyAndRedirect(this.model))
             .catch(error => {
                 this.data.meta.leaving = false;
-
-                const ErrorView = require('./error');
                 new ErrorView({error}).appendTo(AppHelper.view());
             });
     },
@@ -164,3 +159,5 @@ module.exports = View.extend({
         return this.model.save();
     }
 });
+
+export default DocumentSettingsPermissionsView;

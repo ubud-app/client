@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const SummaryModel = require('../models/summary');
+import BaseCollection from './_';
+import SummaryModel from '../models/summary';
 
 const SummaryCollection = BaseCollection.extend({
     model: SummaryModel,
@@ -9,4 +9,4 @@ const SummaryCollection = BaseCollection.extend({
     dbStore: 'summary'
 });
 
-module.exports = SummaryCollection;
+export default SummaryCollection;

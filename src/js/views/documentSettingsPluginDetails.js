@@ -1,16 +1,16 @@
 'use strict';
 
-const View = require('./_');
-const ErrorView = require('./error');
-const DocumentSettingsPluginAddView = require('./documentSettingsPluginAddDetails');
+import BaseView from './_';
+import ErrorView from './error';
+import DocumentSettingsPluginAddView from './documentSettingsPluginAddDetails';
 
-const AppHelper = require('../helpers/app');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const PluginModel = require('../models/plugin');
-const PluginInstanceModel = require('../models/pluginInstance');
-const DocumentSettingsPluginDetailsTemplate = require('../../templates/documentSettingsPluginDetails.html');
+import PluginModel from '../models/plugin';
+import PluginInstanceModel from '../models/pluginInstance';
+import DocumentSettingsPluginDetailsTemplate from '../../templates/documentSettingsPluginDetails.html';
 
 
 /**
@@ -18,10 +18,10 @@ const DocumentSettingsPluginDetailsTemplate = require('../../templates/documentS
  *
  * @module views/documentSettingsPluginDetails
  * @class DocumentSettingsPluginDetailsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsPluginDetailsView = BaseView.extend({
     className: 'document-settings-plugin-details',
 
     _initialize (options) {
@@ -29,8 +29,6 @@ module.exports = View.extend({
     },
 
     async render () {
-        const AppHelper = require('../helpers/app');
-
         this.data = {
             pluginInstance: this.model,
             meta: {
@@ -121,3 +119,5 @@ module.exports = View.extend({
         return this.model.destroy();
     }
 });
+
+export default DocumentSettingsPluginDetailsView;

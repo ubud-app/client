@@ -1,10 +1,8 @@
 'use strict';
 
-
-const {extend} = require('underscore');
-const {Events} = require('backbone');
-const WorkerHelper = require('../worker');
-
+import {Events} from 'backbone';
+import {extend} from 'underscore';
+import WorkerHelper from '../worker';
 
 class DataHelperDatabase {
     static async initialize () {
@@ -121,4 +119,4 @@ class DataHelperDatabase {
 }
 
 extend(DataHelperDatabase, Events);
-module.exports = DataHelperDatabase;
+export default DataHelperDatabase;

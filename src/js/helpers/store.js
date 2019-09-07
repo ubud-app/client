@@ -1,8 +1,7 @@
 'use strict';
 
-
-const Backbone = require('backbone');
-const _ = require('underscore');
+import {Events} from 'backbone';
+import {extend} from 'underscore';
 const prefix = 'club.ubud.client.';
 
 
@@ -13,7 +12,6 @@ const prefix = 'club.ubud.client.';
  * plain JavaScript Objects as well by using JSON.stringify internally.
  *
  * @class StoreHelper
- * @extends Backbone.Events
  * @author Sebastian Pekarek
  */
 class StoreHelper {
@@ -102,6 +100,5 @@ else {
     };
 }
 
-
-_.extend(StoreHelper, Backbone.Events);
-module.exports = StoreHelper;
+extend(StoreHelper, Events);
+export default StoreHelper;

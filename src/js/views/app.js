@@ -1,27 +1,30 @@
 'use strict';
 
-const $ = require('zepto');
-const View = require('./_');
-const ConfigurationHelper = require('../helpers/configuration');
+import $ from 'zepto';
+import DataHelper from '../helpers/data';
+import ConfigurationHelper from '../helpers/configuration';
 
-const HeaderView = require('./header');
-const SidebarView = require('./sidebar');
-
+import BaseView from './_';
+import HeaderView from './header';
+import SidebarView from './sidebar';
+import TermsNotificationView from './termsNotification';
 
 /**
  * AppView
  *
  * @module views/app
  * @class AppView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const AppView = BaseView.extend({
     el: '#app',
 
     render () {
         this.header = new HeaderView().prependTo(this);
         this.sidebar = new SidebarView().appendTo(this);
+
+        this.setupTermsNotification();
     },
 
     /**
@@ -47,5 +50,33 @@ module.exports = View.extend({
      */
     setTitle(title) {
         return this.header.setTitle(title || ConfigurationHelper.getString('app.name'));
+    },
+
+    setupTermsNotification () {
+        const user = DataHelper.getUser();
+        this.live(user);
+
+        let view = null;
+        this.listenToAndCall(user, 'change:terms', () => {
+            if(
+                user.get('terms') &&
+                user.get('terms').current &&
+                user.get('terms').current.version !== user.get('terms').accepted &&
+                !view
+            ) {
+                view = new TermsNotificationView({model: user}).prependTo(this, '.app__content');
+            }
+            else if(
+                user.get('terms') &&
+                user.get('terms').current &&
+                user.get('terms').current.version === user.get('terms').accepted &&
+                view
+            ) {
+                view.remove();
+                view = null;
+            }
+        });
     }
 });
+
+export default AppView;

@@ -1,32 +1,34 @@
 'use strict';
 
 
-const tinybind = require('tinybind');
-const Backbone = require('backbone');
-const AutoNumeric = require('autonumeric');
-const {DateTime} = require('luxon');
-const filesize = require('filesize');
+import rivets from 'rivets';
+import {Model, Collection} from 'backbone';
+import AutoNumeric from 'autonumeric';
+import {DateTime} from 'luxon';
+import filesize from 'filesize';
 
-const View = require('../views/_');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from './app'
+import BaseView from '../views/_';
+import ConfigurationHelper from './configuration';
+import DataHelper from './data';
 
 
 const rivetsListenerStore = [];
-tinybind.adapters[':'] = {
+rivets.adapters[':'] = {
     observe: function (obj, keypath, callback) {
         if(
             ['isSynced', 'isSyncing'].indexOf(keypath) > -1 &&
-            (obj instanceof Backbone.Collection || obj instanceof Backbone.Model)
+            (obj instanceof Collection || obj instanceof Model)
         ) {
             rivetsListenerStore.push([obj, keypath, callback, () => obj.off('request cache sync error', callback)]);
             obj.on('request cache sync error', callback);
         }
-        else if (obj instanceof Backbone.Collection) {
+        else if (obj instanceof Collection) {
             const m = () => callback(obj[keypath]);
             rivetsListenerStore.push([obj, keypath, callback, () => obj.off('add remove reset', m)]);
             obj.on('add remove reset', m);
         }
-        else if (obj instanceof Backbone.Model) {
+        else if (obj instanceof Model) {
             rivetsListenerStore.push([obj, keypath, callback, () => obj.off('change:' + keypath, callback)]);
             obj.on('change:' + keypath, callback);
         }
@@ -43,14 +45,14 @@ tinybind.adapters[':'] = {
     get: function (obj, keypath) {
         if(
             ['isSynced', 'isSyncing'].indexOf(keypath) > -1 &&
-            (obj instanceof Backbone.Collection || obj instanceof Backbone.Model)
+            (obj instanceof Collection || obj instanceof Model)
         ) {
             return obj[keypath]();
         }
-        else if (obj instanceof Backbone.Collection) {
+        else if (obj instanceof Collection) {
             return obj[keypath];
         }
-        else if (obj instanceof Backbone.Model) {
+        else if (obj instanceof Model) {
             return obj.get(keypath);
         }
         else {
@@ -58,28 +60,28 @@ tinybind.adapters[':'] = {
         }
     },
     set: function (obj, keypath, value) {
-        if (obj instanceof Backbone.Collection) {
+        if (obj instanceof Collection) {
             obj[keypath] = value;
         }
-        else if (obj instanceof Backbone.Model) {
+        else if (obj instanceof Model) {
             obj.set(keypath, value);
         }
     }
 };
 
-tinybind.formatters.log = obj => {
+rivets.formatters.log = obj => {
     console.log('💁', obj); // eslint-disable-line no-console
 };
-tinybind.formatters.string = (string, replacements) => {
+rivets.formatters.string = (string, replacements) => {
     return ConfigurationHelper.getString(string, replacements);
 };
-tinybind.formatters.date = (l, format = DateTime.DATE_FULL) => {
+rivets.formatters.date = (l, format = DateTime.DATE_FULL) => {
     return l && l instanceof DateTime ? l.toLocaleString(format) : '';
 };
-tinybind.formatters.time = (l, format = DateTime.TIME_SIMPLE) => {
+rivets.formatters.time = (l, format = DateTime.TIME_SIMPLE) => {
     return l && l instanceof DateTime ? l.toLocaleString(format) : '';
 };
-tinybind.formatters.datetime = (l, format = DateTime.DATETIME_SHORT) => {
+rivets.formatters.datetime = (l, format = DateTime.DATETIME_SHORT) => {
     if(l instanceof DateTime) {
         return l.toLocaleString(format);
     }
@@ -89,37 +91,37 @@ tinybind.formatters.datetime = (l, format = DateTime.DATETIME_SHORT) => {
 
     return '';
 };
-tinybind.formatters.currency = v => {
-    return !isNaN(v) && isFinite(v) ? AutoNumeric.format(v / 100, ConfigurationHelper.getAutoNumericCurrencyConfig()) : '';
+rivets.formatters.currency = v => {
+    return !isNaN(v) && isFinite(v) ? AutoNumeric.format(v / 100, TemplateHelper.getAutoNumericCurrencyConfig()) : '';
 };
-tinybind.formatters.percentage = v => {
+rivets.formatters.percentage = v => {
     return !isNaN(v) && isFinite(v) ? AutoNumeric.format(v, ConfigurationHelper.getAutoNumericPercentageConfig()) : '';
 };
-tinybind.formatters.filesize = v => {
+rivets.formatters.filesize = v => {
     return !isNaN(v) && isFinite(v) ? filesize(v, ConfigurationHelper.getCurrentLanguage()) : '';
 };
-tinybind.formatters.append = (a, b) => {
+rivets.formatters.append = (a, b) => {
     return String(a || '') + String(b || '');
 };
-tinybind.formatters.prepend = (a, b) => {
+rivets.formatters.prepend = (a, b) => {
     return String(b || '') + String(a || '');
 };
-tinybind.formatters.fallback = (a, b) => {
+rivets.formatters.fallback = (a, b) => {
     return String(a || '') || String(b || '');
 };
-tinybind.formatters.is = (a, b) => {
+rivets.formatters.is = (a, b) => {
     return a === b;
 };
 
-tinybind.binders['style-*'] = function (el, value) {
+rivets.binders['style-*'] = function (el, value) {
     el.style.setProperty(this.args[0], value);
 };
 
-tinybind.binders.required = function (el, value) {
+rivets.binders.required = function (el, value) {
     el.required = !!value;
 };
 
-tinybind.binders['value'] = {
+rivets.binders['value'] = {
     routine: function (el, value) {
         if (value !== el.value && el !== document.activeElement) {
             el.value = value || '';
@@ -142,7 +144,7 @@ tinybind.binders['value'] = {
     }
 };
 
-tinybind.binders['currency-value'] = {
+rivets.binders['currency-value'] = {
     routine: function (el, value) {
         if (this.autonumeric && value !== this.autonumeric.getNumber() * 100 && el !== document.activeElement) {
             this.autonumeric.set((value || 0) / 100);
@@ -154,7 +156,7 @@ tinybind.binders['currency-value'] = {
         );
     },
     bind: function (el) {
-        this.autonumeric = new AutoNumeric(el, ConfigurationHelper.getAutoNumericCurrencyConfig());
+        this.autonumeric = new AutoNumeric(el, TemplateHelper.getAutoNumericCurrencyConfig());
 
         if (!this.callback) {
             this.callback = () => {
@@ -176,7 +178,7 @@ tinybind.binders['currency-value'] = {
     }
 };
 
-tinybind.binders['datetime-value'] = {
+rivets.binders['datetime-value'] = {
     routine: function (el, value) {
         const iso = DateTime.fromISO(value);
         const datetime = value ? iso.minus({seconds: iso.second}).toISO().split('.')[0] : null;
@@ -208,19 +210,19 @@ tinybind.binders['datetime-value'] = {
  * @class TemplateHelper
  * @author Sebastian Pekarek
  */
-class TemplateHelper {
+export default class TemplateHelper {
 
     /**
      * Renders the given template in the given
-     * view with tinybind.js
+     * view with rivets.js
      *
      * @param {object} options
-     * @param {View} options.view
+     * @param {BaseView} options.view
      * @param {string} options.template
      * @param {object} [options.data]
      */
     static render (options) {
-        if (!(options.view instanceof View)) {
+        if (!(options.view instanceof BaseView)) {
             throw new Error('TemplateHelper.render: Unable to render: no view given!');
         }
         if (typeof options.template !== 'string') {
@@ -244,9 +246,9 @@ class TemplateHelper {
 
         options.view.$el.html(options.template);
 
-        const tinybindView = tinybind.bind(options.view.el, data);
+        const rivetsView = rivets.bind(options.view.el, data);
         options.view.on('remove', () => {
-            tinybindView.unbind();
+            rivetsView.unbind();
         });
     }
 
@@ -259,7 +261,7 @@ class TemplateHelper {
      * @returns {string}
      */
     static formatCurrency (value, config = null) {
-        return AutoNumeric.format(value / 100, config || ConfigurationHelper.getAutoNumericCurrencyConfig());
+        return AutoNumeric.format(value / 100, config || this.getAutoNumericCurrencyConfig());
     }
 
     /**
@@ -272,6 +274,14 @@ class TemplateHelper {
     static formatPercentage (value, config = null) {
         return AutoNumeric.format(value, config || ConfigurationHelper.getAutoNumericPercentageConfig());
     }
-}
 
-module.exports = TemplateHelper;
+    static getAutoNumericCurrencyConfig () {
+        const document = DataHelper.getDocuments().get(AppHelper.getDocumentId()) || null;
+
+        if(document && document.get('settings') && document.get('settings').currency) {
+            return document.get('settings').currency;
+        }
+
+        return 'euro';
+    }
+}

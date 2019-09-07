@@ -1,12 +1,13 @@
 'use strict';
 
+/* eslint no-unused-vars: 0 */
 
 /**
  * BaseTip
  *
  * @author Sebastian Pekarek
  */
-class Tip {
+export default class BaseTip {
 
     /**
      * Returns the tip id.
@@ -25,7 +26,7 @@ class Tip {
      * @param {string} params.month
      * @returns {object}
      */
-    static title (/* params */) {
+    static title (params) {
         return {};
     }
 
@@ -37,7 +38,7 @@ class Tip {
      * @param {string} params.month
      * @returns {object}
      */
-    static description (/* params */) {
+    static description (params) {
         return {};
     }
 
@@ -51,7 +52,7 @@ class Tip {
      * @param {DocumentModel} params.document
      * @returns {object}
      */
-    static async prepare (/* params */) {
+    static async prepare (params) {
         throw new Error('Not implemented yet.');
     }
 
@@ -69,10 +70,7 @@ class Tip {
      * @param {object} preparations Result of prepare()
      * @returns {number}
      */
-    static process (/* params, preparations */) {
+    static process (params, preparations) {
         throw new Error('Not implemented yet.');
     }
 }
-
-
-module.exports = Tip;

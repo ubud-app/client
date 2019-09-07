@@ -1,14 +1,15 @@
 'use strict';
 
-const Tip = require('./tip');
-const BudgetedAverageTip = require('./budgeted-average');
+import BaseTip from './_';
+import BudgetedAverageTip from './budgeted-average';
+
 
 /**
  * SpentAverageTip
  *
  * @author Sebastian Pekarek
  */
-class BudgetedLastMonthTip extends Tip {
+export default class SpentAverageTip extends BaseTip {
 
     static id () {
         return 'spentAverage';
@@ -30,6 +31,3 @@ class BudgetedLastMonthTip extends Tip {
         return outflows.reduce((a, b) => a + b, 0) / outflows.length;
     }
 }
-
-
-module.exports = BudgetedLastMonthTip;

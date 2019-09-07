@@ -1,15 +1,16 @@
 'use strict';
 
-const $ = require('jquery');
-const View = require('./_');
-const gravatar = require('gravatar-url');
+import $ from 'zepto';
+import BaseView from './_';
+import gravatar from 'gravatar-url';
 
-const DataHelper = require('../helpers/data');
-const WorkerHelper = require('../helpers/worker');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import WorkerHelper from '../helpers/worker';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const HeaderSettingsTemplate = require('../../templates/headerSettings.html');
+import HeaderSettingsTemplate from '../../templates/headerSettings.html';
 
 
 /**
@@ -17,10 +18,10 @@ const HeaderSettingsTemplate = require('../../templates/headerSettings.html');
  *
  * @module views/headerSettings
  * @class HeaderSettingsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const HeaderSettingsView = BaseView.extend({
     className: 'header-settings header-settings--hidden',
     events: {
         'click': 'closeHandler'
@@ -122,7 +123,6 @@ module.exports = View.extend({
             this.data.user.hidden = false;
         }, 200);
 
-        const AppHelper = require('../helpers/app');
         this.listenToOnce(AppHelper.router(), 'route', () => {
             this.hide();
         });
@@ -198,3 +198,5 @@ module.exports = View.extend({
         }
     }
 });
+
+export default HeaderSettingsView;

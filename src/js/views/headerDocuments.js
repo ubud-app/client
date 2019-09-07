@@ -1,18 +1,18 @@
 'use strict';
 
-const $ = require('jquery');
-const View = require('./_');
-const Sentry = require('@sentry/browser');
-const {DateTime} = require('luxon');
+import $ from 'zepto';
+import BaseView from './_';
+import * as Sentry from '@sentry/browser';
+import {DateTime} from 'luxon';
 
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const SummaryCollection = require('../collections/summary');
-const DocumentModel = require('../models/document');
+import SummaryCollection from '../collections/summary';
+import DocumentModel from '../models/document';
 
-const HeaderDocumentsTemplate = require('../../templates/headerDocuments.html');
+import HeaderDocumentsTemplate from '../../templates/headerDocuments.html';
 
 
 /**
@@ -20,10 +20,10 @@ const HeaderDocumentsTemplate = require('../../templates/headerDocuments.html');
  *
  * @module views/headerDocuments
  * @class HeaderDocumentsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const HeaderDocumentsView = BaseView.extend({
     className: 'header-documents header-documents--hidden',
     events: {
         'click': 'closeHandler'
@@ -163,3 +163,5 @@ module.exports = View.extend({
         }
     }
 });
+
+export default HeaderDocumentsView;

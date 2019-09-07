@@ -6,17 +6,26 @@
  */
 
 
-require('@babel/register');
-require('@babel/polyfill');
+import '@babel/register';
+import '@babel/polyfill';
 
+import Backbone from 'backbone';
+import $ from 'zepto';
+import * as Sentry from '@sentry/browser';
 
-const Backbone = require('backbone');
-const $ = require('zepto');
-const Sentry = require('@sentry/browser');
-const ConfigurationHelper = require('./helpers/configuration');
-const AppHelper = require('./helpers/app');
-const WorkerHelper = require('./helpers/worker');
-const DataHelper = require('./helpers/data');
+import ConfigurationHelper from './helpers/configuration';
+import AppHelper from './helpers/app';
+import WorkerHelper from './helpers/worker'
+import DataHelper from './helpers/data';
+
+import SessionModel from './models/session';
+import UserModel from './models/user';
+
+import ComponentCollection from './collections/component';
+import DocumentCollection from './collections/document';
+
+import LoginView from './views/login';
+import FirstSetupView from './views/firstSetup';
 
 
 // initialize raven / sentry
@@ -39,18 +48,16 @@ Error.stackTraceLimit = 50;
     await WorkerHelper.initialize();
     await DataHelper.initialize({
         endpoint: ConfigurationHelper.getEndpoint(),
-        SessionModel: require('./models/session'),
-        UserModel: require('./models/user'),
-        ComponentCollection: require('./collections/component'),
-        DocumentCollection: require('./collections/document')
-    });
 
-    const LoginView = require('./views/login');
-    await new LoginView().check();
+        SessionModel,
+        UserModel,
+        ComponentCollection,
+        DocumentCollection
+    });
 
     $app.removeClass('app--initializing');
 
-    const FirstSetupView = require('./views/firstSetup');
+    await new LoginView().check();
     await new FirstSetupView().check();
 
     AppHelper.initialize();

@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const DocumentModel = require('../models/document');
+import BaseCollection from './_';
+import DocumentModel from '../models/document';
 
 const DocumentCollection = BaseCollection.extend({
     model: DocumentModel,
@@ -9,4 +9,4 @@ const DocumentCollection = BaseCollection.extend({
     dbStore: 'document'
 });
 
-module.exports = DocumentCollection;
+export default DocumentCollection;

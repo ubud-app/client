@@ -1,14 +1,18 @@
 'use strict';
 
-const View = require('./_');
-const ErrorView = require('./error');
+import {DateTime} from 'luxon';
 
-const AppHelper = require('../helpers/app');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import BaseView from './_';
+import ErrorView from './error';
 
-const AccountModel = require('../models/account');
-const DocumentSettingsAccountAddManualTemplate = require('../../templates/documentSettingsAccountAddManual.html');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
+
+import AccountModel from '../models/account';
+import TransactionModel from '../models/transaction';
+
+import DocumentSettingsAccountAddManualTemplate from '../../templates/documentSettingsAccountAddManual.html';
 
 
 /**
@@ -16,10 +20,10 @@ const DocumentSettingsAccountAddManualTemplate = require('../../templates/docume
  *
  * @module views/documentSettingsAccountAddManual
  * @class DocumentSettingsAccountAddManualView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsAccountAddManualView = BaseView.extend({
     className: 'document-settings-account-add-manual b-form b-loader b-loader--light',
 
     _initialize (options) {
@@ -27,7 +31,6 @@ module.exports = View.extend({
     },
 
     async render () {
-        const AppHelper = require('../helpers/app');
         this.document = AppHelper.getDocument(true);
         if (!this.document) {
             return;
@@ -35,7 +38,10 @@ module.exports = View.extend({
 
         this.live(this.document);
         this.model = this.model || new AccountModel();
-        this.model.set({documentId: this.model.id});
+        this.model.set({
+            documentId: this.document.id,
+            type: this.model.get('type') || 'checking'
+        });
 
         this.data = {
             document: this.document,
@@ -74,7 +80,6 @@ module.exports = View.extend({
 
         this.createManualAccount()
             .then(() => {
-                const AppHelper = require('../helpers/app');
                 AppHelper.navigate(this.document.id + '/settings/accounts', {trigger: true});
             })
             .catch(error => {
@@ -83,7 +88,6 @@ module.exports = View.extend({
             });
     },
     goBack () {
-        const AppHelper = require('../helpers/app');
         AppHelper.back(this.document.id + '/settings/accounts/add');
     },
     async createManualAccount () {
@@ -98,9 +102,6 @@ module.exports = View.extend({
             return;
         }
 
-        const {DateTime} = require('luxon');
-        const TransactionModel = require('../models/transaction');
-
         const transaction = new TransactionModel({
             time: DateTime.local().toJSON(),
             accountId: this.model.id,
@@ -111,3 +112,5 @@ module.exports = View.extend({
         await transaction.save();
     },
 });
+
+export default DocumentSettingsAccountAddManualView;

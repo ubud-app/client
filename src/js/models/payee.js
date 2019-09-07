@@ -1,13 +1,16 @@
 'use strict';
 
-const BaseModel = require('./_');
+import BaseModel from './_';
+
 
 /**
  * @module models/payee
  * @class PayeeModel
  * @augments BaseModel
  */
-module.exports = BaseModel.extend({
+const PayeeModel = BaseModel.extend({
     urlRoot: 'payees',
     dbStore: 'payee'
 });
+
+export default PayeeModel;

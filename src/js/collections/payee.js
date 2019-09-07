@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const PayeeModel = require('../models/payee');
+import BaseCollection from './_';
+import PayeeModel from '../models/payee';
 
 const PayeeCollection = BaseCollection.extend({
     model: PayeeModel,
@@ -9,4 +9,4 @@ const PayeeCollection = BaseCollection.extend({
     dbStore: 'payee'
 });
 
-module.exports = PayeeCollection;
+export default PayeeCollection;

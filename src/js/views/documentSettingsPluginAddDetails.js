@@ -1,15 +1,16 @@
 'use strict';
 
-const View = require('./_');
-const ErrorView = require('./error');
+import BaseView from './_';
+import ErrorView from './error';
 
-const AppHelper = require('../helpers/app');
-const DataHelper = require('../helpers/data');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import DataHelper from '../helpers/data';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const PluginInstanceModel = require('../models/pluginInstance');
-const DocumentSettingsPluginAddDetailsTemplate = require('../../templates/documentSettingsPluginAddDetails.html');
+import PluginInstanceModel from '../models/pluginInstance';
+import DocumentSettingsPluginAddDetailsTemplate from '../../templates/documentSettingsPluginAddDetails.html';
+import DocumentSettingsPluginAddSetupView from '../views/documentSettingsPluginAddSetup';
 
 
 /**
@@ -17,14 +18,13 @@ const DocumentSettingsPluginAddDetailsTemplate = require('../../templates/docume
  *
  * @module views/documentSettingsPluginAdd
  * @class DocumentSettingsPluginAddView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-const DocumentSettingsPluginAddView = View.extend({
+const DocumentSettingsPluginAddView = BaseView.extend({
     className: 'document-settings-plugin-add-details b-form b-loader b-loader--light',
 
     async render () {
-        const AppHelper = require('../helpers/app');
         this.document = this.document || AppHelper.getDocument(true);
         if (!this.document || !this.model) {
             return;
@@ -87,7 +87,6 @@ const DocumentSettingsPluginAddView = View.extend({
 
         await pluginInstance.save();
 
-        const DocumentSettingsPluginAddSetupView = require('../views/documentSettingsPluginAddSetup');
         AppHelper.view().renderView(new DocumentSettingsPluginAddSetupView({model: pluginInstance}));
         AppHelper.navigate(this.document.id + '/settings/plugins/' + pluginInstance.id + '/setup');
     }
@@ -113,4 +112,4 @@ const DocumentSettingsPluginAddView = View.extend({
     }
 });
 
-module.exports = DocumentSettingsPluginAddView;
+export default DocumentSettingsPluginAddView;

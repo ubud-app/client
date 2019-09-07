@@ -1,0 +1,70 @@
+@import '../definitions/variables';
+
+.terms-notification {
+	position: fixed;
+	width: 100%;
+	background: $primary-3;
+	padding: 2em;
+	z-index: 30;
+
+	&__close {
+		float: right;
+	}
+
+	&__headline {
+		font-size: 1.1em;
+		margin-top: 1em;
+	}
+
+	&__message {
+		font-size: 0.9em;
+		margin-bottom: 2em;
+	}
+
+	&__accept {
+		margin-bottom: 0.4em;
+	}
+
+	&__button--reject {
+		display: none;
+	}
+
+
+	@include greater($size-l) {
+		width: calc(100% - 4em);
+	}
+	@include greater($size-xl) {
+		padding: 1em;
+
+		&__headline {
+			margin-top: 0;
+		}
+
+		&__message {
+			margin-bottom: 0;
+		}
+
+		&__close {
+			display: none;
+		}
+
+		&__buttons {
+			position: absolute;
+			right: 2em;
+			top: 0.65em;
+			width: 24em;
+		}
+
+		&__button--reject,
+		&__button--accept {
+			float: right;
+			width: calc(50% - 1em);
+		}
+
+		&__button--reject {
+			display: block;
+			opacity: 0.6;
+			margin-right: 2em;
+		}
+	}
+}

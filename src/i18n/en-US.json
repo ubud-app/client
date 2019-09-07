@@ -456,7 +456,7 @@
 		"balance": "Current amount",
 		"balanceInfo": "The amount is inserted as a transaction and can be changed later in the list of all transactions. Negative amounts are of course possible (e.g. for mortgages).",
 		"save": "Create Account",
-		"cancel": "Cancel",
+		"back": "Back",
 		"memo": "Created account"
 	},
 	"documentSettingsPluginAdd": {
@@ -534,5 +534,13 @@
 			"accounts": "Sync accounts",
 			"goals": "Sync saving goals"
 		}
+	},
+	"termsNotification": {
+		"headline": "The terms have changed...",
+		"message": "There are updated {{tos}} and {{privacy}}. Do you agree with these?",
+		"tos": "terms",
+		"privacy": "data protection provisions",
+		"accept": "Accept",
+		"reject": "Remind later"
 	}
 }

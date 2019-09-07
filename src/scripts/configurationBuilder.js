@@ -3,9 +3,7 @@
  *
  * @class ConfigurationHelper
  */
-
-
-module.exports = class ConfigurationHelper {
+class ConfigurationHelper {
     constructor ({grunt, pkg, config}) {
         this.grunt = grunt;
         this.pkg = pkg;
@@ -93,4 +91,6 @@ module.exports = class ConfigurationHelper {
             cache
         };
     }
-};
+}
+
+module.exports = ConfigurationHelper;

@@ -1,0 +1,7 @@
+<button class="terms-notification__close" rv-on-click="view.reject">X</button>
+<h4 class="terms-notification__headline">{ 'termsNotification.headline' | string }</h4>
+<p class="terms-notification__message" rv-html="'termsNotification.message' | string message"></p>
+<div class="terms-notification__buttons">
+	<button class="terms-notification__button--accept button button--primary" rv-on-click="view.accept">{ 'termsNotification.accept' | string }</button>
+	<button class="terms-notification__button--reject button button--text" rv-on-click="view.reject">{ 'termsNotification.reject' | string }</button>
+</div>

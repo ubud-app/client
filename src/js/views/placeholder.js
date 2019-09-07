@@ -1,9 +1,9 @@
 'use strict';
 
-const View = require('./_');
-const TemplateHelper = require('../helpers/template');
+import BaseView from './_';
+import TemplateHelper from '../helpers/template';
 
-const PlaceholderTemplate = require('../../templates/placeholder.html');
+import PlaceholderTemplate from '../../templates/placeholder.html';
 
 
 /**
@@ -11,10 +11,10 @@ const PlaceholderTemplate = require('../../templates/placeholder.html');
  *
  * @module views/placeholder
  * @class PlaceholderView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const PlaceholderView = BaseView.extend({
     className: 'placeholder',
 
     _initialize (options) {
@@ -37,3 +37,5 @@ module.exports = View.extend({
         return this;
     }
 });
+
+export default PlaceholderView;

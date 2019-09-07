@@ -1,10 +1,10 @@
 'use strict';
 
-const {Collection} = require('backbone');
-const _ = require('underscore');
-const DataHelper = require('../helpers/data');
+import {Collection} from 'backbone';
+import {isFunction, bindAll} from 'underscore';
+import DataHelper from '../helpers/data';
 
-module.exports = Collection.extend({
+const BaseCollection = Collection.extend({
     model: null,
     baseURL: null,
 
@@ -13,8 +13,8 @@ module.exports = Collection.extend({
 
     initialize () {
         for (let i in this) {
-            if (Object.prototype.hasOwnProperty.call(this, i) && _.isFunction(this[i]) && !Collection.prototype[i]) {
-                _.bindAll(this, i);
+            if (Object.prototype.hasOwnProperty.call(this, i) && isFunction(this[i]) && !Collection.prototype[i]) {
+                bindAll(this, i);
             }
         }
 
@@ -60,3 +60,5 @@ module.exports = Collection.extend({
         return DataHelper.wait(this);
     }
 });
+
+export default BaseCollection;

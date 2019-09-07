@@ -1,8 +1,9 @@
 'use strict';
 
-const Backbone = require('backbone');
-const Sentry = require('@sentry/browser');
-const _ = require('underscore');
+import {Events} from 'backbone';
+import {extend} from 'underscore';
+import {captureException} from '@sentry/browser';
+
 
 let updateAvailable = false;
 
@@ -24,7 +25,7 @@ class WorkerHelper {
         }
         catch (err) {
             this.registration = null;
-            Sentry.captureException(err);
+            captureException(err);
             return;
         }
         finally {
@@ -56,7 +57,7 @@ class WorkerHelper {
 
     static checkForUpdates () {
         this._checkForUpdates().catch(err => {
-            Sentry.captureException(err);
+            captureException(err);
         });
     }
 
@@ -81,7 +82,7 @@ class WorkerHelper {
                     err.message = 'Unable to run update service worker: ' + err.worker;
                 }
 
-                Sentry.captureException(err);
+                captureException(err);
             }
         }
     }
@@ -113,5 +114,5 @@ class WorkerHelper {
     }
 }
 
-_.extend(WorkerHelper, Backbone.Events);
-module.exports = WorkerHelper;
+extend(WorkerHelper, Events);
+export default WorkerHelper;

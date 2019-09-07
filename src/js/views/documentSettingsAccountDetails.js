@@ -1,14 +1,14 @@
 'use strict';
 
-const View = require('./_');
-const ErrorView = require('./error');
+import BaseView from './_';
+import ErrorView from './error';
 
-const AppHelper = require('../helpers/app');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const AccountModel = require('../models/account');
-const DocumentSettingsAccountDetailsTemplate = require('../../templates/documentSettingsAccountDetails.html');
+import AccountModel from '../models/account';
+import DocumentSettingsAccountDetailsTemplate from '../../templates/documentSettingsAccountDetails.html';
 
 
 /**
@@ -16,10 +16,10 @@ const DocumentSettingsAccountDetailsTemplate = require('../../templates/document
  *
  * @module views/documentSettingsAccountDetails
  * @class DocumentSettingsAccountDetailsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsAccountDetailsView = BaseView.extend({
     className: 'document-settings-account-details',
 
     _initialize (options) {
@@ -27,7 +27,6 @@ module.exports = View.extend({
     },
 
     async render () {
-        const AppHelper = require('../helpers/app');
         if (!this.model) {
             return;
         }
@@ -101,3 +100,5 @@ module.exports = View.extend({
         return this.model.destroy();
     }
 });
+
+export default DocumentSettingsAccountDetailsView;

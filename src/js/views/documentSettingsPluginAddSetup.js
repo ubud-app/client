@@ -1,14 +1,15 @@
 'use strict';
 
-const View = require('./_');
-const ErrorView = require('./error');
-const PluginModel = require('../models/plugin');
+import BaseView from './_';
+import ErrorView from './error';
+import PluginModel from '../models/plugin';
 
-const AppHelper = require('../helpers/app');
-const ConfigurationHelper = require('../helpers/configuration');
-const TemplateHelper = require('../helpers/template');
+import AppHelper from '../helpers/app';
+import ConfigurationHelper from '../helpers/configuration';
+import TemplateHelper from '../helpers/template';
 
-const DocumentSettingsPluginAddSetupTemplate = require('../../templates/documentSettingsPluginAddSetup.html');
+import DocumentSettingsPluginAddSetupTemplate from '../../templates/documentSettingsPluginAddSetup.html';
+import DocumentSettingsPluginDetailsView from './documentSettingsPluginDetails';
 
 
 /**
@@ -16,14 +17,13 @@ const DocumentSettingsPluginAddSetupTemplate = require('../../templates/document
  *
  * @module views/documentSettingsPluginAddSetup
  * @class DocumentSettingsPluginAddSetupView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsPluginAddSetupView = BaseView.extend({
     className: 'document-settings-plugin-add-setup b-form b-loader b-loader--light',
 
     async render () {
-        const AppHelper = require('../helpers/app');
         this.document = this.document || AppHelper.getDocument(true);
         if (!this.document || !this.model) {
             return;
@@ -107,7 +107,6 @@ module.exports = View.extend({
                 Object.values(this.model.get('errors')).find(Boolean)
             )
         ) {
-            const DocumentSettingsPluginDetailsView = require('./documentSettingsPluginDetails');
             AppHelper.navigate(this.document.id + '/settings/plugins/' + this.model.id);
             AppHelper.view().renderView(new DocumentSettingsPluginDetailsView({model: this.model}));
         }
@@ -136,8 +135,6 @@ module.exports = View.extend({
 
     async submit (e) {
         e.preventDefault();
-
-        console.log('Config:', JSON.parse(JSON.stringify(this.model.toJSON())));
         await this.save();
     },
     async save () {
@@ -152,3 +149,5 @@ module.exports = View.extend({
         }
     },
 });
+
+export default DocumentSettingsPluginAddSetupView;

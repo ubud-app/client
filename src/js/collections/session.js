@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseCollection = require('./_');
-const SessionModel = require('../models/session');
+import BaseCollection from './_';
+import SessionModel from '../models/session';
 
 const SessionCollection = BaseCollection.extend({
     model: SessionModel,
@@ -9,4 +9,4 @@ const SessionCollection = BaseCollection.extend({
     dbStore: 'session'
 });
 
-module.exports = SessionCollection;
+export default SessionCollection;

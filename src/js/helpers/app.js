@@ -1,11 +1,12 @@
 'use strict';
 
-const $ = require('zepto');
-const _ = require('underscore');
-const Backbone = require('backbone');
-const AppRouter = require('../routers/app');
-const DataHelper = require('./data');
-const ConfigurationHelper = require('../helpers/configuration');
+import $ from 'zepto';
+import {Events} from 'backbone';
+import {extend} from 'underscore';
+import AppRouter from '../routers/app';
+import DataHelper from './data';
+import ConfigurationHelper from './configuration';
+
 
 /**
  * @module helpers/app
@@ -68,7 +69,6 @@ class AppHelper {
         if(window.history.length > 1) {
             window.history.back();
         } else {
-            const AppHelper = require('../helpers/app');
             AppHelper.navigate(fallback, {trigger: true});
         }
     }
@@ -113,5 +113,5 @@ class AppHelper {
     }
 }
 
-_.extend(AppHelper, Backbone.Events);
-module.exports = AppHelper;
+extend(AppHelper, Events);
+export default AppHelper;

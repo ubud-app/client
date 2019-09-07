@@ -1,23 +1,24 @@
 'use strict';
 
+import {DateTime} from 'luxon';
+import {throttle} from 'underscore';
 
-const {DateTime} = require('luxon');
-const {throttle} = require('underscore');
+import BaseView from './_';
+import ErrorView from './error';
+import TransactionDetailsView from './transactionDetails';
+import TransactionImportView from './transactionImport';
 
-const View = require('./_');
-const ErrorView = require('./error');
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const AppHelper = require('../helpers/app');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import TransactionsTemplate from '../../templates/transactions.html';
 
-const TransactionsTemplate = require('../../templates/transactions.html');
-
-const AccountCollection = require('../collections/account');
-const BudgetCollection = require('../collections/budget');
-const BudgetModel = require('../models/budget');
-const TransactionModel = require('../models/transaction');
-const TransactionCollection = require('../collections/transaction');
+import AccountCollection from '../collections/account';
+import BudgetCollection from '../collections/budget';
+import BudgetModel from '../models/budget';
+import TransactionModel from '../models/transaction';
+import TransactionCollection from '../collections/transaction';
 
 
 /**
@@ -25,10 +26,10 @@ const TransactionCollection = require('../collections/transaction');
  *
  * @module views/budget
  * @class TransactionsView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const TransactionsView = BaseView.extend({
     className: 'transactions',
     events: {
         'scroll': '__onScroll',
@@ -267,12 +268,10 @@ module.exports = View.extend({
     },
 
     openTransaction (transaction) {
-        const TransactionDetailsView = require('./transactionDetails');
         const view = new TransactionDetailsView({model: transaction});
         view.appendTo(AppHelper.view());
     },
     newTransaction () {
-        const TransactionDetailsView = require('./transactionDetails');
         const transaction = new TransactionModel({
             time: new Date().toJSON(),
             units: []
@@ -307,7 +306,6 @@ module.exports = View.extend({
         this.data.dropzone.visible = false;
 
         const files = e.dataTransfer.files;
-        const TransactionImportView = require('./transactionImport');
         new TransactionImportView({
             document: this.document,
             accounts: this.accounts,
@@ -315,3 +313,5 @@ module.exports = View.extend({
         }).appendTo(this);
     }
 });
+
+export default TransactionsView;

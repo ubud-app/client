@@ -1,12 +1,12 @@
 'use strict';
 
-const View = require('./_');
-const $ = require('zepto');
-const Sentry = require('@sentry/browser');
+import BaseView from './_';
+import $ from 'zepto';
+import * as Sentry from '@sentry/browser';
 
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
-const ErrorTemplate = require('../../templates/error.html');
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
+import ErrorTemplate from '../../templates/error.html';
 
 
 /**
@@ -14,10 +14,10 @@ const ErrorTemplate = require('../../templates/error.html');
  *
  * @module views/Error
  * @class ErrorView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const ErrorView = BaseView.extend({
     className: 'error',
     events: {
         click: 'closeHandler'
@@ -64,3 +64,5 @@ module.exports = View.extend({
         }
     }
 });
+
+export default ErrorView;

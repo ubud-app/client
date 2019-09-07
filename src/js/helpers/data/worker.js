@@ -1,10 +1,9 @@
 'use strict';
 
 const SCHEMA_VERSION = 1;
-
 //const statusStrings = ['init', 'error', 'blocked', 'upgrade', 'upgrading', 'ready', 'closed'];
 
-class DataWorker {
+export default class DataWorker {
     constructor (self, config) {
         this.error = null;
         this.status = 0;
@@ -349,5 +348,3 @@ class DataWorker {
         });
     }
 }
-
-module.exports = DataWorker;

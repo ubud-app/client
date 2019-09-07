@@ -1,14 +1,15 @@
 'use strict';
 
-const Tip = require('./tip');
-const BudgetedLastMonthTip = require('./budgeted-last-month');
+import BaseTip from './_';
+import BudgetedLastMonthTip from './budgeted-last-month';
+
 
 /**
  * SpentLastMonthTip
  *
  * @author Sebastian Pekarek
  */
-class SpentLastMonthTip extends Tip {
+export default class SpentLastMonthTip extends BaseTip {
 
     static id () {
         return 'spentLastMonth';
@@ -31,6 +32,3 @@ class SpentLastMonthTip extends Tip {
         return portion ? (portion.get('outflow') || 0) : 0;
     }
 }
-
-
-module.exports = SpentLastMonthTip;

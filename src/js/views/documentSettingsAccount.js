@@ -1,12 +1,12 @@
 'use strict';
 
-const View = require('./_');
-const TemplateHelper = require('../helpers/template');
-const ConfigurationHelper = require('../helpers/configuration');
+import BaseView from './_';
+import AppHelper from '../helpers/app';
+import TemplateHelper from '../helpers/template';
+import ConfigurationHelper from '../helpers/configuration';
 
-const DocumentSettingsAccountTemplate = require('../../templates/documentSettingsAccount.html');
-
-const AccountCollection = require('../collections/account');
+import DocumentSettingsAccountTemplate from '../../templates/documentSettingsAccount.html';
+import AccountCollection from '../collections/account';
 
 
 /**
@@ -14,14 +14,13 @@ const AccountCollection = require('../collections/account');
  *
  * @module views/documentSettingsAccount
  * @class DocumentSettingsAccountView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const DocumentSettingsAccountView = BaseView.extend({
     className: 'document-settings-account',
 
     async render () {
-        const AppHelper = require('../helpers/app');
         this.model = this.model || AppHelper.getDocument(true);
         if (!this.model) {
             return;
@@ -96,3 +95,5 @@ module.exports = View.extend({
         this.data.meta.empty = !this.account.length;
     }
 });
+
+export default DocumentSettingsAccountView;

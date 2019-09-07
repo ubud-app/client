@@ -1,13 +1,17 @@
 'use strict';
 
-const gravatar = require('gravatar-url');
-const View = require('./_');
+import gravatar from 'gravatar-url';
+import BaseView from './_';
 
-const DataHelper = require('../helpers/data');
-const WorkerHelper = require('../helpers/worker');
-const TemplateHelper = require('../helpers/template');
+import DataHelper from '../helpers/data';
+import WorkerHelper from '../helpers/worker';
+import TemplateHelper from '../helpers/template';
 
-const HeaderTemplate = require('../../templates/header.html');
+import HeaderTemplate from '../../templates/header.html';
+
+import HeaderDocumentsView from './headerDocuments';
+import HeaderSettingsView from './headerSettings';
+import HeaderConnectionStatusView from './headerConnectionStatus';
 
 
 /**
@@ -15,10 +19,10 @@ const HeaderTemplate = require('../../templates/header.html');
  *
  * @module views/header
  * @class HeaderView
- * @augments View
+ * @augments BaseView
  * @author Sebastian Pekarek
  */
-module.exports = View.extend({
+const HeaderView = BaseView.extend({
     tagName: 'nav',
     className: 'header',
 
@@ -124,7 +128,6 @@ module.exports = View.extend({
 
         this.data.documents.active = true;
 
-        const HeaderDocumentsView = require('./headerDocuments');
         this._documents = new HeaderDocumentsView().appendTo(this);
         this.listenToOnce(this._documents, 'hide', () => {
             this.data.documents.active = false;
@@ -140,7 +143,6 @@ module.exports = View.extend({
 
         this.data.settings.active = true;
 
-        const HeaderSettingsView = require('./headerSettings');
         this._settings = new HeaderSettingsView({avatarUrl: this.data.avatar.url}).appendTo(this);
         this.listenToOnce(this._settings, 'hide', () => {
             this.data.settings.active = false;
@@ -154,10 +156,11 @@ module.exports = View.extend({
             return;
         }
 
-        const HeaderConnectionStatusView = require('./headerConnectionStatus');
         this._status = new HeaderConnectionStatusView().appendTo(this);
         this.listenToOnce(this._status, 'hide', () => {
             delete this._status;
         });
     }
 });
+
+export default HeaderView;
