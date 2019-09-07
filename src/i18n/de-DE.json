@@ -536,7 +536,7 @@
 		}
 	},
 	"termsNotification": {
-		"headline": "Die Regeln haben sich geändert…",
+		"headline": "Die Bedingungen haben sich geändert…",
 		"message": "Es gibt aktualisierte {{tos}} und {{privacy}}. Bist du mit diesen einverstanden?",
 		"tos": "AGB",
 		"privacy": "Datenschutzbestimmungen",

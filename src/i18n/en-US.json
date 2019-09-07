@@ -536,7 +536,7 @@
 		}
 	},
 	"termsNotification": {
-		"headline": "The rules have changed...",
+		"headline": "The terms have changed...",
 		"message": "There are updated {{tos}} and {{privacy}}. Do you agree with these?",
 		"tos": "terms",
 		"privacy": "data protection provisions",
