@@ -207,17 +207,26 @@ const TransactionDetailsView = BaseView.extend({
     },
 
     async hide () {
-        if (!this.model.get('accountId') || this.deleting) {
-            this._hide();
-            return;
+        if(!this.deleting && this.model.id) {
+            this.model.fetch().catch(error => {
+                new ErrorView({error}).appendTo(AppHelper.view());
+            });
         }
+
+        this.trigger('hide');
+        this.$el.addClass('transaction-details--hidden');
+
+        await new Promise(cb => setTimeout(cb, 300));
+        this.remove();
+    },
+    async submit (e) {
+        e.preventDefault();
+        this.$el.addClass('transaction-details--hidden');
 
         const invalid = this.checkUnits();
         if (invalid) {
             return;
         }
-
-        this._hide();
 
         if (this.model.isSyncing()) {
             await this.model.wait();
@@ -225,22 +234,13 @@ const TransactionDetailsView = BaseView.extend({
         else {
             try {
                 await this.model.save();
+                await this.hide();
             }
             catch (error) {
+                this.$el.removeClass('transaction-details--hidden');
                 new ErrorView({error}).appendTo(AppHelper.view());
             }
         }
-    },
-    async _hide () {
-        this.trigger('hide');
-        this.$el.addClass('transaction-details--hidden');
-
-        await new Promise(cb => setTimeout(cb, 300));
-        this.remove();
-    },
-    submit (e) {
-        e.preventDefault();
-        this.hide();
     },
 
     addUnits () {

@@ -1,6 +1,6 @@
 <form class="transaction-details__container" rv-on-submit="view.submit">
 	<div class="transaction-details__header">
-		<button class="transaction-details__close" rv-on-click="view.hide">⨯</button>
+		<button type="button" class="transaction-details__close" rv-on-click="view.hide">⨯</button>
 	</div>
 	<div class="transaction-details__fields">
 		<div class="transaction-details__field">
@@ -133,12 +133,14 @@
 	</div>
 
 	<div class="b-form-buttons">
-		<button class="b-form-button b-form-button--remove"
+		<button type="button"
+				class="b-form-button b-form-button--remove"
 				rv-unless="fields.isManaged"
 				rv-on-click="view.removeTransaction">
 			{ 'transactionDetails.remove' | string }
 		</button>
 
-		<button class="b-form-button b-form-button--save">{ 'transactionDetails.done' | string }</button>
+		<button type="submit" class="b-form-button b-form-button--save">{ 'transactionDetails.save' | string }</button>
+		<button type="button" class="b-form-button b-form-button--cancel" rv-on-click="view.hide">{ 'transactionDetails.cancel' | string }</button>
 	</div>
 </form>
