@@ -233,7 +233,9 @@ const TransactionDetailsView = BaseView.extend({
         }
         else {
             try {
-                await this.model.save();
+                await this.model.save({
+                    approved: true
+                });
                 await this.hide();
             }
             catch (error) {
