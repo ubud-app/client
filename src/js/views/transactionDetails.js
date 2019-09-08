@@ -65,6 +65,7 @@ const TransactionDetailsView = BaseView.extend({
                 this.model.get('units').find(u => u.memo)
             );
         });
+        this.listenTo(this.model, 'change:amount', () => this.checkUnits());
 
 
         // Time
@@ -207,7 +208,7 @@ const TransactionDetailsView = BaseView.extend({
     },
 
     async hide () {
-        if(!this.deleting && this.model.id) {
+        if (!this.deleting && this.model.id) {
             this.model.fetch().catch(error => {
                 new ErrorView({error}).appendTo(AppHelper.view());
             });
@@ -246,8 +247,8 @@ const TransactionDetailsView = BaseView.extend({
     },
 
     addUnits () {
-        this.model.get('units').forEach(unit => {
-            let json = this.data.units.find(j => j.id === unit.id);
+        this.model.get('units').forEach((unit, i) => {
+            let json = this.data.units[i];
             if (!json) {
                 json = {id: unit.id};
                 this.data.units.push(json);
@@ -270,8 +271,8 @@ const TransactionDetailsView = BaseView.extend({
                 json.type = 'BUDGET:' + unit.budgetId;
             }
         });
-        this.data.units.forEach((unit, i) => {
-            if (!this.model.get('units').find(u => u.id === unit.id)) {
+        this.data.units.forEach((units, i) => {
+            if (!this.model.get('units')[i]) {
                 this.data.units.splice(i, 1);
             }
         });

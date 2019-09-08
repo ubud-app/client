@@ -247,6 +247,9 @@
 			font-size: 3em;
 		}
 	}
+	&--hidden &__unit--invalid {
+		background: $background;
+	}
 
 	&__original {
 		margin-top: 2em;
