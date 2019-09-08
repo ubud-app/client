@@ -358,7 +358,9 @@
 		},
 		"headlines": {
 			"budgeting": "Budgeting",
-			"original": "Original bank import"
+			"original": "Original bank import",
+			"income": "Income",
+			"transfer": "Transfer"
 		},
 		"placeholders": {
 			"memo": "Notes (optional)"

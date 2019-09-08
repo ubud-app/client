@@ -358,7 +358,9 @@
 		},
 		"headlines": {
 			"budgeting": "Budgetierung",
-			"original": "Original Transaktion der Bank"
+			"original": "Original Transaktion der Bank",
+			"income": "Einkommen",
+			"transfer": "Transfer"
 		},
 		"placeholders": {
 			"memo": "Notiz (optional)"

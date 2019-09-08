@@ -90,11 +90,11 @@
 						rv-value="unit.type"
 						rv-on-change="view.checkUnits">
 					<option value="REMOVE">-</option>
-					<optgroup label="Einkommen">
+					<optgroup rv-label="'transactionDetails.headlines.income' | string">
 						<option value="INCOME">{ typeSelector.incomeLabel }</option>
 						<option value="INCOME_NEXT">{ typeSelector.incomeNextLabel }</option>
 					</optgroup>
-					<optgroup label="Transfer">
+					<optgroup rv-label="'transactionDetails.headlines.transfer' | string">
 						<option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">{
 							account:name }
 						</option>
