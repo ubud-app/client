@@ -197,7 +197,9 @@ const TransactionsView = BaseView.extend({
         this.listenToAndCall(transaction, 'change:units sync', () => {
             this.updateBudgetString(item, transaction);
         });
-
+        this.listenToAndCall(transaction, 'change:status change:approved', () => {
+            item.cleared = transaction.get('status') === 'cleared' && transaction.get('approved');
+        });
         page.transactions.push(item);
         this.updateEmptyMessage();
     },

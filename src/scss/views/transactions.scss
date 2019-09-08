@@ -67,9 +67,11 @@
 		}
 
 		&--approved:before {
-			background: transparent;
+			background: #ddd;
 		}
-		&--normal,
+		&--cleared:before {
+			background: $green;
+		}
 		&--pending {
 			opacity: 0.6;
 		}
