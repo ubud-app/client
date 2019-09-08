@@ -44,6 +44,11 @@ const TransactionDetailsView = BaseView.extend({
                 animateBudgetFields: false,
                 isManaged: false
             },
+            dateTimeFallback: {
+                enabled: false,
+                date: null,
+                time: null
+            },
             autoCompletion: [],
             units: [],
             accounts: [],
@@ -85,6 +90,10 @@ const TransactionDetailsView = BaseView.extend({
             template: TransactionDetailsTemplate,
             data: this.data
         });
+
+        if (this.$el.find('.transaction-details__field-input--datetime').get(0).type !== 'datetime-local') {
+            this.enableDateTimeFallback();
+        }
 
 
         // Accounts
@@ -518,6 +527,24 @@ const TransactionDetailsView = BaseView.extend({
             this.deleting = false;
             new ErrorView({error}).appendTo(AppHelper.view());
         }
+    },
+
+    enableDateTimeFallback () {
+        this.data.dateTimeFallback.enabled = true;
+
+        this.listenToAndCall(this.model, 'change:time', () => {
+            const time = DateTime.fromISO(this.model.get('time'));
+            this.data.dateTimeFallback.date = time.toISODate();
+            this.data.dateTimeFallback.time = time.toFormat('HH:mm');
+        });
+    },
+    updateModelDateFromFallback () {
+        const time = this.data.dateTimeFallback.time.split(':');
+        this.model.set({
+            time: DateTime.fromISO(this.data.dateTimeFallback.date)
+                .set({hour: time[0], minute: time[1]})
+                .toJSON()
+        });
     }
 });
 

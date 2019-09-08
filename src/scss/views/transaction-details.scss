@@ -135,6 +135,17 @@
 			min-width: calc(100% - 1em);
 			padding: 0;
 			height: 1.4em;
+
+			&--date {
+				min-width: calc(50% - 1em);
+				width: calc(50% - 1em);
+				float: left;
+			}
+			&--time {
+				min-width: calc(50% - 1em);
+				width: calc(50% - 1em);
+				float: right;
+			}
 		}
 	}
 	&__clearfix {
