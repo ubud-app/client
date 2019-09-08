@@ -312,6 +312,7 @@
 		},
 		"hide": "Hide budget",
 		"show": "Show budget again",
+		"remove": "Delete budget",
 		"done": "Done"
 	},
 	"documentSettingsAccount": {

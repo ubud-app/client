@@ -312,6 +312,7 @@
 		},
 		"hide": "Budget ausblenden",
 		"show": "Budget wieder einblenden",
+		"remove": "Budget löschen",
 		"done": "Fertig"
 	},
 	"documentSettingsAccount": {
