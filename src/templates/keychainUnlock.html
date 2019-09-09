@@ -1,0 +1,22 @@
+<form class="keychain-unlock__content b-modal__content b-form" rv-on-submit="view.submit">
+	<span class="keychain-unlock__icon icon-key">&nbsp;</span>
+	<p class="keychain-unlock__message">
+		Deine ubud-Instanz wurde neu gestartet oder aktualisiert. Aus Sicherheitsgründen werden die Zugangsdaten von
+		Plugins im ubud-Schlüsselbund verschlüsselt abgespeichert. Gebe erneut dein Passwort ein, um den Schlüsselbund
+		zu entsperren und die Plugins wieder zu aktivieren.
+	</p>
+
+	<label class="keychain-unlock__label b-form-label" for="budget-editor__input--password">Passwort</label>
+	<input type="password"
+		   name="password"
+		   id="budget-editor__input--password"
+		   rv-value="password.value"
+		   autocomplete="disabled"
+		   autofocus="autofocus"
+		   class="keychain-unlock__input b-form-input"/>
+
+	<div class="b-form-buttons">
+		<button class="keychain-unlock__save b-form-button b-form-button--save">Schlüsselbund entsperren</button>
+		<button type="button" class="keychain-unlock__cancel b-form-button b-form-button--cancel" rv-on-click="view.close">Später entsperren</button>
+	</div>
+</form>

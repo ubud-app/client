@@ -8,6 +8,7 @@ import BaseView from './_';
 import HeaderView from './header';
 import SidebarView from './sidebar';
 import TermsNotificationView from './termsNotification';
+import KeychainUnlockView from './keychainUnlock';
 
 /**
  * AppView
@@ -25,6 +26,7 @@ const AppView = BaseView.extend({
         this.sidebar = new SidebarView().appendTo(this);
 
         this.setupTermsNotification();
+        this.setupKeychainUnlockNotification();
     },
 
     /**
@@ -34,7 +36,7 @@ const AppView = BaseView.extend({
      * @returns {AppView}
      */
     renderView (view) {
-        if(this.currentView) {
+        if (this.currentView) {
             this.currentView.remove();
         }
 
@@ -48,7 +50,7 @@ const AppView = BaseView.extend({
      * Sets the <title /> value
      * @param {String} title
      */
-    setTitle(title) {
+    setTitle (title) {
         return this.header.setTitle(title || ConfigurationHelper.getString('app.name'));
     },
 
@@ -58,7 +60,7 @@ const AppView = BaseView.extend({
 
         let view = null;
         this.listenToAndCall(user, 'change:terms', () => {
-            if(
+            if (
                 user.get('terms') &&
                 user.get('terms').current &&
                 user.get('terms').current.version !== user.get('terms').accepted &&
@@ -66,10 +68,33 @@ const AppView = BaseView.extend({
             ) {
                 view = new TermsNotificationView({model: user}).prependTo(this, '.app__content');
             }
-            else if(
+            else if (
                 user.get('terms') &&
                 user.get('terms').current &&
                 user.get('terms').current.version === user.get('terms').accepted &&
+                view
+            ) {
+                view.remove();
+                view = null;
+            }
+        });
+    },
+
+    setupKeychainUnlockNotification () {
+        const user = DataHelper.getUser();
+        this.live(user);
+
+        let view = null;
+        this.listenToAndCall(user, 'change:admin', () => {
+            if (
+                user.get('admin') &&
+                user.get('admin').shouldUnlockKeychain &&
+                !view
+            ) {
+                view = new KeychainUnlockView({model: user}).prependTo(this, '.app__content');
+            }
+            else if (
+                (!user.get('admin') || !user.get('admin').shouldUnlockKeychain) &&
                 view
             ) {
                 view.remove();
