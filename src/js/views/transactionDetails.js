@@ -300,7 +300,7 @@ const TransactionDetailsView = BaseView.extend({
         });
         this.data.typeSelector.accounts.forEach(account => {
             const i = this.accounts.indexOf(account);
-            if (i !== -1 || account.id === this.model.get('accountId')) {
+            if (i !== -1 || !account || account.id === this.model.get('accountId')) {
                 this.data.typeSelector.accounts.splice(i, 1);
             }
         });
