@@ -36,11 +36,11 @@ const DocumentSettingsView = BaseView.extend({
         const user = DataHelper.getUser();
         const permissions = {};
         this.live(user);
-        this.listenToAndCall(user, 'change:isAdmin', () => {
+        this.listenToAndCall(user, 'change:admin', () => {
             permissions.headline = 'documentSettings.permissions.' +
-                (user.get('isAdmin') ? 'admin' : 'user') + '.headline';
+                (user.get('admin') && user.get('admin').isAdmin ? 'admin' : 'user') + '.headline';
             permissions.description = 'documentSettings.permissions.' +
-                (user.get('isAdmin') ? 'admin' : 'user') + '.description';
+                (user.get('admin') && user.get('admin').isAdmin ? 'admin' : 'user') + '.description';
         });
 
         TemplateHelper.render({
