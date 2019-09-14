@@ -1,0 +1,42 @@
+@import '../definitions/variables';
+
+.keychain-unlock {
+	color: rgba($background, 0.8);
+	background: rgba($background-footer, 0.96);
+
+	@supports (backdrop-filter: grayscale(100%) blur(10px)) {
+		background: rgba($background-footer, 0.8);
+	}
+	&.b-modal--hidden {
+		background: rgba($background-footer, 0);
+	}
+
+	&__icon {
+		display: block;
+		margin: 0 auto;
+		font-size: 2.8em;
+		text-align: center;
+		width: 2em;
+	}
+
+	&__message {
+		margin: 2em 0;
+		font-size: 0.9em;
+		opacity: 0.8;
+	}
+
+	&__label {
+		color: rgba($background, 0.6);
+	}
+
+	&__input {
+		border-color: darken($background-footer, 10);
+		background: darken($background-footer, 4);
+		color: $background-box;
+		font-size: 1.4em;
+	}
+
+	&__cancel {
+		color: rgba($background-box, 0.9);
+	}
+}

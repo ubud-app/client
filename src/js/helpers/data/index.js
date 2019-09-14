@@ -423,18 +423,8 @@ class DataHelper {
             if (
                 d.action === 'created' &&
                 model instanceof Collection &&
-                !model.id &&
-                d.name === result(model, 'url')
-            ) {
-                model.add(d.data);
-            }
-            else if (
-                d.action === 'created' &&
-                model instanceof Collection &&
-                model.id &&
                 d.name === result(model, 'url') &&
-                typeof model.addFilter === 'function' &&
-                model.addFilter(new model.model(d.data))
+                model.filterTest(d.data)
             ) {
                 model.add(d.data);
             }

@@ -48,10 +48,11 @@ const BudgetEditorView = BaseView.extend({
         };
 
         this.listenToAndCall(this.model, 'change:goal', () => {
-            if(this.model.get('goal')) {
+            if (this.model.get('goal')) {
                 this.data.goal.checkbox.checked = true;
                 this.data.goal.input.disabled = false;
-            } else {
+            }
+            else {
                 this.data.goal.checkbox.checked = false;
                 this.data.goal.input.disabled = true;
             }
@@ -69,10 +70,11 @@ const BudgetEditorView = BaseView.extend({
         return this;
     },
     clickGoalCheckbox (e) {
-        if(!this.data.goal.checkbox.checked) {
+        if (!this.data.goal.checkbox.checked) {
             e.preventDefault();
             this.$el.find('.budget-editor__goal-input').focus();
-        } else {
+        }
+        else {
             this.model.set({goal: null});
         }
     },
@@ -96,8 +98,28 @@ const BudgetEditorView = BaseView.extend({
     },
 
     async save () {
+        if (this._deleted) {
+            return;
+        }
+
         try {
             await this.model.save();
+        }
+        catch (error) {
+            new ErrorView({error}).appendTo(AppHelper.view());
+            throw error;
+        }
+    },
+
+    async delete () {
+        if (!this.model.get('deletable')) {
+            return;
+        }
+
+        try {
+            await this.model.destroy();
+            this._deleted = true;
+            this.hide();
         }
         catch (error) {
             new ErrorView({error}).appendTo(AppHelper.view());

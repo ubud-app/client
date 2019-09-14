@@ -135,6 +135,17 @@
 			min-width: calc(100% - 1em);
 			padding: 0;
 			height: 1.4em;
+
+			&--date {
+				min-width: calc(50% - 1em);
+				width: calc(50% - 1em);
+				float: left;
+			}
+			&--time {
+				min-width: calc(50% - 1em);
+				width: calc(50% - 1em);
+				float: right;
+			}
 		}
 	}
 	&__clearfix {
@@ -246,6 +257,9 @@
 			color: rgba(lighten($text, 50), 0.4);
 			font-size: 3em;
 		}
+	}
+	&--hidden &__unit--invalid {
+		background: $background;
 	}
 
 	&__original {

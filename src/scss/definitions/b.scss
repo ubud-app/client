@@ -144,7 +144,7 @@
 				@extend .button;
 				@extend .button--secondary;
 
-				opacity: 0.4;
+				opacity: 0.8;
 
 				@extend .button--left-l;
 				@extend .button--small-l;
@@ -260,18 +260,22 @@
 		bottom: 0;
 		z-index: 35;
 		background: rgba($background, 0.96);
-		transition: background 0.1s ease-out, max-height 0.3s ease-out;
+		transition: background 0.1s ease-out, backdrop-filter 0.1s ease-out 0.1s, max-height 0.3s ease-out;
 
 		@extend .b-loader;
 		@extend .b-loader--light;
 
 		@supports (backdrop-filter: grayscale(100%) blur(10px)) {
-			background: rgba($background, 0.90);
+			background: rgba($background, 0.8);
 			backdrop-filter: grayscale(100%) blur(10px);
 		}
 		&--hidden {
-			background: rgba(rgba($background, 0.96), 0);
-			transition: background 0.3s ease-in 0.1s;
+			background: rgba($background, 0);
+			transition: background 0.3s ease-in 0.1s, backdrop-filter 0.1s ease-out 0.1s;
+
+			@supports (backdrop-filter: grayscale(100%) blur(10px)) {
+				backdrop-filter: grayscale(0%);
+			}
 		}
 
 		&__content {

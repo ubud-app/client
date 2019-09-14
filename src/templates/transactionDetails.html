@@ -1,6 +1,6 @@
 <form class="transaction-details__container" rv-on-submit="view.submit">
 	<div class="transaction-details__header">
-		<button class="transaction-details__close" rv-on-click="view.hide">⨯</button>
+		<button type="button" class="transaction-details__close" rv-on-click="view.hide">⨯</button>
 	</div>
 	<div class="transaction-details__fields">
 		<div class="transaction-details__field">
@@ -8,10 +8,30 @@
 				   class="transaction-details__field-label">{ 'transactionDetails.labels.time' | string }</label>
 			<div class="transaction-details__field-input-wrap">
 				<input type="datetime-local"
-					   class="transaction-details__field-input transaction_details__input--datetime"
+					   class="transaction-details__field-input transaction-details__field-input--datetime"
 					   id="transaction-details__datetime"
+					   rv-unless="dateTimeFallback.enabled"
 					   rv-disabled="fields.isManaged"
-					   rv-datetime-value="model:time">
+					   rv-datetime-value="model:time"
+				       required="required">
+
+				<input type="date"
+					   class="transaction-details__field-input transaction-details__field-input--date"
+					   id="transaction-details__date"
+					   rv-if="dateTimeFallback.enabled"
+					   rv-disabled="fields.isManaged"
+					   rv-value="dateTimeFallback.date"
+					   rv-on-change="view.updateModelDateFromFallback"
+				       required="required">
+
+				<input type="time"
+					   class="transaction-details__field-input transaction-details__field-input--time"
+					   id="transaction-details__time"
+					   rv-if="dateTimeFallback.enabled"
+					   rv-disabled="fields.isManaged"
+					   rv-value="dateTimeFallback.time"
+					   rv-on-change="view.updateModelDateFromFallback"
+				       required="required">
 			</div>
 		</div>
 		<div class="transaction-details__field">
@@ -90,11 +110,11 @@
 						rv-value="unit.type"
 						rv-on-change="view.checkUnits">
 					<option value="REMOVE">-</option>
-					<optgroup label="Einkommen">
+					<optgroup rv-label="'transactionDetails.headlines.income' | string">
 						<option value="INCOME">{ typeSelector.incomeLabel }</option>
 						<option value="INCOME_NEXT">{ typeSelector.incomeNextLabel }</option>
 					</optgroup>
-					<optgroup label="Transfer">
+					<optgroup rv-if="typeSelector.accounts.0" rv-label="'transactionDetails.headlines.transfer' | string">
 						<option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">{
 							account:name }
 						</option>
@@ -133,12 +153,14 @@
 	</div>
 
 	<div class="b-form-buttons">
-		<button class="b-form-button b-form-button--remove"
+		<button type="button"
+				class="b-form-button b-form-button--remove"
 				rv-unless="fields.isManaged"
 				rv-on-click="view.removeTransaction">
 			{ 'transactionDetails.remove' | string }
 		</button>
 
-		<button class="b-form-button b-form-button--save">{ 'transactionDetails.done' | string }</button>
+		<button type="submit" class="b-form-button b-form-button--save">{ 'transactionDetails.save' | string }</button>
+		<button type="button" class="b-form-button b-form-button--cancel" rv-on-click="view.hide">{ 'transactionDetails.cancel' | string }</button>
 	</div>
 </form>

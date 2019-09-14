@@ -56,7 +56,7 @@ const DocumentSettingsPermissionsView = BaseView.extend({
             });
         });
 
-        if(DataHelper.getUser().get('isAdmin')) {
+        if(DataHelper.getUser().get('admin') && DataHelper.getUser().get('admin').isAdmin) {
             this.renderAdminPermissions();
         } else {
             this.renderUserPermission();
@@ -83,7 +83,6 @@ const DocumentSettingsPermissionsView = BaseView.extend({
     },
     renderUserPermission () {
         this.data.meta.isUser = true;
-        this.user = DataHelper.getUser().get('isAdmin');
         this.data.meta.loading = false;
         this.data.meta.allowLeave = !!this.model.get('users');
     },
@@ -115,7 +114,7 @@ const DocumentSettingsPermissionsView = BaseView.extend({
         };
 
         this.listenToAndCall(this.model, 'change:users', () => {
-            if(user.get('isAdmin')) {
+            if(user.get('admin') && user.get('admin').isAdmin) {
                 json.checked = true;
                 json.readOnly = true;
                 return;

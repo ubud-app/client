@@ -66,8 +66,8 @@ const HeaderSettingsView = BaseView.extend({
         const user = DataHelper.getUser();
         this.live(user);
 
-        this.listenToAndCall(user, 'change:isAdmin', () => {
-            this.$el.toggleClass('header-settings--noadmin', !user.get('isAdmin'));
+        this.listenToAndCall(user, 'change:admin', () => {
+            this.$el.toggleClass('header-settings--noadmin', !user.get('admin') || !user.get('admin').isAdmin);
         });
         if(this.data.avatar.url) {
             this.listenToAndCall(user, 'change:email', () => {
