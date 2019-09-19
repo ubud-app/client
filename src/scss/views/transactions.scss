@@ -132,9 +132,10 @@
 			}
 		}
 		&-small {
-			display: none;
+			display: block;
 			font-size: 0.8em;
 			color: lighten($text, 10);
+			padding: 0 1.4em;
 		}
 		&-full {
 			display: none;
@@ -171,6 +172,7 @@
 
 
 	&__payee {
+		margin-top: 0.6em;
 		font-size: 0.8em;
 		color: lighten($text, 50);
 
@@ -186,6 +188,9 @@
 				color: $text;
 			}
 		}
+	}
+	&__button--memo &__payee {
+		margin-top: 0;
 	}
 
 	&__budget {
@@ -204,6 +209,11 @@
 		margin-top: 0.6em;
 		font-size: 0.8em;
 		color: lighten($text, 10);
+
+		&:empty {
+			display: none;
+		}
+
 		@include greater($size-l) {
 			margin-top: 0;
 			font-size: 1em;
