@@ -3,6 +3,8 @@
 import {debounce} from 'underscore';
 import $ from 'zepto';
 import {DateTime} from 'luxon';
+import Sentry from '@sentry/browser';
+
 import BaseView from './_';
 import ErrorView from './error';
 
@@ -238,20 +240,18 @@ const TransactionDetailsView = BaseView.extend({
             return;
         }
 
-        if (this.model.isSyncing()) {
-            await this.model.wait();
+        this.hide().catch(err => Sentry.captureException(err));
+
+        try {
+            await this.model.save({
+                approved: true
+            });
         }
-        else {
-            try {
-                await this.model.save({
-                    approved: true
-                });
-                await this.hide();
-            }
-            catch (error) {
-                this.$el.removeClass('transaction-details--hidden');
-                new ErrorView({error}).appendTo(AppHelper.view());
-            }
+        catch (error) {
+            new ErrorView({error}).appendTo(AppHelper.view());
+
+            const view = new TransactionDetailsView({model: this.model});
+            view.appendTo(AppHelper.view());
         }
     },
 
