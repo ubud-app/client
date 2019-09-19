@@ -3,6 +3,8 @@
 import {debounce} from 'underscore';
 import $ from 'zepto';
 import {DateTime} from 'luxon';
+import Sentry from '@sentry/browser';
+
 import BaseView from './_';
 import ErrorView from './error';
 
@@ -32,7 +34,6 @@ const TransactionDetailsView = BaseView.extend({
     className: 'transaction-details transaction-details--hidden',
 
     async render () {
-        this.deleting = false;
         this.data = {
             model: this.model,
             fields: {
@@ -216,8 +217,8 @@ const TransactionDetailsView = BaseView.extend({
         return this;
     },
 
-    async hide () {
-        if (!this.deleting && this.model.id) {
+    async hide (fetch = true) {
+        if (fetch && this.model.id) {
             this.model.fetch().catch(error => {
                 new ErrorView({error}).appendTo(AppHelper.view());
             });
@@ -238,20 +239,18 @@ const TransactionDetailsView = BaseView.extend({
             return;
         }
 
-        if (this.model.isSyncing()) {
-            await this.model.wait();
+        this.hide(false).catch(err => Sentry.captureException(err));
+
+        try {
+            await this.model.save({
+                approved: true
+            });
         }
-        else {
-            try {
-                await this.model.save({
-                    approved: true
-                });
-                await this.hide();
-            }
-            catch (error) {
-                this.$el.removeClass('transaction-details--hidden');
-                new ErrorView({error}).appendTo(AppHelper.view());
-            }
+        catch (error) {
+            new ErrorView({error}).appendTo(AppHelper.view());
+
+            const view = new TransactionDetailsView({model: this.model});
+            view.appendTo(AppHelper.view());
         }
     },
 
@@ -517,14 +516,11 @@ const TransactionDetailsView = BaseView.extend({
         return invalid;
     },
     async removeTransaction () {
-        this.deleting = true;
-
         try {
             await this.model.destroy();
-            await this.hide();
+            await this.hide(false);
         }
         catch (error) {
-            this.deleting = false;
             new ErrorView({error}).appendTo(AppHelper.view());
         }
     },

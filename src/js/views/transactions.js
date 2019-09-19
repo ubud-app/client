@@ -191,7 +191,9 @@ const TransactionsView = BaseView.extend({
         this.listenToAndCall(transaction, 'change:time', () => {
             const time = DateTime.fromISO(transaction.get('time'));
             item.date.big = time.toLocaleString({day: 'numeric'});
-            item.date.small = time.toLocaleString({month: 'long'});
+            item.date.small = time.toLocaleString({month: 'short'}) +
+                (time.toLocaleString({month: 'long'}) === time.toLocaleString({month: 'short'}) ? '' : '.') +
+                (DateTime.local().hasSame(time, 'year') ? '' : ' \'' + time.toFormat('yy'));
             item.date.full = time.toLocaleString(DateTime.DATE_FULL);
         });
         this.listenToAndCall(transaction, 'change:units sync', () => {
