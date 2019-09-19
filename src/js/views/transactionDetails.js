@@ -34,7 +34,6 @@ const TransactionDetailsView = BaseView.extend({
     className: 'transaction-details transaction-details--hidden',
 
     async render () {
-        this.deleting = false;
         this.data = {
             model: this.model,
             fields: {
@@ -218,8 +217,8 @@ const TransactionDetailsView = BaseView.extend({
         return this;
     },
 
-    async hide () {
-        if (!this.deleting && this.model.id) {
+    async hide (fetch = true) {
+        if (fetch && this.model.id) {
             this.model.fetch().catch(error => {
                 new ErrorView({error}).appendTo(AppHelper.view());
             });
@@ -240,7 +239,7 @@ const TransactionDetailsView = BaseView.extend({
             return;
         }
 
-        this.hide().catch(err => Sentry.captureException(err));
+        this.hide(false).catch(err => Sentry.captureException(err));
 
         try {
             await this.model.save({
@@ -517,14 +516,11 @@ const TransactionDetailsView = BaseView.extend({
         return invalid;
     },
     async removeTransaction () {
-        this.deleting = true;
-
         try {
             await this.model.destroy();
-            await this.hide();
+            await this.hide(false);
         }
         catch (error) {
-            this.deleting = false;
             new ErrorView({error}).appendTo(AppHelper.view());
         }
     },
