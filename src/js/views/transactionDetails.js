@@ -254,7 +254,12 @@ const TransactionDetailsView = BaseView.extend({
         }
     },
 
-    addUnits () {
+    async addUnits () {
+        await Promise.all([
+            this.budgets.wait(),
+            this.categories.wait()
+        ]);
+
         this.model.get('units').forEach((unit, i) => {
             let json = this.data.units[i];
             if (!json) {
