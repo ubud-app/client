@@ -20,6 +20,7 @@ import AccountCollection from '../collections/account';
 import BudgetCollection from '../collections/budget';
 import CategoryCollection from '../collections/category';
 import PayeeCollection from '../collections/payee';
+import BudgetGuessCollection from '../collections/budgetGuess';
 
 
 /**
@@ -43,7 +44,8 @@ const TransactionDetailsView = BaseView.extend({
                 autoCompletionCreateSelected: false,
                 autoCompletionCreateText: '',
                 animateBudgetFields: false,
-                isManaged: false
+                isManaged: false,
+                showUnitGuesses: false
             },
             dateTimeFallback: {
                 enabled: false,
@@ -52,6 +54,7 @@ const TransactionDetailsView = BaseView.extend({
             },
             autoCompletion: [],
             units: [],
+            unitGuesses: new BudgetGuessCollection(),
             accounts: [],
             typeSelector: {
                 incomeLabel: '',
@@ -194,6 +197,20 @@ const TransactionDetailsView = BaseView.extend({
         });
 
 
+        // Budget Guess
+        this.listenToAndCall(this.model, 'change:id', () => {
+            this.data.unitGuesses.resetFilters();
+            this.data.unitGuesses.filterBy('transactionId', this.model.id);
+            this.data.unitGuesses.fetch();
+        });
+
+        const updateBudgetGuessVisibility = () => {
+            this.data.fields.showUnitGuesses = this.model.get('units').length !== 0 || this.data.unitGuesses.length === 0;
+        };
+        this.listenTo(this.data.unitGuesses, 'sync', updateBudgetGuessVisibility);
+        this.listenToAndCall(this.model, 'change:units', updateBudgetGuessVisibility);
+
+
         // ESC
         const escCb = e => {
             if (
@@ -304,7 +321,7 @@ const TransactionDetailsView = BaseView.extend({
         });
         this.data.typeSelector.accounts.forEach(account => {
             const i = this.accounts.indexOf(account);
-            if (i !== -1 || !account || account.id === this.model.get('accountId')) {
+            if (i !== -1 && (!account || account.id === this.model.get('accountId'))) {
                 this.data.typeSelector.accounts.splice(i, 1);
             }
         });
@@ -519,6 +536,19 @@ const TransactionDetailsView = BaseView.extend({
         );
 
         return invalid;
+    },
+    applyQuickUnit (e) {
+        e.preventDefault();
+
+        const budgetId = e.target.getAttribute('data-id');
+        this.data.units.push({
+            id: null,
+            amount: this.model.get('amount') - this.getBudgetedAccount(),
+            memo: null,
+            type: 'BUDGET:' + budgetId
+        });
+
+        this.checkUnits();
     },
     async removeTransaction () {
         try {

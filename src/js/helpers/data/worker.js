@@ -1,6 +1,6 @@
 'use strict';
 
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2;
 //const statusStrings = ['init', 'error', 'blocked', 'upgrade', 'upgrading', 'ready', 'closed'];
 
 export default class DataWorker {
