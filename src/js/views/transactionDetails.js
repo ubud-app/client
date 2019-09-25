@@ -200,8 +200,11 @@ const TransactionDetailsView = BaseView.extend({
         // Budget Guess
         this.listenToAndCall(this.model, 'change:id', () => {
             this.data.unitGuesses.resetFilters();
-            this.data.unitGuesses.filterBy('transactionId', this.model.id);
-            this.data.unitGuesses.fetch();
+
+            if(this.model.id) {
+                this.data.unitGuesses.filterBy('transactionId', this.model.id);
+                this.data.unitGuesses.fetch();
+            }
         });
 
         const updateBudgetGuessVisibility = () => {
