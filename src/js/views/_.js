@@ -220,6 +220,16 @@ const BaseView = View.extend({
         this.once('remove', () => {
             this.$el.off('click', closeHandler);
         });
+    },
+
+    pushAt (collection, model, array, object) {
+        const i = collection.indexOf(model);
+
+        if(i > -1) {
+            array.splice(i, 0, object);
+        } else {
+            array.push(object);
+        }
     }
 });
 

@@ -32,6 +32,7 @@
 
 	<div class="transactions__buttons">
 		<button class="button button--inline button--right button--small" rv-on-click="view.newTransaction">{ 'transactions.add' | string }</button>
+		<button class="button button--inline button--secondary button--left button--small" rv-on-click="view.startReconcile">{ 'transactions.reconcile' | string }</button>
 	</div>
 
 	<div class="transactions__dropzone" rv-class-transactions__dropzone--visible="dropzone.visible">

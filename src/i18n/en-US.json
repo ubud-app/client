@@ -343,6 +343,7 @@
 			"noBudget": "no budget selected"
 		},
 		"add": "+ Add Transaction",
+		"reconcile": "Reconcile accounts",
 		"import": {
 			"headline": "Drop file",
 			"message": "Pull your export files from your online banking here to import them into ubud"
@@ -382,6 +383,14 @@
 			"account": "Account"
 		},
 		"import": "Import",
+		"cancel": "Cancel"
+	},
+	"reconcile": {
+		"prefix": "The account currently holds",
+		"negative": "Oh, you probably forgot to put something in there. To compensate this, a new transaction of {{amount}} is created.",
+		"positive": "Congratulations, you actually have more money in your account than you registered. A new transaction of {{amount}} is created to add this.",
+		"saveAndNext": "Save & Next",
+		"save": "Done",
 		"cancel": "Cancel"
 	},
 	"documentSettingsAccountDetails": {

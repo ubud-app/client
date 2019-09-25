@@ -1,0 +1,53 @@
+@import '../definitions/variables';
+
+.reconcile {
+	&__account {
+		font-size: 1.4em;
+		padding: 0;
+		background: none;
+
+		&-select {
+			text-align: center;
+		}
+	}
+
+	&__prefix {
+		font-size: 0.9em;
+	}
+
+	&__amount {
+		font-size: 1.4em;
+		padding: 0.1em;
+		margin: 0.4em 0 0.6em;
+
+		&-input {
+			text-align: center;
+		}
+	}
+
+	&__adjustment {
+		opacity: 0;
+		margin: 2em 0 0;
+		padding: 1em 0 1em 1em;
+		border-left: 2px solid $green;
+		transition: opacity 0.3s ease-out;
+
+		&--positive,
+		&--negative {
+			opacity: 1;
+		}
+		&--negative {
+			border-color: $red;
+		}
+
+		&-text {
+			font-size: 0.8em;
+			margin: 0 0 1.4em;
+		}
+	}
+
+	&__buttons {
+		margin-top: 2em;
+		margin-bottom: -2em;
+	}
+}

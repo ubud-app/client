@@ -343,6 +343,7 @@
 			"noBudget": "Kein Budget ausgewählt"
 		},
 		"add": "+ Transaktion hinzufügen",
+		"reconcile": "Konten abgleichen",
 		"import": {
 			"headline": "Loslassen",
 			"message": "Ziehe deine Export-Dateien aus deinem Online-Banking hier her, um sie in ubud zu importieren"
@@ -382,6 +383,14 @@
 			"account": "Konto"
 		},
 		"import": "Importieren",
+		"cancel": "Abbrechen"
+	},
+	"reconcile": {
+		"prefix": "Auf diesem Konto sind aktuell",
+		"negative": "Oh, da hast du vermutlich etwas vergessen einzutragen. Um das auszugleichen, wird eine neue Transaktion über {{amount}} erzeugt.",
+		"positive": "Glückwunsch, du hast eigentlich mehr Geld auf dem Konto als eingetragen. Um das nachzutragen wird eine neue Transaktion über {{amount}} erzeugt.",
+		"saveAndNext": "Speichern & Weiter",
+		"save": "Fertig",
 		"cancel": "Abbrechen"
 	},
 	"documentSettingsAccountDetails": {
