@@ -52,13 +52,13 @@
 		"svg-inline-loader": "^0.8.0",
 		"webpack": "^4.41.0",
 		"webpack-build-notifier": "^1.1.1",
-		"webpack-bundle-analyzer": "^3.5.1"
+		"webpack-bundle-analyzer": "^3.5.2"
 	},
 	"dependencies": {
 		"@sentry/browser": "^5.6.3",
 		"autonumeric": "^4.5.7",
 		"backbone": "^1.4.0",
-		"filesize": "^4.2.0",
+		"filesize": "^4.2.1",
 		"gravatar-url": "^3.0.1",
 		"luxon": "^1.19.3",
 		"rivets": "^0.9.6",
