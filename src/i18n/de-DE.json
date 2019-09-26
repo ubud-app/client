@@ -404,6 +404,11 @@
 			"message": "Du kannst dieses Konto löschen. Alle Transaktionen, die in diesem Konto enthalten sind, werden gelöscht. Dein Budget ändert sich dadurch. Diese Aktion kann nicht rückgängig gemacht werden.",
 			"button": "Konto löschen"
 		},
+		"unlink": {
+			"title": "Konto trennen",
+			"message": "Du kannst dieses Konto vom Plugin trennen. Dadurch kannst du es manuell bearbeiten, Transaktionen hinzufügen oder das Konto löschen. Diese Aktion kann nicht rückgängig gemacht werden.",
+			"button": "Konto von Plugin trennen"
+		},
 		"done": "Fertig"
 	},
 	"documentSettingsPlugin": {

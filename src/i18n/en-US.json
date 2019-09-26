@@ -404,6 +404,11 @@
 			"message": "You can delete this account. All transactions contained in this account will be deleted. This will change your budget. This action cannot be undone.",
 			"button": "Konto löschen"
 		},
+		"unlink": {
+			"title": "Disconnect account",
+			"message": "You can disconnect this account from the plugin. This will allow you to edit it manually, add transactions or delete the account. This action cannot be undone.",
+			"button": "Disconnect account from plugin"
+		},
 		"done": "Done"
 	},
 	"documentSettingsPlugin": {
