@@ -368,7 +368,10 @@
 			margin-top: -1em;
 			right: 1em;
 			line-height: 2em;
-			color: $red;
+
+			&--negative {
+				color: $red;
+			}
 		}
 
 		&-reconcile {

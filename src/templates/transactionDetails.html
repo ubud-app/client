@@ -152,7 +152,8 @@
 			<span class="transaction-details__original-datetime">{ model:time | datetime }</span>
 			<span class="transaction-details__original-payee">{ model:pluginsOwnPayeeId }</span>
 			<span class="transaction-details__original-memo">{ model:pluginsOwnMemo }</span>
-			<span class="transaction-details__original-amount">{ model:amount | currency }</span>
+			<span class="transaction-details__original-amount"
+				  rv-class-transaction-details__original-amount--negative="model:amount | negative">{ model:amount | currency }</span>
 		</div>
 		<p class="transaction-details__original-reconcile" rv-if="model:isReconciling">
 			{ 'transactionDetails.reconciling' | string }
