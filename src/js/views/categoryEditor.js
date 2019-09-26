@@ -5,7 +5,6 @@ import ErrorView from './error';
 
 import AppHelper from '../helpers/app';
 import TemplateHelper from '../helpers/template';
-import ConfigurationHelper from '../helpers/configuration';
 
 import CategoryCollection from '../collections/category';
 import BudgetCollection from '../collections/budget';
@@ -51,23 +50,23 @@ const CategoryEditorView = BaseView.extend({
         categories.filterBy('document', this.document.id);
         this.listenTo(categories, 'add', category => {
             if (category.id !== this.model.id) {
-                const sort = categories.sort((a, b) => String(a.get('name')).localeCompare(
-                    b.get('name'),
-                    ConfigurationHelper.getCurrentLanguage(),
-                    {sensitivity: 'base'}
-                ));
-
-                this.data.delete.categories.splice(sort.indexOf(category), 0, category);
-
-                if (!this.data.delete.categoryId) {
-                    this.data.delete.categoryId = category.id;
-                }
+                this.pushAt(categories, category, this.data.delete.categories, category);
             }
         });
         this.listenTo(categories, 'remove', category => {
             const i = this.data.delete.categories.indexOf(category);
             if (i > -1) {
                 this.data.delete.categories.splice(i, 1);
+            }
+        });
+        this.listenToOnce(categories, 'sync', () => {
+            const firstCategoryAllowed = categories.find(c => c.id !== this.model.id);
+            if (!this.data.delete.categoryId) {
+                this.data.delete.categoryId = firstCategoryAllowed.id;
+            }
+            if (!firstCategoryAllowed) {
+                this.data.delete.showDeleteAndMove = false;
+                this.data.delete.showDelete = false;
             }
         });
         if (this.allowDelete) {

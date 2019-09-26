@@ -102,7 +102,6 @@ const TransactionsView = BaseView.extend({
             }, i);
         }
 
-        this.startReconcile();
         return this;
     },
 
