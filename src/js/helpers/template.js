@@ -101,7 +101,7 @@ rivets.formatters.filesize = v => {
     return !isNaN(v) && isFinite(v) ? filesize(v, ConfigurationHelper.getCurrentLanguage()) : '';
 };
 rivets.formatters.isNegative = v => {
-    return !isNaN(v) && v < 0;
+    return typeof v === 'number' && v < 0;
 };
 rivets.formatters.append = (a, b) => {
     return String(a || '') + String(b || '');
