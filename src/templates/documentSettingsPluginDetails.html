@@ -1,6 +1,6 @@
 <form class="document-settings-plugin-details__form b-form b-loader b-loader--light"
 	  rv-on-submit="view.submit"
-	  rv-class-loading="account:isSyncing">
+	  rv-class-loading="pluginInstance:isSyncing">
 	<h1 class="document-settings-plugin-details__headline b-headline-l1">{ 'documentSettingsPluginDetails.headline' | string }</h1>
 	<h2 class="document-settings-plugin-details__document b-headline-l2">
 		{ meta.plugin:name }
@@ -18,8 +18,7 @@
 			   rv-id="config.id | append 'document-settings-plugin-details__input--'"
 			   rv-class-b-form-input--error="config.lastError"
 			   rv-value="config.value | fallback config.defaultValue"
-			   rv-placeholder="config.placeholder"
-			   rv-on-change="view.save"/>
+			   rv-placeholder="config.placeholder" />
 	</div>
 
 	<div class="document-settings-plugin-details__error" rv-if="pluginInstance:errors.getConfig">

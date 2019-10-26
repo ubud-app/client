@@ -84,6 +84,7 @@ const DocumentSettingsPluginDetailsView = BaseView.extend({
         e.preventDefault();
 
         await this.save();
+        this._uninstalled = true;
         AppHelper.navigate(this.model.get('documentId') + '/settings/plugins', {trigger: true});
     },
 
