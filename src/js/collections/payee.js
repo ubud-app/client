@@ -6,7 +6,8 @@ import PayeeModel from '../models/payee';
 const PayeeCollection = BaseCollection.extend({
     model: PayeeModel,
     url: 'payees',
-    dbStore: 'payee'
+    dbStore: 'payee',
+    comparator: 'name'
 });
 
 export default PayeeCollection;

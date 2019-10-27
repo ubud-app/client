@@ -220,6 +220,24 @@ const BaseView = View.extend({
         this.once('remove', () => {
             this.$el.off('click', closeHandler);
         });
+    },
+
+    pushAt (collection, model, array, object, getId = o => o.id) {
+        const i = collection.indexOf(model);
+        if (array.length === 0) {
+            array.push(object);
+            return;
+        }
+
+        let j = array.findIndex(o => {
+            const m = collection.get(getId(o));
+            return collection.indexOf(m) >= i;
+        });
+        if (j === -1) {
+            j = array.length;
+        }
+
+        array.splice(j, 0, object);
     }
 });
 

@@ -17,6 +17,10 @@ class DataHelperDatabase {
     }
 
     static async setModel (type, data) {
+        if(!data.id) {
+            return;
+        }
+
         return this.request('setModel', {
             type,
             data
@@ -34,7 +38,7 @@ class DataHelperDatabase {
         return this.request('setCollection', {
             type,
             cache,
-            response
+            response: response.filter(r => r.id)
         });
     }
 

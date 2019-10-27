@@ -10,7 +10,7 @@ import BaseModel from './_';
  */
 const PluginInstanceModel = BaseModel.extend({
     urlRoot: 'plugin-instances',
-    dbStore: 'plugin-instance'
+    dbStore: 'pluginInstance'
 });
 
 export default PluginInstanceModel;

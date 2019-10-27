@@ -7,6 +7,7 @@ import BaseView from './_';
 import ErrorView from './error';
 import TransactionDetailsView from './transactionDetails';
 import TransactionImportView from './transactionImport';
+import ReconcileView from './reconcile';
 
 import AppHelper from '../helpers/app';
 import TemplateHelper from '../helpers/template';
@@ -182,6 +183,8 @@ const TransactionsView = BaseView.extend({
             noBudget: true
         };
 
+        this.live(transaction);
+
         this.listenToAndCall(transaction, 'change:status', () => {
             item.pending = transaction.get('status') === 'pending';
         });
@@ -291,6 +294,10 @@ const TransactionsView = BaseView.extend({
         });
 
         const view = new TransactionDetailsView({model: transaction});
+        view.appendTo(AppHelper.view());
+    },
+    startReconcile () {
+        const view = new ReconcileView();
         view.appendTo(AppHelper.view());
     },
 

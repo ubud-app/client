@@ -1,0 +1,28 @@
+<form class="reconcile__content b-modal__content b-form" rv-on-submit="view.submit">
+	<div class="reconcile__account b-form-select-wrap">
+		<select class="reconcile__account-select b-form-select"
+				rv-value="accounts.currentId"
+				rv-on-change="view.goToAccount">
+			<option rv-each-account="accounts.models" rv-value="account:id">{ account:name }</option>
+		</select>
+	</div>
+
+	<p class="reconcile__prefix">{ 'reconcile.prefix' | string }</p>
+
+	<div class="reconcile__amount b-form-select-wrap">
+		<input class="reconcile__amount-input b-form-input"
+			   rv-on-keyup="view.updateAdjustment"
+			   rv-currency-value="form.currentValue" />
+	</div>
+
+	<div class="reconcile__adjustment"
+		 rv-class-reconcile__adjustment--positive="adjustment.positive"
+		 rv-class-reconcile__adjustment--negative="adjustment.negative">
+		<span class="reconcile__adjustment-text">{ adjustment.text }</span>
+	</div>
+
+	<div class="reconcile__buttons">
+		<button class="b-form-button b-form-button--save" type="submit">{ buttons.nextLabel | string }</button>
+		<button class="b-form-button b-form-button--cancel" type="button" rv-on-click="hide">{ 'reconcile.cancel' | string }</button>
+	</div>
+</form>

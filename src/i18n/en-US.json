@@ -343,6 +343,7 @@
 			"noBudget": "no budget selected"
 		},
 		"add": "+ Add Transaction",
+		"reconcile": "Reconcile accounts",
 		"import": {
 			"headline": "Drop file",
 			"message": "Pull your export files from your online banking here to import them into ubud"
@@ -384,6 +385,14 @@
 		"import": "Import",
 		"cancel": "Cancel"
 	},
+	"reconcile": {
+		"prefix": "The account currently holds",
+		"negative": "Oh, you probably forgot to put something in there. To compensate this, a new transaction of {{amount}} is created.",
+		"positive": "Congratulations, you actually have more money in your account than you registered. A new transaction of {{amount}} is created to add this.",
+		"saveAndNext": "Save & Next",
+		"save": "Done",
+		"cancel": "Cancel"
+	},
 	"documentSettingsAccountDetails": {
 		"headline": "Edit account",
 		"labels": {
@@ -394,6 +403,11 @@
 			"title": "Konto löschen",
 			"message": "You can delete this account. All transactions contained in this account will be deleted. This will change your budget. This action cannot be undone.",
 			"button": "Konto löschen"
+		},
+		"unlink": {
+			"title": "Disconnect account",
+			"message": "You can disconnect this account from the plugin. This will allow you to edit it manually, add transactions or delete the account. This action cannot be undone.",
+			"button": "Disconnect account from plugin"
 		},
 		"done": "Done"
 	},

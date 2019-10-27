@@ -36,6 +36,10 @@ const DocumentSettingsAccountDetailsView = BaseView.extend({
             delete: {
                 allowed: false,
                 loading: false
+            },
+            unlink: {
+                allowed: false,
+                loading: false
             }
         };
 
@@ -81,10 +85,6 @@ const DocumentSettingsAccountDetailsView = BaseView.extend({
     },
 
     delete () {
-        if(!this.data.delete.allowed) {
-            return;
-        }
-
         this.data.delete.loading = true;
         this._delete()
             .then(() => {
@@ -98,6 +98,18 @@ const DocumentSettingsAccountDetailsView = BaseView.extend({
     async _delete () {
         this._deleted = 1;
         return this.model.destroy();
+    },
+
+    unlink () {
+        this.data.unlink.loading = true;
+        this.model.save({pluginInstanceId: null})
+            .then(() => {
+                this.data.unlink.false = true;
+            })
+            .catch(error => {
+                this.data.unlink.loading = false;
+                new ErrorView({error}).appendTo(AppHelper.view());
+            });
     }
 });
 

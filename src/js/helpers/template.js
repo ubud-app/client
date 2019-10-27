@@ -2,7 +2,7 @@
 
 
 import rivets from 'rivets';
-import {Model, Collection} from 'backbone';
+import {Collection, Model} from 'backbone';
 import AutoNumeric from 'autonumeric';
 import {DateTime} from 'luxon';
 import filesize from 'filesize';
@@ -16,7 +16,7 @@ import DataHelper from './data';
 const rivetsListenerStore = [];
 rivets.adapters[':'] = {
     observe: function (obj, keypath, callback) {
-        if(
+        if (
             ['isSynced', 'isSyncing'].indexOf(keypath) > -1 &&
             (obj instanceof Collection || obj instanceof Model)
         ) {
@@ -43,7 +43,7 @@ rivets.adapters[':'] = {
         }
     },
     get: function (obj, keypath) {
-        if(
+        if (
             ['isSynced', 'isSyncing'].indexOf(keypath) > -1 &&
             (obj instanceof Collection || obj instanceof Model)
         ) {
@@ -82,10 +82,10 @@ rivets.formatters.time = (l, format = DateTime.TIME_SIMPLE) => {
     return l && l instanceof DateTime ? l.toLocaleString(format) : '';
 };
 rivets.formatters.datetime = (l, format = DateTime.DATETIME_SHORT) => {
-    if(l instanceof DateTime) {
+    if (l instanceof DateTime) {
         return l.toLocaleString(format);
     }
-    else if(typeof l === 'string') {
+    else if (typeof l === 'string') {
         return DateTime.fromISO(l).toLocaleString(format);
     }
 
@@ -99,6 +99,9 @@ rivets.formatters.percentage = v => {
 };
 rivets.formatters.filesize = v => {
     return !isNaN(v) && isFinite(v) ? filesize(v, ConfigurationHelper.getCurrentLanguage()) : '';
+};
+rivets.formatters.isNegative = v => {
+    return typeof v === 'number' && v < 0;
 };
 rivets.formatters.append = (a, b) => {
     return String(a || '') + String(b || '');
@@ -172,7 +175,7 @@ rivets.binders['currency-value'] = {
         try {
             this.autonumeric.remove();
         }
-        catch(err) {
+        catch (err) {
             // ignore this
         }
     }
@@ -182,7 +185,7 @@ rivets.binders['datetime-value'] = {
     routine: function (el, value) {
         const iso = DateTime.fromISO(value);
         const datetime = value ? iso.minus({seconds: iso.second}).toISO().split('.')[0] : null;
-        if(datetime !== el.value && el !== document.activeElement) {
+        if (datetime !== el.value && el !== document.activeElement) {
             el.value = datetime;
         }
     },
@@ -278,7 +281,7 @@ export default class TemplateHelper {
     static getAutoNumericCurrencyConfig () {
         const document = DataHelper.getDocuments().get(AppHelper.getDocumentId()) || null;
 
-        if(document && document.get('settings') && document.get('settings').currency) {
+        if (document && document.get('settings') && document.get('settings').currency) {
             return document.get('settings').currency;
         }
 

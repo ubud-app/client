@@ -125,7 +125,7 @@ const DocumentSettingsPermissionsView = BaseView.extend({
             json.readOnly = false;
         });
 
-        this.data.users.push(json);
+        this.pushAt(this.users, user, this.data.users, json);
         this.live(user);
     },
     removeUser (user) {

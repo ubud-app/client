@@ -343,6 +343,7 @@
 			"noBudget": "Kein Budget ausgewählt"
 		},
 		"add": "+ Transaktion hinzufügen",
+		"reconcile": "Konten abgleichen",
 		"import": {
 			"headline": "Loslassen",
 			"message": "Ziehe deine Export-Dateien aus deinem Online-Banking hier her, um sie in ubud zu importieren"
@@ -384,6 +385,14 @@
 		"import": "Importieren",
 		"cancel": "Abbrechen"
 	},
+	"reconcile": {
+		"prefix": "Auf diesem Konto sind aktuell",
+		"negative": "Oh, da hast du vermutlich etwas vergessen einzutragen. Um das auszugleichen, wird eine neue Transaktion über {{amount}} erzeugt.",
+		"positive": "Glückwunsch, du hast eigentlich mehr Geld auf dem Konto als eingetragen. Um das nachzutragen wird eine neue Transaktion über {{amount}} erzeugt.",
+		"saveAndNext": "Speichern & Weiter",
+		"save": "Fertig",
+		"cancel": "Abbrechen"
+	},
 	"documentSettingsAccountDetails": {
 		"headline": "Konto bearbeiten",
 		"labels": {
@@ -394,6 +403,11 @@
 			"title": "Konto löschen",
 			"message": "Du kannst dieses Konto löschen. Alle Transaktionen, die in diesem Konto enthalten sind, werden gelöscht. Dein Budget ändert sich dadurch. Diese Aktion kann nicht rückgängig gemacht werden.",
 			"button": "Konto löschen"
+		},
+		"unlink": {
+			"title": "Konto trennen",
+			"message": "Du kannst dieses Konto vom Plugin trennen. Dadurch kannst du es manuell bearbeiten, Transaktionen hinzufügen oder das Konto löschen. Diese Aktion kann nicht rückgängig gemacht werden.",
+			"button": "Konto von Plugin trennen"
 		},
 		"done": "Fertig"
 	},

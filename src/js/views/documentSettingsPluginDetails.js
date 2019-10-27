@@ -84,6 +84,7 @@ const DocumentSettingsPluginDetailsView = BaseView.extend({
         e.preventDefault();
 
         await this.save();
+        this._uninstalled = true;
         AppHelper.navigate(this.model.get('documentId') + '/settings/plugins', {trigger: true});
     },
 
@@ -91,6 +92,15 @@ const DocumentSettingsPluginDetailsView = BaseView.extend({
         if(this._uninstalled) {
             return;
         }
+
+        if(Array.isArray(this.model.get('config'))) {
+            this.model.set('config', this.model.get('config').map(config => {
+                config.value = this.$el.find(`input[name="${config.id}"]`).val();
+                return config;
+            }));
+        }
+
+        console.log(JSON.parse(JSON.stringify(this.model.toJSON())).config);
 
         try {
             await this.model.save();
