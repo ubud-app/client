@@ -94,9 +94,10 @@ const DocumentSettingsPluginDetailsView = BaseView.extend({
         }
 
         if(Array.isArray(this.model.get('config'))) {
-            this.model.get('config').forEach(config =>
-                config.value = this.$el.find(`input[name="${config.id}"]`).val()
-            );
+            this.model.set('config', this.model.get('config').map(config => {
+                config.value = this.$el.find(`input[name="${config.id}"]`).val();
+                return config;
+            }));
         }
 
         console.log(JSON.parse(JSON.stringify(this.model.toJSON())).config);
