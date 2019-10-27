@@ -8,7 +8,7 @@ import DataHelper from '../helpers/data';
 
 import BudgetView from '../views/budget';
 import DocumentSettingsAccountAddManualView from '../views/documentSettingsAccountAddManual';
-import DocumentSettingsAccountAddView from '../views/documentSettingsAccountAddManual';
+import DocumentSettingsAccountAddView from '../views/documentSettingsAccountAdd';
 import DocumentSettingsAccountDetailsView from '../views/documentSettingsAccountDetails';
 import DocumentSettingsAccountView from '../views/documentSettingsAccount';
 import DocumentSettingsGeneralView from '../views/documentSettingsGeneral';
