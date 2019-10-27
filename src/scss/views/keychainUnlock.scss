@@ -11,6 +11,10 @@
 		background: rgba($background-footer, 0);
 	}
 
+	&__content {
+		padding: 4em 0 30%;
+	}
+
 	&__icon {
 		display: block;
 		margin: 0 auto;
