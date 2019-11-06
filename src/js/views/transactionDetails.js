@@ -108,7 +108,7 @@ const TransactionDetailsView = BaseView.extend({
             if (!account.get('pluginInstanceId')) {
                 this.data.accounts.push(account);
 
-                if (!this.model.get('accountId')) {
+                if (!this.model.get('accountId') && !account.get('pluginInstanceId')) {
                     this.model.set('accountId', account.id);
                 }
             }
