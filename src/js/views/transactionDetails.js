@@ -134,6 +134,16 @@ const TransactionDetailsView = BaseView.extend({
         this.listenToAndCall(this.budgets, 'add remove', addUnits);
         this.live(this.budgets);
 
+        // Budget Guess
+        this.listenToAndCall(this.model, 'change:id', () => {
+            this.data.unitGuesses.resetFilters();
+
+            if (this.model.id) {
+                this.data.unitGuesses.filterBy('transactionId', this.model.id);
+                this.data.unitGuesses.fetch();
+            }
+        });
+
         // Categories
         this.categories = new CategoryCollection();
         this.categories.filterBy('document', AppHelper.getDocumentId());
@@ -194,17 +204,6 @@ const TransactionDetailsView = BaseView.extend({
 
             this.listenToAndCall(this.budgets, 'add remove', updateBudgets);
             this.listenToAndCall(this.categories, 'add remove', updateBudgets);
-        });
-
-
-        // Budget Guess
-        this.listenToAndCall(this.model, 'change:id', () => {
-            this.data.unitGuesses.resetFilters();
-
-            if(this.model.id) {
-                this.data.unitGuesses.filterBy('transactionId', this.model.id);
-                this.data.unitGuesses.fetch();
-            }
         });
 
         const updateBudgetGuessVisibility = () => {
