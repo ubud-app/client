@@ -150,12 +150,12 @@
 		</button>
 		<div class="transaction-details__original-content">
 			<span class="transaction-details__original-datetime">{ model:time | datetime }</span>
-			<span class="transaction-details__original-payee">{ model:pluginsOwnPayeeId }</span>
-			<span class="transaction-details__original-memo">{ model:pluginsOwnMemo }</span>
+			<span class="transaction-details__original-payee" rv-data-fallback="'transactionDetails.original.payeeFallback' | string">{ model:pluginsOwnPayeeId }</span>
+			<span class="transaction-details__original-memo" rv-data-fallback="'transactionDetails.original.memoFallback' | string">{ model:pluginsOwnMemo }</span>
 			<span class="transaction-details__original-amount"
-				  rv-class-transaction-details__original-amount--negative="model:amount | negative">{ model:amount | currency }</span>
+				  rv-class-transaction-details__original-amount--negative="model:amount | isNegative">{ model:amount | currency }</span>
 		</div>
-		<p class="transaction-details__original-reconcile" rv-if="model:isReconciling">
+		<p class="transaction-details__original-reconcile" rv-if="model:reconciling">
 			{ 'transactionDetails.reconciling' | string }
 		</p>
 	</div>
