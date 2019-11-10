@@ -388,7 +388,7 @@ const TransactionDetailsView = BaseView.extend({
 
             return;
         }
-        else if(e.keyCode === 8 && this.data.fields.payee.length === 0) {
+        else if (e.keyCode === 8 && this.data.fields.payee.length === 0) {
             this.$el.find('.transaction-details__input--payee').blur();
 
             this.model.set({
@@ -555,12 +555,17 @@ const TransactionDetailsView = BaseView.extend({
         e.preventDefault();
 
         const budgetId = e.target.getAttribute('data-id');
-        this.data.units.push({
-            id: null,
-            amount: this.model.get('amount') - this.getBudgetedAccount(),
-            memo: null,
-            type: 'BUDGET:' + budgetId
-        });
+        if (this.data.units && this.data.units.length === 1) {
+            this.data.units[0].type = 'BUDGET:' + budgetId;
+        }
+        else {
+            this.data.units.push({
+                id: null,
+                amount: this.model.get('amount') - this.getBudgetedAccount(),
+                memo: null,
+                type: 'BUDGET:' + budgetId
+            });
+        }
 
         this.checkUnits();
     },
