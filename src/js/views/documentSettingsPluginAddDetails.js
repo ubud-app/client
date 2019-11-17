@@ -100,7 +100,9 @@ const DocumentSettingsPluginAddView = BaseView.extend({
         Object.entries(model.get('compatibility')).forEach(([type, c]) => {
             const j = {
                 type,
-                requirement: c.requirement
+                requirement: c.requirement,
+                given: c.given,
+                fulfills: c.fulfills
             };
 
             j.error = type !== 'npm' && !c.fulfills;

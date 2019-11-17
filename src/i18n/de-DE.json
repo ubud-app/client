@@ -531,7 +531,11 @@
 			"node": "node.js",
 			"npm": "npm",
 			"os": "OS",
-			"cpu": "CPU"
+			"cpu": "CPU",
+			"given": {
+				"prefix": " (is ",
+				"suffix": ")"
+			}
 		},
 		"responsibilities": {
 			"header": "Unterstützt",
