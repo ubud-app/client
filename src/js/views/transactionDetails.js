@@ -108,7 +108,7 @@ const TransactionDetailsView = BaseView.extend({
             if (!account.get('pluginInstanceId')) {
                 this.data.accounts.push(account);
 
-                if (!this.model.get('accountId')) {
+                if (!this.model.get('accountId') && !account.get('pluginInstanceId')) {
                     this.model.set('accountId', account.id);
                 }
             }
@@ -133,6 +133,16 @@ const TransactionDetailsView = BaseView.extend({
         this.budgets.filterBy('hidden', false);
         this.listenToAndCall(this.budgets, 'add remove', addUnits);
         this.live(this.budgets);
+
+        // Budget Guess
+        this.listenToAndCall(this.model, 'change:id', () => {
+            this.data.unitGuesses.resetFilters();
+
+            if (this.model.id) {
+                this.data.unitGuesses.filterBy('transactionId', this.model.id);
+                this.data.unitGuesses.fetch();
+            }
+        });
 
         // Categories
         this.categories = new CategoryCollection();
@@ -194,17 +204,6 @@ const TransactionDetailsView = BaseView.extend({
 
             this.listenToAndCall(this.budgets, 'add remove', updateBudgets);
             this.listenToAndCall(this.categories, 'add remove', updateBudgets);
-        });
-
-
-        // Budget Guess
-        this.listenToAndCall(this.model, 'change:id', () => {
-            this.data.unitGuesses.resetFilters();
-
-            if(this.model.id) {
-                this.data.unitGuesses.filterBy('transactionId', this.model.id);
-                this.data.unitGuesses.fetch();
-            }
         });
 
         const updateBudgetGuessVisibility = () => {
@@ -349,7 +348,7 @@ const TransactionDetailsView = BaseView.extend({
         });
     },
     updatePayeeSelect () {
-        if (this.data.fields.payee && this.data.fields.payee.length <= 2) {
+        if (!this.data.fields.payee || this.data.fields.payee.length <= 2) {
             this.data.fields.autoCompletionCreateText = '';
             this.payees.set([]);
             return;
@@ -374,6 +373,7 @@ const TransactionDetailsView = BaseView.extend({
         if (e.keyCode === 13 && i === -1 && this.data.fields.autoCompletionCreateSelected) {
             e.stopPropagation();
             e.preventDefault();
+            this.$el.find('.transaction-details__input--payee').blur();
             await this.clickAutoCompletionCreate();
             return;
         }
@@ -384,6 +384,16 @@ const TransactionDetailsView = BaseView.extend({
             this.model.set({
                 payeeId: model.id,
                 payeeName: model.get('name')
+            });
+
+            return;
+        }
+        else if (e.keyCode === 8 && this.data.fields.payee.length === 0) {
+            this.$el.find('.transaction-details__input--payee').blur();
+
+            this.model.set({
+                payeeId: null,
+                payeeName: null
             });
 
             return;
@@ -431,6 +441,7 @@ const TransactionDetailsView = BaseView.extend({
             name: this.data.fields.autoCompletionCreateText,
             documentId: AppHelper.getDocumentId()
         });
+        this.data.fields.payee = payee.get('name');
 
         try {
             await payee.save();
@@ -544,12 +555,17 @@ const TransactionDetailsView = BaseView.extend({
         e.preventDefault();
 
         const budgetId = e.target.getAttribute('data-id');
-        this.data.units.push({
-            id: null,
-            amount: this.model.get('amount') - this.getBudgetedAccount(),
-            memo: null,
-            type: 'BUDGET:' + budgetId
-        });
+        if (this.data.units && this.data.units.length === 1) {
+            this.data.units[0].type = 'BUDGET:' + budgetId;
+        }
+        else {
+            this.data.units.push({
+                id: null,
+                amount: this.model.get('amount') - this.getBudgetedAccount(),
+                memo: null,
+                type: 'BUDGET:' + budgetId
+            });
+        }
 
         this.checkUnits();
     },

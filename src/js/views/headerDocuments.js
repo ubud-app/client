@@ -49,7 +49,7 @@ const HeaderDocumentsView = BaseView.extend({
             }
         });
         this.listenToAndCall(this.collection, 'sync', () => {
-            if(this.collection.isSynced()) {
+            if (this.collection.isSynced()) {
                 const delay = Math.max(this.nextShow - new Date().getTime(), 0);
                 setTimeout(() => {
                     this.data.add.hidden = false;
@@ -93,22 +93,17 @@ const HeaderDocumentsView = BaseView.extend({
                 summary.filterBy('document', document.id);
                 summary.filterBy('month', DateTime.local().toISODate().substr(0, 7));
 
+                this.live(summary);
                 await summary.fetch();
-                if (summary.length > 0 && summary.first() && summary.first().get('available') > 0) {
-                    item.tasks = ConfigurationHelper.getString('header.documents.tasks.positive', {
-                        amount: TemplateHelper.formatCurrency(summary.first().get('available'))
-                    });
-                }
-                else if (summary.length > 0 && summary.first() && summary.first().get('available') === 0) {
-                    item.tasks = ConfigurationHelper.getString('header.documents.tasks.zero');
-                }
-                else {
-                    item.tasks = ConfigurationHelper.getString('header.documents.tasks.negative', {
-                        amount: TemplateHelper.formatCurrency(summary.first().get('available'))
-                    });
-                }
+
+                this.listenToAndCall(summary, 'add remove', () => {
+                    const model = summary.first();
+                    this.live(model);
+
+                    this.listenToAndCall(model, 'change:available', () => this.updateItemText(item, model));
+                });
             }
-            catch(error) {
+            catch (error) {
                 Sentry.captureException(error);
             }
         });
@@ -121,6 +116,22 @@ const HeaderDocumentsView = BaseView.extend({
         setTimeout(() => {
             item.hidden = false;
         }, delay);
+    },
+
+    updateItemText (item, summary) {
+        if (summary && summary.get('available') > 0) {
+            item.tasks = ConfigurationHelper.getString('header.documents.tasks.positive', {
+                amount: TemplateHelper.formatCurrency(summary.get('available'))
+            });
+        }
+        else if (summary && summary.get('available') === 0) {
+            item.tasks = ConfigurationHelper.getString('header.documents.tasks.zero');
+        }
+        else {
+            item.tasks = ConfigurationHelper.getString('header.documents.tasks.negative', {
+                amount: TemplateHelper.formatCurrency(summary.get('available'))
+            });
+        }
     },
 
     async hide () {

@@ -370,7 +370,11 @@
 		"budget": {
 			"income": "Income for {{month}}"
 		},
-		"reconciling": "This transaction was inserted automatically, since the account balance in ubud and the account balance in the bank's history was different. Now everything should fit again. Do you often find such transactions, this could be an indication that something is wrong with the synchronization.",
+		"original": {
+			"payeeFallback": "(no payee)",
+			"memoFallback": "(no notes)"
+		},
+		"reconciling": "This transaction was inserted automatically, since the account balance in ubud and the account balance in the bank's history was different. Now everything should fit again. If you often find such transactions, this could be an indication that something is wrong with the synchronization.",
 		"remove": "Remove transaction",
 		"cancel": "Cancel",
 		"save": "Save"
@@ -527,7 +531,11 @@
 			"node": "node.js",
 			"npm": "npm",
 			"os": "OS",
-			"cpu": "CPU"
+			"cpu": "CPU",
+			"given": {
+				"prefix": " (is ",
+				"suffix": ")"
+			}
 		},
 		"responsibilities": {
 			"header": "Support",

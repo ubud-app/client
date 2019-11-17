@@ -31,6 +31,8 @@
 	}
 
 	&__remove {
-		margin-left: 1em;
+		@include greater($size-l) {
+			margin-left: 1em;
+		}
 	}
 }

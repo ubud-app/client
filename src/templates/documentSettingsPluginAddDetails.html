@@ -64,6 +64,10 @@
 					 rv-class-document-settings-plugin-add-details__info-bullet--warn="c.warn"
 					 rv-class-document-settings-plugin-add-details__info-bullet--err="c.error">
 					{ c.requirement }
+					<span class="document-settings-plugin-add-details__requirement-given" rv-unless="c.fulfills">
+						{ 'documentSettingsPluginAddDetails.compatibility.given.prefix' | string }
+						{ c.given }{ 'documentSettingsPluginAddDetails.compatibility.given.suffix' | string }
+					</span>
 				</div>
 			</div>
 		</div>
