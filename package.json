@@ -24,7 +24,7 @@
 		"@babel/preset-env": "^7.7.1",
 		"@babel/register": "^7.7.0",
 		"@sentry/webpack-plugin": "^1.9.3",
-		"autoprefixer": "^9.7.1",
+		"autoprefixer": "^9.7.2",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
 		"babel-preset-minify": "^0.5.1",
@@ -55,12 +55,12 @@
 		"webpack-bundle-analyzer": "^3.6.0"
 	},
 	"dependencies": {
-		"@sentry/browser": "^5.9.0",
+		"@sentry/browser": "^5.9.1",
 		"autonumeric": "^4.5.10",
 		"backbone": "^1.4.0",
 		"filesize": "^6.0.1",
 		"gravatar-url": "^3.1.0",
-		"luxon": "^1.21.1",
+		"luxon": "^1.21.2",
 		"rivets": "^0.9.6",
 		"socket.io-client": "^2.3.0",
 		"ua-parser-js": "^0.7.20",
