@@ -1,13 +1,11 @@
-name: Feature / Hotfix / Release
+name: Develop
 on:
   push:
     branches:
-      - feature/**
-      - hotfix/**
-      - release/**
+      - develop
 
 jobs:
-  prepare:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,13 +27,18 @@ jobs:
             npm-${{ matrix.node }}-
       - name: npm ci
         run: |
-         if [ ! -d "./node_modules" ]; then
-             npm ci
-         fi
+          if [ ! -d "./node_modules" ]; then
+              npm ci
+          fi
+      - name: test
+        run: npm run test
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
       - uses: actions/cache@v1
         with:
           path: node_modules
@@ -52,19 +55,33 @@ jobs:
               npm ci
           fi
       - run: npm run check
-  test:
+  publish_npm:
     runs-on: ubuntu-latest
-    needs: [prepare]
-    strategy:
-      matrix:
-        node: [8, 10, 12, 13]
+    needs: [test, check]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 12
+          registry-url: 'https://registry.npmjs.org'
       - uses: actions/cache@v1
         with:
           path: node_modules
-          key: modules-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
-      - run: npm run test
+          key: modules-12-${{ hashFiles('**/package-lock.json') }}
+      - name: install zopfli
+        run: |
+          npm i -g grunt-cli
+          git clone https://github.com/google/zopfli.git ./.devcache/zopfli
+          cd ./.devcache/zopfli
+          make
+          cd ../../
+      - name: semantic-release
+        run: npx semantic-release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ubud
+          SENTRY_PROJECT: client
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
+          NOTIFY_WEBHOOK_SECRET: ${{ secrets.NOTIFY_WEBHOOK_SECRET }}
