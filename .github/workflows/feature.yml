@@ -1,0 +1,25 @@
+name: Feature / Hotfix / Release
+on:
+  push:
+    branches:
+      - feature/**
+      - hotfix/**
+      - release/**
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [8, 10, 12, 13]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci
+      - run: npm run check
