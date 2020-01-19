@@ -1,0 +1,70 @@
+name: Feature / Hotfix / Release
+on:
+  push:
+    branches:
+      - feature/**
+      - hotfix/**
+      - release/**
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [8, 10, 12, 13]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: modules-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-${{ matrix.node }}-
+      - name: npm ci
+        run: |
+         if [ ! -d "./node_modules" ]; then
+             npm ci
+         fi
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: modules-12-${{ hashFiles('**/package-lock.json') }}
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-12-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-12-
+      - name: npm ci
+        run: |
+          if [ ! -d "./node_modules" ]; then
+              npm ci
+          fi
+      - run: npm run check
+  test:
+    runs-on: ubuntu-latest
+    needs: [prepare]
+    strategy:
+      matrix:
+        node: [8, 10, 12, 13]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: modules-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+      - run: npm run test

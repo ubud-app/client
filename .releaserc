@@ -1,0 +1,39 @@
+{
+	"branches": [
+		"master",
+		{
+			"name": "develop",
+			"channel": "next",
+			"prerelease": true
+		}
+	],
+	"plugins": [
+		["@semantic-release/commit-analyzer", {
+			"preset": "angular",
+			"releaseRules": [
+				{"type": "refactor", "release": "patch"},
+				{"type": "style", "release": "patch"},
+				{"type": "ci", "release": "patch"}
+			],
+			"parserOpts": {
+				"noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+			}
+		}],
+		["@semantic-release/release-notes-generator", {
+			"preset": "angular",
+			"parserOpts": {
+				"noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+			},
+			"writerOpts": {
+				"commitsSort": ["subject", "scope"]
+			}
+		}],
+		"@semantic-release/changelog",
+		["@semantic-release/exec", {
+			"prepareCmd": "sentry-cli releases new -p client ${nextRelease.version} && PATH=\"$(pwd)/.devcache/zopfli:$PATH\" npm run build",
+			"success": "npx sentry-cli releases finalize ${nextRelease.version} && curl -X \"POST\" \"https://beacon.ubud.club/webhooks/update-components/${NOTIFY_WEBHOOK_SECRET}\""
+		}],
+		"@semantic-release/npm",
+		"@semantic-release/github"
+	]
+}

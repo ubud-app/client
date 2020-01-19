@@ -1,2 +1,6 @@
-node_modules/**
+.babelrc
+.gitlab-ci.yml
+.idea/
+.github/
+node_modules/
 .devcache/
