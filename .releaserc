@@ -12,8 +12,7 @@
 			"preset": "angular",
 			"releaseRules": [
 				{"type": "refactor", "release": "patch"},
-				{"type": "style", "release": "patch"},
-				{"type": "ci", "release": "patch"}
+				{"type": "style", "release": "patch"}
 			],
 			"parserOpts": {
 				"noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
