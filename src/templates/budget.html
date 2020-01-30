@@ -62,9 +62,8 @@
 			<li class="budget__month-category" rv-each-category="month.categories">
 				<ul class="budget__month-portions">
 					<li class="budget__month-portion" rv-each-portion="category.portions">
-						<input type="telephone"
+						<input type="text"
 							   class="budget__month-budgeted"
-							   inputmode="decimal"
 							   rv-class-budget__month-budgeted--visible="portion.model"
 							   rv-disabled="meta.locked"
 							   rv-currency-value="portion.model:budgeted"/>
