@@ -32,7 +32,7 @@ class ConfigurationHelper {
                 language,
                 strings: require(file),
                 version: {
-                    name: this.pkg.version,
+                    name: process.env.VERSION || this.pkg.version,
                     build: process.env.CI_JOB_ID || null,
                     commit: process.env.CI_COMMIT_SHA || null,
                     environment: process.env.CI_ENVIRONMENT_NAME || null

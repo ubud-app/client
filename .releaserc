@@ -29,7 +29,7 @@
 		}],
 		"@semantic-release/changelog",
 		["@semantic-release/exec", {
-			"prepareCmd": "sentry-cli releases new -p client ${nextRelease.version} && PATH=\"$(pwd)/.devcache/zopfli:$PATH\" npm run build",
+			"prepareCmd": "sentry-cli releases new -p client ${nextRelease.version} && PATH=\"$(pwd)/.devcache/zopfli:$PATH\" VERSION=${nextRelease.version} npm run build",
 			"success": "npx sentry-cli releases finalize ${nextRelease.version} && curl -X \"POST\" \"https://beacon.ubud.club/webhooks/update-components/${NOTIFY_WEBHOOK_SECRET}\""
 		}],
 		"@semantic-release/npm",
