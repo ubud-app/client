@@ -33,8 +33,8 @@ class ConfigurationHelper {
                 strings: require(file),
                 version: {
                     name: process.env.VERSION || this.pkg.version,
-                    build: process.env.CI_JOB_ID || null,
-                    commit: process.env.CI_COMMIT_SHA || null,
+                    build: process.env.GITHUB_ACTION || process.env.CI_JOB_ID || null,
+                    commit: process.env.GITHUB_SHA || process.env.CI_COMMIT_SHA || null,
                     environment: process.env.CI_ENVIRONMENT_NAME || null
                 },
                 sentry: this.config.sentry,
