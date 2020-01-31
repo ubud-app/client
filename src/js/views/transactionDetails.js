@@ -9,6 +9,7 @@ import BaseView from './_';
 import ErrorView from './error';
 
 import AppHelper from '../helpers/app';
+import StoreHelper from '../helpers/store';
 import TemplateHelper from '../helpers/template';
 import ConfigurationHelper from '../helpers/configuration';
 
@@ -104,15 +105,6 @@ const TransactionDetailsView = BaseView.extend({
         this.accounts = new AccountCollection();
         this.accounts.filterBy('document', AppHelper.getDocumentId());
         this.listenToAndCall(this.accounts, 'add remove', addUnits);
-        this.listenTo(this.accounts, 'add', account => {
-            if (!account.get('pluginInstanceId')) {
-                this.data.accounts.push(account);
-
-                if (!this.model.get('accountId') && !account.get('pluginInstanceId')) {
-                    this.model.set('accountId', account.id);
-                }
-            }
-        });
         this.listenTo(this.accounts, 'remove', account => {
             const i = this.data.accounts.findIndex(a => a.id === account.id);
             if (i > -1) {
@@ -125,6 +117,32 @@ const TransactionDetailsView = BaseView.extend({
             if (account && account.get('pluginInstanceId')) {
                 this.data.fields.isManaged = true;
             }
+
+            const defaultAccount = StoreHelper.get('defaultAccount.' + AppHelper.getDocumentId());
+            console.log(`AccountId: ${this.model.get('accountId')} | DefaultAccount: ${defaultAccount}`);
+            if(!this.model.get('accountId') && defaultAccount && this.accounts.get(defaultAccount)) {
+                this.model.set({
+                    accountId: defaultAccount
+                });
+            }
+            else if(!this.model.get('accountId') && this.accounts.length > 0) {
+                this.model.set({
+                    accountId: this.accounts.first().id
+                });
+            }
+
+            const addAccount = account => {
+                if (!account.get('pluginInstanceId')) {
+                    this.data.accounts.push(account);
+
+                    if (!this.model.get('accountId') && !account.get('pluginInstanceId')) {
+                        this.model.set('accountId', account.id);
+                    }
+                }
+            };
+
+            this.listenTo(this.accounts, 'add', addAccount);
+            this.accounts.each(addAccount);
         });
 
         // Budgets
@@ -259,6 +277,11 @@ const TransactionDetailsView = BaseView.extend({
         }
 
         this.hide(false).catch(err => Sentry.captureException(err));
+
+        // save defaultAccount as entry is new
+        if(!this.model.id && this.model.get('accountId')) {
+            StoreHelper.set('defaultAccount.' + AppHelper.getDocumentId(), this.model.get('accountId'));
+        }
 
         try {
             await this.model.save({
