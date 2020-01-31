@@ -98,9 +98,10 @@ const HeaderDocumentsView = BaseView.extend({
 
                 this.listenToAndCall(summary, 'add remove', () => {
                     const model = summary.first();
-                    this.live(model);
-
-                    this.listenToAndCall(model, 'change:available', () => this.updateItemText(item, model));
+                    if(model) {
+                        this.live(model);
+                        this.listenToAndCall(model, 'change:available', () => this.updateItemText(item, model));
+                    }
                 });
             }
             catch (error) {
