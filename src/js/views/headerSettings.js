@@ -182,9 +182,15 @@ const HeaderSettingsView = BaseView.extend({
 
         if(
             server &&
-            server.get('installed') &&
-            server.get('available') &&
-            server.get('installed') !== server.get('available')
+            (
+                server.get('updateAvailable') ||
+                (
+                    server.get('updateAvailable') === undefined &&
+                    server.get('installed') &&
+                    server.get('available') &&
+                    server.get('installed') !== server.get('available')
+                )
+            )
         ) {
             this.data.version.update = ConfigurationHelper.getString('header.version.server', {
                 available: server.get('available')
