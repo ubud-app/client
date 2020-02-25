@@ -280,17 +280,18 @@ const TransactionsView = BaseView.extend({
     },
 
     openTransaction (e, transaction) {
-        if(e.offsetX >= 10) {
-            const view = new TransactionDetailsView({model: transaction});
-            view.appendTo(AppHelper.view());
+        if(e.offsetX <= 10 && e.target.classList.contains('transactions__button')) {
+            transaction.save({
+                approved: !transaction.get('approved')
+            }).catch(error => {
+                new ErrorView({error}).appendTo(AppHelper.view());
+            });
+            
             return;
         }
 
-        transaction.save({
-            approved: !transaction.get('approved')
-        }).catch(error => {
-            new ErrorView({error}).appendTo(AppHelper.view());
-        });
+        const view = new TransactionDetailsView({model: transaction});
+        view.appendTo(AppHelper.view());
     },
     newTransaction () {
         const transaction = new TransactionModel({
