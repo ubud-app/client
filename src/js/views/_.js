@@ -223,6 +223,10 @@ const BaseView = View.extend({
     },
 
     pushAt (collection, model, array, object, getId = o => o.id) {
+        if(array.includes(object)) {
+            return;
+        }
+
         const i = collection.indexOf(model);
         if (array.length === 0) {
             array.push(object);
@@ -230,7 +234,7 @@ const BaseView = View.extend({
         }
 
         let j = array.findIndex(o => {
-            const m = collection.get(getId(o));
+            const m = collection.get ? collection.get(getId(o)) : collection.find(m => getId(m));
             return collection.indexOf(m) >= i;
         });
         if (j === -1) {
