@@ -50,7 +50,8 @@ const TransactionsView = BaseView.extend({
                 visible: false
             },
             meta: {
-                empty: false
+                empty: false,
+                hasManualAccounts: false
             },
             pages: []
         };
@@ -80,6 +81,10 @@ const TransactionsView = BaseView.extend({
         this.accounts = new AccountCollection();
         this.accounts.filterBy('document', AppHelper.getDocumentId());
         this.live(this.accounts);
+
+        this.listenToAndCall(this.accounts, 'add remove reset', () => {
+            this.data.meta.hasManualAccounts = !!this.accounts.find(a => !a.pluginInstanceId);
+        });
 
 
         // Budgets
