@@ -38,6 +38,10 @@
 		background: darken($background-footer, 4);
 		color: $background-box;
 		font-size: 1.4em;
+
+        &--error {
+            animation: error 0.85s cubic-bezier(.35,.07,.20,.97) both;
+        }
 	}
 
 	&__cancel {
