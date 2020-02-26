@@ -69,7 +69,7 @@ const TransactionsView = BaseView.extend({
 
         // Document
         this.document = AppHelper.getDocument(true);
-        if(!this.document) {
+        if (!this.document) {
             return;
         }
         this.live(this.document);
@@ -83,7 +83,7 @@ const TransactionsView = BaseView.extend({
         this.live(this.accounts);
 
         this.listenToAndCall(this.accounts, 'add remove reset', () => {
-            this.data.meta.hasManualAccounts = !!this.accounts.find(a => !a.pluginInstanceId);
+            this.data.meta.hasManualAccounts = !!this.accounts.find(a => !a.get('pluginInstanceId'));
         });
 
 
@@ -101,7 +101,7 @@ const TransactionsView = BaseView.extend({
             this.addNextMonth()
         ]);
 
-        for(let i = 0; i < 100; i += 10) {
+        for (let i = 0; i < 100; i += 10) {
             setTimeout(() => {
                 this.$el.scrollTop(this.$el.children('.transactions__pages').height());
             }, i);
@@ -163,10 +163,10 @@ const TransactionsView = BaseView.extend({
         this.$el.scrollTop(this.$el.find('.transactions__page').first().height() + this.$el.scrollTop());
         this.$el.css('-webkit-overflow-scrolling', 'touch');
 
-        if(this._emptyMonths > 24) {
+        if (this._emptyMonths > 24) {
             this.updateEmptyMessage();
         }
-        if(month !== 'future' && this.$el.children('.transactions__pages').height() < window.innerHeight * 1.5 && this._emptyMonths <= 24) {
+        if (month !== 'future' && this.$el.children('.transactions__pages').height() < window.innerHeight * 1.5 && this._emptyMonths <= 24) {
             await this.addNextMonth();
         }
     },
@@ -264,7 +264,7 @@ const TransactionsView = BaseView.extend({
     },
 
     onScroll () {
-        if(this.onScroll.lock || this.$el.scrollTop() - (2 * window.innerHeight) > 0 || this._emptyMonths > 24) {
+        if (this.onScroll.lock || this.$el.scrollTop() - (2 * window.innerHeight) > 0 || this._emptyMonths > 24) {
             return;
         }
 
@@ -280,13 +280,13 @@ const TransactionsView = BaseView.extend({
     },
 
     openTransaction (e, transaction) {
-        if(e.offsetX <= 10 && e.target.classList.contains('transactions__button')) {
+        if (e.offsetX <= 10 && e.target.classList.contains('transactions__button')) {
             transaction.save({
                 approved: !transaction.get('approved')
             }).catch(error => {
                 new ErrorView({error}).appendTo(AppHelper.view());
             });
-            
+
             return;
         }
 
