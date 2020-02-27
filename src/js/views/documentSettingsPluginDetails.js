@@ -100,8 +100,6 @@ const DocumentSettingsPluginDetailsView = BaseView.extend({
             }));
         }
 
-        console.log(JSON.parse(JSON.stringify(this.model.toJSON())).config);
-
         try {
             await this.model.save();
         }
