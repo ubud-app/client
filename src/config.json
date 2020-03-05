@@ -42,6 +42,6 @@
 		}
 	},
 	"sentry": {
-		"dsn": "https://0eb153d76e904c2c8afb91f71912cdbb@sentry.sebbo.net/8"
+		"dsn": "https://603d8b8329264c44b6bad9c79e5101c5@sentry.sebbo.net/3"
 	}
 }

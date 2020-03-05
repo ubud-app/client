@@ -82,6 +82,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_LOG_LEVEL: debug
           SENTRY_ORG: ubud
           SENTRY_PROJECT: client
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
