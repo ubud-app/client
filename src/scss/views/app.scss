@@ -3,9 +3,8 @@
 @keyframes spin { 100% { transform:rotate(360deg); } }
 
 .app {
-	width: 100%;
 	min-width: 320px;
-	height: calc(env(safe-area-inset-top) + 100%);
+	min-height: calc(env(safe-area-inset-top) + 100%);
 	color: $text;
 
 	&--initializing:after {
@@ -27,7 +26,8 @@
 	&__content {
 		padding: calc(env(safe-area-inset-top, 0) + 60px) 0 calc(env(safe-area-inset-bottom) + 47px);
 		width: 100%;
-		height: 100%;
+        height: auto;
+		min-height: 100%;
 		overflow: scroll;
 		-webkit-overflow-scrolling: touch;
 
