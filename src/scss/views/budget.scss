@@ -12,6 +12,26 @@ $stats-height-desktop: 8.6em;
 
 	@include greater($size-l) {
 		font-size: 1em;
+        padding-top: 1em;
+
+        &:before,
+        &:after {
+            content: '';
+            position: fixed;
+            top: 5em;
+            background: #fff;
+            z-index: 15;
+        }
+        &:before {
+            left: $sidebar-width;
+            width: 14em;
+            height: calc(9.6em);
+        }
+        &:after {
+            left: 0;
+            right: 0;
+            height: 6em;
+        }
 	}
 
 
@@ -22,10 +42,6 @@ $stats-height-desktop: 8.6em;
 		scroll-snap-type: x mandatory;
 		align-items: stretch;
 		flex: 2;
-
-		@include greater($size-l) {
-			padding: 1em 0;
-		}
 	}
 
 
@@ -179,30 +195,16 @@ $stats-height-desktop: 8.6em;
 		}
 
 
-		&--current:before {
-			content: '';
-			position: absolute;
-			left: 3px;
-			top: 0;
-			right: 3px;
-			height: 3px;
-			z-index: 2;
-			background: rgba($primary-5, 0.5);
-			border-radius: 0 0 5px 5px;
-
-			@include greater($size-l) {
-				height: 5px;
-				border: 1px solid lighten($background-box, 4);
-				border-top: none;
-			}
-		}
-
-
 		&--activated {
 			opacity: 1;
 		}
 
 		&-header {
+            position: absolute;
+            width: calc(100%);
+            z-index: 16;
+            background: #fff;
+
 			height: $stats-height-mobile;
 			text-align: center;
 
@@ -226,7 +228,7 @@ $stats-height-desktop: 8.6em;
 
 			@include greater($size-l) {
 				height: $stats-height-desktop;
-				padding: 1.2em 0;
+				padding: 0.6em 0;
 				background: lighten($background-box, 4);
 
 				&-m,
@@ -235,6 +237,23 @@ $stats-height-desktop: 8.6em;
 				}
 			}
 		}
+        &--current &-header:before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 0;
+            right: 3px;
+            height: 3px;
+            z-index: 2;
+            background: rgba($primary-5, 0.5);
+            border-radius: 0 0 5px 5px;
+
+            @include greater($size-l) {
+                height: 5px;
+                border: 1px solid lighten($background-box, 4);
+                border-top: none;
+            }
+        }
 
 		&-category {
 			padding-top: $category-height;
@@ -244,11 +263,13 @@ $stats-height-desktop: 8.6em;
 			}
 
 			&:first-child {
+                margin-top: $stats-height-mobile;
 				background: $background;
 
 				@include greater($size-l) {
 					background: lighten($background-box, 4);
-					padding-top: 20px;
+                    margin-top: 0;
+					padding-top: $stats-height-desktop;
 				}
 			}
 		}

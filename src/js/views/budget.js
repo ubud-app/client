@@ -101,17 +101,24 @@ const BudgetView = BaseView.extend({
     },
 
     addMonth (month, after = false) {
-        this.data.months[after ? 'push' : 'unshift']({
+        const data = {
             id: month.toISODate().substr(0, 7),
             current: month.hasSame(DateTime.local(), 'month'),
             activated: false,
             rendered: false,
+            headerSpacing: 0,
             availableNegative: false,
             month: month.toFormat('LLLL'),
             year: month.toFormat('yyyy'),
             statsPage: [true, false, false],
             categories: []
-        });
+        };
+
+        this.data.months[after ? 'push' : 'unshift'](data);
+
+        const updateFixedFlag = () => data.headerSpacing = document.documentElement.scrollTop + 'px';
+        window.addEventListener('scroll', updateFixedFlag);
+        updateFixedFlag();
     },
     initializeMonths () {
         const now = DateTime.local();

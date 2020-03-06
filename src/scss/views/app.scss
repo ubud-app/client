@@ -28,8 +28,6 @@
 		width: 100%;
         height: auto;
 		min-height: 100%;
-		overflow: scroll;
-		-webkit-overflow-scrolling: touch;
 
 		@include greater($size-l) {
 			padding: $sidebar-width 0 0 $sidebar-width;

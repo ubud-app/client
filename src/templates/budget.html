@@ -19,11 +19,12 @@
 	</ul>
 </div>
 <div class="budget__container" rv-on-scroll="view._onScroll">
-	<div class="budget__month budget__month"
+	<div class="budget__month"
 		 rv-each-month="months" rv-data-id="month.id"
 		 rv-class-budget__month--activated="month.activated"
 		 rv-class-budget__month--current="month.current">
-		<div class="budget__month-header">
+		<div class="budget__month-header"
+             rv-style-top="month.headerSpacing">
 			<span class="budget__month-header-m">{ month.month }</span>
 			<span class="budget__month-header-y">{ month.year }</span>
 
