@@ -255,6 +255,11 @@ const BudgetView = BaseView.extend({
         await portions.wait();
         month.deactivate.push(this.live(portions));
 
+        const onNewPortion = portion => month.deactivate.push(this.live(portion));
+        this.listenTo(portions, 'add', onNewPortion);
+        portions.each(portion => month.deactivate.push(this.live(portion)));
+        month.deactivate.push(() => this.stopListening(portions, 'add', onNewPortion));
+
         await Promise.all([
             this.categories.wait(),
             this.budgets.wait(),
