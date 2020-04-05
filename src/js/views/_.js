@@ -216,8 +216,10 @@ const BaseView = View.extend({
             }
         };
 
+        $('body').css('overflow', 'hidden');
         this.$el.on('click', closeHandler);
         this.once('remove', () => {
+            $('body').css('overflow', '');
             this.$el.off('click', closeHandler);
         });
     },
