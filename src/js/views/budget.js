@@ -73,7 +73,6 @@ const BudgetView = BaseView.extend({
             template: BudgetTemplate,
             data: this.data
         });
-        this.initializeScrollPosition();
 
 
         // Document
@@ -95,6 +94,9 @@ const BudgetView = BaseView.extend({
         this.budgets = new BudgetCollection();
         this.budgets.filterBy('document', this.document.id);
         this.budgets.filterBy('hidden', false);
+
+        this.initializeScrollPosition();
+        this.onScroll();
 
         await BudgetView.setupBudgets(this, this.data, this.categories, this.budgets);
         return this;
@@ -145,12 +147,14 @@ const BudgetView = BaseView.extend({
         const $current = this.$el.find('.budget__month--current');
         const $labels = this.$el.find('.budget__labels');
 
+        $container.scrollLeft(0);
+
         const monthWidth = $current.width();
         const items = Math.round($container.width() / monthWidth);
         const padding = Math.max(Math.floor((items - 1) / 2), 0);
         const left = $current.position().left - $labels.width() - (padding * monthWidth);
 
-        this.$el.find('.budget__container').scrollLeft(left);
+        $container.scrollLeft(left);
     },
 
     onScroll () {
