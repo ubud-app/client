@@ -119,7 +119,6 @@ const TransactionDetailsView = BaseView.extend({
             }
 
             const defaultAccount = StoreHelper.get('defaultAccount.' + AppHelper.getDocumentId());
-            console.log(`AccountId: ${this.model.get('accountId')} | DefaultAccount: ${defaultAccount}`);
             if(!this.model.get('accountId') && defaultAccount && this.accounts.get(defaultAccount)) {
                 this.model.set({
                     accountId: defaultAccount
