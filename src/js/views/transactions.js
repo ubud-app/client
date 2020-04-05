@@ -125,7 +125,6 @@ const TransactionsView = BaseView.extend({
         this.addMonth(this.addNextMonth.latest);
     },
     async addMonth (month) {
-        //console.log('addMonth', month.toString());
         const transactions = new TransactionCollection();
         transactions.filterBy('document', AppHelper.getDocumentId());
         if (month !== 'future') {
@@ -272,7 +271,6 @@ const TransactionsView = BaseView.extend({
     },
 
     onScroll () {
-        console.log(document.documentElement.scrollTop - (2 * window.innerHeight));
         if (
             this.onScroll.lock ||
             document.documentElement.scrollTop - (2 * window.innerHeight) > 0 ||
