@@ -57,14 +57,15 @@ const ReconcileView = BaseView.extend({
         this.accounts.filterBy('document', AppHelper.getDocumentId());
         this.listenTo(this.accounts, 'add', this.addAccount);
         this.listenTo(this.accounts, 'remove', this.removeAccount);
-        this.listenToOnce(this.accounts, 'sync', () => {
-            if (!this.data. accounts.currentId) {
-                this.goToAccount(this.accounts.first().id);
-            }
-        });
         this.live(this.accounts);
 
         this.activateModal();
+
+        this.accounts.wait().then(() => {
+            if (!this.data.accounts.currentId) {
+                this.goToAccount(this.accounts.first().id);
+            }
+        });
     },
 
     addAccount (account) {
