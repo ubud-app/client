@@ -25,7 +25,7 @@ $stats-height-desktop: 8.6em;
         &:before {
             left: $sidebar-width;
             width: 14em;
-            height: calc(9.6em);
+            height: calc(7.8em);
         }
         &:after {
             left: 0;
@@ -56,9 +56,9 @@ $stats-height-desktop: 8.6em;
 		@include greater($size-l) {
 			float: left;
 			position: static;
-			top: auto;
+			top: 0;
 			width: 15em;
-			margin-top: calc(#{$stats-height-desktop} + 1em - 40px);
+			margin-top: calc(#{$stats-height-desktop} - 60px);
 			background: lighten($background-box, 4);
 			border-right: 1em solid $background;
 		}
