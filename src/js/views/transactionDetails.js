@@ -369,7 +369,17 @@ const TransactionDetailsView = BaseView.extend({
             });
         });
     },
-    updatePayeeSelect () {
+    updatePayeeSelect (e) {
+        if (e.keyCode === 8 && this.data.fields.payee.length === 0) {
+            this.model.set({
+                payeeId: null,
+                payeeName: null
+            });
+
+            e.stopPropagation();
+            e.preventDefault();
+            return;
+        }
         if (!this.data.fields.payee || this.data.fields.payee.length <= 2) {
             this.data.fields.autoCompletionCreateText = '';
             this.payees.set([]);
@@ -406,16 +416,6 @@ const TransactionDetailsView = BaseView.extend({
             this.model.set({
                 payeeId: model.id,
                 payeeName: model.get('name')
-            });
-
-            return;
-        }
-        else if (e.keyCode === 8 && this.data.fields.payee.length === 0) {
-            this.$el.find('.transaction-details__input--payee').blur();
-
-            this.model.set({
-                payeeId: null,
-                payeeName: null
             });
 
             return;
