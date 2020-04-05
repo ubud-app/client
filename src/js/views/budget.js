@@ -118,6 +118,7 @@ const BudgetView = BaseView.extend({
 
         const updateFixedFlag = () => data.headerSpacing = document.documentElement.scrollTop + 'px';
         window.addEventListener('scroll', updateFixedFlag);
+        this.once('remove', () => window.removeEventListener('scroll', updateFixedFlag));
         updateFixedFlag();
     },
     initializeMonths () {
