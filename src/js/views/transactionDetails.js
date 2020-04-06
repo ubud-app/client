@@ -482,11 +482,8 @@ const TransactionDetailsView = BaseView.extend({
             new ErrorView({error}).appendTo(AppHelper.view());
         }
     },
-    blurPayeeSelection (e) {
-        if (e && e.preventDefault) {
-            setTimeout(() => this.blurPayeeSelection(), 100);
-            return;
-        }
+    async blurPayeeSelection () {
+        await new Promise(cb => setTimeout(cb, 250));
 
         this.data.fields.autoCompletionCreateText = '';
         this.payees.set([]);
