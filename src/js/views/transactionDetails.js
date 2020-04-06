@@ -119,12 +119,12 @@ const TransactionDetailsView = BaseView.extend({
             }
 
             const defaultAccount = StoreHelper.get('defaultAccount.' + AppHelper.getDocumentId());
-            if(!this.model.get('accountId') && defaultAccount && this.accounts.get(defaultAccount)) {
+            if (!this.model.get('accountId') && defaultAccount && this.accounts.get(defaultAccount)) {
                 this.model.set({
                     accountId: defaultAccount
                 });
             }
-            else if(!this.model.get('accountId') && this.accounts.length > 0) {
+            else if (!this.model.get('accountId') && this.accounts.length > 0) {
                 this.model.set({
                     accountId: this.accounts.first().id
                 });
@@ -278,7 +278,7 @@ const TransactionDetailsView = BaseView.extend({
         this.hide(false).catch(err => Sentry.captureException(err));
 
         // save defaultAccount as entry is new
-        if(!this.model.id && this.model.get('accountId')) {
+        if (!this.model.id && this.model.get('accountId')) {
             StoreHelper.set('defaultAccount.' + AppHelper.getDocumentId(), this.model.get('accountId'));
         }
 
@@ -370,6 +370,9 @@ const TransactionDetailsView = BaseView.extend({
         });
     },
     updatePayeeSelect (e) {
+        if ([38, 40].includes(e.keyCode)) {
+            return;
+        }
         if (e.keyCode === 8 && this.data.fields.payee.length === 0) {
             this.model.set({
                 payeeId: null,
