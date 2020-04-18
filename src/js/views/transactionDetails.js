@@ -373,7 +373,7 @@ const TransactionDetailsView = BaseView.extend({
         if ([38, 40].includes(e.keyCode)) {
             return;
         }
-        if (e.keyCode === 8 && this.data.fields.payee.length === 0) {
+        if (e.keyCode === 8 && !data.fields.payee) {
             this.model.set({
                 payeeId: null,
                 payeeName: null
@@ -383,7 +383,7 @@ const TransactionDetailsView = BaseView.extend({
             e.preventDefault();
             return;
         }
-        if (!this.data.fields.payee || this.data.fields.payee.length <= 2) {
+        if (!this.data.fields.payee || (!data.fields.payee || this.data.fields.payee.length <= 2)) {
             this.data.fields.autoCompletionCreateText = '';
             this.payees.set([]);
             return;
