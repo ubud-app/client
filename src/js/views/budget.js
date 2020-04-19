@@ -258,6 +258,10 @@ const BudgetView = BaseView.extend({
         }
 
         await portions.wait();
+        if (!Array.isArray(month.deactivate)) {
+            return;
+        }
+
         month.deactivate.push(this.live(portions));
 
         const onNewPortion = portion => month.deactivate.push(this.live(portion));
@@ -270,6 +274,9 @@ const BudgetView = BaseView.extend({
             this.budgets.wait(),
             portions.wait()
         ]);
+        if (!Array.isArray(month.deactivate)) {
+            return;
+        }
 
         this.on('budgetsUpdated', () => update());
         this.listenTo(this.categories, 'add remove', () => update());
