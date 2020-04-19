@@ -85,6 +85,10 @@ const HeaderDocumentsView = BaseView.extend({
         };
 
         this.listenToAndCall(document, 'change:id', async () => {
+            if(!document.id) {
+                return;
+            }
+
             item.link = '#' + document.id + '/';
             item.tasks = '';
 
@@ -98,9 +102,10 @@ const HeaderDocumentsView = BaseView.extend({
 
                 this.listenToAndCall(summary, 'add remove', () => {
                     const model = summary.first();
-                    this.live(model);
-
-                    this.listenToAndCall(model, 'change:available', () => this.updateItemText(item, model));
+                    if(model) {
+                        this.live(model);
+                        this.listenToAndCall(model, 'change:available', () => this.updateItemText(item, model));
+                    }
                 });
             }
             catch (error) {

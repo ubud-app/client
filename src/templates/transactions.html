@@ -30,7 +30,7 @@
 		</li>
 	</ul>
 
-	<div class="transactions__buttons">
+	<div class="transactions__buttons" rv-if="meta.hasManualAccounts">
 		<button class="button button--inline button--right button--small" rv-on-click="view.newTransaction">{ 'transactions.add' | string }</button>
 		<button class="button button--inline button--secondary button--left button--small" rv-on-click="view.startReconcile">{ 'transactions.reconcile' | string }</button>
 	</div>

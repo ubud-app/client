@@ -57,7 +57,9 @@ const CategoryEditorView = BaseView.extend({
         this.listenToAndCall(this.accounts, 'add remove', () => {
             if ((!this.data.form.accountId || !this.accounts.get(this.data.form.accountId))) {
                 const firstMatch = this.accounts.find(a => !a.get('pluginInstanceId'));
-                this.data.form.accountId = firstMatch.id;
+                if(firstMatch && firstMatch.id) {
+                    this.data.form.accountId = firstMatch.id;
+                }
             }
         });
 

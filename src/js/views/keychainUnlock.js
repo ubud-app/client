@@ -22,7 +22,8 @@ const KeychainUnlockView = BaseView.extend({
     render () {
         this.data = {
             password: {
-                value: null
+                value: null,
+                error: true
             }
         };
 
@@ -53,6 +54,12 @@ const KeychainUnlockView = BaseView.extend({
             this.hide();
         }
         catch(error) {
+            if(error.toString().includes('password')) {
+                this.data.password.error = true;
+                setTimeout(() => this.data.password.error = false, 1000);
+                return;
+            }
+
             new ErrorView({error}).appendTo(AppHelper.view());
         }
     },

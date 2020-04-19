@@ -6,11 +6,12 @@
 		zu entsperren und die Plugins wieder zu aktivieren.
 	</p>
 
-	<label class="keychain-unlock__label b-form-label" for="budget-editor__input--password">Passwort</label>
+	<label class="keychain-unlock__label b-form-label" for="keychain-unlock__input">Passwort</label>
 	<input type="password"
 		   name="password"
-		   id="budget-editor__input--password"
+		   id="keychain-unlock__input"
 		   rv-value="password.value"
+           rv-class-keychain-unlock__input--error="password.error"
 		   autocomplete="disabled"
 		   autofocus="autofocus"
 		   class="keychain-unlock__input b-form-input"/>

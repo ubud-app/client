@@ -9,6 +9,7 @@ import BaseView from './_';
 import ErrorView from './error';
 
 import AppHelper from '../helpers/app';
+import StoreHelper from '../helpers/store';
 import TemplateHelper from '../helpers/template';
 import ConfigurationHelper from '../helpers/configuration';
 
@@ -104,15 +105,6 @@ const TransactionDetailsView = BaseView.extend({
         this.accounts = new AccountCollection();
         this.accounts.filterBy('document', AppHelper.getDocumentId());
         this.listenToAndCall(this.accounts, 'add remove', addUnits);
-        this.listenTo(this.accounts, 'add', account => {
-            if (!account.get('pluginInstanceId')) {
-                this.data.accounts.push(account);
-
-                if (!this.model.get('accountId') && !account.get('pluginInstanceId')) {
-                    this.model.set('accountId', account.id);
-                }
-            }
-        });
         this.listenTo(this.accounts, 'remove', account => {
             const i = this.data.accounts.findIndex(a => a.id === account.id);
             if (i > -1) {
@@ -125,6 +117,31 @@ const TransactionDetailsView = BaseView.extend({
             if (account && account.get('pluginInstanceId')) {
                 this.data.fields.isManaged = true;
             }
+
+            const defaultAccount = StoreHelper.get('defaultAccount.' + AppHelper.getDocumentId());
+            if (!this.model.get('accountId') && defaultAccount && this.accounts.get(defaultAccount)) {
+                this.model.set({
+                    accountId: defaultAccount
+                });
+            }
+            else if (!this.model.get('accountId') && this.accounts.length > 0) {
+                this.model.set({
+                    accountId: this.accounts.first().id
+                });
+            }
+
+            const addAccount = account => {
+                if (!account.get('pluginInstanceId')) {
+                    this.data.accounts.push(account);
+
+                    if (!this.model.get('accountId') && !account.get('pluginInstanceId')) {
+                        this.model.set('accountId', account.id);
+                    }
+                }
+            };
+
+            this.listenTo(this.accounts, 'add', addAccount);
+            this.accounts.each(addAccount);
         });
 
         // Budgets
@@ -260,6 +277,11 @@ const TransactionDetailsView = BaseView.extend({
 
         this.hide(false).catch(err => Sentry.captureException(err));
 
+        // save defaultAccount as entry is new
+        if (!this.model.id && this.model.get('accountId')) {
+            StoreHelper.set('defaultAccount.' + AppHelper.getDocumentId(), this.model.get('accountId'));
+        }
+
         try {
             await this.model.save({
                 approved: true
@@ -347,7 +369,20 @@ const TransactionDetailsView = BaseView.extend({
             });
         });
     },
-    updatePayeeSelect () {
+    updatePayeeSelect (e) {
+        if ([38, 40].includes(e.keyCode)) {
+            return;
+        }
+        if (e.keyCode === 8 && !this.data.fields.payee) {
+            this.model.set({
+                payeeId: null,
+                payeeName: null
+            });
+
+            e.stopPropagation();
+            e.preventDefault();
+            return;
+        }
         if (!this.data.fields.payee || this.data.fields.payee.length <= 2) {
             this.data.fields.autoCompletionCreateText = '';
             this.payees.set([]);
@@ -384,16 +419,6 @@ const TransactionDetailsView = BaseView.extend({
             this.model.set({
                 payeeId: model.id,
                 payeeName: model.get('name')
-            });
-
-            return;
-        }
-        else if (e.keyCode === 8 && this.data.fields.payee.length === 0) {
-            this.$el.find('.transaction-details__input--payee').blur();
-
-            this.model.set({
-                payeeId: null,
-                payeeName: null
             });
 
             return;
@@ -457,11 +482,8 @@ const TransactionDetailsView = BaseView.extend({
             new ErrorView({error}).appendTo(AppHelper.view());
         }
     },
-    blurPayeeSelection (e) {
-        if (e && e.preventDefault) {
-            setTimeout(() => this.blurPayeeSelection(), 100);
-            return;
-        }
+    async blurPayeeSelection () {
+        await new Promise(cb => setTimeout(cb, 250));
 
         this.data.fields.autoCompletionCreateText = '';
         this.payees.set([]);

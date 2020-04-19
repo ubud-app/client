@@ -3,8 +3,9 @@
     <br /><br /><br />
 </div>
 
-[![Status](https://git-badges.sebbo.net/68/develop/build)](https://github.com/ubud-app/client)
-![npm version](https://img.shields.io/npm/v/@ubud-app/client?color=blue&label=version&style=flat-square)
+[![Status](https://img.shields.io/github/workflow/status/ubud-app/client/Release/master?style=flat-square)](https://github.com/ubud-app/client/actions?query=workflow%3ARelease)
+[![npm version](https://img.shields.io/npm/v/@ubud-app/client?color=blue&label=version&style=flat-square)](https://www.npmjs.com/package/@ubud-app/client)
+[![npm dependency status](https://img.shields.io/librariesio/release/npm/@ubud-app/server?style=flat-square)](https://www.npmjs.com/package/@ubud-app/client)
 
 ## 🚨 Warning
 

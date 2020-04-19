@@ -73,7 +73,6 @@ const BudgetView = BaseView.extend({
             template: BudgetTemplate,
             data: this.data
         });
-        this.initializeScrollPosition();
 
 
         // Document
@@ -96,22 +95,33 @@ const BudgetView = BaseView.extend({
         this.budgets.filterBy('document', this.document.id);
         this.budgets.filterBy('hidden', false);
 
+        this.initializeScrollPosition();
+        this.onScroll();
+
         await BudgetView.setupBudgets(this, this.data, this.categories, this.budgets);
         return this;
     },
 
     addMonth (month, after = false) {
-        this.data.months[after ? 'push' : 'unshift']({
+        const data = {
             id: month.toISODate().substr(0, 7),
             current: month.hasSame(DateTime.local(), 'month'),
             activated: false,
             rendered: false,
+            headerSpacing: 0,
             availableNegative: false,
             month: month.toFormat('LLLL'),
             year: month.toFormat('yyyy'),
             statsPage: [true, false, false],
             categories: []
-        });
+        };
+
+        this.data.months[after ? 'push' : 'unshift'](data);
+
+        const updateFixedFlag = () => data.headerSpacing = document.documentElement.scrollTop + 'px';
+        window.addEventListener('scroll', updateFixedFlag);
+        this.once('remove', () => window.removeEventListener('scroll', updateFixedFlag));
+        updateFixedFlag();
     },
     initializeMonths () {
         const now = DateTime.local();
@@ -137,12 +147,14 @@ const BudgetView = BaseView.extend({
         const $current = this.$el.find('.budget__month--current');
         const $labels = this.$el.find('.budget__labels');
 
+        $container.scrollLeft(0);
+
         const monthWidth = $current.width();
         const items = Math.round($container.width() / monthWidth);
         const padding = Math.max(Math.floor((items - 1) / 2), 0);
         const left = $current.position().left - $labels.width() - (padding * monthWidth);
 
-        this.$el.find('.budget__container').scrollLeft(left);
+        $container.scrollLeft(left);
     },
 
     onScroll () {
@@ -210,7 +222,7 @@ const BudgetView = BaseView.extend({
         month.summary = null;
         month.availableNegative = false;
         this.listenToAndCall(summaries, 'add remove', () => {
-            if (summaries.length) {
+            if (summaries.length && Array.isArray(month.deactivate)) {
                 month.summary = summaries.first();
                 month.deactivate.push(this.live(month.summary));
 
@@ -246,7 +258,25 @@ const BudgetView = BaseView.extend({
         }
 
         await portions.wait();
+        if (!Array.isArray(month.deactivate)) {
+            return;
+        }
+
         month.deactivate.push(this.live(portions));
+
+        const onNewPortion = portion => month.deactivate.push(this.live(portion));
+        this.listenTo(portions, 'add', onNewPortion);
+        portions.each(portion => month.deactivate.push(this.live(portion)));
+        month.deactivate.push(() => this.stopListening(portions, 'add', onNewPortion));
+
+        await Promise.all([
+            this.categories.wait(),
+            this.budgets.wait(),
+            portions.wait()
+        ]);
+        if (!Array.isArray(month.deactivate)) {
+            return;
+        }
 
         this.on('budgetsUpdated', () => update());
         this.listenTo(this.categories, 'add remove', () => update());
@@ -257,24 +287,23 @@ const BudgetView = BaseView.extend({
             this.stopListening(this.budgets, 'add remove', () => update);
             this.stopListening(portions, 'add remove', () => update);
 
-            month.categories.length = 0;
+            month.categories.forEach(c => c.portions.length = 0);
         });
 
         update();
     },
     updateMonthBody (month, portions) {
-        this.trigger('updateMonthBody:' + month.id);
-        month.categories.length = 0; // reset array
-
         this.data.categories.forEach(categoryData => {
-            const category = {
+            const category = month.categories.find(c => c.id === categoryData.id) || {
+                id: categoryData.id,
                 portions: []
             };
 
             categoryData.budgets.forEach(budget => {
                 const budgetModel = this.budgets.get(budget.id);
                 const portionModel = portions.length && portions.find(p => p.get('budgetId') === budget.id);
-                const portion = {
+                const portion = category.portions.find(p => p.id === budget.id) || {
+                    id: budget.id,
                     model: portionModel || null,
                     negative: null,
                     goal: null,
@@ -291,18 +320,23 @@ const BudgetView = BaseView.extend({
                         portion.active[0] = i === 2;
                         portion.active[1] = i === 0;
                         portion.active[2] = i === 1;
-                    }
+                    },
+                    listenerActive: false,
+                    updateGoal: null,
+                    updateBudgetedRemote: null
                 };
 
-                if (portionModel) {
-                    const updateGoal = () => {
+                portion.model = portionModel || null;
+
+                if (portionModel && !portion.listenerActive) {
+                    portion.updateGoal = () => {
                         portion.negative = portionModel.get('balance') < 0;
 
                         if (budgetModel.get('goal')) {
                             portion.goal = {
                                 width: Math.max(
                                     0,
-                                        Math.min(
+                                    Math.min(
                                         100,
                                         Math.round(portionModel.get('balance') / budgetModel.get('goal') * 100)
                                     )
@@ -319,7 +353,7 @@ const BudgetView = BaseView.extend({
                             portion.toggleGoal();
                         }
                     };
-                    const updateBudgetedRemote = debounce(() => {
+                    portion.updateBudgetedRemote = debounce(() => {
                         portionModel.save().catch(error => {
                             new ErrorView({error}).appendTo(AppHelper.view());
                         });
@@ -337,24 +371,22 @@ const BudgetView = BaseView.extend({
                             });
                         }
 
-                        updateBudgetedRemote();
+                        portion.updateBudgetedRemote();
                     });
 
-                    this.listenTo(budgetModel, 'change:goal', updateGoal);
-                    this.listenToAndCall(portionModel, 'change:balance', updateGoal);
+                    this.listenTo(budgetModel, 'change:goal', portion.updateGoal);
+                    this.listenToAndCall(portionModel, 'change:balance', portion.updateGoal);
 
-                    this.once('updateMonthBody:' + month.id, () => {
-                        this.stopListening(portionModel, 'change:budgeted');
-                        this.stopListening(budgetModel, 'change:goal', updateGoal);
-                        this.stopListening(portionModel, 'change:balance', updateGoal);
-                    });
+                    portion.listenerActive = true;
+                }
+                else if (portion.listenerActive) {
+                    portion.updateGoal();
                 }
 
-                category.portions.push(portion);
+                this.pushAt(categoryData.budgets, budget, category.portions, portion);
             });
 
-
-            month.categories.push(category);
+            this.pushAt(this.data.categories, categoryData, month.categories, category);
         });
     },
     deactivateMonth (month) {

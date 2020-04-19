@@ -247,7 +247,8 @@ class DataHelper {
         let body = {};
         options = options || {};
 
-        model._syncing = true;
+        DataHelper._syncEvents(true, model._synced, {model, options});
+
         method = DataHelper._methodMap[method];
         if (method === 'get' && model instanceof Collection) {
             method = 'list';

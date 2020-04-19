@@ -33,7 +33,6 @@ import TransactionCollection from '../collections/transaction';
 const TransactionsView = BaseView.extend({
     className: 'transactions',
     events: {
-        'scroll': '__onScroll',
         'dragenter': 'dragEnter',
         'dragleave': 'dragLeave',
         'dragover': 'dragOver',
@@ -50,7 +49,8 @@ const TransactionsView = BaseView.extend({
                 visible: false
             },
             meta: {
-                empty: false
+                empty: false,
+                hasManualAccounts: false
             },
             pages: []
         };
@@ -68,7 +68,7 @@ const TransactionsView = BaseView.extend({
 
         // Document
         this.document = AppHelper.getDocument(true);
-        if(!this.document) {
+        if (!this.document) {
             return;
         }
         this.live(this.document);
@@ -80,6 +80,10 @@ const TransactionsView = BaseView.extend({
         this.accounts = new AccountCollection();
         this.accounts.filterBy('document', AppHelper.getDocumentId());
         this.live(this.accounts);
+
+        this.listenToAndCall(this.accounts, 'add remove reset', () => {
+            this.data.meta.hasManualAccounts = !!this.accounts.find(a => !a.get('pluginInstanceId'));
+        });
 
 
         // Budgets
@@ -96,11 +100,20 @@ const TransactionsView = BaseView.extend({
             this.addNextMonth()
         ]);
 
-        for(let i = 0; i < 100; i += 10) {
-            setTimeout(() => {
-                this.$el.scrollTop(this.$el.children('.transactions__pages').height());
-            }, i);
-        }
+        await Promise.race([
+            new Promise(cb => {
+                const h = () => {
+                    window.removeEventListener('scroll', h);
+                    cb();
+                };
+                window.addEventListener('scroll', h);
+            }),
+            new Promise(cb => setTimeout(cb, 10000))
+        ]);
+
+        document.documentElement.scrollTop = window.outerHeight;
+        window.addEventListener('scroll', this.__onScroll);
+        this.once('remove', () => window.removeEventListener('scroll', this.__onScroll));
 
         return this;
     },
@@ -112,7 +125,6 @@ const TransactionsView = BaseView.extend({
         this.addMonth(this.addNextMonth.latest);
     },
     async addMonth (month) {
-        //console.log('addMonth', month.toString());
         const transactions = new TransactionCollection();
         transactions.filterBy('document', AppHelper.getDocumentId());
         if (month !== 'future') {
@@ -155,13 +167,13 @@ const TransactionsView = BaseView.extend({
 
         this.data.pages[month === 'future' ? 'push' : 'unshift'](page);
         this.$el.css('-webkit-overflow-scrolling', 'auto');
-        this.$el.scrollTop(this.$el.find('.transactions__page').first().height() + this.$el.scrollTop());
+        document.documentElement.scrollTop = this.$el.find('.transactions__page').first().height() + document.documentElement.scrollTop;
         this.$el.css('-webkit-overflow-scrolling', 'touch');
 
-        if(this._emptyMonths > 24) {
+        if (this._emptyMonths > 24) {
             this.updateEmptyMessage();
         }
-        if(month !== 'future' && this.$el.children('.transactions__pages').height() < window.innerHeight * 1.5 && this._emptyMonths <= 24) {
+        if (month !== 'future' && this.$el.children('.transactions__pages').height() < window.innerHeight * 1.5 && this._emptyMonths <= 24) {
             await this.addNextMonth();
         }
     },
@@ -259,7 +271,11 @@ const TransactionsView = BaseView.extend({
     },
 
     onScroll () {
-        if(this.onScroll.lock || this.$el.scrollTop() - (2 * window.innerHeight) > 0 || this._emptyMonths > 24) {
+        if (
+            this.onScroll.lock ||
+            document.documentElement.scrollTop - (2 * window.innerHeight) > 0 ||
+            this._emptyMonths > 24
+        ) {
             return;
         }
 
@@ -275,17 +291,18 @@ const TransactionsView = BaseView.extend({
     },
 
     openTransaction (e, transaction) {
-        if(e.offsetX >= 10) {
-            const view = new TransactionDetailsView({model: transaction});
-            view.appendTo(AppHelper.view());
+        if (e.offsetX <= 10 && e.target.classList.contains('transactions__button')) {
+            transaction.save({
+                approved: !transaction.get('approved')
+            }).catch(error => {
+                new ErrorView({error}).appendTo(AppHelper.view());
+            });
+
             return;
         }
 
-        transaction.save({
-            approved: !transaction.get('approved')
-        }).catch(error => {
-            new ErrorView({error}).appendTo(AppHelper.view());
-        });
+        const view = new TransactionDetailsView({model: transaction});
+        view.appendTo(AppHelper.view());
     },
     newTransaction () {
         const transaction = new TransactionModel({

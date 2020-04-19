@@ -161,12 +161,12 @@ export default class DataWorker {
             return true;
         }
 
-        await new Promise(cb => {
+        return new Promise(cb => {
             const done = () => {
                 const i = this.onConnected.indexOf(done);
                 if (i > -1) {
                     this.onConnected.splice(i, 1);
-                    cb(this.status === 5);
+                    cb(this.status !== 5);
                 }
             };
 
