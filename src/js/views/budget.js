@@ -222,7 +222,7 @@ const BudgetView = BaseView.extend({
         month.summary = null;
         month.availableNegative = false;
         this.listenToAndCall(summaries, 'add remove', () => {
-            if (summaries.length) {
+            if (summaries.length && Array.isArray(month.deactivate)) {
                 month.summary = summaries.first();
                 month.deactivate.push(this.live(month.summary));
 
