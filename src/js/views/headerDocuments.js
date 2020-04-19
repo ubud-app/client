@@ -85,6 +85,10 @@ const HeaderDocumentsView = BaseView.extend({
         };
 
         this.listenToAndCall(document, 'change:id', async () => {
+            if(!document.id) {
+                return;
+            }
+
             item.link = '#' + document.id + '/';
             item.tasks = '';
 
