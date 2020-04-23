@@ -201,13 +201,14 @@ const BaseView = View.extend({
         }, 0);
 
         this.hide = async () => {
+            this.trigger('modal-hide');
             this.$el.removeClass('loading');
             this.$el.addClass('b-modal--hidden');
             await new Promise(cb => setTimeout(cb, 300));
             this.remove();
         };
 
-        const closeHandler = e => {
+        const closeByClickHandler = e => {
             if ($(e.target).is('.b-modal') || $(e.target).is('.b-modal__content')) {
                 this.hide().catch(async error => {
                     const ErrorView = await import('./error');
@@ -215,17 +216,31 @@ const BaseView = View.extend({
                 });
             }
         };
+        const closeByEscHandler = e => {
+            if (
+                e.keyCode === 27 &&
+                !this.data.fields.autoCompletionCreateText &&
+                this.data.autoCompletion.length === 0
+            ) {
+                this.hide();
+            }
+        };
 
-        $('body').css('overflow', 'hidden');
-        this.$el.on('click', closeHandler);
+        this.$el.on('click', closeByClickHandler);
+        $('body')
+            .css('overflow', 'hidden')
+            .on('keydown', closeByEscHandler);
+
         this.once('remove', () => {
-            $('body').css('overflow', '');
-            this.$el.off('click', closeHandler);
+            this.$el.off('click', closeByClickHandler);
+            $('body')
+                .css('overflow', '')
+                .off('keydown', closeByEscHandler);
         });
     },
 
     pushAt (collection, model, array, object, getId = o => o.id) {
-        if(array.includes(object)) {
+        if (array.includes(object)) {
             return;
         }
 

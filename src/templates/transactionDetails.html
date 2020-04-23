@@ -1,173 +1,181 @@
-<form class="transaction-details__container" rv-on-submit="view.submit">
-	<div class="transaction-details__header">
-		<button type="button" class="transaction-details__close" rv-on-click="view.hide">⨯</button>
-	</div>
-	<div class="transaction-details__fields">
-		<div class="transaction-details__field">
-			<label for="transaction-details__datetime"
-				   class="transaction-details__field-label">{ 'transactionDetails.labels.time' | string }</label>
-			<div class="transaction-details__field-input-wrap">
-				<input type="datetime-local"
-					   class="transaction-details__field-input transaction-details__field-input--datetime"
-					   id="transaction-details__datetime"
-					   rv-unless="dateTimeFallback.enabled"
-					   rv-disabled="fields.isManaged"
-					   rv-datetime-value="model:time"
-				       required="required">
+<form class="transaction-details__container b-modal__content" rv-on-submit="view.submit">
+    <div class="transaction-details__header">
+        <button type="button" class="transaction-details__close" rv-on-click="view.hideView">⨯</button>
+    </div>
+    <div class="transaction-details__fields">
+        <div class="transaction-details__field">
+            <label for="transaction-details__datetime"
+                   class="transaction-details__field-label">{ 'transactionDetails.labels.time' | string }</label>
+            <div class="transaction-details__field-input-wrap">
+                <input type="datetime-local"
+                       class="transaction-details__field-input transaction-details__field-input--datetime"
+                       id="transaction-details__datetime"
+                       rv-unless="dateTimeFallback.enabled"
+                       rv-disabled="fields.isManaged"
+                       rv-datetime-value="model:time"
+                       required="required">
 
-				<input type="date"
-					   class="transaction-details__field-input transaction-details__field-input--date"
-					   id="transaction-details__date"
-					   rv-if="dateTimeFallback.enabled"
-					   rv-disabled="fields.isManaged"
-					   rv-value="dateTimeFallback.date"
-					   rv-on-change="view.updateModelDateFromFallback"
-				       required="required">
+                <input type="date"
+                       class="transaction-details__field-input transaction-details__field-input--date"
+                       id="transaction-details__date"
+                       rv-if="dateTimeFallback.enabled"
+                       rv-disabled="fields.isManaged"
+                       rv-value="dateTimeFallback.date"
+                       rv-on-change="view.updateModelDateFromFallback"
+                       required="required">
 
-				<input type="time"
-					   class="transaction-details__field-input transaction-details__field-input--time"
-					   id="transaction-details__time"
-					   rv-if="dateTimeFallback.enabled"
-					   rv-disabled="fields.isManaged"
-					   rv-value="dateTimeFallback.time"
-					   rv-on-change="view.updateModelDateFromFallback"
-				       required="required">
-			</div>
-		</div>
-		<div class="transaction-details__field">
-			<label for="transaction-details__payee"
-				   class="transaction-details__field-label">{ 'transactionDetails.labels.payee' | string }</label>
-			<input type="text"
-				   class="transaction-details__field-input transaction_details__input--autocomplete transaction-details__input--payee"
-				   autocomplete="off"
-				   rv-value="fields.payee"
-				   rv-on-keyup="view.updatePayeeSelect"
-				   rv-on-keydown="view.updatePayeeSelection"
-				   rv-on-blur="view.blurPayeeSelection"
-				   id="transaction-details__payee">
-			<ul class="transaction-details__autocomplete" rv-if="autoCompletion">
-				<li class="transaction-details__autocomplete-suggestion"
-					rv-each-suggestion="autoCompletion"
-					rv-class-transaction-details__autocomplete-suggestion--selected="suggestion.selected">
-					<button type="button"
-							class="transaction-details__autocomplete-button"
-						    rv-on-click="suggestion.click">{ suggestion.model:name }</button>
-				</li>
-				<li class="transaction-details__autocomplete-suggestion transaction-details__autocomplete-suggestion--create"
-					rv-if="fields.autoCompletionCreateText"
-					rv-class-transaction-details__autocomplete-suggestion--selected="fields.autoCompletionCreateSelected">
-					<button type="button"
-							class="transaction-details__autocomplete-button"
-							rv-on-click="view.clickAutoCompletionCreate">
-						{ fields.autoCompletionCreateText }
-					</button>
-				</li>
-			</ul>
-		</div>
-		<div class="transaction-details__field" rv-unless="fields.isManaged">
-			<label for="transaction-details__account"
-				   class="transaction-details__field-label">{ 'transactionDetails.labels.account' | string }</label>
-			<div class="transaction-details__field-select-wrap">
-				<select class="transaction-details__field-select transaction_details__field-select--account"
-						id="transaction-details__account"
-						rv-value="model:accountId">
-					<option rv-value="account:id" rv-each-account="accounts">{ account:name }</option>
-				</select>
-			</div>
-		</div>
-		<div class="transaction-details__field">
-			<label for="transaction-details__amount"
-				   class="transaction-details__field-label">{ 'transactionDetails.labels.amount' | string }</label>
-			<input type="text"
-				   class="transaction-details__field-input transaction_details__input--amount"
-				   id="transaction-details__amount"
-				   rv-currency-value="model:amount">
-		</div>
-		<div class="transaction-details__field">
-			<label for="transaction-details__memo"
-				   class="transaction-details__field-label">{ 'transactionDetails.labels.memo' | string }</label>
-			<input type="text"
-				   class="transaction-details__field-input transaction_details__input--memo"
-				   id="transaction-details__memo"
-				   rv-value="model:memo">
-		</div>
-		<div class="transaction-details__clearfix"></div>
-	</div>
-	<span class="transaction-details__units-headline">▾ { 'transactionDetails.headlines.budgeting' | string }</span>
-	<ul class="transaction-details__units">
-		<li class="transaction-details__unit"
-			rv-class-transaction-details__unit--invalid="unit.invalid"
-			rv-class-transaction-details__unit--memo="fields.showBudgetMemos"
-			rv-each-unit="units">
-			<div class="transaction-details__unit-budget">
-				<input type="text"
-					   rv-currency-value="unit.amount"
-					   class="transaction-details__unit-amount"
-					   rv-on-keyup="view.checkUnits"/>
-				<select class="transaction-details__unit-budget-select"
-						rv-value="unit.type"
-						rv-on-change="view.checkUnits">
-					<option value="REMOVE">-</option>
-					<optgroup rv-label="'transactionDetails.headlines.income' | string">
-						<option value="INCOME">{ typeSelector.incomeLabel }</option>
-						<option value="INCOME_NEXT">{ typeSelector.incomeNextLabel }</option>
-					</optgroup>
-					<optgroup rv-if="typeSelector.accounts.0" rv-label="'transactionDetails.headlines.transfer' | string">
-						<option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">{
-							account:name }
-						</option>
-					</optgroup>
-					<optgroup rv-label="category.model:name" rv-each-category="typeSelector.categories">
-						<option rv-value="budget:id | prepend 'BUDGET:'" rv-each-budget="category.budgets">{ budget:name
-							}
-						</option>
-					</optgroup>
-				</select>
-				<input type="text"
-					   rv-value="unit.memo"
-					   class="transaction-details__unit-memo"
-					   rv-if="fields.showBudgetMemos"
-					   rv-placeholder="'transactionDetails.placeholders.memo' | string"/>
-			</div>
-		</li>
-		<li class="transaction-details__unit transaction-details__unit--add"
-			rv-class-transaction-details__unit--add-animate="fields.animateBudgetFields"
-			rv-class-transaction-details__unit--memo="fields.showBudgetMemos">
-			<button class="transaction-details__unit-add" type="button" rv-on-click="view.addUnit">+</button>
-		</li>
-	</ul>
-	<ul class="transaction-details__quick-units" rv-class-transaction-details__quick-units--hidden="fields.showUnitGuesses">
-		<li class="transaction-details__quick-unit" rv-each-guess="unitGuesses:models">
-			<button class="transaction-details__quick-unit-button"
+                <input type="time"
+                       class="transaction-details__field-input transaction-details__field-input--time"
+                       id="transaction-details__time"
+                       rv-if="dateTimeFallback.enabled"
+                       rv-disabled="fields.isManaged"
+                       rv-value="dateTimeFallback.time"
+                       rv-on-change="view.updateModelDateFromFallback"
+                       required="required">
+            </div>
+        </div>
+        <div class="transaction-details__field">
+            <label for="transaction-details__payee"
+                   class="transaction-details__field-label">{ 'transactionDetails.labels.payee' | string }</label>
+            <input type="text"
+                   class="transaction-details__field-input transaction_details__input--autocomplete transaction-details__input--payee"
+                   autocomplete="off"
+                   rv-value="fields.payee"
+                   rv-on-keyup="view.updatePayeeSelect"
+                   rv-on-keydown="view.updatePayeeSelection"
+                   rv-on-blur="view.blurPayeeSelection"
+                   id="transaction-details__payee">
+            <ul class="transaction-details__autocomplete" rv-if="autoCompletion">
+                <li class="transaction-details__autocomplete-suggestion"
+                    rv-each-suggestion="autoCompletion"
+                    rv-class-transaction-details__autocomplete-suggestion--selected="suggestion.selected">
+                    <button type="button"
+                            class="transaction-details__autocomplete-button"
+                            rv-on-click="suggestion.click">{ suggestion.model:name }
+                    </button>
+                </li>
+                <li class="transaction-details__autocomplete-suggestion transaction-details__autocomplete-suggestion--create"
+                    rv-if="fields.autoCompletionCreateText"
+                    rv-class-transaction-details__autocomplete-suggestion--selected="fields.autoCompletionCreateSelected">
+                    <button type="button"
+                            class="transaction-details__autocomplete-button"
+                            rv-on-click="view.clickAutoCompletionCreate">
+                        { fields.autoCompletionCreateText }
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="transaction-details__field" rv-unless="fields.isManaged">
+            <label for="transaction-details__account"
+                   class="transaction-details__field-label">{ 'transactionDetails.labels.account' | string }</label>
+            <div class="transaction-details__field-select-wrap">
+                <select class="transaction-details__field-select transaction_details__field-select--account"
+                        id="transaction-details__account"
+                        rv-value="model:accountId">
+                    <option rv-value="account:id" rv-each-account="accounts">{ account:name }</option>
+                </select>
+            </div>
+        </div>
+        <div class="transaction-details__field">
+            <label for="transaction-details__amount"
+                   class="transaction-details__field-label">{ 'transactionDetails.labels.amount' | string }</label>
+            <input type="text"
+                   class="transaction-details__field-input transaction_details__input--amount"
+                   id="transaction-details__amount"
+                   rv-currency-value="model:amount">
+        </div>
+        <div class="transaction-details__field">
+            <label for="transaction-details__memo"
+                   class="transaction-details__field-label">{ 'transactionDetails.labels.memo' | string }</label>
+            <input type="text"
+                   class="transaction-details__field-input transaction_details__input--memo"
+                   id="transaction-details__memo"
+                   rv-value="model:memo">
+        </div>
+        <div class="transaction-details__clearfix"></div>
+    </div>
+    <span class="transaction-details__units-headline">▾ { 'transactionDetails.headlines.budgeting' | string }</span>
+    <ul class="transaction-details__units">
+        <li class="transaction-details__unit"
+            rv-class-transaction-details__unit--invalid="unit.invalid"
+            rv-class-transaction-details__unit--memo="fields.showBudgetMemos"
+            rv-each-unit="units">
+            <div class="transaction-details__unit-budget">
+                <input type="text"
+                       rv-currency-value="unit.amount"
+                       class="transaction-details__unit-amount"
+                       rv-on-keyup="view.checkUnits"/>
+                <select class="transaction-details__unit-budget-select"
+                        rv-value="unit.type"
+                        rv-on-change="view.checkUnits">
+                    <option value="REMOVE">-</option>
+                    <optgroup rv-label="'transactionDetails.headlines.income' | string">
+                        <option value="INCOME">{ typeSelector.incomeLabel }</option>
+                        <option value="INCOME_NEXT">{ typeSelector.incomeNextLabel }</option>
+                    </optgroup>
+                    <optgroup rv-if="typeSelector.accounts.0"
+                              rv-label="'transactionDetails.headlines.transfer' | string">
+                        <option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">{
+                            account:name }
+                        </option>
+                    </optgroup>
+                    <optgroup rv-label="category.model:name" rv-each-category="typeSelector.categories">
+                        <option rv-value="budget:id | prepend 'BUDGET:'" rv-each-budget="category.budgets">{ budget:name
+                            }
+                        </option>
+                    </optgroup>
+                </select>
+                <input type="text"
+                       rv-value="unit.memo"
+                       class="transaction-details__unit-memo"
+                       rv-if="fields.showBudgetMemos"
+                       rv-placeholder="'transactionDetails.placeholders.memo' | string"/>
+            </div>
+        </li>
+        <li class="transaction-details__unit transaction-details__unit--add"
+            rv-class-transaction-details__unit--add-animate="fields.animateBudgetFields"
+            rv-class-transaction-details__unit--memo="fields.showBudgetMemos">
+            <button class="transaction-details__unit-add" type="button" rv-on-click="view.addUnit">+</button>
+        </li>
+    </ul>
+    <ul class="transaction-details__quick-units"
+        rv-class-transaction-details__quick-units--hidden="fields.showUnitGuesses">
+        <li class="transaction-details__quick-unit" rv-each-guess="unitGuesses:models">
+            <button class="transaction-details__quick-unit-button"
                     type="button"
-					rv-on-click="view.applyQuickUnit"
-					rv-data-id="guess:budgetId">{ guess:budgetName }</button>
-		</li>
-	</ul>
-	<div class="transaction-details__original" rv-if="fields.isManaged">
-		<button class="transaction-details__original-toggle">▾ { 'transactionDetails.headlines.original' | string }
-		</button>
-		<div class="transaction-details__original-content">
-			<span class="transaction-details__original-datetime">{ model:time | datetime }</span>
-			<span class="transaction-details__original-payee" rv-data-fallback="'transactionDetails.original.payeeFallback' | string">{ model:pluginsOwnPayeeId }</span>
-			<span class="transaction-details__original-memo" rv-data-fallback="'transactionDetails.original.memoFallback' | string">{ model:pluginsOwnMemo }</span>
-			<span class="transaction-details__original-amount"
-				  rv-class-transaction-details__original-amount--negative="model:amount | isNegative">{ model:amount | currency }</span>
-		</div>
-		<p class="transaction-details__original-reconcile" rv-if="model:reconciling">
-			{ 'transactionDetails.reconciling' | string }
-		</p>
-	</div>
+                    rv-on-click="view.applyQuickUnit"
+                    rv-data-id="guess:budgetId">{ guess:budgetName }
+            </button>
+        </li>
+    </ul>
+    <div class="transaction-details__original" rv-if="fields.isManaged">
+        <button class="transaction-details__original-toggle">▾ { 'transactionDetails.headlines.original' | string }
+        </button>
+        <div class="transaction-details__original-content">
+            <span class="transaction-details__original-datetime">{ model:time | datetime }</span>
+            <span class="transaction-details__original-payee"
+                  rv-data-fallback="'transactionDetails.original.payeeFallback' | string">{ model:pluginsOwnPayeeId }</span>
+            <span class="transaction-details__original-memo"
+                  rv-data-fallback="'transactionDetails.original.memoFallback' | string">{ model:pluginsOwnMemo }</span>
+            <span class="transaction-details__original-amount"
+                  rv-class-transaction-details__original-amount--negative="model:amount | isNegative">{ model:amount | currency }</span>
+        </div>
+        <p class="transaction-details__original-reconcile" rv-if="model:reconciling">
+            { 'transactionDetails.reconciling' | string }
+        </p>
+    </div>
 
-	<div class="b-form-buttons">
-		<button type="button"
-				class="b-form-button b-form-button--remove"
-				rv-unless="fields.isManaged"
-				rv-on-click="view.removeTransaction">
-			{ 'transactionDetails.remove' | string }
-		</button>
+    <div class="b-form-buttons">
+        <button type="button"
+                class="b-form-button b-form-button--remove"
+                rv-unless="fields.isManaged"
+                rv-on-click="view.removeTransaction">
+            { 'transactionDetails.remove' | string }
+        </button>
 
-		<button type="submit" class="b-form-button b-form-button--save">{ 'transactionDetails.save' | string }</button>
-		<button type="button" class="b-form-button b-form-button--cancel" rv-on-click="view.hide">{ 'transactionDetails.cancel' | string }</button>
-	</div>
+        <button type="submit" class="b-form-button b-form-button--save">{ 'transactionDetails.save' | string }</button>
+        <button type="button" class="b-form-button b-form-button--cancel" rv-on-click="view.hideView">{
+            'transactionDetails.cancel' | string }
+        </button>
+    </div>
 </form>
