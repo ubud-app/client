@@ -139,6 +139,7 @@
 	<ul class="transaction-details__quick-units" rv-class-transaction-details__quick-units--hidden="fields.showUnitGuesses">
 		<li class="transaction-details__quick-unit" rv-each-guess="unitGuesses:models">
 			<button class="transaction-details__quick-unit-button"
+                    type="button"
 					rv-on-click="view.applyQuickUnit"
 					rv-data-id="guess:budgetId">{ guess:budgetName }</button>
 		</li>
