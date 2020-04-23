@@ -3,7 +3,7 @@
 .transactions {
 	min-height: 100%;
 	user-select: none;
-	padding: 0 0 2em;
+	padding: 0 0 4em;
 
 	&__pages {
 		@include greater($size-l) {
