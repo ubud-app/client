@@ -4,8 +4,18 @@
 
 	<form class="login__form" rv-on-submit="view.submit">
 		<div class="login__form-box" rv-class-login__form-box--error="meta.error" rv-unless="terms.visible">
-			<input class="login__form-input login__form-input--email" type="email" autocomplete="username" rv-placeholder="'login.email.placeholder' | string" rv-value="form.username" required />
-			<input class="login__form-input login__form-input--password" type="password" autocomplete="current-password" rv-placeholder="'login.password.placeholder' | string" rv-value="form.password" required />
+			<input class="login__form-input login__form-input--email"
+                   type="email"
+                   autocomplete="username"
+                   enterkeyhint="go"
+                   rv-placeholder="'login.email.placeholder' | string"
+                   rv-value="form.username" required />
+			<input class="login__form-input login__form-input--password"
+                   type="password"
+                   autocomplete="current-password"
+                   enterkeyhint="go"
+                   rv-placeholder="'login.password.placeholder' | string" rv-value="form.password"
+                   required />
 		</div>
 
 		<div class="login__terms" rv-if="terms.visible">

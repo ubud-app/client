@@ -10,6 +10,7 @@
                 <input type="datetime-local"
                        class="transaction-details__field-input transaction-details__field-input--datetime"
                        id="transaction-details__datetime"
+                       enterkeyhint="done"
                        rv-unless="dateTimeFallback.enabled"
                        rv-disabled="fields.isManaged"
                        rv-datetime-value="model:time"
@@ -18,6 +19,7 @@
                 <input type="date"
                        class="transaction-details__field-input transaction-details__field-input--date"
                        id="transaction-details__date"
+                       enterkeyhint="done"
                        rv-if="dateTimeFallback.enabled"
                        rv-disabled="fields.isManaged"
                        rv-value="dateTimeFallback.date"
@@ -27,6 +29,7 @@
                 <input type="time"
                        class="transaction-details__field-input transaction-details__field-input--time"
                        id="transaction-details__time"
+                       enterkeyhint="done"
                        rv-if="dateTimeFallback.enabled"
                        rv-disabled="fields.isManaged"
                        rv-value="dateTimeFallback.time"
@@ -40,6 +43,7 @@
             <input type="text"
                    class="transaction-details__field-input transaction_details__input--autocomplete transaction-details__input--payee"
                    autocomplete="off"
+                   enterkeyhint="done"
                    rv-value="fields.payee"
                    rv-on-keyup="view.updatePayeeSelect"
                    rv-on-keydown="view.updatePayeeSelection"
@@ -82,6 +86,7 @@
             <input type="text"
                    class="transaction-details__field-input transaction_details__input--amount"
                    id="transaction-details__amount"
+                   enterkeyhint="done"
                    rv-currency-value="model:amount">
         </div>
         <div class="transaction-details__field">
@@ -90,6 +95,7 @@
             <input type="text"
                    class="transaction-details__field-input transaction_details__input--memo"
                    id="transaction-details__memo"
+                   enterkeyhint="done"
                    rv-value="model:memo">
         </div>
         <div class="transaction-details__clearfix"></div>
@@ -104,6 +110,7 @@
                 <input type="text"
                        rv-currency-value="unit.amount"
                        class="transaction-details__unit-amount"
+                       enterkeyhint="done"
                        rv-on-keyup="view.checkUnits"/>
                 <select class="transaction-details__unit-budget-select"
                         rv-value="unit.type"
@@ -128,6 +135,7 @@
                 <input type="text"
                        rv-value="unit.memo"
                        class="transaction-details__unit-memo"
+                       enterkeyhint="done"
                        rv-if="fields.showBudgetMemos"
                        rv-placeholder="'transactionDetails.placeholders.memo' | string"/>
             </div>
