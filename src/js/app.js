@@ -29,7 +29,7 @@ import FirstSetupView from './views/firstSetup';
 
 
 // initialize raven / sentry
-if (ConfigurationHelper.getSentryDSN()) {
+if (ConfigurationHelper.getSentryDSN() && ConfigurationHelper.getVersion().substr(0, 5) !== '0.0.0') {
     Sentry.init({
         dsn: ConfigurationHelper.getSentryDSN(),
         release: ConfigurationHelper.getVersion(),
