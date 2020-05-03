@@ -58,15 +58,17 @@ const BudgetView = BaseView.extend({
                 }*/
             ],
             meta: {
-                locked: true
+                locked: true,
+                fixedMonthHeader: false,
+                monthWidth: 0
             }
         };
 
         this.listenToAndCall(DataHelper, 'socket:state', () => {
             this.data.meta.locked = DataHelper.state() !== 'ready';
         });
+        this.onScroll.debounced = debounce(this.onScrollEnd, 100);
 
-        this._onScroll = debounce(this.onScroll, 50);
         this.initializeMonths();
         TemplateHelper.render({
             view: this,
@@ -99,16 +101,30 @@ const BudgetView = BaseView.extend({
         this.onScroll();
 
         await BudgetView.setupBudgets(this, this.data, this.categories, this.budgets);
+
+        const onVerticalScroll = () => {
+            this.data.meta.fixedMonthHeader = document.documentElement.scrollTop > 14;
+        };
+        window.addEventListener('scroll', onVerticalScroll);
+        this.once('remove', () => window.removeEventListener('scroll', onVerticalScroll));
+        onVerticalScroll();
+
+        window.addEventListener('resize', this.onResize);
+        this.once('remove', () => window.removeEventListener('resize', this.onResize));
+        setTimeout(() => this.onResize(), 0);
+
         return this;
     },
 
     addMonth (month, after = false) {
+        const id = month.toISODate().substr(0, 7);
         const data = {
-            id: month.toISODate().substr(0, 7),
+            id,
             current: month.hasSame(DateTime.local(), 'month'),
+            element: null,
+            headerElement: null,
             activated: false,
             rendered: false,
-            headerSpacing: 0,
             availableNegative: false,
             month: month.toFormat('LLLL'),
             year: month.toFormat('yyyy'),
@@ -117,11 +133,7 @@ const BudgetView = BaseView.extend({
         };
 
         this.data.months[after ? 'push' : 'unshift'](data);
-
-        const updateFixedFlag = () => data.headerSpacing = document.documentElement.scrollTop + 'px';
-        window.addEventListener('scroll', updateFixedFlag);
-        this.once('remove', () => window.removeEventListener('scroll', updateFixedFlag));
-        updateFixedFlag();
+        setTimeout(() => this.onResize(), 0);
     },
     initializeMonths () {
         const now = DateTime.local();
@@ -158,6 +170,23 @@ const BudgetView = BaseView.extend({
     },
 
     onScroll () {
+        this.data.months.forEach(month => {
+            let element = document.querySelector(`.budget__month[data-monthId='${month.id}']`),
+                headerElement = month.headerElement = document.querySelector(
+                    `.budget__month[data-monthId='${month.id}'] .budget__month-header`
+                );
+
+            if (!element || !headerElement) {
+                return;
+            }
+
+            const left = $(element).offset().left;
+            headerElement.style.left = `${left}px`;
+        });
+
+        this.onScroll.debounced();
+    },
+    onScrollEnd () {
         if (!this.months) {
             return;
         }
@@ -207,6 +236,20 @@ const BudgetView = BaseView.extend({
         });
 
         this.onScroll.done = true;
+    },
+    onResize () {
+        const element = Array.from(document.getElementsByClassName('budget__month--activated'))
+            .find(e => e.offsetWidth);
+        if(!element) {
+            return;
+        }
+
+        const width = element.offsetWidth;
+        Array.from(document.getElementsByClassName('budget__month-header')).forEach(el => {
+            el.style.width = width + 'px';
+        });
+
+        this.onScroll();
     },
 
     async activateMonth (month) {
