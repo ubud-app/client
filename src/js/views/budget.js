@@ -240,7 +240,7 @@ const BudgetView = BaseView.extend({
     onResize () {
         const element = Array.from(document.getElementsByClassName('budget__month--activated'))
             .find(e => e.offsetWidth);
-        if(!element) {
+        if (!element) {
             return;
         }
 
@@ -471,8 +471,15 @@ const BudgetView = BaseView.extend({
             id: category.id,
             name: null,
             settings: () => this.openCategorySettings(view, category, !(view instanceof BudgetView)),
-            mobileSettings: () => {
-                if (window.innerWidth <= 920) {
+            mobileSettings: (e) => {
+                if (window.innerWidth > 920) {
+                    return;
+                }
+
+                if (e.offsetX / e.target.offsetWidth >= 0.8) {
+                    entry.addNewBudget();
+                }
+                else {
                     entry.settings();
                 }
             },
