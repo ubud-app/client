@@ -86,7 +86,7 @@ class ConfigurationHelper {
 
         return {
             production: !this.grunt.option('develop'),
-            version: process.env.CI_COMMIT_SHA || this.pkg.version,
+            version: process.env.VERSION || this.pkg.version,
             stores,
             cache
         };
