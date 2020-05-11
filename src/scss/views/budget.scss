@@ -34,8 +34,13 @@ $stats-height-desktop: 8.6em;
 		overflow-x: scroll;
 		scroll-snap-type: x mandatory;
 		align-items: stretch;
+        scrollbar-width: none;
 		flex: 2;
-	}
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
 
 
 	&__labels {
