@@ -1,9 +1,7 @@
 'use strict';
 
 import {debounce} from 'underscore';
-import $ from 'zepto';
 import {DateTime} from 'luxon';
-import Sentry from '@sentry/browser';
 
 import BaseView from './_';
 import ErrorView from './error';
@@ -33,7 +31,7 @@ import BudgetGuessCollection from '../collections/budgetGuess';
  * @author Sebastian Pekarek
  */
 const TransactionDetailsView = BaseView.extend({
-    className: 'transaction-details transaction-details--hidden',
+    className: 'transaction-details b-modal b-modal--hidden loading',
 
     async render () {
         this.data = {
@@ -99,6 +97,16 @@ const TransactionDetailsView = BaseView.extend({
         if (this.$el.find('.transaction-details__field-input--datetime').get(0).type !== 'datetime-local') {
             this.enableDateTimeFallback();
         }
+
+        
+        this.activateModal();
+        this.on('modal-hide', () => {
+            if (!this.model.isNew()) {
+                this.model.fetch().catch(error => {
+                    new ErrorView({error}).appendTo(AppHelper.view());
+                });
+            }
+        });
 
 
         // Accounts
@@ -229,53 +237,21 @@ const TransactionDetailsView = BaseView.extend({
         this.listenTo(this.data.unitGuesses, 'sync', updateBudgetGuessVisibility);
         this.listenToAndCall(this.model, 'change:units', updateBudgetGuessVisibility);
 
-
-        // ESC
-        const escCb = e => {
-            if (
-                e.keyCode === 27 &&
-                !this.data.fields.autoCompletionCreateText &&
-                this.data.autoCompletion.length === 0
-            ) {
-                this.hide();
-            }
-        };
-        $('body').on('keydown', escCb);
-        this.once('remove', () => {
-            $('body').off('keydown', escCb);
-        });
-
-
-        setTimeout(() => {
-            this.$el.removeClass('transaction-details--hidden');
-        }, 0);
-
+        this.$el.removeClass('loading');
         return this;
     },
 
-    async hide (fetch = true) {
-        if (fetch && this.model.id) {
-            this.model.fetch().catch(error => {
-                new ErrorView({error}).appendTo(AppHelper.view());
-            });
-        }
-
-        this.trigger('hide');
-        this.$el.addClass('transaction-details--hidden');
-
-        await new Promise(cb => setTimeout(cb, 300));
-        this.remove();
+    async hideView () {
+        this.hide();
     },
     async submit (e) {
         e.preventDefault();
-        this.$el.addClass('transaction-details--hidden');
+        this.$el.addClass('loading');
 
         const invalid = this.checkUnits();
         if (invalid) {
             return;
         }
-
-        this.hide(false).catch(err => Sentry.captureException(err));
 
         // save defaultAccount as entry is new
         if (!this.model.id && this.model.get('accountId')) {
@@ -292,7 +268,11 @@ const TransactionDetailsView = BaseView.extend({
 
             const view = new TransactionDetailsView({model: this.model});
             view.appendTo(AppHelper.view());
+            return;
         }
+
+        this.$el.addClass('loading');
+        this.hide();
     },
 
     async addUnits () {
@@ -594,7 +574,7 @@ const TransactionDetailsView = BaseView.extend({
     async removeTransaction () {
         try {
             await this.model.destroy();
-            await this.hide(false);
+            this.hide();
         }
         catch (error) {
             new ErrorView({error}).appendTo(AppHelper.view());

@@ -14,23 +14,16 @@ $stats-height-desktop: 8.6em;
 		font-size: 1em;
         padding-top: 1em;
 
-        &:before,
-        &:after {
+        &:before  {
             content: '';
             position: fixed;
             top: 5em;
             background: #fff;
+            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,0) 100%);
             z-index: 15;
-        }
-        &:before {
             left: $sidebar-width;
             width: 14em;
             height: calc(7.8em);
-        }
-        &:after {
-            left: 0;
-            right: 0;
-            height: 6em;
         }
 	}
 
@@ -41,8 +34,13 @@ $stats-height-desktop: 8.6em;
 		overflow-x: scroll;
 		scroll-snap-type: x mandatory;
 		align-items: stretch;
+        scrollbar-width: none;
 		flex: 2;
-	}
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
 
 
 	&__labels {
@@ -61,6 +59,7 @@ $stats-height-desktop: 8.6em;
 			margin-top: calc(#{$stats-height-desktop} - 60px);
 			background: lighten($background-box, 4);
 			border-right: 1em solid $background;
+            z-index: 18;
 		}
 	}
 
@@ -201,12 +200,32 @@ $stats-height-desktop: 8.6em;
 
 		&-header {
             position: absolute;
+            top: 0;
+            left: 0;
             width: calc(100%);
             z-index: 16;
-            background: #fff;
 
 			height: $stats-height-mobile;
 			text-align: center;
+            transition: transform 0.3s ease-out, font-size 0.3s ease-in-out;
+            transform: translate3d(0, 0, 0);
+            background: #fff;
+
+            @include greater($size-l) {
+                transition: font-size 0.3s ease-in-out;
+            }
+
+            &--fixed {
+                @include greater($size-l) {
+                    position: fixed;
+                    z-index: 16;
+                    transform: translate3d(0, calc(env(safe-area-inset-top, 0) + 80px), 0);
+                    font-size: 1em;
+                }
+            }
+            &:not(&--fixed) {
+                left: 0 !important;
+            }
 
 			&-m,
 			&-y {
@@ -445,13 +464,13 @@ $stats-height-desktop: 8.6em;
 
 		&-label {
 			padding: 0;
-			font-size: 12px;
+			font-size: 0.8em;
 			color: lighten($text, 20);
 		}
 
 		&-value {
 			margin-top: -1px;
-			font-size: 28px;
+			font-size: 1.8em;
 			font-weight: bold;
 			color: lighten($text, 10);
 

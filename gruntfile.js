@@ -22,7 +22,6 @@ module.exports = function (grunt) {
      */
 
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-zopfli');
 
@@ -55,13 +54,6 @@ module.exports = function (grunt) {
         clean: {
             all: ['./dest/*'],
             tmp: ['./dest/worker.config.json', './dest/*/app.config.json']
-        },
-        mkdir: {
-            dest: {
-                options: {
-                    create: ['./dest']
-                }
-            }
         }
     });
 
@@ -76,6 +68,10 @@ module.exports = function (grunt) {
 
         const builderPath = path.resolve('./src/scripts/configurationBuilder.js');
         const ConfigurationBuilder = require(builderPath);
+
+        if (!fs.existsSync('./dest')) {
+            fs.mkdirSync('./dest');
+        }
 
         Promise.all([
             new ConfigurationBuilder({grunt, pkg, config: globalConfig}).app().then(content => {
@@ -886,7 +882,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build:prepare', [
         'clean:all',
-        'mkdir:dest',
         'buildConfiguration',
         'buildFavicons',
         'generateZeptoBuild'

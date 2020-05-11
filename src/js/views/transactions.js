@@ -100,6 +100,9 @@ const TransactionsView = BaseView.extend({
             this.addNextMonth()
         ]);
 
+        // scroll down with empty body (most likely useless)
+        this.scrollDown();
+
         await Promise.race([
             new Promise(cb => {
                 const h = () => {
@@ -111,7 +114,9 @@ const TransactionsView = BaseView.extend({
             new Promise(cb => setTimeout(cb, 10000))
         ]);
 
-        document.documentElement.scrollTop = window.outerHeight;
+        // scroll down with filled body
+        this.scrollDown();
+
         window.addEventListener('scroll', this.__onScroll);
         this.once('remove', () => window.removeEventListener('scroll', this.__onScroll));
 
@@ -270,6 +275,10 @@ const TransactionsView = BaseView.extend({
         this.data.meta.empty = !!(this._emptyMonths > 24 && !this.data.pages.find(p => p.transactions.length > 0));
     },
 
+    scrollDown () {
+        document.documentElement.scrollTop = document.body.scrollHeight - window.innerHeight -
+            (window.innerWidth <= 920 ? 63 : 0);
+    },
     onScroll () {
         if (
             this.onScroll.lock ||
