@@ -500,13 +500,6 @@ $stats-height-desktop: 8.6em;
 			}
 		}
 	}
-    &__month-header--fixed &__stats-indicator {
-        display: none;
-
-        @include greater($size-l) {
-            display: inline-block;
-        }
-    }
 
 	&__autofill {
 		position: absolute;
