@@ -1,0 +1,178 @@
+@import "../definitions/variables";
+
+@keyframes location-pulse {
+    0% {
+        opacity: 0.3;
+    }
+    70% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.transaction-add {
+    &__back,
+    &__location {
+        display: block;
+        position: absolute;
+        top: calc(env(safe-area-inset-top, 0) - 0.2em);
+        width: 3em;
+        height: 3em;
+        font-size: 1.4em;
+        z-index: 10;
+    }
+    &__back {
+        left: -0.2em;
+    }
+    &__location {
+        right: -0.2em;
+        color: $text;
+        opacity: 0.3;
+
+        &--enabled {
+            animation: location-pulse 1s infinite;
+        }
+        &--active {
+            opacity: 0.8;
+            animation: none;
+        }
+        &--error {
+            opacity: 0.8;
+            animation: none;
+            color: $red;
+        }
+    }
+
+    &__amount,
+    &__options,
+    &__keyboard,
+    &__buttons {
+        position: absolute;
+        width: 100%;
+    }
+
+    &__amount {
+        top: calc(env(safe-area-inset-top, 0));
+        bottom: calc(23.5em + env(safe-area-inset-bottom));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &--transfer {
+            bottom: calc(26.6em + env(safe-area-inset-bottom));
+        }
+
+        &-prelabel,
+        &-postlabel {
+            opacity: 0.8em;
+            font-size: 0.8em;
+        }
+        &-prelabel {
+            margin-bottom: 1em;
+        }
+        &-postlabel {
+            margin-top: 1em;
+        }
+
+        &-calculation {
+            font-size: 1.2em;
+            opacity: 0.6;
+            margin-bottom: -0.4em;
+        }
+        &-value {
+            font-size: 3.2em;
+
+            &--green {
+                color: $green;
+            }
+            &--red {
+                color: $red;
+            }
+            &--empty {
+                opacity: 0.6;
+                color: inherit;
+            }
+        }
+    }
+
+    &__options {
+        bottom: calc(20.5em + env(safe-area-inset-bottom));
+    }
+    &__option {
+        display: block;
+        width: 100%;
+        background: rgba($background-footer, 0.95);
+        color: $background;
+        text-align: inherit;
+        padding: 0.8em 1em;
+        box-shadow: inset 0px -10px 10px -10px rgba(0,0,0,0.7);
+
+        & + & {
+            margin-top: 1px;
+        }
+    }
+    &__account {
+        &-type {
+            opacity: 0.6;
+
+            &:after {
+                content: ':';
+            }
+        }
+        &-balance {
+            opacity: 0.6;
+            float: right;
+        }
+    }
+
+    &__keyboard {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: stretch;
+        align-content: stretch;
+        bottom: calc(5.5em + env(safe-area-inset-bottom));
+        height: 14em;
+
+        &-button {
+            flex: 0 0 25%;
+            font-size: 1.2em;
+
+            &--calculator {
+                opacity: 0.4;
+            }
+        }
+    }
+
+    &__buttons {
+        padding: 1em 1em calc(1em + env(safe-area-inset-bottom));
+        height: calc(5.5em + env(safe-area-inset-bottom));
+        bottom: 0;
+        overflow: hidden;
+    }
+    &__button--cancel {
+        transition: opacity 0.3s ease-out;
+        opacity: 0;
+    }
+    &__buttons--nosave &__button--cancel {
+        transition: opacity 0.3s ease-out 0.3s;
+        opacity: 1;
+    }
+
+    &__button--save {
+        position: absolute;
+        left: 1em;
+        width: calc(100% - 2em);
+        bottom: calc(1em + env(safe-area-inset-bottom));
+        z-index: 1000;
+
+        transform: translate3d(0, 0, 0);
+        transition: transform 0.3s ease-out;
+    }
+    &__buttons--nosave &__button--save {
+        transform: translate3d(0, calc(10em + env(safe-area-inset-bottom)), 0);
+    }
+}
