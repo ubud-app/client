@@ -824,17 +824,18 @@ module.exports = function (grunt) {
                 reloadOnRestart: true,
                 open: false,
                 watchTask: true,
-                online: false,
                 notify: false,
                 ghostMode: {
                     clicks: !!grunt.option('ghost'),
                     forms: !!grunt.option('ghost'),
                     scroll: !!grunt.option('ghost')
                 },
-                server: {
-                    baseDir: './dest',
-                    index: 'index.html'
-                }
+                proxy: {
+                    target: "http://localhost:8080",
+                    ws: true
+                },
+                serveStatic: ['dest'],
+                startPath: '/en-US/'
             },
             app: {
                 src: [
