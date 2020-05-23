@@ -6,21 +6,21 @@
             rv-class-transaction-add__location--error="location.error"
             rv-on-click="view.toggleLocation"></button>
     <div class="transaction-add__amount" rv-class-transaction-add__amount--transfer="amount.mode | is 'transfer'">
-        <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'outflow'">Ich habe</span>
-        <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'income'">Ich habe</span>
-        <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'transfer'">Ich habe</span>
+        <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'outflow'">{ 'transactionAdd.outflow.pre' | string }</span>
+        <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'income'">{ 'transactionAdd.income.pre' | string }</span>
+        <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'transfer'">{ 'transactionAdd.transfer.pre' | string }</span>
         <span class="transaction-add__amount-calculation" rv-if="amount.calculation" rv-html="amount.calculation"></span>
         <span class="transaction-add__amount-value"
               rv-class-transaction-add__amount-value--empty="amount.value | is 0"
               rv-class-transaction-add__amount-value--green="amount.mode | is 'income'"
               rv-class-transaction-add__amount-value--red="amount.mode | is 'outflow'">{ amount.value | currency }</span>
-        <span class="transaction-add__amount-postlabel" rv-if="amount.mode | is 'outflow'">ausgegeben</span>
-        <span class="transaction-add__amount-postlabel" rv-if="amount.mode | is 'income'">eingenommen</span>
-        <span class="transaction-add__amount-postlabel" rv-if="amount.mode | is 'transfer'">transferiert</span>
+        <span class="transaction-add__amount-postlabel" rv-if="amount.mode | is 'outflow'">{ 'transactionAdd.outflow.post' | string }</span>
+        <span class="transaction-add__amount-postlabel" rv-if="amount.mode | is 'income'">{ 'transactionAdd.income.post' | string }</span>
+        <span class="transaction-add__amount-postlabel" rv-if="amount.mode | is 'transfer'">{ 'transactionAdd.transfer.post' | string }</span>
     </div>
     <div class="transaction-add__options">
         <button class="transaction-add__option transaction-add__account" rv-on-click="view.updateAccount">
-            <span class="transaction-add__account-type" rv-if="amount.mode | is 'transfer'">Von</span>
+            <span class="transaction-add__account-type" rv-if="amount.mode | is 'transfer'">{ 'transactionAdd.transfer.from' | string }</span>
             <span class="transaction-add__account-name">{ account.model:name }</span>
             <span class="transaction-add__account-balance" rv-if="account.after">
                 { account.model:balance | currency } → { account.after | currency }
@@ -29,7 +29,7 @@
         <button class="transaction-add__option transaction-add__account"
                 rv-if="amount.mode | is 'transfer'"
                 rv-on-click="view.updateTransferAccount">
-            <span class="transaction-add__account-type">Nach</span>
+            <span class="transaction-add__account-type">{ 'transactionAdd.transfer.to' | string }</span>
             <span class="transaction-add__account-name">{ transferAccount.model:name }</span>
             <span class="transaction-add__account-balance" rv-if="transferAccount.after">
                 { transferAccount.model:balance | currency } → { transferAccount.after | currency }
@@ -55,7 +55,7 @@
         <button rv-on-click="view.onKeyboardPress" class="transaction-add__keyboard-button transaction-add__keyboard-button--calculator">+</button>
     </div>
     <div class="transaction-add__buttons" rv-class-transaction-add__buttons--nosave="amount.value | is 0">
-        <button class="b-form-button b-form-button--cancel transaction-add__button--cancel" rv-on-click="hide">Abbrechen</button>
-        <button class="b-form-button b-form-button--save transaction-add__button--save" rv-on-click="save">Speichern</button>
+        <button class="b-form-button b-form-button--cancel transaction-add__button--cancel" rv-on-click="hide">{ 'transactionAdd.cancel' | string }</button>
+        <button class="b-form-button b-form-button--save transaction-add__button--save" rv-on-click="save">{ 'transactionAdd.save' | string }</button>
     </div>
 </div>

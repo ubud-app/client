@@ -568,5 +568,23 @@
 		"privacy": "Datenschutzbestimmungen",
 		"accept": "Akzeptieren",
 		"reject": "Später erinnern"
-	}
+	},
+    "transactionAdd": {
+        "outflow": {
+            "pre": "Ich habe",
+            "post": "ausgegeben"
+        },
+        "income": {
+            "pre": "Ich habe",
+            "post": "eingenommen"
+        },
+        "transfer": {
+            "pre": "Ich habe",
+            "post": "verschoben",
+            "from": "Von",
+            "to": "Nach"
+        },
+        "cancel": "Abbrechen",
+        "save": "Speichern"
+    }
 }
