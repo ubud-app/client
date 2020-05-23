@@ -78,7 +78,6 @@ const SidebarView = BaseView.extend({
             data: this.data
         });
 
-        setTimeout(() => this.data.add.click(), 100);
         return this;
     },
 
