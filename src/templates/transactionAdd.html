@@ -24,7 +24,7 @@
         <button class="transaction-add__option transaction-add__account" rv-on-click="view.updateAccount">
             <span class="transaction-add__account-type" rv-if="amount.mode | is 'transfer'">{ 'transactionAdd.transfer.from' | string }</span>
             <span class="transaction-add__account-name">{ account.model:name }</span>
-            <span class="transaction-add__account-balance" rv-if="account.after">
+            <span class="transaction-add__account-balance" rv-if="account.model">
                 { account.model:balance | currency } → { account.after | currency }
             </span>
         </button>
@@ -33,7 +33,7 @@
                 rv-on-click="view.updateTransferAccount">
             <span class="transaction-add__account-type">{ 'transactionAdd.transfer.to' | string }</span>
             <span class="transaction-add__account-name">{ transferAccount.model:name }</span>
-            <span class="transaction-add__account-balance" rv-if="transferAccount.after">
+            <span class="transaction-add__account-balance" rv-if="transferAccount.model">
                 { transferAccount.model:balance | currency } → { transferAccount.after | currency }
             </span>
         </button>
