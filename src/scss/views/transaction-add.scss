@@ -13,6 +13,8 @@
 }
 
 .transaction-add {
+    user-select: none;
+    
     &__back,
     &__location {
         display: block;
