@@ -5,7 +5,9 @@
             rv-class-transaction-add__location--active="location.coordinates"
             rv-class-transaction-add__location--error="location.error"
             rv-on-click="view.toggleLocation"></button>
-    <div class="transaction-add__amount" rv-class-transaction-add__amount--transfer="amount.mode | is 'transfer'">
+    <div class="transaction-add__amount"
+         rv-on-click="view.toggleModes"
+         rv-class-transaction-add__amount--transfer="amount.mode | is 'transfer'">
         <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'outflow'">{ 'transactionAdd.outflow.pre' | string }</span>
         <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'income'">{ 'transactionAdd.income.pre' | string }</span>
         <span class="transaction-add__amount-prelabel" rv-if="amount.mode | is 'transfer'">{ 'transactionAdd.transfer.pre' | string }</span>

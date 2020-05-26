@@ -76,7 +76,7 @@ const TransactionAddView = BaseView.extend({
         });
 
         const lastUsedLocationOption = StoreHelper.get('saveLocation');
-        if(lastUsedLocationOption === 1 || lastUsedLocationOption === null) {
+        if (lastUsedLocationOption === 1 || lastUsedLocationOption === null) {
             this.toggleLocation();
         }
 
@@ -99,14 +99,8 @@ const TransactionAddView = BaseView.extend({
             this.data.calculation.currentValue = Math.floor(this.data.calculation.currentValue / 10);
             this.updateCalculation();
         }
-        else if (button === '⇆' && this.data.amount.mode === 'outflow') {
-            this.data.amount.mode = 'income';
-        }
-        else if (button === '⇆' && this.data.amount.mode === 'income' && this.accounts.length >= 2) {
-            this.data.amount.mode = 'transfer';
-        }
         else if (button === '⇆') {
-            this.data.amount.mode = 'outflow';
+            this.toggleModes();
         }
         else if (Object.values(OPERATOR2SIGN).includes(button)) {
             this.addOperatorToCalculation(
@@ -119,6 +113,17 @@ const TransactionAddView = BaseView.extend({
         if (this.data.amount.mode === 'transfer') {
             this.validateTransferAccount();
             this.updateTransferAccountAfter();
+        }
+    },
+    toggleModes () {
+        if (this.data.amount.mode === 'outflow') {
+            this.data.amount.mode = 'income';
+        }
+        else if (this.data.amount.mode === 'income' && this.accounts.length >= 2) {
+            this.data.amount.mode = 'transfer';
+        }
+        else {
+            this.data.amount.mode = 'outflow';
         }
     },
     async getAccounts () {
@@ -246,7 +251,7 @@ const TransactionAddView = BaseView.extend({
             null;
     },
     toggleLocation () {
-        if(this.data.location.id !== null) {
+        if (this.data.location.id !== null) {
             navigator.geolocation.clearWatch(this.data.location.id);
             this.data.location.id = null;
             this.data.location.coordinates = null;
@@ -277,10 +282,10 @@ const TransactionAddView = BaseView.extend({
             locationLongitude: this.data.location.coordinates?.longitude || null
         });
 
-        if(this.data.amount.mode === 'outflow') {
+        if (this.data.amount.mode === 'outflow') {
             model.set('amount', this.data.amount.value * -1);
         }
-        if(this.data.amount.mode === 'transfer') {
+        if (this.data.amount.mode === 'transfer') {
             model.set({
                 accountId: this.data.transferAccount.model.id,
                 approved: true,
@@ -297,7 +302,7 @@ const TransactionAddView = BaseView.extend({
             this.$el.addClass('loading');
             await model.save();
         }
-        catch(error) {
+        catch (error) {
             this.$el.removeClass('loading');
             throw error;
         }
