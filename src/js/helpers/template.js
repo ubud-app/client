@@ -154,7 +154,7 @@ rivets.binders['currency-value'] = {
         }
     },
     getValue: function () {
-        return this.autonumeric.getNumber() * 100;
+        return Math.round(this.autonumeric.getNumber() * 100);
     },
     bind: function (el) {
         this.autonumeric = new AutoNumeric(el, TemplateHelper.getAutoNumericCurrencyConfig());
