@@ -39,7 +39,6 @@ const SidebarView = BaseView.extend({
             add: {
                 active: false,
                 click: () => {
-                    this.setActive('add');
                     new TransactionAddView().appendTo(AppHelper.view());
                 }
             },
