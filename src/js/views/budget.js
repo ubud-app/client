@@ -404,17 +404,24 @@ const BudgetView = BaseView.extend({
 
                     this.listenTo(portionModel, 'change:budgeted', () => {
                         const change = portionModel.get('budgeted') - portionModel.previous('budgeted');
-                        portionModel.set({
-                            balance: portionModel.get('balance') + change
-                        });
-
-                        if (month.summary) {
-                            month.summary.set({
-                                available: month.summary.get('available') - change
-                            });
-                        }
-
+                        this.trigger('portionBudgetChange', {portion: portionModel, change});
                         portion.updateBudgetedRemote();
+                    });
+                    this.on('portionBudgetChange', ({portion, change}) => {
+                        if (
+                            portion.get('budgetId') === portionModel.get('budgetId') &&
+                            portion.get('month') <= portionModel.get('month')
+                        ) {
+                            portionModel.set({
+                                balance: portionModel.get('balance') + change
+                            });
+
+                            if (month.summary) {
+                                month.summary.set({
+                                    available: month.summary.get('available') - change
+                                });
+                            }
+                        }
                     });
 
                     this.listenTo(budgetModel, 'change:goal', portion.updateGoal);
