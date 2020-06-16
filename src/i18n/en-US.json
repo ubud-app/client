@@ -107,44 +107,6 @@
 		},
 		"submit": {
 			"text": "Save login credentials"
-		},
-		"newDocument": {
-			"name": "My first document",
-			"language": "en-GB",
-			"accounts": {
-				"wallet": "Wallet",
-				"pillow": "Under my pillow"
-			},
-			"default": {
-				"name": "1. Everyday",
-				"default": "Other",
-				"lostCash": "Lost Coins",
-				"clothing": "Clothing",
-				"food": "Food"
-			},
-			"monthly": {
-				"name": "2. Monthly",
-				"rent": "Rent",
-				"power": "Electricity",
-				"water": "Water",
-				"heating": "Heating",
-				"internet": "Internet"
-			},
-			"insurance": {
-				"name": "3. Insurances",
-				"liability": "Liability Insurance",
-				"health": "Health Insurance"
-			},
-			"rainyDays": {
-				"name": "4. Rainy Days",
-				"birthdays": "Birthdays",
-				"christmas": "Christmas"
-			},
-			"goals": {
-				"name": "5. Goals",
-				"example": "become a billionaire",
-				"value": "100000000"
-			}
 		}
 	},
 	"header": {
@@ -184,7 +146,45 @@
 				"negative": "budgeted {{amount}} to much",
 				"positive": "{{amount}} to budget",
 				"zero": "looks fine"
-			}
+			},
+            "newDocument": {
+                "name": "My first document",
+                "language": "en-GB",
+                "accounts": {
+                    "wallet": "Wallet",
+                    "pillow": "Under my pillow"
+                },
+                "default": {
+                    "name": "1. Everyday",
+                    "default": "Other",
+                    "lostCash": "Lost Coins",
+                    "clothing": "Clothing",
+                    "food": "Food"
+                },
+                "monthly": {
+                    "name": "2. Monthly",
+                    "rent": "Rent",
+                    "power": "Electricity",
+                    "water": "Water",
+                    "heating": "Heating",
+                    "internet": "Internet"
+                },
+                "insurance": {
+                    "name": "3. Insurances",
+                    "liability": "Liability Insurance",
+                    "health": "Health Insurance"
+                },
+                "rainyDays": {
+                    "name": "4. Rainy Days",
+                    "birthdays": "Birthdays",
+                    "christmas": "Christmas"
+                },
+                "goals": {
+                    "name": "5. Goals",
+                    "example": "become a billionaire",
+                    "value": "100000000"
+                }
+            }
 		},
 		"connection": {
 			"disconnected": "Connection lost",

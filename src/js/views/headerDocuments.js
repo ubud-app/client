@@ -11,8 +11,13 @@ import ConfigurationHelper from '../helpers/configuration';
 
 import SummaryCollection from '../collections/summary';
 import DocumentModel from '../models/document';
+import AccountModel from '../models/account';
+import CategoryModel from '../models/category';
+import BudgetModel from '../models/budget';
 
 import HeaderDocumentsTemplate from '../../templates/headerDocuments.html';
+import {defer} from 'underscore';
+import AppHelper from '../helpers/app';
 
 
 /**
@@ -85,7 +90,7 @@ const HeaderDocumentsView = BaseView.extend({
         };
 
         this.listenToAndCall(document, 'change:id', async () => {
-            if(!document.id) {
+            if (!document.id) {
                 return;
             }
 
@@ -102,7 +107,7 @@ const HeaderDocumentsView = BaseView.extend({
 
                 this.listenToAndCall(summary, 'add remove', () => {
                     const model = summary.first();
-                    if(model) {
+                    if (model) {
                         this.live(model);
                         this.listenToAndCall(model, 'change:available', () => this.updateItemText(item, model));
                     }
@@ -166,17 +171,68 @@ const HeaderDocumentsView = BaseView.extend({
             name = ConfigurationHelper.getString('header.documents.new.unnamed');
         }
 
-        const document = new DocumentModel();
-        document.set({name});
-
+        const document = await HeaderDocumentsView.createNewDocumentWithDefaultData(name);
         this.collection.add(document);
 
-        try {
-            document.save();
-        }
-        catch (err) {
-            this.collection.remove(document);
-        }
+        defer(() => {
+            AppHelper.navigate(document.id + '/budget', {trigger: 1});
+        });
+    }
+}, {
+    async createNewDocumentWithDefaultData (name) {
+        const document = new DocumentModel({
+            name: name || ConfigurationHelper.getString('header.documents.newDocument.name'),
+            settings: {
+                language: ConfigurationHelper.getString('header.documents.newDocument.language')
+            }
+        });
+
+        await document.save();
+
+        await Promise.all(['wallet', 'pillow'].map(async k =>
+            new AccountModel({
+                name: ConfigurationHelper.getString('header.documents.accounts.' + k),
+                documentId: document.id,
+                type: 'cash'
+            }).save()
+        ));
+
+        const categories = {};
+        await Promise.all(['default', 'monthly', 'insurance', 'rainyDays', 'goals'].map(k => {
+            categories[k] = new CategoryModel({
+                name: ConfigurationHelper.getString('header.documents.newDocument.' + k + '.name'),
+                documentId: document.id
+            });
+            return categories[k].save();
+        }));
+
+        const budgets = [
+            ['default', 'default'],
+            ['default', 'lostCash'],
+            ['default', 'clothing'],
+            ['default', 'food'],
+            ['monthly', 'rent'],
+            ['monthly', 'power'],
+            ['monthly', 'water'],
+            ['monthly', 'heating'],
+            ['monthly', 'internet'],
+            ['insurance', 'liability'],
+            ['insurance', 'health'],
+            ['rainyDays', 'birthdays'],
+            ['rainyDays', 'christmas'],
+            ['goals', 'example']
+        ];
+        await Promise.all(budgets.map(([category, budget]) =>
+            new BudgetModel({
+                name: ConfigurationHelper.getString(`header.documents.newDocument.${category}.${budget}`),
+                categoryId: categories[category].id,
+                goal: category === 'goals' ?
+                    ConfigurationHelper.getString(`header.documents.newDocument.goals.value`) :
+                    null
+            }).save()
+        ));
+
+        return document;
     }
 });
 
