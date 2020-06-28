@@ -500,7 +500,7 @@ const BudgetView = BaseView.extend({
                 if (e.offsetX / e.target.offsetWidth >= 0.8) {
                     entry.addNewBudget().catch(error => {
                         new ErrorView({error}).appendTo(AppHelper.view());
-                    });;
+                    });
                 }
                 else {
                     entry.settings();
