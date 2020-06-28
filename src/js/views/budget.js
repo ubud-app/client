@@ -323,7 +323,15 @@ const BudgetView = BaseView.extend({
 
         this.on('budgetsUpdated', () => update());
         this.listenTo(this.categories, 'add remove', () => update());
-        this.listenTo(this.budgets, 'add remove', () => update());
+        this.listenTo(this.budgets, 'add', () => {
+            portions.fetch().then(() => {
+                update();
+            });
+        });
+        this.listenTo(this.budgets, 'remove', budget => {
+            portions.filter(p => p.get('budgetId') === budget.id)
+                .forEach(p => portions.remove(p));
+        });
         this.listenTo(portions, 'add remove', () => update());
         month.deactivate.push(() => {
             this.stopListening(this.categories, 'add remove', () => update);
@@ -342,6 +350,7 @@ const BudgetView = BaseView.extend({
                 portions: []
             };
 
+            // add budgets
             categoryData.budgets.forEach(budget => {
                 const budgetModel = this.budgets.get(budget.id);
                 const portionModel = portions.length && portions.find(p => p.get('budgetId') === budget.id);
@@ -436,6 +445,11 @@ const BudgetView = BaseView.extend({
                 this.pushAt(categoryData.budgets, budget, category.portions, portion);
             });
 
+            // remove budgets
+            category.portions
+                .filter(portion => !categoryData.budgets.find(p => p.id === portion.id))
+                .forEach(portion => category.portions.splice(category.portions.indexOf(portion), 1));
+
             this.pushAt(this.data.categories, categoryData, month.categories, category);
         });
     },
@@ -484,7 +498,9 @@ const BudgetView = BaseView.extend({
                 }
 
                 if (e.offsetX / e.target.offsetWidth >= 0.8) {
-                    entry.addNewBudget();
+                    entry.addNewBudget().catch(error => {
+                        new ErrorView({error}).appendTo(AppHelper.view());
+                    });;
                 }
                 else {
                     entry.settings();
@@ -604,10 +620,10 @@ const BudgetView = BaseView.extend({
             name: ConfigurationHelper.getString('documentSettingsGeneral.budgets.newBudget')
         });
 
-        view.budgets.add(budget);
-        await budget.save();
-
         BudgetView.openBudgetSettings(view, budget);
+
+        await budget.save();
+        view.budgets.add(budget);
     }
 });
 

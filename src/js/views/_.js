@@ -240,16 +240,21 @@ const BaseView = View.extend({
     },
 
     pushAt (collection, model, array, object, getId = o => o.id) {
-        if (array.includes(object)) {
-            return;
-        }
-
-        const i = collection.indexOf(model);
         if (array.length === 0) {
             array.push(object);
             return;
         }
 
+        const i = collection.indexOf(model);
+        if (i === -1 && array.includes(object)) {
+            array.splice(array.indexOf(object), 1);
+            return;
+        }
+        if (i === -1) {
+            return;
+        }
+
+        const oldIndex = array.indexOf(object);
         let j = array.findIndex(o => {
             const m = collection.get ? collection.get(getId(o)) : collection.find(m => getId(m));
             return collection.indexOf(m) >= i;
@@ -258,7 +263,12 @@ const BaseView = View.extend({
             j = array.length;
         }
 
-        array.splice(j, 0, object);
+        if(oldIndex > -1 && oldIndex !== j) {
+            array.splice(oldIndex, 1);
+        }
+        if(oldIndex !== j) {
+            array.splice(j, 0, object);
+        }
     }
 });
 
