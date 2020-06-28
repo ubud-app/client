@@ -278,11 +278,14 @@ export default class TemplateHelper {
 
     static getAutoNumericCurrencyConfig () {
         const document = DataHelper.getDocuments().get(AppHelper.getDocumentId()) || null;
+        let predefined = 'euro';
 
         if (document && document.get('settings') && document.get('settings').currency) {
-            return document.get('settings').currency;
+            predefined = document.get('settings').currency;
         }
 
-        return 'euro';
+        return [predefined, {
+            emptyInputBehavior: 'zero'
+        }];
     }
 }
