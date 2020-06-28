@@ -91,6 +91,7 @@ const CategoryEditorView = BaseView.extend({
         });
 
         this.activateModal();
+        this.$el.find('.b-form-input').focus();
 
         this.once('remove', this.save);
         return this;
