@@ -53,7 +53,7 @@
     "pixrem": "^5.0.0",
     "semantic-release": "^17.1.1",
     "svg-inline-loader": "^0.8.2",
-    "webpack": "^4.43.0",
+    "webpack": "^4.44.1",
     "webpack-build-notifier": "^2.1.0",
     "webpack-bundle-analyzer": "^3.8.0"
   },
