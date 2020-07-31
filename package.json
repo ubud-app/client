@@ -34,7 +34,7 @@
     "cssnano": "^4.1.10",
     "eslint": "^7.5.0",
     "eslint-loader": "^4.0.0",
-    "favicons": "^6.1.0",
+    "favicons": "^6.2.0",
     "grunt": "^1.2.1",
     "grunt-browser-sync": "^2.2.0",
     "grunt-contrib-clean": "^2.0.0",
