@@ -57,3 +57,24 @@ jobs:
               npm ci
           fi
       - run: npm run check
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: 'https://registry.npmjs.org'
+      - uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: modules-12-${{ hashFiles('**/package-lock.json') }}
+      - name: install zopfli
+        run: |
+          npm i -g grunt-cli
+          git clone https://github.com/google/zopfli.git ./.devcache/zopfli
+          cd ./.devcache/zopfli
+          make
+          cd ../../
+      - name: build
+        run: PATH="$(pwd)/.devcache/zopfli:$PATH" npm run build
