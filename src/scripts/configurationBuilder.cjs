@@ -6,7 +6,6 @@
 
 /* eslint-disable node/global-require, node/no-process-env */
 /* eslint-env node, amd */
-/* global require, module */
 
 const path = require('path');
 const {readdir} = require('fs').promises;

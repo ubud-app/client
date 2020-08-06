@@ -3,9 +3,9 @@
   "description": "ubud is a simple and self-hosted budgeting software.",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "build": "grunt",
-    "develop": "grunt develop --develop --notifier --only=en-US",
-    "analyze": "grunt develop --analyze",
+    "build": "grunt --gruntfile gruntfile.cjs",
+    "develop": "grunt develop --gruntfile gruntfile.cjs --develop --notifier --only=en-US",
+    "analyze": "grunt develop --gruntfile gruntfile.cjs --analyze",
     "check": "npm run check:eslint && npm run check:npm && npm run check:jsinspect",
     "check:quick": "npm run check:eslint && npm run check:jsinspect",
     "check:eslint": "eslint ./src",

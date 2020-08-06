@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         const fs = require('fs');
         const only = (grunt.option('only') || '').split(',').filter(l => l);
 
-        const builderPath = path.resolve('./src/scripts/configurationBuilder.js');
+        const builderPath = path.resolve('./src/scripts/configurationBuilder.cjs');
         const ConfigurationBuilder = require(builderPath);
 
         if (!fs.existsSync('./dest')) {
@@ -94,7 +94,7 @@ module.exports = function (grunt) {
                 });
             }),
             new ConfigurationBuilder({grunt, pkg, config: globalConfig}).worker().then(content => {
-                const configPath = path.join(`./dest/worker.config.json`);
+                const configPath = path.join('./dest/worker.config.json');
                 fs.writeFileSync(configPath, JSON.stringify(content, null, '  '));
             })
         ]).then(() => done()).catch(err => {
@@ -527,7 +527,7 @@ module.exports = function (grunt) {
                     }),
                     new webpack.NormalModuleReplacementPlugin(
                         /^worker-config/,
-                        `../../dest/worker.config.json`
+                        '../../dest/worker.config.json'
                     ),
                     new webpack.IgnorePlugin(/^jquery/)
                 ],
@@ -636,7 +636,7 @@ module.exports = function (grunt) {
                     }),
                     new webpack.NormalModuleReplacementPlugin(
                         /^worker-config/,
-                        `../../dest/worker.config.json`
+                        '../../dest/worker.config.json'
                     ),
                     new webpack.IgnorePlugin(/^jquery/)
                 ],
@@ -831,7 +831,7 @@ module.exports = function (grunt) {
                     scroll: !!grunt.option('ghost')
                 },
                 proxy: {
-                    target: "http://localhost:8080",
+                    target: 'http://localhost:8080',
                     ws: true
                 },
                 serveStatic: ['dest'],
