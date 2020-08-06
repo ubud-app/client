@@ -337,7 +337,9 @@ class DataHelper {
 
     static async _syncWithCache (responses, model, method, options) {
         if(method === 'list' && DataHelper._state !== 4) {
-            await new Promise(cb => setTimeout(cb, 1000));
+            await new Promise(cb => {
+                setTimeout(cb, 1000);
+            });
 
             if(responses.response) {
                 return;

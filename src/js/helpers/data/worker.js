@@ -75,7 +75,8 @@ export default class DataWorker {
 
                 /* Browser specific Error */
                 if (err.toString().indexOf('UnknownError') > -1) {
-                    return reject(null);
+                    reject(null);
+                    return;
                 }
 
                 reject(err);
@@ -167,6 +168,7 @@ export default class DataWorker {
                 if (i > -1) {
                     this.onConnected.splice(i, 1);
                     cb(this.status !== 5);
+                    return;
                 }
             };
 
@@ -190,7 +192,8 @@ export default class DataWorker {
                     this.setStatus(6);
                 }
 
-                return reject(err);
+                reject(err);
+                return;
             }
 
             const store = transaction.objectStore(type);
@@ -231,7 +234,8 @@ export default class DataWorker {
                     this.setStatus(6);
                 }
 
-                return reject(err);
+                reject(err);
+                return;
             }
 
             const store = transaction.objectStore(type);

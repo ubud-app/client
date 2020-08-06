@@ -268,7 +268,7 @@ const BudgetTipsView = BaseView.extend({
         }
         catch (error) {
             new ErrorView({error}).appendTo(AppHelper.view());
-            this.$el.removeClass('loading')
+            this.$el.removeClass('loading');
         }
     }
 });

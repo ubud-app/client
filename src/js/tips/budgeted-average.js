@@ -53,7 +53,7 @@ export default class BudgetedAverageTip extends BaseTip {
         const firstFilled = budgeted.findIndex(budgeted => budgeted > 0);
         let count = budgeted.length;
         if(firstFilled >= 0) {
-            count = budgeted.length - firstFilled
+            count = budgeted.length - firstFilled;
         }
 
         return budgeted.reduce((a, b) => a + b, 0) / count;

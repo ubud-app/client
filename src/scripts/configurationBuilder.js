@@ -3,6 +3,14 @@
  *
  * @class ConfigurationHelper
  */
+
+/* eslint-disable node/global-require, node/no-process-env */
+/* eslint-env node, amd */
+/* global require, module */
+
+const path = require('path');
+const {readdir} = require('fs').promises;
+
 class ConfigurationHelper {
     constructor ({grunt, pkg, config}) {
         this.grunt = grunt;
@@ -11,15 +19,10 @@ class ConfigurationHelper {
     }
 
     async app () {
-        const util = require('util');
-        const path = require('path');
-        const fs = require('fs');
-
         const folder = path.resolve('./src/i18n');
-        const readdir = util.promisify(fs.readdir);
         const files = await readdir(folder);
 
-        const only = (this.grunt.option('only') || '').split(',').filter(l => l);
+        const only = (this.grunt.option('only') || '').split(',').filter(Boolean);
         const contents = {};
         await Promise.all(files.map(fileName => {
             const file = path.join(folder, fileName);
@@ -30,7 +33,7 @@ class ConfigurationHelper {
 
             contents[language] = {
                 language,
-                strings: require(file),
+                strings: require(file), // eslint-disable-line security/detect-non-literal-require
                 version: {
                     name: process.env.VERSION || this.pkg.version,
                     build: process.env.GITHUB_ACTION || process.env.CI_JOB_ID || null,
@@ -44,7 +47,7 @@ class ConfigurationHelper {
 
         Object.values(contents).forEach(language => {
             language.otherLanguages = Object.keys(contents)
-                .filter(l => l !== language.language)
+                .filter(l => l !== language.language);
         });
 
         return contents;
@@ -53,13 +56,8 @@ class ConfigurationHelper {
     async worker () {
         const perLanguage = ['app.config.js', 'index.html'];
 
-        const util = require('util');
-        const path = require('path');
-        const fs = require('fs');
-
         const cache = ['/app.js', '/style.css'];
         const stringFolder = path.resolve('./src/i18n');
-        const readdir = util.promisify(fs.readdir);
         const stringFiles = await readdir(stringFolder);
         const only = (this.grunt.option('only') || '').split(',').filter(l => l);
 

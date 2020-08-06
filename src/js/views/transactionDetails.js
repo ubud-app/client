@@ -98,7 +98,7 @@ const TransactionDetailsView = BaseView.extend({
             this.enableDateTimeFallback();
         }
 
-        
+
         this.activateModal();
         this.on('modal-hide', () => {
             if (!this.model.isNew()) {
@@ -463,7 +463,9 @@ const TransactionDetailsView = BaseView.extend({
         }
     },
     async blurPayeeSelection () {
-        await new Promise(cb => setTimeout(cb, 250));
+        await new Promise(cb => {
+            setTimeout(cb, 250);
+        });
 
         this.data.fields.autoCompletionCreateText = '';
         this.payees.set([]);

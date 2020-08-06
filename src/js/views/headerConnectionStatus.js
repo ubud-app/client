@@ -33,7 +33,7 @@ const HeaderConnectionStatusView = BaseView.extend({
             this.addLog(DateTime.local(), message);
         });
         DataHelper.getLogs().forEach(([time, message]) => {
-            this.addLog(DateTime.fromMillis(time), message)
+            this.addLog(DateTime.fromMillis(time), message);
         });
 
         TemplateHelper.render({
@@ -60,7 +60,9 @@ const HeaderConnectionStatusView = BaseView.extend({
         this.trigger('hide');
         this.$el.addClass('header-connection-status--hidden');
 
-        await new Promise(cb => setTimeout(cb, 300));
+        await new Promise(cb => {
+            setTimeout(cb, 300);
+        });
         this.remove();
     },
 

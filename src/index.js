@@ -1,11 +1,13 @@
 /**
  *
  * ubud Client
- *
  */
 
+/* eslint-disable no-undef */
+
+const path = require('path');
 const config = {
-    static: __dirname + '/../dest',
+    static: path.join(__dirname, '..', 'dest'),
     languages: [
         'de-DE',
         'en-US'

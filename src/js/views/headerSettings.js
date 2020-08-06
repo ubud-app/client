@@ -140,7 +140,9 @@ const HeaderSettingsView = BaseView.extend({
 
         this.$el.addClass('header-settings--hidden');
 
-        await new Promise(cb => setTimeout(cb, 300));
+        await new Promise(cb => {
+            setTimeout(cb, 300);
+        });
         this.remove();
     },
 

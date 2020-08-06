@@ -7,7 +7,7 @@ import AutoNumeric from 'autonumeric';
 import {DateTime} from 'luxon';
 import filesize from 'filesize';
 
-import AppHelper from './app'
+import AppHelper from './app';
 import BaseView from '../views/_';
 import ConfigurationHelper from './configuration';
 import DataHelper from './data';
@@ -137,7 +137,7 @@ rivets.binders['value'] = {
         if (!this.callback) {
             this.callback = () => {
                 this.publish();
-            }
+            };
         }
 
         el.addEventListener('input', this.callback);
@@ -162,7 +162,7 @@ rivets.binders['currency-value'] = {
         if (!this.callback) {
             this.callback = () => {
                 this.publish();
-            }
+            };
         }
 
         el.addEventListener('input', this.callback);
@@ -194,7 +194,7 @@ rivets.binders['datetime-value'] = {
         if (!this.callback) {
             this.callback = () => {
                 this.publish();
-            }
+            };
         }
 
         el.addEventListener('input', this.callback);

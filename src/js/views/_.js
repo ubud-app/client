@@ -204,13 +204,18 @@ const BaseView = View.extend({
             this.trigger('modal-hide');
             this.$el.removeClass('loading');
             this.$el.addClass('b-modal--hidden');
-            await new Promise(cb => setTimeout(cb, 300));
+            await new Promise(cb => {
+                setTimeout(cb, 300);
+            });
             this.remove();
         };
 
         const closeByClickHandler = e => {
             if ($(e.target).is('.b-modal') || $(e.target).is('.b-modal__content')) {
                 this.hide().catch(async error => {
+
+                    // Still works with babel and we don't have the circular dependency issue
+                    // eslint-disable-next-line node/no-unsupported-features/es-syntax
                     const ErrorView = await import('./error');
                     new ErrorView({error}).appendTo(AppHelper.view());
                 });

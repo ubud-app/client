@@ -150,7 +150,9 @@ const HeaderDocumentsView = BaseView.extend({
         this.data.documents.forEach(i => i.hidden = true);
         this.data.add.hidden = true;
 
-        await new Promise(cb => setTimeout(cb, 300));
+        await new Promise(cb => {
+            setTimeout(cb, 300);
+        });
         this.remove();
     },
 
@@ -227,7 +229,7 @@ const HeaderDocumentsView = BaseView.extend({
                 name: ConfigurationHelper.getString(`header.documents.newDocument.${category}.${budget}`),
                 categoryId: categories[category].id,
                 goal: category === 'goals' ?
-                    ConfigurationHelper.getString(`header.documents.newDocument.goals.value`) :
+                    ConfigurationHelper.getString('header.documents.newDocument.goals.value') :
                     null
             }).save()
         ));

@@ -111,7 +111,9 @@ const TransactionsView = BaseView.extend({
                 };
                 window.addEventListener('scroll', h);
             }),
-            new Promise(cb => setTimeout(cb, 10000))
+            new Promise(cb => {
+                setTimeout(cb, 10000);
+            })
         ]);
 
         // scroll down with filled body
@@ -342,7 +344,7 @@ const TransactionsView = BaseView.extend({
         }
     },
     dragOver (e) {
-        e.preventDefault()
+        e.preventDefault();
     },
     drop (e) {
         e.preventDefault();

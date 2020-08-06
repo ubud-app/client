@@ -6,8 +6,10 @@
  */
 
 
+/* eslint-disable node/no-unpublished-import */
 import '@babel/register';
 import '@babel/polyfill';
+/* eslint-enable node/no-unpublished-import */
 
 import Backbone from 'backbone';
 import $ from 'zepto';
@@ -15,7 +17,7 @@ import * as Sentry from '@sentry/browser';
 
 import ConfigurationHelper from './helpers/configuration';
 import AppHelper from './helpers/app';
-import WorkerHelper from './helpers/worker'
+import WorkerHelper from './helpers/worker';
 import DataHelper from './helpers/data';
 
 import SessionModel from './models/session';
