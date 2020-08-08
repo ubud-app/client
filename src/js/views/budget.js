@@ -245,6 +245,7 @@ const BudgetView = BaseView.extend({
         }
 
         const width = element.offsetWidth;
+        console.log(`BudgetView: Set Month Header Width to ${width}px`); // eslint-disable-line no-console
         Array.from(document.getElementsByClassName('budget__month-header')).forEach(el => {
             el.style.width = width + 'px';
         });
