@@ -2,6 +2,7 @@
 
 import _ from 'underscore';
 import $ from 'zepto';
+import {captureException} from '@sentry/browser';
 
 import AppHelper from '../helpers/app';
 import DataHelper from '../helpers/data';
@@ -224,10 +225,14 @@ const BaseView = View.extend({
         const closeByEscHandler = e => {
             if (
                 e.keyCode === 27 &&
-                !this.data.fields.autoCompletionCreateText &&
-                this.data.autoCompletion.length === 0
+
+                // used in TransactionDetailsView, need to be refactored… 🙈
+                !this.data?.fields?.autoCompletionCreateText &&
+                (!this.data?.autoCompletion || this.data.autoCompletion.length === 0)
             ) {
-                this.hide();
+                this.hide().catch(error => {
+                    captureException(error);
+                });
             }
         };
 
