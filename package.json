@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/ubud-app/client/issues"
   },
-  "main": "./src/index.js",
+  "main": "./src/index.cjs",
   "type": "module",
   "devDependencies": {
     "@babel/core": "^7.11.1",
