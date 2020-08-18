@@ -269,7 +269,9 @@ class DataHelper {
             body.id = model.id;
         }
         if (model instanceof Collection) {
-            body.id = model._filter.map(f => f[0].map(p => p.join(':')).join('/')).join('/');
+            const params = new URLSearchParams();
+            model._filter.forEach(f => f[0].map(p => params.append(p[0], p[1])));
+            body.id = params.toString();
         }
 
         let responses = {
