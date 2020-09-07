@@ -203,8 +203,13 @@ const TransactionAddView = BaseView.extend({
         this.updateAccountAfter();
     },
     updateAccountAfter () {
-        this.data.account.after = this.accounts[this.data.account.index].get('balance') +
-            ((this.data.amount.mode === 'income' ? 1 : -1) * this.data.amount.value);
+        if (this.accounts[this.data.account.index]) {
+            this.data.account.after = this.accounts[this.data.account.index].get('balance') +
+                ((this.data.amount.mode === 'income' ? 1 : -1) * this.data.amount.value);
+        }
+        else {
+            this.data.account.after = null;
+        }
     },
     updateTransferAccount () {
         this.data.transferAccount.index++;
