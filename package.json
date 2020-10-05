@@ -65,7 +65,7 @@
     "filesize": "^6.1.0",
     "gravatar-url": "^3.1.0",
     "luxon": "^1.25.0",
-    "mathjs": "^7.2.0",
+    "mathjs": "^7.3.0",
     "rivets": "^0.9.6",
     "socket.io-client": "^2.3.0",
     "ua-parser-js": "^0.7.22",
