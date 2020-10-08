@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [8, 10, 12, 13]
+        node: [8, 10, 12, 13, 14]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -20,12 +20,12 @@ jobs:
         id: module-cache
         with:
           path: node_modules
-          key: modules-12-${{ hashFiles('**/package-lock.json') }}
+          key: modules-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
       - uses: actions/cache@v2
         id: npm-cache
         with:
           path: ~/.npm
-          key: npm-12-${{ hashFiles('**/package-lock.json') }}
+          key: npm-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
       - name: npm ci
         if: steps.module-cache.outputs.cache-hit != 'true' || steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
