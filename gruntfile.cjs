@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 
     // SCSS
     grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks('@lodder/grunt-postcss');
 
     // Assets
     grunt.loadNpmTasks('grunt-contrib-copy');
