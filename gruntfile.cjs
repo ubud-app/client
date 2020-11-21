@@ -370,7 +370,10 @@ module.exports = function (grunt) {
                         path.resolve('./src/js'),
                         path.resolve('./node_modules')
                     ],
-                    extensions: ['.js']
+                    extensions: ['.js'],
+                    fallback: {
+                        querystring: require.resolve('querystring-es3')
+                    }
                 }
             };
 

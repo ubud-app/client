@@ -18,7 +18,6 @@
     "url": "https://github.com/ubud-app/client/issues"
   },
   "main": "./src/index.cjs",
-  "type": "module",
   "devDependencies": {
     "@babel/core": "^7.12.1",
     "@babel/polyfill": "^7.12.1",
@@ -53,9 +52,10 @@
     "node-sass": "^5.0.0",
     "pixrem": "^5.0.0",
     "postcss": "^8.1.4",
+    "querystring-es3": "^0.2.1",
     "semantic-release": "^17.2.3",
     "svg-inline-loader": "^0.8.2",
-    "webpack": "^4.44.2",
+    "webpack": "^5.2.0",
     "webpack-build-notifier": "^2.1.0",
     "webpack-bundle-analyzer": "^4.1.0"
   },

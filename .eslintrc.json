@@ -56,6 +56,7 @@
         ],
         "security/detect-object-injection": "off",
         "require-atomic-updates": "off",
-        "semi": "error"
+        "semi": "error",
+        "node/no-unsupported-features/es-syntax": "off"
     }
 }
