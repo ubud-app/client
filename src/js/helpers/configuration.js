@@ -62,7 +62,7 @@ export default class ConfigurationHelper {
         }
 
         let nested = this._getRawNestedString(config.strings, key.split('.'));
-        if(nested) {
+        if(typeof nested === 'string') {
             return nested;
         }
 

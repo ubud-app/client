@@ -50,6 +50,6 @@ export default class BudgetedLastMonthTip extends BaseTip {
         }
 
         const portion = preparations.portions.find(portion => portion.get('budgetId') === params.budgetId);
-        return portion ? (portion.get('budgeted') || 0) : 0;
+        return portion ? portion.get('budgeted') || 0 : 0;
     }
 }

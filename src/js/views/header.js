@@ -85,7 +85,7 @@ const HeaderView = BaseView.extend({
     },
 
     async updateAvatar (user) {
-        if(!user.get('email')) {
+        if (!user.get('email')) {
             this.data.avatar.url = null;
             this.data.avatar.visible = false;
             return;
@@ -108,12 +108,8 @@ const HeaderView = BaseView.extend({
 
     updateSettingsBadge (components) {
         const server = components.find(c => c.id === 'server');
-        this.data.settings.indicator = WorkerHelper.isUpdateAvailable() || (
-            server &&
-            server.get('installed') &&
-            server.get('available') &&
-            server.get('installed') !== server.get('available')
-        );
+        this.data.settings.indicator = WorkerHelper.isUpdateAvailable() ||
+            (server && server.get('updateAvailable'));
     },
 
     setTitle (title) {
@@ -121,7 +117,7 @@ const HeaderView = BaseView.extend({
     },
 
     toggleDocuments () {
-        if(this._documents) {
+        if (this._documents) {
             this._documents.hide();
             return;
         }
@@ -136,7 +132,7 @@ const HeaderView = BaseView.extend({
     },
 
     toggleSettings () {
-        if(this._settings) {
+        if (this._settings) {
             this._settings.hide();
             return;
         }
@@ -151,7 +147,7 @@ const HeaderView = BaseView.extend({
     },
 
     toggleConnectionStatus () {
-        if(this._status) {
+        if (this._status) {
             this._status.hide();
             return;
         }

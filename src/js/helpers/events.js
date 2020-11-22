@@ -6,6 +6,5 @@ import {extend} from 'underscore';
 export default class Events {
     constructor () {
         extend(this, BackboneEvents);
-        console.log(BackboneEvents);
     }
 }

@@ -107,44 +107,6 @@
 		},
 		"submit": {
 			"text": "Anmeldedaten festlegen"
-		},
-		"newDocument": {
-			"name": "Mein erstes Dokument",
-			"language": "de-DE",
-			"accounts": {
-				"wallet": "Geldbeutel",
-				"pillow": "Unter dem Kopfkissen"
-			},
-			"default": {
-				"name": "1. Alltägliches",
-				"default": "Sonstiges",
-				"lostCash": "Barschwund",
-				"clothing": "Kleidung",
-				"food": "Essen & Trinken"
-			},
-			"monthly": {
-				"name": "2. Monatliches",
-				"rent": "Miete",
-				"power": "Strom",
-				"water": "Wasser",
-				"heating": "Heizung",
-				"internet": "Internet"
-			},
-			"insurance": {
-				"name": "3. Versicherungen",
-				"liability": "Haftpflichtversicherung",
-				"health": "Krankenversicherung"
-			},
-			"rainyDays": {
-				"name": "4. Für schwere Zeiten",
-				"birthdays": "Geburtstage",
-				"christmas": "Weihnachten"
-			},
-			"goals": {
-				"name": "5. Ziele",
-				"example": "Millionär werden",
-				"value": "100000000"
-			}
 		}
 	},
 	"header": {
@@ -184,7 +146,45 @@
 				"negative": "{{amount}} zu viel budgetiert",
 				"positive": "{{amount}} noch zu budgetieren",
 				"zero": "schaut gut aus"
-			}
+			},
+            "newDocument": {
+                "name": "Mein erstes Dokument",
+                "language": "de-DE",
+                "accounts": {
+                    "wallet": "Geldbeutel",
+                    "pillow": "Unter dem Kopfkissen"
+                },
+                "default": {
+                    "name": "1. Alltägliches",
+                    "default": "Sonstiges",
+                    "lostCash": "Barschwund",
+                    "clothing": "Kleidung",
+                    "food": "Essen & Trinken"
+                },
+                "monthly": {
+                    "name": "2. Monatliches",
+                    "rent": "Miete",
+                    "power": "Strom",
+                    "water": "Wasser",
+                    "heating": "Heizung",
+                    "internet": "Internet"
+                },
+                "insurance": {
+                    "name": "3. Versicherungen",
+                    "liability": "Haftpflichtversicherung",
+                    "health": "Krankenversicherung"
+                },
+                "rainyDays": {
+                    "name": "4. Für schwere Zeiten",
+                    "birthdays": "Geburtstage",
+                    "christmas": "Weihnachten"
+                },
+                "goals": {
+                    "name": "5. Ziele",
+                    "example": "Millionär werden",
+                    "value": "100000000"
+                }
+            }
 		},
 		"connection": {
 			"disconnected": "Verbindung verloren",
@@ -368,7 +368,8 @@
 			"memo": "Notiz (optional)"
 		},
 		"budget": {
-			"income": "Einkommen für {{month}}"
+			"income": "Einkommen für {{month}}",
+            "transfer": "Verschiebe aus"
 		},
 		"original": {
 			"payeeFallback": "(kein Zahlungsempfänger)",
@@ -568,5 +569,23 @@
 		"privacy": "Datenschutzbestimmungen",
 		"accept": "Akzeptieren",
 		"reject": "Später erinnern"
-	}
+	},
+    "transactionAdd": {
+        "outflow": {
+            "pre": "Ich habe",
+            "post": "ausgegeben"
+        },
+        "income": {
+            "pre": "Ich habe",
+            "post": "eingenommen"
+        },
+        "transfer": {
+            "pre": "Ich habe",
+            "post": "verschoben",
+            "from": "Von",
+            "to": "Nach"
+        },
+        "cancel": "Abbrechen",
+        "save": "Speichern"
+    }
 }

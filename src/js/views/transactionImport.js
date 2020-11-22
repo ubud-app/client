@@ -55,7 +55,7 @@ const CategoryEditorView = BaseView.extend({
         this.live(this.accounts);
 
         this.listenToAndCall(this.accounts, 'add remove', () => {
-            if ((!this.data.form.accountId || !this.accounts.get(this.data.form.accountId))) {
+            if (!this.data.form.accountId || !this.accounts.get(this.data.form.accountId)) {
                 const firstMatch = this.accounts.find(a => !a.get('pluginInstanceId'));
                 if(firstMatch && firstMatch.id) {
                     this.data.form.accountId = firstMatch.id;

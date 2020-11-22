@@ -2,6 +2,7 @@
 
 import _ from 'underscore';
 import $ from 'zepto';
+import {captureException} from '@sentry/browser';
 
 import AppHelper from '../helpers/app';
 import DataHelper from '../helpers/data';
@@ -204,13 +205,18 @@ const BaseView = View.extend({
             this.trigger('modal-hide');
             this.$el.removeClass('loading');
             this.$el.addClass('b-modal--hidden');
-            await new Promise(cb => setTimeout(cb, 300));
+            await new Promise(cb => {
+                setTimeout(cb, 300);
+            });
             this.remove();
         };
 
         const closeByClickHandler = e => {
             if ($(e.target).is('.b-modal') || $(e.target).is('.b-modal__content')) {
                 this.hide().catch(async error => {
+
+                    // Still works with babel and we don't have the circular dependency issue
+                    // eslint-disable-next-line node/no-unsupported-features/es-syntax
                     const ErrorView = await import('./error');
                     new ErrorView({error}).appendTo(AppHelper.view());
                 });
@@ -219,10 +225,14 @@ const BaseView = View.extend({
         const closeByEscHandler = e => {
             if (
                 e.keyCode === 27 &&
-                !this.data.fields.autoCompletionCreateText &&
-                this.data.autoCompletion.length === 0
+
+                // used in TransactionDetailsView, need to be refactored… 🙈
+                !this.data?.fields?.autoCompletionCreateText &&
+                (!this.data?.autoCompletion || this.data.autoCompletion.length === 0)
             ) {
-                this.hide();
+                this.hide().catch(error => {
+                    captureException(error);
+                });
             }
         };
 
@@ -240,16 +250,21 @@ const BaseView = View.extend({
     },
 
     pushAt (collection, model, array, object, getId = o => o.id) {
-        if (array.includes(object)) {
-            return;
-        }
-
-        const i = collection.indexOf(model);
         if (array.length === 0) {
             array.push(object);
             return;
         }
 
+        const i = collection.indexOf(model);
+        if (i === -1 && array.includes(object)) {
+            array.splice(array.indexOf(object), 1);
+            return;
+        }
+        if (i === -1) {
+            return;
+        }
+
+        const oldIndex = array.indexOf(object);
         let j = array.findIndex(o => {
             const m = collection.get ? collection.get(getId(o)) : collection.find(m => getId(m));
             return collection.indexOf(m) >= i;
@@ -258,7 +273,12 @@ const BaseView = View.extend({
             j = array.length;
         }
 
-        array.splice(j, 0, object);
+        if(oldIndex > -1 && oldIndex !== j) {
+            array.splice(oldIndex, 1);
+        }
+        if(oldIndex !== j) {
+            array.splice(j, 0, object);
+        }
     }
 });
 

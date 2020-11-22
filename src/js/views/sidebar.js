@@ -5,6 +5,7 @@ import BaseView from './_';
 import AppHelper from '../helpers/app';
 import TemplateHelper from '../helpers/template';
 import SidebarTemplate from '../../templates/sidebar.html';
+import TransactionAddView from './transactionAdd';
 
 
 /**
@@ -38,7 +39,7 @@ const SidebarView = BaseView.extend({
             add: {
                 active: false,
                 click: () => {
-                    this.setActive('add');
+                    new TransactionAddView().appendTo(AppHelper.view());
                 }
             },
             settings: {

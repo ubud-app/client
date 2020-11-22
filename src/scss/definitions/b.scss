@@ -300,6 +300,26 @@
 				margin: 0 auto;
 				padding-right: 1em;
 			}
+
+            &--fullscreen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: auto;
+                max-width: none;
+                max-height: none;
+                padding: 0;
+                transform: translate3d(0, 0, 0);
+                transition: opacity 0.3s ease-out;
+
+                @include greater($size-m) {
+                    width: auto;
+                    max-width: none;
+                    padding: 0;
+                }
+            }
 		}
 		&--hidden &__content {
 			opacity: 0;

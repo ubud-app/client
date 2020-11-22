@@ -5,17 +5,26 @@
  * @author Sebastian Pekarek
  */
 
+/* eslint-env serviceworker */
 
+/* eslint-disable node/no-unpublished-import */
 import '@babel/register';
 import '@babel/polyfill';
+/* eslint-enable node/no-unpublished-import */
 
 import DataWorker from './helpers/data/worker';
+
+// worker-config is replaced with actual config path during build
+// eslint-disable-next-line node/no-missing-import
 import config from 'worker-config';
 
 new DataWorker(self, config);
 
 class Serviceworker {
     static async installCache () {
+
+        // Should be fine as config.version is set during built time
+        // eslint-disable-next-line security/detect-non-literal-fs-filename
         const cache = await caches.open(config.version);
         await cache.addAll(config.cache);
     }
@@ -51,6 +60,9 @@ class Serviceworker {
             (request.url.indexOf('/favicons/') > -1 || request.url.indexOf('/browserconfig.xml') > -1)
         ) {
             const responseCopy = response.clone();
+
+            // Should be fine as config.version is set during built time
+            // eslint-disable-next-line security/detect-non-literal-fs-filename
             caches.open(config.version)
                 .then(cache =>
                     cache.put(request, responseCopy)

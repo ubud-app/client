@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 
     // SCSS
     grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks('@lodder/grunt-postcss');
 
     // Assets
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         const fs = require('fs');
         const only = (grunt.option('only') || '').split(',').filter(l => l);
 
-        const builderPath = path.resolve('./src/scripts/configurationBuilder.js');
+        const builderPath = path.resolve('./src/scripts/configurationBuilder.cjs');
         const ConfigurationBuilder = require(builderPath);
 
         if (!fs.existsSync('./dest')) {
@@ -94,7 +94,7 @@ module.exports = function (grunt) {
                 });
             }),
             new ConfigurationBuilder({grunt, pkg, config: globalConfig}).worker().then(content => {
-                const configPath = path.join(`./dest/worker.config.json`);
+                const configPath = path.join('./dest/worker.config.json');
                 fs.writeFileSync(configPath, JSON.stringify(content, null, '  '));
             })
         ]).then(() => done()).catch(err => {
@@ -370,7 +370,10 @@ module.exports = function (grunt) {
                         path.resolve('./src/js'),
                         path.resolve('./node_modules')
                     ],
-                    extensions: ['.js']
+                    extensions: ['.js'],
+                    fallback: {
+                        querystring: require.resolve('querystring-es3')
+                    }
                 }
             };
 
@@ -527,7 +530,7 @@ module.exports = function (grunt) {
                     }),
                     new webpack.NormalModuleReplacementPlugin(
                         /^worker-config/,
-                        `../../dest/worker.config.json`
+                        '../../dest/worker.config.json'
                     ),
                     new webpack.IgnorePlugin(/^jquery/)
                 ],
@@ -636,7 +639,7 @@ module.exports = function (grunt) {
                     }),
                     new webpack.NormalModuleReplacementPlugin(
                         /^worker-config/,
-                        `../../dest/worker.config.json`
+                        '../../dest/worker.config.json'
                     ),
                     new webpack.IgnorePlugin(/^jquery/)
                 ],
@@ -824,17 +827,18 @@ module.exports = function (grunt) {
                 reloadOnRestart: true,
                 open: false,
                 watchTask: true,
-                online: false,
                 notify: false,
                 ghostMode: {
                     clicks: !!grunt.option('ghost'),
                     forms: !!grunt.option('ghost'),
                     scroll: !!grunt.option('ghost')
                 },
-                server: {
-                    baseDir: './dest',
-                    index: 'index.html'
-                }
+                proxy: {
+                    target: 'http://localhost:8080',
+                    ws: true
+                },
+                serveStatic: ['dest'],
+                startPath: '/en-US/'
             },
             app: {
                 src: [

@@ -30,9 +30,15 @@
 		}
 	}
 
-	&__remove {
+	&__remove:not(:first-child) {
 		@include greater($size-l) {
 			margin-left: 1em;
 		}
 	}
+
+    &__unhide {
+        @include greater($size-l) {
+            margin-left: 1em;
+        }
+    }
 }

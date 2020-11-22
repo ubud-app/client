@@ -7,7 +7,7 @@ import AutoNumeric from 'autonumeric';
 import {DateTime} from 'luxon';
 import filesize from 'filesize';
 
-import AppHelper from './app'
+import AppHelper from './app';
 import BaseView from '../views/_';
 import ConfigurationHelper from './configuration';
 import DataHelper from './data';
@@ -137,7 +137,7 @@ rivets.binders['value'] = {
         if (!this.callback) {
             this.callback = () => {
                 this.publish();
-            }
+            };
         }
 
         el.addEventListener('input', this.callback);
@@ -154,9 +154,7 @@ rivets.binders['currency-value'] = {
         }
     },
     getValue: function () {
-        return Math.round(
-            this.autonumeric.getNumber() * 100
-        );
+        return Math.round(this.autonumeric.getNumber() * 100);
     },
     bind: function (el) {
         this.autonumeric = new AutoNumeric(el, TemplateHelper.getAutoNumericCurrencyConfig());
@@ -164,7 +162,7 @@ rivets.binders['currency-value'] = {
         if (!this.callback) {
             this.callback = () => {
                 this.publish();
-            }
+            };
         }
 
         el.addEventListener('input', this.callback);
@@ -196,7 +194,7 @@ rivets.binders['datetime-value'] = {
         if (!this.callback) {
             this.callback = () => {
                 this.publish();
-            }
+            };
         }
 
         el.addEventListener('input', this.callback);
@@ -280,11 +278,14 @@ export default class TemplateHelper {
 
     static getAutoNumericCurrencyConfig () {
         const document = DataHelper.getDocuments().get(AppHelper.getDocumentId()) || null;
+        let predefined = 'euro';
 
         if (document && document.get('settings') && document.get('settings').currency) {
-            return document.get('settings').currency;
+            predefined = document.get('settings').currency;
         }
 
-        return 'euro';
+        return [predefined, {
+            emptyInputBehavior: 'zero'
+        }];
     }
 }

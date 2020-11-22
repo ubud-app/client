@@ -109,7 +109,7 @@ const LoginView = BaseView.extend({
             icons.push('<span>&#x' + hex + ';</span>');
         }
 
-        icons = icons.sort(() => (Math.random() - 0.5));
+        icons = icons.sort(() => Math.random() - 0.5);
         icons.splice(43, icons.length - 43);
 
         return icons.join('');

@@ -3,9 +3,9 @@
     <br /><br /><br />
 </div>
 
-[![Status](https://img.shields.io/github/workflow/status/ubud-app/client/Release/master?style=flat-square)](https://github.com/ubud-app/client/actions?query=workflow%3ARelease)
+[![Status](https://img.shields.io/github/workflow/status/ubud-app/client/Release/main?style=flat-square)](https://github.com/ubud-app/client/actions?query=workflow%3ARelease)
 [![npm version](https://img.shields.io/npm/v/@ubud-app/client?color=blue&label=version&style=flat-square)](https://www.npmjs.com/package/@ubud-app/client)
-[![npm dependency status](https://img.shields.io/librariesio/release/npm/@ubud-app/server?style=flat-square)](https://www.npmjs.com/package/@ubud-app/client)
+[![npm dependency status](https://img.shields.io/librariesio/release/npm/@ubud-app/client?style=flat-square)](https://www.npmjs.com/package/@ubud-app/client)
 
 ## 🚨 Warning
 

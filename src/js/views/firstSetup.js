@@ -9,12 +9,8 @@ import DataHelper from '../helpers/data';
 import TemplateHelper from '../helpers/template';
 import ConfigurationHelper from '../helpers/configuration';
 
-import BudgetModel from '../models/budget';
-import CategoryModel from '../models/category';
-import DocumentModel from '../models/document';
-import AccountModel from '../models/account';
-
 import FirstSetupTemplate from '../../templates/firstSetup.html';
+import HeaderDocumentsView from './headerDocuments';
 
 /**
  * @module views/firstSetup
@@ -97,130 +93,19 @@ const FirstSetupView = BaseView.extend({
             return;
         }
 
-        const document = new DocumentModel({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.name'),
-            settings: {
-                language: ConfigurationHelper.getString('firstSetup.newDocument.language')
-            }
-        });
+        if (DataHelper.state() !== 'ready') {
+            await new Promise(resolve => {
+                DataHelper.once('socket:ready', () => {
+                    resolve();
+                });
+            });
+        }
+
+        const document = await HeaderDocumentsView.createNewDocumentWithDefaultData();
         documents.add(document);
-        await document.save();
 
-        const walletAccount = new AccountModel({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.accounts.wallet'),
-            documentId: document.id,
-            type: 'cash'
-        });
-        const pillowAccount = new AccountModel({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.accounts.pillow'),
-            documentId: document.id,
-            type: 'cash'
-        });
-
-        const defaultCategory = new CategoryModel({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.default.name'),
-            documentId: document.id
-        });
-        const monthlyCategory = new CategoryModel({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.monthly.name'),
-            documentId: document.id
-        });
-        const insuranceCategory = new CategoryModel({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.insurance.name'),
-            documentId: document.id
-        });
-        const rainyDaysCategory = new CategoryModel({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.rainyDays.name'),
-            documentId: document.id
-        });
-        const goalsCategory = new CategoryModel({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.goals.name'),
-            documentId: document.id
-        });
-        await Promise.all([
-            walletAccount.save(),
-            pillowAccount.save(),
-            defaultCategory.save(),
-            monthlyCategory.save(),
-            insuranceCategory.save(),
-            rainyDaysCategory.save(),
-            goalsCategory.save()
-        ]);
-
-        const budgets = [];
-
-        // Default
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.default.default'),
-            categoryId: defaultCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.default.lostCash'),
-            categoryId: defaultCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.default.clothing'),
-            categoryId: defaultCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.default.food'),
-            categoryId: defaultCategory.id
-        });
-
-        // Monthly
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.monthly.rent'),
-            categoryId: monthlyCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.monthly.power'),
-            categoryId: monthlyCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.monthly.water'),
-            categoryId: monthlyCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.monthly.heating'),
-            categoryId: monthlyCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.monthly.internet'),
-            categoryId: monthlyCategory.id
-        });
-
-        // Insurance
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.insurance.liability'),
-            categoryId: insuranceCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.insurance.health'),
-            categoryId: insuranceCategory.id
-        });
-
-        // Rainy Days
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.rainyDays.birthdays'),
-            categoryId: rainyDaysCategory.id
-        });
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.rainyDays.christmas'),
-            categoryId: rainyDaysCategory.id
-        });
-
-        // Saving Goals
-        budgets.push({
-            name: ConfigurationHelper.getString('firstSetup.newDocument.goals.example'),
-            categoryId: goalsCategory.id,
-            goal: parseInt(ConfigurationHelper.getString('firstSetup.newDocument.goals.value'), 10) || 1337
-        });
-
-        await Promise.all(budgets.map(d =>
-            new BudgetModel(d).save()
-        ));
         defer(() => {
-            AppHelper.navigate(document.id + '/settings', {trigger: 1});
+            AppHelper.navigate(document.id + '/budget', {trigger: 1});
         });
     },
 

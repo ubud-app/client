@@ -151,7 +151,10 @@ const ReconcileView = BaseView.extend({
             });
 
         this.data.accounts.checkedIds.push(account.id);
-        const nextAccount = this.accounts.find(a => !this.data.accounts.checkedIds.includes(a.id));
+        const nextAccount = this.accounts.find(a =>
+            !this.data.accounts.checkedIds.includes(a.id) &&
+            !a.get('pluginInstanceId')
+        );
         if (nextAccount) {
             this.goToAccount(nextAccount.id);
         }

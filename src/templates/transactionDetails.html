@@ -122,8 +122,8 @@
                     </optgroup>
                     <optgroup rv-if="typeSelector.accounts.0"
                               rv-label="'transactionDetails.headlines.transfer' | string">
-                        <option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">{
-                            account:name }
+                        <option rv-value="account:id | prepend 'TRANSFER:'" rv-each-account="typeSelector.accounts">
+                            { "transactionDetails.budget.transfer" | string } { account:name }
                         </option>
                     </optgroup>
                     <optgroup rv-label="category.model:name" rv-each-category="typeSelector.categories">

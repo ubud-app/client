@@ -73,35 +73,33 @@ const DocumentSettingsPluginAddSetupView = BaseView.extend({
         });
     },
     updateStatus () {
-        const success = (
-            this.model.get('status') === 'ready' &&
+        const success = this.model.get('status') === 'ready' &&
             !this.model.get('forks') &&
             this.model.get('errors') &&
-            !Object.values(this.model.get('supported')).find(s => this.model.get('errors')[s] !== null)
-        );
+            !Object.values(this.model.get('supported')).find(s => this.model.get('errors')[s] !== null);
 
-        if(!this.model.isSynced() || this.model.get('status') === 'initializing') {
+        if (!this.model.isSynced() || this.model.get('status') === 'initializing') {
             this.data.loader.text = 'initialize';
             this.data.config.visible = false;
         }
-        else if(this.model.get('status') === 'configuration' && !this.model.get('forks')) {
+        else if (this.model.get('status') === 'configuration' && !this.model.get('forks')) {
             this.data.loader.text = null;
             this.data.config.visible = true;
         }
-        else if(this.model.get('status') === 'configuration') {
+        else if (this.model.get('status') === 'configuration') {
             this.data.loader.text = 'configure';
             this.data.config.visible = false;
         }
-        else if(success && this.model.get('supported').includes('getAccounts')) {
+        else if (success && this.model.get('supported').includes('getAccounts')) {
             AppHelper.navigate(this.document.id + '/transactions', {trigger: true});
         }
-        else if(success && this.model.get('supported').includes('getGoals')) {
+        else if (success && this.model.get('supported').includes('getGoals')) {
             AppHelper.navigate(this.document.id + '/budget', {trigger: true});
         }
-        else if(success) {
+        else if (success) {
             AppHelper.navigate(this.document.id + '/settings/plugins', {trigger: true});
         }
-        else if(
+        else if (
             this.model.get('status') === 'error' || (
                 this.model.get('errors') &&
                 Object.values(this.model.get('errors')).find(Boolean)
@@ -110,7 +108,7 @@ const DocumentSettingsPluginAddSetupView = BaseView.extend({
             AppHelper.navigate(this.document.id + '/settings/plugins/' + this.model.id);
             AppHelper.view().renderView(new DocumentSettingsPluginDetailsView({model: this.model}));
         }
-        else if(
+        else if (
             ['initializing', 'ready'].includes(this.model.get('status')) &&
             this.model.get('supported') &&
             this.model.get('supported').includes('getAccounts') &&
@@ -121,7 +119,7 @@ const DocumentSettingsPluginAddSetupView = BaseView.extend({
             this.data.loader.text = 'accounts';
             this.data.config.visible = false;
         }
-        else if(
+        else if (
             ['initializing', 'ready'].includes(this.model.get('status')) &&
             this.model.get('supported') &&
             this.model.get('supported').includes('getGoals') &&
@@ -142,12 +140,12 @@ const DocumentSettingsPluginAddSetupView = BaseView.extend({
             await this.model.save();
         }
         catch (error) {
-            if(!error.toString().includes('Plugin settings are not valid')) {
+            if (!error.toString().includes('Plugin settings are not valid')) {
                 new ErrorView({error}).appendTo(AppHelper.view());
                 throw error;
             }
         }
-    },
+    }
 });
 
 export default DocumentSettingsPluginAddSetupView;
