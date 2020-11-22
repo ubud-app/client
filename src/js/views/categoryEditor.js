@@ -61,7 +61,7 @@ const CategoryEditorView = BaseView.extend({
         });
         this.listenToOnce(categories, 'sync', () => {
             const firstCategoryAllowed = categories.find(c => c.id !== this.model.id);
-            if (!this.data.delete.categoryId) {
+            if (!this.data.delete.categoryId && firstCategoryAllowed) {
                 this.data.delete.categoryId = firstCategoryAllowed.id;
             }
             if (!firstCategoryAllowed) {
