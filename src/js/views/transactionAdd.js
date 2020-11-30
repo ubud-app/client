@@ -8,7 +8,7 @@ import AccountCollection from '../collections/account';
 import ErrorView from './error';
 import AppHelper from '../helpers/app';
 import StoreHelper from '../helpers/store';
-import {evaluate} from 'mathjs/number';
+import {evaluate} from 'mathjs';
 
 
 const OPERATOR2SIGN = {
