@@ -361,8 +361,14 @@ $stats-height-desktop: 8.6em;
 				display: none;
 
 				&--active {
-					display: inline;
+					display: inline-block;
 				}
+                &--goal {
+                    width: calc(100% - 2.75em);
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
 			}
 		}
 
