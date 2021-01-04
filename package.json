@@ -57,8 +57,8 @@
     "semantic-release": "^17.3.0",
     "svg-inline-loader": "^0.8.2",
     "webpack": "^5.11.0",
-    "webpack-build-notifier": "^2.1.0",
-    "webpack-bundle-analyzer": "^4.2.0"
+    "webpack-build-notifier": "^2.1.1",
+    "webpack-bundle-analyzer": "^4.3.0"
   },
   "dependencies": {
     "@sentry/browser": "^5.29.0",
