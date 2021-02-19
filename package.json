@@ -70,7 +70,7 @@
     "mathjs": "^9.1.0",
     "rivets": "^0.9.6",
     "socket.io-client": "^3.1.1",
-    "ua-parser-js": "^0.7.23",
+    "ua-parser-js": "^0.7.24",
     "underscore": "^1.12.0",
     "zepto": "^1.2.0"
   },
