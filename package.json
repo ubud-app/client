@@ -61,7 +61,7 @@
     "webpack-bundle-analyzer": "^4.4.0"
   },
   "dependencies": {
-    "@sentry/browser": "^6.2.1",
+    "@sentry/browser": "^6.2.3",
     "autonumeric": "^4.5.13",
     "backbone": "^1.4.0",
     "filesize": "^6.1.0",
