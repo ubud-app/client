@@ -77,7 +77,7 @@ jobs:
           make
           cd ../../
       - name: semantic-release
-        run: npx semantic-release
+        run: BRANCH=${GITHUB_REF#refs/heads/} npx semantic-release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

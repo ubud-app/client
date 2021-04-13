@@ -594,10 +594,19 @@ const TransactionDetailsView = BaseView.extend({
     },
     updateModelDateFromFallback () {
         const time = this.data.dateTimeFallback.time.split(':');
-        this.model.set({
-            time: DateTime.fromISO(this.data.dateTimeFallback.date)
+        let dateTime;
+
+        try {
+            dateTime = DateTime.fromISO(this.data.dateTimeFallback.date)
                 .set({hour: time[0], minute: time[1]})
-                .toJSON()
+                .toJSON();
+        }
+        catch(error) {
+            // ignore error, input may be invalid
+        }
+
+        this.model.set({
+            time: dateTime
         });
     }
 });
