@@ -125,6 +125,8 @@ const TransactionAddView = BaseView.extend({
         else {
             this.data.amount.mode = 'outflow';
         }
+
+        this.updateAccountAfter();
     },
     async getAccounts () {
         const accounts = new AccountCollection();
