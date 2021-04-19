@@ -193,7 +193,7 @@ const HeaderDocumentsView = BaseView.extend({
 
         await Promise.all(['wallet', 'pillow'].map(async k =>
             new AccountModel({
-                name: ConfigurationHelper.getString('header.documents.accounts.' + k),
+                name: ConfigurationHelper.getString('header.documents.newDocument.accounts.' + k),
                 documentId: document.id,
                 type: 'cash'
             }).save()
