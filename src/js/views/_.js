@@ -211,17 +211,6 @@ const BaseView = View.extend({
             this.remove();
         };
 
-        const closeByClickHandler = e => {
-            if ($(e.target).is('.b-modal') || $(e.target).is('.b-modal__content')) {
-                this.hide().catch(async error => {
-
-                    // Still works with babel and we don't have the circular dependency issue
-                    // eslint-disable-next-line node/no-unsupported-features/es-syntax
-                    const ErrorView = await import('./error');
-                    new ErrorView({error}).appendTo(AppHelper.view());
-                });
-            }
-        };
         const closeByEscHandler = e => {
             if (
                 e.keyCode === 27 &&
@@ -236,13 +225,11 @@ const BaseView = View.extend({
             }
         };
 
-        this.$el.on('click', closeByClickHandler);
         $('body')
             .css('overflow', 'hidden')
             .on('keydown', closeByEscHandler);
 
         this.once('remove', () => {
-            this.$el.off('click', closeByClickHandler);
             $('body')
                 .css('overflow', '')
                 .off('keydown', closeByEscHandler);
