@@ -487,6 +487,7 @@ const TransactionDetailsView = BaseView.extend({
         });
 
         this.checkUnits();
+        this.$el.find('.transaction-details__unit-budget:last-child input.transaction-details__unit-amount').focus();
     },
     checkUnits () {
 
