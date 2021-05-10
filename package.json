@@ -65,7 +65,7 @@
     "autonumeric": "^4.5.13",
     "backbone": "^1.4.0",
     "filesize": "^6.3.0",
-    "gravatar-url": "^3.1.0",
+    "gravatar-url": "^4.0.0",
     "luxon": "^1.26.0",
     "mathjs": "^9.3.2",
     "rivets": "^0.9.6",
