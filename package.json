@@ -52,7 +52,7 @@
     "html-loader": "^2.1.2",
     "node-sass": "^5.0.0",
     "pixrem": "^5.0.0",
-    "postcss": "^8.2.9",
+    "postcss": "^8.2.14",
     "querystring-es3": "^0.2.1",
     "semantic-release": "^17.4.2",
     "svg-inline-loader": "^0.8.2",
