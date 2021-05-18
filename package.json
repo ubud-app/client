@@ -69,7 +69,7 @@
     "luxon": "^1.26.0",
     "mathjs": "^9.3.2",
     "rivets": "^0.9.6",
-    "socket.io-client": "^4.0.1",
+    "socket.io-client": "^4.1.2",
     "ua-parser-js": "^0.7.28",
     "underscore": "^1.13.1",
     "zepto": "^1.2.0"
