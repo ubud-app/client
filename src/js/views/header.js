@@ -1,6 +1,6 @@
 'use strict';
 
-import gravatar from 'gravatar-url';
+import gravatar from 'js-gravatar';
 import BaseView from './_';
 
 import DataHelper from '../helpers/data';
@@ -91,9 +91,10 @@ const HeaderView = BaseView.extend({
             return;
         }
 
-        const url = gravatar(user.get('email'), {
+        const url = gravatar({
+            email: user.get('email'),
             size: (window.devicePixelRatio || 1) * 80,
-            default: '404'
+            defaultImage: '404'
         });
 
         await new Promise(resolve => {
