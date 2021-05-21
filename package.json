@@ -66,7 +66,7 @@
     "backbone": "^1.4.0",
     "filesize": "^6.3.0",
     "gravatar-url": "^3.1.0",
-    "luxon": "^1.26.0",
+    "luxon": "^1.27.0",
     "mathjs": "^9.3.2",
     "rivets": "^0.9.6",
     "socket.io-client": "^4.1.2",
