@@ -2,7 +2,7 @@
 
 import $ from 'zepto';
 import BaseView from './_';
-import gravatar from 'gravatar-url';
+import gravatar from 'js-gravatar';
 
 import AppHelper from '../helpers/app';
 import DataHelper from '../helpers/data';
@@ -158,7 +158,8 @@ const HeaderSettingsView = BaseView.extend({
             return;
         }
 
-        const url = gravatar(user.get('email'), {
+        const url = gravatar({
+            email: user.get('email'),
             size: (window.devicePixelRatio || 1) * 96
         });
 
