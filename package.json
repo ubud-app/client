@@ -19,7 +19,7 @@
   },
   "main": "./src/index.cjs",
   "devDependencies": {
-    "@babel/core": "^7.13.16",
+    "@babel/core": "^7.14.3",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.14.1",
     "@babel/register": "^7.13.16",
@@ -37,7 +37,7 @@
     "eslint-loader": "^4.0.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-security": "^1.4.0",
-    "favicons": "^6.2.1",
+    "favicons": "^6.2.2",
     "grunt": "^1.4.0",
     "grunt-browser-sync": "^2.2.0",
     "grunt-contrib-clean": "^2.0.0",
@@ -53,11 +53,11 @@
     "node-sass": "^6.0.0",
     "pixrem": "^5.0.0",
     "postcss": "^8.2.14",
-    "semantic-release": "^17.4.2",
+    "semantic-release": "^17.4.3",
     "svg-inline-loader": "^0.8.2",
     "webpack": "^5.36.2",
     "webpack-build-notifier": "^2.2.1",
-    "webpack-bundle-analyzer": "^4.4.1"
+    "webpack-bundle-analyzer": "^4.4.2"
   },
   "dependencies": {
     "@sentry/browser": "^6.4.1",
