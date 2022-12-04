@@ -50,7 +50,7 @@
     "grunt-webpack": "^4.0.3",
     "grunt-zopfli": "^0.3.3",
     "html-loader": "^2.1.2",
-    "node-sass": "^6.0.1",
+    "node-sass": "^8.0.0",
     "pixrem": "^5.0.0",
     "postcss": "^8.3.8",
     "semantic-release": "^19.0.3",
