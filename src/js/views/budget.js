@@ -111,7 +111,7 @@ const BudgetView = BaseView.extend({
 
         window.addEventListener('resize', this.onResize);
         this.once('remove', () => window.removeEventListener('resize', this.onResize));
-        setTimeout(() => this.onResize(), 0);
+        setTimeout(() => this.onResize(), 500);
 
         return this;
     },
