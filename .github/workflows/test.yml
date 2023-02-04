@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12, 14]
+        node: [14, 16, 18]
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           cache: 'npm'
           node-version: ${{ matrix.node }}
@@ -25,22 +25,22 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           cache: 'npm'
-          node-version: '14'
+          node-version: '18'
       - name: npm ci
         run: npm ci
       - run: npm run check
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           cache: 'npm'
-          node-version: '14'
+          node-version: '18'
           registry-url: 'https://registry.npmjs.org'
       - name: install dependencies
         run: npm ci
