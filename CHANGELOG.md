@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/ubud-app/client/compare/v1.4.0...v1.4.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* **Budget:** Increase onResize() timeout to prevent hidden header ([edd76a0](https://github.com/ubud-app/client/commit/edd76a01557aaab3bb368a1cd0ede6b500aedc35))
+
 # [1.4.0](https://github.com/ubud-app/client/compare/v1.3.1...v1.4.0) (2021-04-25)
 
 
