@@ -5,7 +5,7 @@ import rivets from 'rivets';
 import {Collection, Model} from 'backbone';
 import AutoNumeric from 'autonumeric';
 import {DateTime} from 'luxon';
-import filesize from 'filesize';
+import { filesize } from 'filesize';
 
 import AppHelper from './app';
 import BaseView from '../views/_';

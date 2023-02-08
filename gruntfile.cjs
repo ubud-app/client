@@ -110,7 +110,7 @@ module.exports = function (grunt) {
     grunt.registerTask('buildFavicons', function () {
         const done = this.async();
 
-        const favicons = require('favicons');
+        const { favicons } = require('favicons');
         const fs = require('fs');
 
         const iconConfig = Object.assign({}, globalConfig.favicons, {
@@ -122,11 +122,7 @@ module.exports = function (grunt) {
             path.resolve('./src/img/favicon.s.png'),
             path.resolve('./src/img/favicon.m.png'),
             path.resolve('./src/img/favicon.l.png')
-        ], iconConfig, (error, response) => {
-            if (error) {
-                return done(error);
-            }
-
+        ], iconConfig).then(response => {
             const imagePath = path.resolve('./dest/favicons');
             if (!fs.existsSync(imagePath)) {
                 fs.mkdirSync(imagePath);
@@ -145,7 +141,7 @@ module.exports = function (grunt) {
                     if (file.name === 'browserconfig.xml' || file.name === 'yandex-browser-manifest.json') {
                         // do nothing
                     }
-                    else if (file.name === 'manifest.json') {
+                    else if (file.name === 'manifest.webmanifest') {
                         const manifest = JSON.parse(file.contents);
                         manifest.name = config.strings['app.name'];
                         manifest.short_name = config.strings['app.shortName'];
@@ -174,7 +170,7 @@ module.exports = function (grunt) {
 
             htmlHeaderTags = response.html;
             done();
-        });
+        }, error => done(error));
     });
 
 
@@ -370,10 +366,7 @@ module.exports = function (grunt) {
                         path.resolve('./src/js'),
                         path.resolve('./node_modules')
                     ],
-                    extensions: ['.js'],
-                    fallback: {
-                        querystring: require.resolve('querystring-es3')
-                    }
+                    extensions: ['.js']
                 }
             };
 
@@ -532,7 +525,9 @@ module.exports = function (grunt) {
                         /^worker-config/,
                         '../../dest/worker.config.json'
                     ),
-                    new webpack.IgnorePlugin(/^jquery/)
+                    new webpack.IgnorePlugin({
+                        resourceRegExp: /^jquery/
+                    })
                 ],
                 resolve: {
                     modules: [
@@ -641,7 +636,9 @@ module.exports = function (grunt) {
                         /^worker-config/,
                         '../../dest/worker.config.json'
                     ),
-                    new webpack.IgnorePlugin(/^jquery/)
+                    new webpack.IgnorePlugin({
+                        resourceRegExp: /^jquery/
+                    })
                 ],
                 resolve: {
                     modules: [
