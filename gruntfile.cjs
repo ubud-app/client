@@ -557,7 +557,7 @@ module.exports = function (grunt) {
                 process.env.SENTRY_AUTH_TOKEN &&
                 process.env.SENTRY_PROJECT
             ) {
-                const SentryCliPlugin = require('@sentry/webpack-plugin');
+                const SentryCliPlugin = require('@sentry/webpack-plugin').default;
 
                 webpackConfig.plugins.push(new SentryCliPlugin({
                     release: pkg.version,
@@ -668,7 +668,7 @@ module.exports = function (grunt) {
                 process.env.SENTRY_AUTH_TOKEN &&
                 process.env.SENTRY_PROJECT
             ) {
-                const SentryCliPlugin = require('@sentry/webpack-plugin');
+                const SentryCliPlugin = require('@sentry/webpack-plugin').default;
 
                 webpackConfig.plugins.push(new SentryCliPlugin({
                     release: pkg.version,
