@@ -1,3 +1,5 @@
+## [1.4.2](https://github.com/ubud-app/client/compare/v1.4.1...v1.4.2) (2023-07-11)
+
 ## [1.4.1](https://github.com/ubud-app/client/compare/v1.4.0...v1.4.1) (2023-02-08)
 
 
