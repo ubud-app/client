@@ -387,11 +387,13 @@ module.exports = function (grunt) {
                 process.env.SENTRY_AUTH_TOKEN &&
                 process.env.SENTRY_PROJECT
             ) {
-                const SentryCliPlugin = require('@sentry/webpack-plugin');
+                const sentryWebpackPlugin = require('@sentry/webpack-plugin').default;
 
-                webpackConfig.plugins.push(new SentryCliPlugin({
+                webpackConfig.plugins.push(sentryWebpackPlugin({
                     release: pkg.version,
-                    include: ['./dest'],
+                    sourcemaps: {
+                        assets: ['./dest']
+                    },
                     urlPrefix: '~/',
                     ignore: ['node_modules'],
                     validate: true
