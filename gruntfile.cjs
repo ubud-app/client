@@ -389,7 +389,10 @@ module.exports = function (grunt) {
             ) {
                 const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
                 webpackConfig.plugins.push(sentryWebpackPlugin({
-                    release: pkg.version,
+                    release: {
+                        name: pkg.version,
+                        finalize: false
+                    },
                     sourcemaps: {
                         assets: ['./dest']
                     },
