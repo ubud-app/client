@@ -389,7 +389,10 @@ module.exports = function (grunt) {
             ) {
                 const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
                 webpackConfig.plugins.push(sentryWebpackPlugin({
-                    release: pkg.version,
+                    release: {
+                        name: pkg.version,
+                        finalize: false
+                    },
                     sourcemaps: {
                         assets: ['./dest']
                     },
@@ -558,7 +561,10 @@ module.exports = function (grunt) {
             ) {
                 const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
                 webpackConfig.plugins.push(sentryWebpackPlugin({
-                    release: pkg.version,
+                    release: {
+                        name: pkg.version,
+                        finalize: false
+                    },
                     include: ['./dest'],
                     urlPrefix: '~/',
                     ignore: ['node_modules'],
@@ -668,7 +674,10 @@ module.exports = function (grunt) {
             ) {
                 const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
                 webpackConfig.plugins.push(sentryWebpackPlugin({
-                    release: pkg.version,
+                    release: {
+                        name: pkg.version,
+                        finalize: false
+                    },
                     include: ['./dest'],
                     urlPrefix: '~/',
                     ignore: ['node_modules'],
