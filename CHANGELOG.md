@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/ubud-app/client/compare/v1.4.3...v1.4.4) (2024-09-18)
+
+
+### Bug Fixes
+
+* Sentry.configureScope → Sentry.withScope (2/2) ([41996c4](https://github.com/ubud-app/client/commit/41996c45599b4ca4cd30fd44071ab06532cfb9d7))
+
 ## [1.4.3](https://github.com/ubud-app/client/compare/v1.4.2...v1.4.3) (2024-09-09)
 
 ## [1.4.2](https://github.com/ubud-app/client/compare/v1.4.1...v1.4.2) (2023-07-11)
