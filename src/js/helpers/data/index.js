@@ -214,7 +214,7 @@ class DataHelper {
         }
 
         this.identifier = this.identifier || Math.random().toString(36).substr(2);
-        Sentry.configureScope(scope => {
+        Sentry.withScope(scope => {
             scope.setTag('transaction_id',  this.identifier);
         });
 
